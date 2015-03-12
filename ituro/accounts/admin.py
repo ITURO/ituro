@@ -9,7 +9,6 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
@@ -23,6 +22,8 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
+    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    search_fields = ('first_name', 'last_name', 'email')
     ordering = ('id',)
 
 
