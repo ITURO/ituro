@@ -54,5 +54,6 @@ docs/_build/
 target/
 
 # ITURO
-ituro/local_settings.py
-db.sqlite3
+ituro/ituro/local_settings.py
+ituro/db.sqlite3
+public/

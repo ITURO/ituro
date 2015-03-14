@@ -73,7 +73,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'tr'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -92,9 +92,14 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.abspath(
+    os.path.join(BASE_DIR, os.pardir, "public", "static"))
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.abspath(
+    os.path.join(BASE_DIR, os.pardir, "public", "media"))
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
