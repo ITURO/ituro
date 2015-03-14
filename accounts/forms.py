@@ -16,3 +16,19 @@ class CustomUserChangeForm(RemoveUsernameFieldMixin, UserChangeForm):
     class Meta:
         model = CustomUser
         fields = "__all__"
+
+
+class RegistrationForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ("email", "password", "name", "phone", "school")
+        widgets = {
+            "password": forms.PasswordInput,
+        }
+
+    def save(self, commit=False):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user

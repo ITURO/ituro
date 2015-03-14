@@ -1,0 +1,2 @@
+{% load i18n %}
+{% trans "You have signed up to ITU Robot Olympics." %}

@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-14 20:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: accounts/admin.py:14
+msgid "Personal info"
+msgstr ""
+
+#: accounts/admin.py:15
+msgid "Permissions"
+msgstr ""
+
+#: accounts/admin.py:17
+msgid "Important dates"
+msgstr ""
+
+#: accounts/models.py:35
+msgid "email address"
+msgstr ""
+
+#: accounts/models.py:36
+msgid "full name"
+msgstr ""
+
+#: accounts/models.py:37
+msgid "phone number"
+msgstr ""
+
+#: accounts/models.py:38
+msgid "school/company"
+msgstr ""
+
+#: accounts/models.py:39
+msgid "staff status"
+msgstr ""
+
+#: accounts/models.py:40
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+
+#: accounts/models.py:42
+msgid "active"
+msgstr ""
+
+#: accounts/models.py:43
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: accounts/models.py:45
+msgid "date joined"
+msgstr ""
+
+#: accounts/models.py:53
+msgid "user"
+msgstr ""
+
+#: accounts/models.py:54
+msgid "users"
+msgstr ""
+
+#: accounts/views.py:23
+msgid "ITURO Registration"
+msgstr ""
+
+#: ituro/settings.py:83
+msgid "Turkish"
+msgstr ""
+
+#: ituro/settings.py:84
+msgid "English"
+msgstr ""
+
+#: templates/accounts/customuser_form.html:10
+#: templates/accounts/register.html:10
+msgid "User Register"
+msgstr ""
+
+#: templates/accounts/customuser_form.html:17
+#: templates/accounts/register.html:17
+msgid "Submit"
+msgstr ""
+
+#: templates/accounts/email/register.txt:2
+msgid "You have signed up to ITU Robot Olympics."
+msgstr ""
+
+#: templates/base.html:10
+msgid "ITU Robot Olympics 2015"
+msgstr ""
+
+#: templates/header.html:15
+msgid "ITU Robot Olympics"
+msgstr ""

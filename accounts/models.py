@@ -33,8 +33,9 @@ class CustomUserManager(BaseUserManager):
 @python_2_unicode_compatible
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    name = models.CharField(_('full name'), max_length=60, blank=True)
+    phone = models.CharField(_('phone number'), max_length=15, blank=True)
+    school = models.CharField(_('school/company'), max_length=50, blank=True)
     is_staff = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '
                     'site.'))
@@ -54,11 +55,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         swappable = 'AUTH_USER_MODEL'
 
     def get_full_name(self):
-        full_name = '%s %s' % (self.first_name, self.last_name)
-        return full_name.strip()
+        return self.name
 
     def get_short_name(self):
-        return self.first_name
+        return self.name
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
