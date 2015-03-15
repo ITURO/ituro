@@ -34,8 +34,8 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(_('full name'), max_length=60, blank=True)
-    phone = models.CharField(_('phone number'), max_length=15, blank=True)
-    school = models.CharField(_('school/company'), max_length=50, blank=True)
+    phone = models.CharField(_('phone'), max_length=15, blank=True)
+    school = models.CharField(_('school'), max_length=50, blank=True)
     is_staff = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '
                     'site.'))

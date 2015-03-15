@@ -1,10 +1,27 @@
 from django.views.generic.edit import CreateView, FormView
 from django.core.exceptions import PermissionDenied
-from django.template.loader import render_to_string
+from django.contrib.auth.views import login, logout
+from django.contrib import messages
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from accounts.models import CustomUser
 from accounts.forms import RegistrationForm
+
+
+def custom_login(request, *args, **kwargs):
+    if request.user.is_authenticated():
+        raise PermissionDenied
+    else:
+        return login(request, *args, **kwargs)
+
+
+def custom_logout(request):
+    logout(request)
+    messages.success(
+        request, _("You have logged out successfully."))
+    return HttpResponseRedirect(reverse('login'))
 
 
 class RegisterView(FormView):
