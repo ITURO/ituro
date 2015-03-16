@@ -9,7 +9,7 @@
 <form action="" method="post" class="form">
   {% csrf_token %}
   <div class="alert alert-info">
-    {% blocktrans %}Your about to delete {{ object }} from {{ object }}. Are you sure?{% endblocktrans %}
+    {% blocktrans %}Your about to delete {{ object }} from {{ object.project }}. Are you sure?{% endblocktrans %}
   </div>
   {% buttons %}
   <button type="submit" class="btn btn-primary">
