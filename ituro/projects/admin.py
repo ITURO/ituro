@@ -9,6 +9,7 @@ class MembershipInlineAdmin(admin.TabularInline):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'category')
     list_filter = ('category',)
+    default_filters = ('is_active=True',)
     search_fields = ('name',)
     inlines = [MembershipInlineAdmin]
 

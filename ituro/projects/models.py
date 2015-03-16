@@ -13,7 +13,7 @@ class Project(models.Model):
         verbose_name=_('Category'), max_length=30,
         choices=settings.ALL_CATEGORIES)
     name = models.CharField(
-        verbose_name=_('Project Name'), max_length=50, unique=True)
+        verbose_name=_('Project Name'), max_length=50)
     description = models.TextField(verbose_name='Project Description')
     is_valid = models.BooleanField(
         verbose_name='Is project valid?', default=False)
@@ -31,7 +31,7 @@ class Project(models.Model):
     def clean(self):
         if self.is_active:
             existing = self.__class__.objects.exclude(id=self.id).filter(
-                name=self.name, category=self.category).count()
+                name=self.name, category=self.category, is_active=True).count()
             if existing > 0:
                 raise ValidationError(_("Project exists."))
 

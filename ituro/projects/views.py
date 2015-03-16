@@ -34,6 +34,26 @@ class ProjectCreateView(CreateView):
         return super(ProjectCreateView, self).form_valid(form)
 
 
+class ProjectDeleteView(DeleteView):
+    model = Project
+    success_url = "/projects/"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not Membership.objects.filter(
+                project=self.get_object(), member=self.request.user,
+                is_manager=True).exists():
+            raise PermissionDenied
+        return super(ProjectDeleteView, self).dispatch(*args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(success_url)
+
+
 class MemberCreateView(FormView):
     template_name = "projects/member_create.html"
     form_class = MemberCreateForm
