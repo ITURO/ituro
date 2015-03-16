@@ -43,6 +43,7 @@ INSTALLED_APPS = (
 
     # ITURO apps
     'accounts',
+    'projects',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,6 +105,19 @@ MEDIA_ROOT = os.path.abspath(
 AUTH_USER_MODEL = "accounts.CustomUser"
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 EMAIL_USE_TLS = True
+
+ALL_CATEGORIES = (
+    ('line_follower', _('Line Follower')),
+    ('micro_sumo', _('Micro Sumo')),
+    ('fire_fighter', _('Fire Fighter')),
+    ('basketball', _('Basketball')),
+    ('stair_climbing', _('Stair Climbing')),
+    ('maze', _('Maze')),
+    ('color_selecting', _('Color Selecting')),
+    ('self_balancing', _('Self Balancing')),
+    ('scenario', _('Scenario')),
+    ('innovative', _('Innovative')),
+)
 
 # Import local settings
 try:

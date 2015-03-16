@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% trans 'Create Project' %}</h1>
+</div>
+
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">
+    {% trans 'Create Project' %}
+  </button>
+  {% endbuttons %}
+</form>
+{% endblock %}
