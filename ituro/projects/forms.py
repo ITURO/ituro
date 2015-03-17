@@ -80,7 +80,6 @@ class MemberCreateForm(forms.Form):
         if not CustomUser.objects.filter(email=email).exists():
             raise forms.ValidationError(_("User does not exist."))
         if Membership.objects.filter(
-                project__pk=self.project_pk,
-                member__email=email, is_active=True).exists():
+                project__pk=self.project_pk, member__email=email).exists():
             raise forms.ValidationError(_("You cannot add a member twice."))
         return email

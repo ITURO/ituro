@@ -1,5 +1,6 @@
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.detail import SingleObjectMixin, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, \
+    FormView
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
@@ -43,6 +44,11 @@ class ProjectUpdateView(UpdateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_staff and \
+           not Membership.objects.filter(
+                project=self.get_object(), member=self.request.user,
+                is_manager=True).exists():
+            raise PermissionDenied
         return super(ProjectUpdateView, self).dispatch(*args, **kwargs)
 
 
@@ -52,12 +58,32 @@ class ProjectDeleteView(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not Membership.objects.filter(
+        if not self.request.user.is_staff and \
+           not Membership.objects.filter(
                 project=self.get_object(), member=self.request.user,
                 is_manager=True).exists():
             raise PermissionDenied
         return super(ProjectDeleteView, self).dispatch(*args, **kwargs)
 
+
+class ProjectDetailView(DetailView):
+    model = Project
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_staff and \
+           not Membership.objects.filter(
+               project=self.get_object(), member=sefl.request.user).exists():
+            raise PermissionDenied
+        return super(ProjectDetailView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        team = Membership.objects.filter(project=self.get_object())
+        is_manager = team.get(member=self.request.user).is_manager
+        context = super(ProjectDetailView, self).get_context_data(**kwargs)
+        context['team'] = team
+        context['is_manager'] = is_manager
+        return context
 
 class MemberCreateView(FormView):
     template_name = "projects/member_create.html"
@@ -83,12 +109,9 @@ class MemberCreateView(FormView):
         pk = int(self.kwargs.get('pk'))
         membership = Membership.objects.filter(
             project__pk=pk, member__email=email)
-        if membership.exists():
-            membership.update(is_active=True)
-        else:
-            project = Project.objects.get(pk=pk)
-            member = CustomUser.objects.get(email=email)
-            Membership.objects.create(project=project, member=member)
+        project = Project.objects.get(pk=pk)
+        member = CustomUser.objects.get(email=email)
+        Membership.objects.create(project=project, member=member)
         return super(MemberCreateView, self).form_valid(form)
 
 

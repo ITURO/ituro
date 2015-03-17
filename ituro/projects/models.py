@@ -32,6 +32,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def get_presentation_file_name(self):
+        return self.presentation.name.split('/')[-1]
+
 
 @python_2_unicode_compatible
 class Membership(models.Model):
