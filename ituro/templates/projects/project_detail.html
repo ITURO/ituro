@@ -15,7 +15,7 @@
 
 <div style="margin-top: 10px;">
   <h3><strong>{% trans 'Category' %}</strong></h3>
-  <h3>{{ object.category }}</h3>
+  <h3>{{ object.get_category_display }}</h3>
 </div>
 
 {%if object.category == "innovative" %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 17:32+0000\n"
+"POT-Creation-Date: 2015-03-17 22:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -94,83 +94,83 @@ msgstr "Kullanıcı hesabınızı başarıyla oluşturdunuz."
 msgid "You have updated your profile successfully."
 msgstr "Profilinizi başarıyla güncellediniz."
 
-#: ituro/local_settings.py:9 ituro/settings.py:113
+#: ituro/local_settings.py:9 ituro/settings.py:114
 msgid "Line Follower"
 msgstr "Çizgi İzleyen"
 
-#: ituro/local_settings.py:10 ituro/settings.py:114
+#: ituro/local_settings.py:10 ituro/settings.py:115
 msgid "Micro Sumo"
 msgstr "Mikro Sumo"
 
-#: ituro/local_settings.py:11 ituro/settings.py:115
+#: ituro/local_settings.py:11 ituro/settings.py:116
 msgid "Fire Fighter"
 msgstr "Yangın Söndüren"
 
-#: ituro/local_settings.py:12 ituro/settings.py:116
+#: ituro/local_settings.py:12 ituro/settings.py:117
 msgid "Basketball"
 msgstr "Basketbol"
 
-#: ituro/local_settings.py:13 ituro/local_settings.py:22 ituro/settings.py:117
+#: ituro/local_settings.py:13 ituro/local_settings.py:22 ituro/settings.py:118
 msgid "Stair Climbing"
 msgstr "Merdiven Çıkan"
 
-#: ituro/local_settings.py:14 ituro/local_settings.py:23 ituro/settings.py:118
+#: ituro/local_settings.py:14 ituro/local_settings.py:23 ituro/settings.py:119
 msgid "Maze"
 msgstr "Labirent"
 
-#: ituro/local_settings.py:15 ituro/local_settings.py:24 ituro/settings.py:119
+#: ituro/local_settings.py:15 ituro/local_settings.py:24 ituro/settings.py:120
 msgid "Color Selecting"
 msgstr "Renk Seçen"
 
-#: ituro/local_settings.py:16 ituro/local_settings.py:25 ituro/settings.py:120
+#: ituro/local_settings.py:16 ituro/local_settings.py:25 ituro/settings.py:121
 msgid "Self Balancing"
 msgstr "Kendini Dengeleyen"
 
-#: ituro/local_settings.py:17 ituro/local_settings.py:26 ituro/settings.py:121
+#: ituro/local_settings.py:17 ituro/local_settings.py:26 ituro/settings.py:122
 msgid "Scenario"
 msgstr "Senaryo"
 
-#: ituro/local_settings.py:18 ituro/local_settings.py:27 ituro/settings.py:122
+#: ituro/local_settings.py:18 ituro/local_settings.py:27 ituro/settings.py:123
 msgid "Innovative"
 msgstr "Serbest"
 
-#: ituro/settings.py:85
+#: ituro/settings.py:86
 msgid "Turkish"
 msgstr "Türkçe"
 
-#: ituro/settings.py:86
+#: ituro/settings.py:87
 msgid "English"
 msgstr "İngilizce"
 
-#: projects/forms.py:13
+#: projects/forms.py:14
 msgid "I agree terms of service."
 msgstr "Kullanım koşullarını kabul ediyorum."
 
-#: projects/forms.py:25
+#: projects/forms.py:27
 msgid "Presentation can only be uploaded for innovative projects."
 msgstr "Sunum dosyası sadece Serbest Kategori projeleri için yüklenebilir."
 
-#: projects/forms.py:29
+#: projects/forms.py:31
 msgid "Presentation file is required for innovative projects."
 msgstr "Serbest Kategori projeleri için sunum dosyası gereklidir."
 
-#: projects/forms.py:33 projects/forms.py:65
+#: projects/forms.py:35 projects/forms.py:67
 msgid "Only PDF files will be accepted."
 msgstr "Sadece PDF dosyaları kabul edilir."
 
-#: projects/forms.py:37 projects/forms.py:68
+#: projects/forms.py:39 projects/forms.py:70
 msgid "Max file size is 1MB."
 msgstr "Maksimum dosya boyutu 1MB'tır."
 
-#: projects/forms.py:59
+#: projects/forms.py:61
 msgid "Project name is being used."
 msgstr "Proje adı kullanımdadır."
 
-#: projects/forms.py:83
+#: projects/forms.py:85
 msgid "User does not exist."
 msgstr "Kullanıcı bulunmamaktadır."
 
-#: projects/forms.py:86
+#: projects/forms.py:88
 msgid "You cannot add a member twice."
 msgstr "Bir üyeyi iki kere ekleyemezsiniz."
 
@@ -307,17 +307,13 @@ msgid "Your password was changed."
 msgstr "Parolanız değiştirildi."
 
 #: templates/accounts/password_change_form.html:16
-#: templates/accounts/password_reset_form.html:16
-msgid "Reset my password"
-msgstr "Parolamı sıfırla."
+#: templates/accounts/password_reset_confirm.html:17
+msgid "Change my password"
+msgstr "Parolamı değiştir"
 
 #: templates/accounts/password_reset_complete.html:12
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr "Parolanız ayarlandı. Şimdi devam edebilir ve giriş yapabilirsiniz."
-
-#: templates/accounts/password_reset_confirm.html:17
-msgid "Change my password"
-msgstr "Parolamı değiştir"
 
 #: templates/accounts/password_reset_confirm.html:22
 msgid ""
@@ -335,9 +331,19 @@ msgstr "Size bir e-posta gönderdik. Lütfen e-posta adresini kontrol et."
 msgid "Password reset"
 msgstr "Parola sıfırlama"
 
+#: templates/accounts/password_reset_form.html:16
+msgid "Reset my password"
+msgstr "Parolamı sıfırla."
+
 #: templates/accounts/update.html:4 templates/accounts/update.html.py:7
 msgid "User Profile"
 msgstr "Kullanıcı Profili"
+
+#: templates/accounts/update.html:18
+#, fuzzy
+#| msgid "Change my password"
+msgid "Change Password"
+msgstr "Parolamı değiştir"
 
 #: templates/base.html:10
 msgid "ITU Robot Olympics 2015"
