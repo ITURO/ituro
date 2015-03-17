@@ -17,7 +17,6 @@ def custom_login(request, *args, **kwargs):
     if request.user.is_authenticated():
         raise PermissionDenied
     else:
-        messages.success(request, _("You have logged in successfully."))
         return login(request, *args, **kwargs)
 
 
