@@ -1,4 +1,4 @@
-from django.views.generic.edit import CreateView, DeleteView, FormView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -8,7 +8,8 @@ from django.core.exceptions import PermissionDenied
 from django.conf import settings
 from accounts.models import CustomUser
 from projects.models import Project, Membership
-from projects.forms import ProjectCreateForm, MemberCreateForm
+from projects.forms import ProjectCreateForm, ProjectUpdateForm, \
+    MemberCreateForm
 
 
 class ProjectCreateView(CreateView):
@@ -32,6 +33,17 @@ class ProjectCreateView(CreateView):
         )
 
         return super(ProjectCreateView, self).form_valid(form)
+
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    form_class = ProjectUpdateForm
+    template_name = 'projects/project_update.html'
+    success_url = '/projects/'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProjectUpdateView, self).dispatch(*args, **kwargs)
 
 
 class ProjectDeleteView(DeleteView):

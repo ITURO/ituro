@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n static bootstrap3 %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% trans 'Update Project' %} <strong>{{ object.name }}</strong></h1>
+</div>
+
+<form enctype="multipart/form-data" action="" method="post" class="form">
+  {% csrf_token %}
+  <div class="form-group">
+    <label class="control-label" for="id_category">Category</label>
+    <input class="form-control" id="id_category" type="text" value="{{ object.category }}" disabled="disabled">
+  </div>
+  {% bootstrap_form form %}
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">
+    {% trans 'Update Project' %}
+  </button>
+  {% endbuttons %}
+</form>
+{% endblock %}

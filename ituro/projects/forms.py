@@ -36,6 +36,38 @@ class ProjectCreateForm(forms.ModelForm):
         return presentation
 
 
+class ProjectUpdateForm(forms.ModelForm):
+    presentation = forms.FileField(required=True)
+
+    class Meta:
+        model = Project
+        exclude = ('category', 'is_valid', 'is_active')
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectUpdateForm, self).__init__(*args, **kwargs)
+        if self.instance.category != 'innovative':
+            self.fields.pop('presentation')
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        category = self.instance.category
+        if Project.objects.exclude(id=self.instance.id).filter(
+                category=category, name=name).exists():
+            raise forms.ValidationError(_("Project name is being used."))
+        return name
+
+    def clean_presentation(self):
+        presentation = self.cleaned_data.get("presentation")
+        if presentation.content_type != 'application/pdf':
+            raise forms.ValidationError(_("Only PDF files will be accepted."))
+
+        if presentation.size > settings.MAX_FILE_SIZE:
+            raise forms.ValidationError(_("Max file size is 1MB."))
+
+        presentation.name = "{}.pdf".format(self.cleaned_data.get('name'))
+        return presentation
+
+
 class MemberCreateForm(forms.Form):
     email = forms.EmailField(required=True)
 
