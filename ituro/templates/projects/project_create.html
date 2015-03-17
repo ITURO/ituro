@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n bootstrap3 %}
+{% load i18n static bootstrap3 %}
 
 {% block content %}
 <div class="page-header">
@@ -15,4 +15,9 @@
   </button>
   {% endbuttons %}
 </form>
+{% endblock %}
+
+
+{% block extrascripts %}
+<script src="{% static "project/js/project_create.js" %}"></script>
 {% endblock %}
