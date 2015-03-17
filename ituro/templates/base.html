@@ -10,19 +10,15 @@
     <title>{% block title %}{% endblock %}{% trans "ITU Robot Olympics 2015" %}</title>
     <link href="{% static "outsource/css/bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "outsource/css/bootstrap-theme.min.css" %}" rel="stylesheet">
+    <link href="{% static "project/css/style.css" %}" rel="stylesheet">
     {% block extrahead %}{% endblock %}
   </head>
 
   <body>
-    <div class="container" style="padding-top: 40px;">
-      <div class="row">
-        <div id="sidebar" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-          {% include "sidebar.html" %}
-        </div>
-        <div id="content" class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-          {% block content %}{% endblock %}
-        </div>
-      </div>
+    {% include "header.html" %}
+    <div id="content" class="container">
+      {% block content %}{% endblock %}
+    </div>
     </div>
     <script src="{% static "outsource/js/jquery.min.js" %}"></script>
     <script src="{% static "outsource/js/bootstrap.min.js" %}"></script>

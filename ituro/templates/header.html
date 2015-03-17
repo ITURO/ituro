@@ -1,5 +1,4 @@
-{% load i18n %}
-{% load staticfiles %}
+{% load i18n staticfiles %}
 
 <div class="header">
   <nav class="navbar navbar-default">
@@ -12,32 +11,32 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <img alt="{% trans "ITU Robot Olympics" %}" src="{% static "project/img/logo-mix-small.png" %}">
+          <img id="logo-image" alt="{% trans "ITU Robot Olympics" %}" src="{% static "project/img/logo-mix-small.png" %}">
         </a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Devices <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/device/create/"><span class="glyphicon glyphicon-plus"></span> New Device</a></li>
-              <li><a href="/device/list/"><span class="glyphicon glyphicon-th-list"></span> Device List</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/user/create/"><span class="glyphicon glyphicon-plus"></span> New User</a></li>
-              <li><a href="/user/list/"><span class="glyphicon glyphicon-th-list"></span> User List</a></li>
-            </ul>
-          </li>
-          <li><a href="/device/list/">Devices</a></li>
+          <li><a href="http://www.ituro.itu.edu.tr/">{% trans 'Site' %}</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'project_list' %}">{% trans 'My Projects' %}</a></li>
+          <li><a href="{% url 'project_create' %}">{% trans 'New Project' %}</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
+          <li><a href="{% url 'user-register' %}">{% trans 'Register' %}</a></li>
+          {% endif %}
         </ul>
-        <!--ul class="nav navbar-nav navbar-right">
-          <li><p class="navbar-text">Signed as <span class="text-info"></span></p></li>
-          <li><a href="/logout/">Logout</a></li>
-        </ul-->
+        {% if user.is_authenticated %}
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <p class="navbar-text">
+              {% url 'user-update' as the_url %}
+              {% blocktrans %}Signed as <span class="text-info"><a href="{{ the_url }}">{{ user }}</a></span>{% endblocktrans %}
+            </p>
+          </li>
+          <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
+        </ul>
+        {% endif %}
       </div>
     </div>
   </nav>
