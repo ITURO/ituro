@@ -5,3 +5,8 @@
 #logo-image {
     margin-top: -13px;
 }
+
+img.captcha {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}

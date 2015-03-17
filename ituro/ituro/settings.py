@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 
     # 3rd party apps
     'bootstrap3',
+    'captcha',
 
     # ITURO apps
     'accounts',

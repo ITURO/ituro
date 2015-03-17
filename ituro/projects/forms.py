@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from captcha.fields import CaptchaField
 from accounts.models import CustomUser
 from projects.models import Project, Membership
 
@@ -11,6 +12,7 @@ class ProjectCreateForm(forms.ModelForm):
         widget=forms.Select, choices=settings.CREATE_CATEGORIES)
     terms = forms.BooleanField(
         label=_("I agree terms of service."), required=True)
+    captcha = CaptchaField()
 
     class Meta:
         model = Project
