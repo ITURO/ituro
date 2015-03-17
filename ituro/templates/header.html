@@ -11,7 +11,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <img id="logo-image" alt="{% trans "ITU Robot Olympics" %}" src="{% static "project/img/logo-mix-small.png" %}">
+          <img id="logo-image" alt="{% trans "ITU Robot Olympics" %}" src="{% static "project/img/logo-metin-kucuk.png" %}">
         </a>
       </div>
 
@@ -26,17 +26,19 @@
           <li><a href="{% url 'user-register' %}">{% trans 'Register' %}</a></li>
           {% endif %}
         </ul>
-        {% if user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
           <li>
             <p class="navbar-text">
-              {% url 'user-update' as the_url %}
-              {% blocktrans %}Signed as <span class="text-info"><a href="{{ the_url }}">{{ user }}</a></span>{% endblocktrans %}
+              <span class="text-info"><a href="{% url 'user-update' %}">{{ user }}</a></span>
             </p>
           </li>
+          <li><a id="language-button" href="#">{% trans "Türkçe" %}</a></li>
           <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
+          {% else %}
+          <li><a id="language-button" href="#">{% trans "Türkçe" %}</a></li>
+          {% endif %}
         </ul>
-        {% endif %}
       </div>
     </div>
   </nav>

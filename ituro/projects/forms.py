@@ -67,7 +67,6 @@ class ProjectUpdateForm(forms.ModelForm):
         if presentation.size > settings.MAX_FILE_SIZE:
             raise forms.ValidationError(_("Max file size is 1MB."))
 
-        presentation.name = "{}.pdf".format(self.cleaned_data.get('name'))
         return presentation
 
 

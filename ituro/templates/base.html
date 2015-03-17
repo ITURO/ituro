@@ -19,9 +19,15 @@
     <div id="content" class="container">
       {% block content %}{% endblock %}
     </div>
-    </div>
+    <form action="{% url 'set_language' %}" method="post" style="display: none;">
+      {% csrf_token %}
+      <input name="next" type="hidden" value="{{ redirect_to }}" />
+      <input name="language" type="hidden" value="{% trans 'tr' %}">
+      <input type="submit" value="Go" id="language-form-submit" />
+    </form>
     <script src="{% static "outsource/js/jquery.min.js" %}"></script>
     <script src="{% static "outsource/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "project/js/change_language.js" %}"></script>
     {% block extrascripts %}{% endblock %}
   </body>
 </html>

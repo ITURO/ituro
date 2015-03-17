@@ -34,7 +34,7 @@
         <div style="margin-top:10px" class="form-group">
           <div class="col-sm-12 controls">
             <button type="submit" class="btn btn-success" value="login">{% trans "Login" %}</button>
-            <a id="btn-fblogin" href="#" class="btn btn-primary">{% trans "Register" %}</a>
+            <a id="btn-fblogin" href="{% url 'user-register' %}" class="btn btn-primary">{% trans "Register" %}</a>
           </div>
         </div>
         <input type="hidden" name="next" value="{{ next }}" />

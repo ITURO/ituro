@@ -11,11 +11,12 @@
 <form action="" method="post" class="form">
   {% csrf_token %}
   <div class="alert alert-info">
-    {% blocktrans %}Your about to delete {{ object }}. Are you sure?{% endblocktrans %}
+    {% blocktrans %}You are about to delete {{ object }}. Are you sure?{% endblocktrans %}
   </div>
   {% buttons %}
   <button type="submit" class="btn btn-primary">
     {% trans 'Confirm' %}
   </button>
   {% endbuttons %}
+</form>
 {% endblock %}

@@ -85,8 +85,7 @@ class ProjectDeleteView(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_staff and \
-           not Membership.objects.filter(
+        if not Membership.objects.filter(
                 project=self.get_object(), member=self.request.user,
                 is_manager=True).exists():
             raise PermissionDenied
@@ -96,14 +95,14 @@ class ProjectDeleteView(DeleteView):
         messages.info(request, _("Project deleted."))
         return super(ProjectDeleteView, self).delete(request, *args, **kwargs)
 
+
 class ProjectDetailView(DetailView):
     model = Project
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_staff and \
-           not Membership.objects.filter(
-               project=self.get_object(), member=sefl.request.user).exists():
+        if not Membership.objects.filter(
+               project=self.get_object(), member=self.request.user).exists():
             raise PermissionDenied
         return super(ProjectDetailView, self).dispatch(*args, **kwargs)
 

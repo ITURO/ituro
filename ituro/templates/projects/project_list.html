@@ -3,6 +3,7 @@
 
 {% block title %}{% trans "My Projects" %} - {% endblock %}
 {% block content %}
+{% if projects %}
 <div class="page-header">
   <h1>{% trans "My Projects" %}</h1>
 </div>
@@ -18,4 +19,11 @@
   </a>
   {% endfor %}
 </div>
+{% else %}
+{% bootstrap_messages %}
+<div class="jumbotron text-center">
+  <h2 class="text-center">{% trans "There is no project you are a part of." %}</h2>
+  <h2 class="text-center">{% trans "Create a new project." %}</h2>
+</div>
+{% endif %}
 {% endblock %}

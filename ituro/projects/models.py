@@ -33,7 +33,7 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absoulte_url(self):
+    def get_absolute_url(self):
         return reverse('project_detail', args=[self.pk])
 
     def get_presentation_file_name(self):

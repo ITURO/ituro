@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 12:34+0000\n"
+"POT-Creation-Date: 2015-03-17 16:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -94,51 +94,51 @@ msgstr "Kullanıcı hesabınızı başarıyla oluşturdunuz."
 msgid "You have updated your profile successfully."
 msgstr "Profilinizi başarıyla güncellediniz."
 
-#: ituro/local_settings.py:9 ituro/settings.py:112
+#: ituro/local_settings.py:9 ituro/settings.py:113
 msgid "Line Follower"
 msgstr "Çizgi İzleyen"
 
-#: ituro/local_settings.py:10 ituro/settings.py:113
+#: ituro/local_settings.py:10 ituro/settings.py:114
 msgid "Micro Sumo"
 msgstr "Mikro Sumo"
 
-#: ituro/local_settings.py:11 ituro/settings.py:114
+#: ituro/local_settings.py:11 ituro/settings.py:115
 msgid "Fire Fighter"
 msgstr "Yangın Söndüren"
 
-#: ituro/local_settings.py:12 ituro/settings.py:115
+#: ituro/local_settings.py:12 ituro/settings.py:116
 msgid "Basketball"
 msgstr "Basketbol"
 
-#: ituro/local_settings.py:13 ituro/local_settings.py:22 ituro/settings.py:116
+#: ituro/local_settings.py:13 ituro/local_settings.py:22 ituro/settings.py:117
 msgid "Stair Climbing"
 msgstr "Merdiven Çıkan"
 
-#: ituro/local_settings.py:14 ituro/local_settings.py:23 ituro/settings.py:117
+#: ituro/local_settings.py:14 ituro/local_settings.py:23 ituro/settings.py:118
 msgid "Maze"
 msgstr "Labirent"
 
-#: ituro/local_settings.py:15 ituro/local_settings.py:24 ituro/settings.py:118
+#: ituro/local_settings.py:15 ituro/local_settings.py:24 ituro/settings.py:119
 msgid "Color Selecting"
 msgstr "Renk Seçen"
 
-#: ituro/local_settings.py:16 ituro/local_settings.py:25 ituro/settings.py:119
+#: ituro/local_settings.py:16 ituro/local_settings.py:25 ituro/settings.py:120
 msgid "Self Balancing"
 msgstr "Kendini Dengeleyen"
 
-#: ituro/local_settings.py:17 ituro/local_settings.py:26 ituro/settings.py:120
+#: ituro/local_settings.py:17 ituro/local_settings.py:26 ituro/settings.py:121
 msgid "Scenario"
 msgstr "Senaryo"
 
-#: ituro/local_settings.py:18 ituro/local_settings.py:27 ituro/settings.py:121
+#: ituro/local_settings.py:18 ituro/local_settings.py:27 ituro/settings.py:122
 msgid "Innovative"
 msgstr "Serbest"
 
-#: ituro/settings.py:84
+#: ituro/settings.py:85
 msgid "Turkish"
 msgstr "Türkçe"
 
-#: ituro/settings.py:85
+#: ituro/settings.py:86
 msgid "English"
 msgstr "İngilizce"
 
@@ -194,7 +194,7 @@ msgstr "Autodesk Dijital Tasarım Yarışması'na katılmak istiyorum."
 msgid "Is project valid?"
 msgstr "Proje geçerli mi?"
 
-#: projects/models.py:29 projects/models.py:47
+#: projects/models.py:29 projects/models.py:46
 msgid "Project"
 msgstr "Proje"
 
@@ -202,11 +202,11 @@ msgstr "Proje"
 msgid "Projects"
 msgstr "Projeler"
 
-#: projects/models.py:46
+#: projects/models.py:45
 msgid "User"
 msgstr "Kullanıcı"
 
-#: projects/models.py:49
+#: projects/models.py:48
 msgid "Is project manager?"
 msgstr "Proje yöneticisi mi?"
 
@@ -218,27 +218,39 @@ msgstr "Başarıyla bir proje oluşturdunuz."
 msgid "You have updated the project successfully."
 msgstr "Projeyi başarıyla güncellediniz."
 
-#: projects/views.py:96
+#: projects/views.py:95
 msgid "Project deleted."
 msgstr "Proje silindi."
 
-#: projects/views.py:148
+#: projects/views.py:146
 msgid "New member added to project."
 msgstr "Projeye yeni üye eklendi."
 
-#: projects/views.py:166
+#: projects/views.py:171
 msgid "Member deleted successfully."
 msgstr "Üye başarıyla silindi."
+
+#: templates/403.html:6
+msgid "Forbidden"
+msgstr "İzin Yok"
+
+#: templates/403.html:8
+msgid "This page is forbidden for you."
+msgstr "Bu sayfaya giriş izniniz yok."
 
 #: templates/404.html:6
 msgid "Page not found"
 msgstr "Sayfa bulunamadı."
 
-#: templates/404.html:7
+#: templates/404.html:8
 msgid "This is not the page you are looking for."
 msgstr "Aradığınız sayfa bu değildir."
 
-#: templates/500.html:7
+#: templates/500.html:6
+msgid "Server Error"
+msgstr "Sunucu Hatası"
+
+#: templates/500.html:8
 msgid "An error occured on server."
 msgstr "Sunucuda bir hata meydana geldi."
 
@@ -262,7 +274,7 @@ msgid "You have signed up to ITU Robot Olympics."
 msgstr "İTÜ Robot Olimpiyatları'na kaydoldunuz."
 
 #: templates/accounts/login.html:5 templates/accounts/login.html.py:36
-#: templates/sidebar.html:42
+#: templates/header.html:25
 msgid "Login"
 msgstr "Giriş Yap"
 
@@ -286,7 +298,7 @@ msgstr "eposta"
 msgid "password"
 msgstr "parola"
 
-#: templates/accounts/login.html:37 templates/sidebar.html:47
+#: templates/accounts/login.html:37 templates/header.html:26
 msgid "Register"
 msgstr "Kayıt"
 
@@ -331,9 +343,34 @@ msgstr "Kullanıcı Profili"
 msgid "ITU Robot Olympics 2015"
 msgstr "İTÜ Robot Olimpiyatları 2015"
 
-#: templates/header.html:15
+#: templates/base.html:25
+msgid "tr"
+msgstr "en"
+
+#: templates/header.html:14
 msgid "ITU Robot Olympics"
 msgstr "İTÜ Robot Olimpiyatları"
+
+#: templates/header.html:20
+msgid "Site"
+msgstr ""
+
+#: templates/header.html:22 templates/projects/project_list.html:4
+#: templates/projects/project_list.html:7
+msgid "My Projects"
+msgstr "Projelerim"
+
+#: templates/header.html:23
+msgid "New Project"
+msgstr "Yeni Proje"
+
+#: templates/header.html:36 templates/header.html.py:39
+msgid "Türkçe"
+msgstr "English"
+
+#: templates/header.html:37
+msgid "Logout"
+msgstr "Çıkış"
 
 #: templates/projects/member_create.html:4
 #: templates/projects/member_create.html:7
@@ -345,6 +382,13 @@ msgstr "Üye Ekle"
 #: templates/projects/member_delete.html:7
 msgid "Delete User"
 msgstr "Üye Sil"
+
+#: templates/projects/member_delete.html:14
+#, python-format
+msgid "You are about to remove %(member)s from %(project)s. Are you sure?"
+msgstr ""
+"%(project)s adlı projeden %(member)s kullanıcısını sileceksiniz. Emin "
+"misiniz?"
 
 #: templates/projects/member_delete.html:18
 #: templates/projects/project_confirm_delete.html:18
@@ -358,8 +402,9 @@ msgid "Delete Project"
 msgstr "Proje Sil"
 
 #: templates/projects/project_confirm_delete.html:14
-#, python-format
-msgid "Your about to delete %(object)s. Are you sure?"
+#, fuzzy, python-format
+#| msgid "Your about to delete %(object)s. Are you sure?"
+msgid "You are about to delete %(object)s. Are you sure?"
 msgstr "Your about to delete %(object)s. Emin misiniz?"
 
 #: templates/projects/project_create.html:4
@@ -400,31 +445,14 @@ msgstr "Projeyi Güncelle"
 msgid "New Member"
 msgstr "Yeni Üye"
 
-#: templates/projects/project_list.html:4
-#: templates/projects/project_list.html:7
-msgid "My Projects"
-msgstr "Projelerim"
-
-#: templates/projects/project_list.html:17
+#: templates/projects/project_list.html:18
 msgid "see project detail"
 msgstr "proje detay"
 
-#: templates/sidebar.html:15
-msgid "Homepage"
-msgstr "Anasayfa"
+#: templates/projects/project_list.html:24
+msgid "There is no project you are a part of."
+msgstr "Dahil olduğunuz bir proje yok."
 
-#: templates/sidebar.html:21
-msgid "New Project"
-msgstr "Yeni Proje"
-
-#: templates/sidebar.html:26
-msgid "My Project"
-msgstr "Projem"
-
-#: templates/sidebar.html:31
-msgid "Profile"
-msgstr "Profil"
-
-#: templates/sidebar.html:36
-msgid "Logout"
-msgstr "Çıkış Yap"
+#: templates/projects/project_list.html:25
+msgid "Create a new project."
+msgstr "Yeni bir proje ekleyin."
