@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 %}
+
+{% block title %}{% trans 'My Projects' %}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>{% trans 'My Projects' %}</h1>
+</div>
+
+<div class="list-group">
+  {% for project in projects %}
+  <a href="{% url 'project_detail' project.id %}"
+     class="list-group-item {% if forloop.counter0|divisibleby:2 %}active{% endif %}">
+    <h4 class="list-group-item-heading">{{ project.get_category_display }}</h4>
+    <p class="list-group-item-text">{{ project.name }}</p>
+    <p>{% trans 'see project detail' %}</p>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

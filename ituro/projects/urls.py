@@ -1,10 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from projects.views import ProjectCreateView, ProjectDeleteView, \
-    ProjectUpdateView, ProjectDetailView, MemberCreateView, MemberDeleteView
+    ProjectUpdateView, ProjectDetailView, ProjectListView, \
+    MemberCreateView, MemberDeleteView
 
 urlpatterns = patterns(
     '',
+    url(r'^$', ProjectListView.as_view(), name='project_list'),
     url(r'^create/$', ProjectCreateView.as_view(), name='project_create'),
     url(r'^(?P<pk>\d+)/delete/$', ProjectDeleteView.as_view(),
         name='project_delete'),

@@ -1,4 +1,5 @@
 from django.views.generic.detail import SingleObjectMixin, DetailView
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, \
     FormView
 from django.http import Http404, HttpResponseRedirect
@@ -11,6 +12,24 @@ from accounts.models import CustomUser
 from projects.models import Project, Membership
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, \
     MemberCreateForm
+
+
+class ProjectListView(TemplateView):
+    model = Project
+    template_name = 'projects/project_list.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProjectListView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        ms = Membership.objects.filter(member=self.request.user)
+        projects = list()
+        for m in ms:
+            projects.append(m.project)
+        context = super(ProjectListView, self).get_context_data(**kwargs)
+        context['projects'] = projects
+        return context
 
 
 class ProjectCreateView(CreateView):
