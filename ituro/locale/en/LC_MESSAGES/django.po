@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 10:11+0000\n"
+"POT-Creation-Date: 2015-03-17 10:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,63 +75,59 @@ msgstr ""
 msgid "users"
 msgstr ""
 
-#: accounts/views.py:20
-msgid "You have logged in successfully."
-msgstr ""
-
-#: accounts/views.py:27
+#: accounts/views.py:26
 msgid "You have logged out successfully."
 msgstr ""
 
-#: accounts/views.py:44
+#: accounts/views.py:43
 msgid "ITURO Registration"
 msgstr ""
 
-#: accounts/views.py:50
+#: accounts/views.py:49
 msgid "You have created your user account successfully."
 msgstr ""
 
-#: accounts/views.py:69
+#: accounts/views.py:68
 msgid "You have updated your profile successfully."
 msgstr ""
 
-#: ituro/local_settings.py:9 ituro/settings.py:111
+#: ituro/local_settings.py:9 ituro/settings.py:112
 msgid "Line Follower"
 msgstr ""
 
-#: ituro/local_settings.py:10 ituro/settings.py:112
+#: ituro/local_settings.py:10 ituro/settings.py:113
 msgid "Micro Sumo"
 msgstr ""
 
-#: ituro/local_settings.py:11 ituro/settings.py:113
+#: ituro/local_settings.py:11 ituro/settings.py:114
 msgid "Fire Fighter"
 msgstr ""
 
-#: ituro/local_settings.py:12 ituro/settings.py:114
+#: ituro/local_settings.py:12 ituro/settings.py:115
 msgid "Basketball"
 msgstr ""
 
-#: ituro/local_settings.py:13 ituro/local_settings.py:22 ituro/settings.py:115
+#: ituro/local_settings.py:13 ituro/local_settings.py:22 ituro/settings.py:116
 msgid "Stair Climbing"
 msgstr ""
 
-#: ituro/local_settings.py:14 ituro/local_settings.py:23 ituro/settings.py:116
+#: ituro/local_settings.py:14 ituro/local_settings.py:23 ituro/settings.py:117
 msgid "Maze"
 msgstr ""
 
-#: ituro/local_settings.py:15 ituro/local_settings.py:24 ituro/settings.py:117
+#: ituro/local_settings.py:15 ituro/local_settings.py:24 ituro/settings.py:118
 msgid "Color Selecting"
 msgstr ""
 
-#: ituro/local_settings.py:16 ituro/local_settings.py:25 ituro/settings.py:118
+#: ituro/local_settings.py:16 ituro/local_settings.py:25 ituro/settings.py:119
 msgid "Self Balancing"
 msgstr ""
 
-#: ituro/local_settings.py:17 ituro/local_settings.py:26 ituro/settings.py:119
+#: ituro/local_settings.py:17 ituro/local_settings.py:26 ituro/settings.py:120
 msgid "Scenario"
 msgstr ""
 
-#: ituro/local_settings.py:18 ituro/local_settings.py:27 ituro/settings.py:120
+#: ituro/local_settings.py:18 ituro/local_settings.py:27 ituro/settings.py:121
 msgid "Innovative"
 msgstr ""
 
