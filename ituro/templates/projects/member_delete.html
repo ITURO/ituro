@@ -11,7 +11,7 @@
 <form action="" method="post" class="form">
   {% csrf_token %}
   <div class="alert alert-info">
-    {% trans %} 'Your about to. Are you sure?' %}
+    {% blocktrans %}Your about to remove {{ member }} from {{ project }}. Are you sure?{% endblocktrans %}
   </div>
   {% buttons %}
   <button type="submit" class="btn btn-primary">

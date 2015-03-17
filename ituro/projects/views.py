@@ -162,6 +162,13 @@ class MemberDeleteView(DeleteView):
             raise PermissionDenied
         return super(MemberDeleteView, self).dispatch(*args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(MemberDeleteView, self).get_context_data(**kwargs)
+        context['project'] = self.get_object().project.name
+        context['member'] = self.get_object().member.email
+        return context
+
+
     def delete(self, request, *args, **kwargs):
         messages.info(request, _("Member deleted successfully."))
-        return super(MemberDleteView, self).delete(request, *args, **kwargs)
+        return super(MemberDeleteView, self).delete(request, *args, **kwargs)

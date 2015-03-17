@@ -1,15 +1,18 @@
 $(document).ready(function() {
     var category = getCategory();
+    var field = $('[for="id_presentation"]').parent();
     if (category !== 'innovative')
-        $('[for="id_presentation"]').parent().toggleClass('hidden');
+        $(field).addClass('hidden');
 
     $('#id_category').on('change', function() {
         category = getCategory();
         if (category !== 'innovative')
-            $('[for="id_presentation"]').parent().toggleClass('hidden');
+            $(field).addClass('hidden');
+        else
+            $(field).removeClass('hidden');
     });
 });
 
-var getCategory = function() {
-    return $('#id_category option[selected="selected"]').attr('value');
+function getCategory() {
+    return $('#id_category option:selected').attr('value');
 }

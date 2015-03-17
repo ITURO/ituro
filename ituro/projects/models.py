@@ -36,7 +36,6 @@ class Project(models.Model):
     def get_absoulte_url(self):
         return reverse('project_detail', args=[self.pk])
 
-
     def get_presentation_file_name(self):
         return self.presentation.name.split('/')[-1]
 
@@ -64,5 +63,6 @@ class Membership(models.Model):
 @receiver(models.signals.pre_delete, sender=Project)
 def project_delete_handler(sender, **kwargs):
     project = kwargs.get('instance')
-    Membership.objects.delete(project=project)
-    project.presentation.file.delete()
+    Membership.objects.filter(project=project).delete()
+    if project.presentation:
+        project.presentation.delete()
