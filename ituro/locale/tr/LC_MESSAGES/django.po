@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 16:04+0000\n"
+"POT-Creation-Date: 2015-03-17 17:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -166,11 +166,11 @@ msgstr "Maksimum dosya boyutu 1MB'tır."
 msgid "Project name is being used."
 msgstr "Proje adı kullanımdadır."
 
-#: projects/forms.py:84
+#: projects/forms.py:83
 msgid "User does not exist."
 msgstr "Kullanıcı bulunmamaktadır."
 
-#: projects/forms.py:87
+#: projects/forms.py:86
 msgid "You cannot add a member twice."
 msgstr "Bir üyeyi iki kere ekleyemezsiniz."
 
@@ -222,11 +222,11 @@ msgstr "Projeyi başarıyla güncellediniz."
 msgid "Project deleted."
 msgstr "Proje silindi."
 
-#: projects/views.py:146
+#: projects/views.py:147
 msgid "New member added to project."
 msgstr "Projeye yeni üye eklendi."
 
-#: projects/views.py:171
+#: projects/views.py:172
 msgid "Member deleted successfully."
 msgstr "Üye başarıyla silindi."
 
@@ -356,7 +356,7 @@ msgid "Site"
 msgstr ""
 
 #: templates/header.html:22 templates/projects/project_list.html:4
-#: templates/projects/project_list.html:7
+#: templates/projects/project_list.html:8
 msgid "My Projects"
 msgstr "Projelerim"
 
@@ -402,10 +402,9 @@ msgid "Delete Project"
 msgstr "Proje Sil"
 
 #: templates/projects/project_confirm_delete.html:14
-#, fuzzy, python-format
-#| msgid "Your about to delete %(object)s. Are you sure?"
+#, python-format
 msgid "You are about to delete %(object)s. Are you sure?"
-msgstr "Your about to delete %(object)s. Emin misiniz?"
+msgstr "%(object)s adlı projeyi silmek üzeresiniz. Emin misiniz?"
 
 #: templates/projects/project_create.html:4
 #: templates/projects/project_create.html:7
@@ -449,10 +448,10 @@ msgstr "Yeni Üye"
 msgid "see project detail"
 msgstr "proje detay"
 
-#: templates/projects/project_list.html:24
+#: templates/projects/project_list.html:25
 msgid "There is no project you are a part of."
 msgstr "Dahil olduğunuz bir proje yok."
 
-#: templates/projects/project_list.html:25
+#: templates/projects/project_list.html:26
 msgid "Create a new project."
 msgstr "Yeni bir proje ekleyin."

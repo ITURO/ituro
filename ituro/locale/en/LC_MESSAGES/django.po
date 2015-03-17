@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 16:04+0000\n"
+"POT-Creation-Date: 2015-03-17 17:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,11 +163,11 @@ msgstr ""
 msgid "Project name is being used."
 msgstr ""
 
-#: projects/forms.py:84
+#: projects/forms.py:83
 msgid "User does not exist."
 msgstr ""
 
-#: projects/forms.py:87
+#: projects/forms.py:86
 msgid "You cannot add a member twice."
 msgstr ""
 
@@ -219,11 +219,11 @@ msgstr ""
 msgid "Project deleted."
 msgstr ""
 
-#: projects/views.py:146
+#: projects/views.py:147
 msgid "New member added to project."
 msgstr ""
 
-#: projects/views.py:171
+#: projects/views.py:172
 msgid "Member deleted successfully."
 msgstr ""
 
@@ -351,7 +351,7 @@ msgid "Site"
 msgstr ""
 
 #: templates/header.html:22 templates/projects/project_list.html:4
-#: templates/projects/project_list.html:7
+#: templates/projects/project_list.html:8
 msgid "My Projects"
 msgstr ""
 
@@ -441,10 +441,10 @@ msgstr ""
 msgid "see project detail"
 msgstr ""
 
-#: templates/projects/project_list.html:24
+#: templates/projects/project_list.html:25
 msgid "There is no project you are a part of."
 msgstr ""
 
-#: templates/projects/project_list.html:25
+#: templates/projects/project_list.html:26
 msgid "Create a new project."
 msgstr ""
