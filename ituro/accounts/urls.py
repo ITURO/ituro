@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
-from accounts.views import RegisterView, custom_login, custom_logout
+from accounts.views import RegisterView, ProfileUpdateView, \
+    custom_login, custom_logout
 
 urlpatterns = patterns(
     '',
@@ -24,4 +25,5 @@ urlpatterns = patterns(
         {'template_name': 'accounts/password_reset_complete.html'},
         name='password_reset_complete'),
     url(r'register/$', RegisterView.as_view(), name='user-register'),
+    url(r'update/$', ProfileUpdateView.as_view(), name='user-update'),
 )

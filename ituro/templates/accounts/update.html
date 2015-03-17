@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load i18n bootstrap3 %}
+
+{% bootstrap_messages %}
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "User Profile" %}</h1>
+</div>
+
+<form action="{% url "user-update" %}" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% trans "Submit" %}
+    </button>
+  {% endbuttons %}
+</form>
+{% endblock %}

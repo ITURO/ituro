@@ -1,10 +1,12 @@
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.views import login, logout
 from django.contrib import messages
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from accounts.models import CustomUser
@@ -44,3 +46,16 @@ class RegisterView(FormView):
         }
         user.email_user(**email_options)
         return super(RegisterView, self).form_valid(form)
+
+
+class ProfileUpdateView(UpdateView):
+    model = CustomUser
+    fields = ('email', 'name', 'phone', 'school')
+    template_name = "accounts/update.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProfileUpdateView, self).dispatch(*args, **kwargs)
+
+    def get_object(self):
+        return CustomUser.objects.get(pk=self.request.user.pk)
