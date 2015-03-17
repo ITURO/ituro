@@ -4,6 +4,7 @@ from django.contrib.auth.views import login, logout
 from django.contrib import messages
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from accounts.models import CustomUser
