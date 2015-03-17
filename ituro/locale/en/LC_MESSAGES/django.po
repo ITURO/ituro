@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 21:08+0000\n"
+"POT-Creation-Date: 2015-03-17 04:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,22 +83,142 @@ msgstr ""
 msgid "ITURO Registration"
 msgstr ""
 
-#: ituro/settings.py:83
-msgid "Turkish"
+#: ituro/local_settings.py:9 ituro/settings.py:111
+msgid "Line Follower"
+msgstr ""
+
+#: ituro/local_settings.py:10 ituro/settings.py:112
+msgid "Micro Sumo"
+msgstr ""
+
+#: ituro/local_settings.py:11 ituro/settings.py:113
+msgid "Fire Fighter"
+msgstr ""
+
+#: ituro/local_settings.py:12 ituro/settings.py:114
+msgid "Basketball"
+msgstr ""
+
+#: ituro/local_settings.py:13 ituro/local_settings.py:22 ituro/settings.py:115
+msgid "Stair Climbing"
+msgstr ""
+
+#: ituro/local_settings.py:14 ituro/local_settings.py:23 ituro/settings.py:116
+msgid "Maze"
+msgstr ""
+
+#: ituro/local_settings.py:15 ituro/local_settings.py:24 ituro/settings.py:117
+msgid "Color Selecting"
+msgstr ""
+
+#: ituro/local_settings.py:16 ituro/local_settings.py:25 ituro/settings.py:118
+msgid "Self Balancing"
+msgstr ""
+
+#: ituro/local_settings.py:17 ituro/local_settings.py:26 ituro/settings.py:119
+msgid "Scenario"
+msgstr ""
+
+#: ituro/local_settings.py:18 ituro/local_settings.py:27 ituro/settings.py:120
+msgid "Innovative"
 msgstr ""
 
 #: ituro/settings.py:84
+msgid "Turkish"
+msgstr ""
+
+#: ituro/settings.py:85
 msgid "English"
 msgstr ""
 
+#: projects/forms.py:23
+msgid "Presentation can only be uploaded for innovative projects."
+msgstr ""
+
+#: projects/forms.py:27
+msgid "Presentation file is required for innovative projects."
+msgstr ""
+
+#: projects/forms.py:30
+msgid "Only PDF files will be accepted."
+msgstr ""
+
+#: projects/forms.py:33
+msgid "Max file size is 1MB."
+msgstr ""
+
+#: projects/forms.py:49
+msgid "User does not exist."
+msgstr ""
+
+#: projects/forms.py:53
+msgid "You cannot add a member twice."
+msgstr ""
+
+#: projects/models.py:14
+msgid "Category"
+msgstr ""
+
+#: projects/models.py:16
+msgid "Project Name"
+msgstr ""
+
+#: projects/models.py:18
+msgid "Project Presentation File"
+msgstr ""
+
+#: projects/models.py:21
+msgid "Autodesk Digital Design Contest"
+msgstr ""
+
+#: projects/models.py:22
+msgid "Do you want to join the contest?"
+msgstr ""
+
+#: projects/models.py:24
+msgid "Is project valid?"
+msgstr ""
+
+#: projects/models.py:28 projects/models.py:39
+msgid "Project"
+msgstr ""
+
+#: projects/models.py:29
+msgid "Projects"
+msgstr ""
+
+#: projects/models.py:38
+msgid "User"
+msgstr ""
+
+#: projects/models.py:41
+msgid "Is project manager?"
+msgstr ""
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr ""
+
+#: templates/404.html:7
+msgid "This is not the page you are looking for."
+msgstr ""
+
+#: templates/500.html:7
+msgid "An error occured on server."
+msgstr ""
+
 #: templates/accounts/customuser_form.html:10
-#: templates/accounts/register.html:12
+#: templates/accounts/register.html:10
 msgid "User Register"
 msgstr ""
 
 #: templates/accounts/customuser_form.html:17
-#: templates/accounts/register.html:20
+#: templates/accounts/register.html:18
 msgid "Submit"
+msgstr ""
+
+#: templates/accounts/email/password_reset_subject.txt:2
+msgid "ITU Robot Olympics - Password Reset Request"
 msgstr ""
 
 #: templates/accounts/email/register.txt:2
@@ -133,12 +253,71 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
+#: templates/accounts/password_reset_complete.html:7
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: templates/accounts/password_reset_confirm.html:15
+msgid "Change my password"
+msgstr ""
+
+#: templates/accounts/password_reset_confirm.html:20
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: templates/accounts/password_reset_done.html:9
+msgid "We have sent you an email. Please check your email address."
+msgstr ""
+
+#: templates/accounts/password_reset_form.html:6
+msgid "Password reset"
+msgstr ""
+
+#: templates/accounts/password_reset_form.html:15
+msgid "Reset my password"
+msgstr ""
+
 #: templates/base.html:10
 msgid "ITU Robot Olympics 2015"
 msgstr ""
 
 #: templates/header.html:15
 msgid "ITU Robot Olympics"
+msgstr ""
+
+#: templates/projects/member_create.html:6
+#: templates/projects/member_create.html:14
+msgid "Add Member"
+msgstr ""
+
+#: templates/projects/member_delete.html:6
+msgid "Delete User"
+msgstr ""
+
+#: templates/projects/member_delete.html:12
+#, python-format
+msgid "Your about to delete %(object)s from %(object.project)s. Are you sure?"
+msgstr ""
+
+#: templates/projects/member_delete.html:16
+#: templates/projects/project_confirm_delete.html:16
+msgid "Confirm"
+msgstr ""
+
+#: templates/projects/project_confirm_delete.html:6
+msgid "Delete Project"
+msgstr ""
+
+#: templates/projects/project_confirm_delete.html:12
+#, python-format
+msgid "Your about to delete %(object)s. Are you sure?"
+msgstr ""
+
+#: templates/projects/project_create.html:6
+#: templates/projects/project_create.html:14
+msgid "Create Project"
 msgstr ""
 
 #: templates/sidebar.html:15

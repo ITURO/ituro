@@ -1,4 +1,5 @@
 from django.db import models
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
@@ -12,28 +13,24 @@ class Project(models.Model):
     category = models.CharField(
         verbose_name=_('Category'), max_length=30,
         choices=settings.ALL_CATEGORIES)
-    name = models.CharField(
-        verbose_name=_('Project Name'), max_length=50)
-    description = models.TextField(verbose_name='Project Description')
+    name = models.CharField(verbose_name=_('Project Name'), max_length=50)
+    presentation = models.FileField(
+        verbose_name=_("Project Presentation File"),
+        upload_to='presentations', blank=True)
+    design = models.BooleanField(
+        verbose_name=_('Autodesk Digital Design Contest'),
+        help_text=_('Do you want to join the contest?'), default=False)
     is_valid = models.BooleanField(
-        verbose_name='Is project valid?', default=False)
+        verbose_name=_('Is project valid?'), default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(
-        verbose_name=_('Is project active?'), default=True)
 
     class Meta:
         verbose_name = _('Project')
         verbose_name_plural = _('Projects')
+        unique_together = (('category', 'name'),)
 
     def __str__(self):
         return self.name
-
-    def clean(self):
-        if self.is_active:
-            existing = self.__class__.objects.exclude(id=self.id).filter(
-                name=self.name, category=self.category, is_active=True).count()
-            if existing > 0:
-                raise ValidationError(_("Project exists."))
 
 
 @python_2_unicode_compatible
@@ -42,8 +39,6 @@ class Membership(models.Model):
     project = models.ForeignKey(Project, verbose_name=_('Project'))
     is_manager = models.BooleanField(
         verbose_name=_('Is project manager?'), default=False)
-    is_active = models.BooleanField(
-        verbose_name=_('Is project membership active?'), default=True)
 
     class Meta:
         unique_together = (("member", "project"),)
@@ -52,9 +47,14 @@ class Membership(models.Model):
         return self.member.email
 
     def clean(self):
-        if self.is_manager and self.is_active:
+        if self.is_manager:
             members = self.__class__.objects.filter(
                 project=self.project).exclude(member=self.member).update(
                     is_manager=False)
-        elif self.is_manager and not self.is_active:
-            raise ValidationError(_("Manager cannot be deleted."))
+
+
+@receiver(models.signals.pre_delete, sender=Project)
+def project_delete_handler(sender, **kwargs):
+    project = kwargs.get('instance')
+    Membership.objects.delete(project=project)
+    project.presentation.file.delete()

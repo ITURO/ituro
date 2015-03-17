@@ -105,6 +105,7 @@ MEDIA_ROOT = os.path.abspath(
 AUTH_USER_MODEL = "accounts.CustomUser"
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 EMAIL_USE_TLS = True
+MAX_FILE_SIZE = 1000000
 
 ALL_CATEGORIES = (
     ('line_follower', _('Line Follower')),

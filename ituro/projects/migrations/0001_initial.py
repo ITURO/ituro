@@ -17,7 +17,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('is_manager', models.BooleanField(default=False, verbose_name='Is project manager?')),
-                ('is_active', models.BooleanField(default=True, verbose_name='Is project membership active?')),
                 ('member', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -30,16 +29,20 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('category', models.CharField(max_length=30, verbose_name='Category', choices=[(b'line_follower', 'Line Follower'), (b'micro_sumo', 'Micro Sumo'), (b'fire_fighter', 'Fire Fighter'), (b'basketball', 'Basketball'), (b'stair_climbing', 'Stair Climbing'), (b'maze', 'Maze'), (b'color_selecting', 'Color Selecting'), (b'self_balancing', 'Self Balancing'), (b'scenario', 'Scenario'), (b'innovative', 'Innovative')])),
                 ('name', models.CharField(max_length=50, verbose_name='Project Name')),
-                ('description', models.TextField(verbose_name=b'Project Description')),
-                ('is_valid', models.BooleanField(default=False, verbose_name=b'Is project valid?')),
+                ('presentation', models.FileField(help_text='Only innovative projects. PDF required.', upload_to=b'presentations', verbose_name='Project Presentation File', blank=True)),
+                ('design', models.BooleanField(default=False, help_text='Do you want to join the contest?', verbose_name='Autodesk Digital Design Contest')),
+                ('is_valid', models.BooleanField(default=False, verbose_name='Is project valid?')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('is_active', models.BooleanField(default=True, verbose_name='Is project active?')),
             ],
             options={
                 'verbose_name': 'Project',
                 'verbose_name_plural': 'Projects',
             },
             bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='project',
+            unique_together=set([('category', 'name')]),
         ),
         migrations.AddField(
             model_name='membership',

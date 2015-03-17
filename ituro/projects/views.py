@@ -46,13 +46,6 @@ class ProjectDeleteView(DeleteView):
             raise PermissionDenied
         return super(ProjectDeleteView, self).dispatch(*args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        success_url = self.get_success_url()
-        self.object.is_active = False
-        self.object.save()
-        return HttpResponseRedirect(success_url)
-
 
 class MemberCreateView(FormView):
     template_name = "projects/member_create.html"
@@ -96,14 +89,6 @@ class MemberDeleteView(DeleteView):
     def dispatch(self, *args, **kwargs):
         if not self.get_queryset().filter(
                 member__email=self.request.user.email,
-                is_manager=True).exists() or \
-            self.get_object().member == self.request.user:
+                is_manager=True).exists() or self.get_object().is_manager:
             raise PermissionDenied
         return super(MemberDeleteView, self).dispatch(*args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        success_url = self.get_success_url()
-        self.object.is_active = False
-        self.object.save()
-        return HttpResponseRedirect(success_url)

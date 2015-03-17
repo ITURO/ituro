@@ -7,12 +7,33 @@ from projects.models import Project, Membership
 
 
 class ProjectCreateForm(forms.ModelForm):
+    category = forms.ChoiceField(
+        widget=forms.Select, choices=settings.CREATE_CATEGORIES, initial='maze')
+
     class Meta:
         model = Project
         exclude = ('is_valid', 'is_active')
-        widgets = {
-            "category": forms.Select(choices=settings.CREATE_CATEGORIES)
-        }
+
+    def clean_presentation(self):
+        presentation = self.cleaned_data.get('presentation')
+        category = self.cleaned_data.get('category')
+
+        if category != 'innovative' and presentation is not None:
+            raise forms.ValidationError(_(
+                "Presentation can only be uploaded for innovative projects."))
+
+        if category == 'innovative' and presentation is None:
+            raise forms.ValidationError(_(
+                "Presentation file is required for innovative projects."))
+
+        if presentation.content_type != 'application/pdf':
+            raise forms.ValidationError(_("Only PDF files will be accepted."))
+
+        if presentation.size > settings.MAX_FILE_SIZE:
+            raise forms.ValidationError(_("Max file size is 1MB."))
+
+        presentation.name = "{}.pdf".format(self.cleaned_data.get('name'))
+        return presentation
 
 
 class MemberCreateForm(forms.Form):
