@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% load i18n bootstrap3 %}
 
+{% block title %}{% trans 'Delete Project' %} - {% endblock %}
 {% block content %}
 <div class="page-header">
   <h1>{% trans 'Delete Project' %}</h1>
 </div>
+
 {% bootstrap_messages %}
 <form action="" method="post" class="form">
   {% csrf_token %}

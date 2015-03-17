@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% load i18n bootstrap3 %}
 
+{% block title %}{% trans 'Delete User' %} - {% endblock %}
 {% block content %}
 <div class="page-header">
   <h1>{% trans 'Delete User' %}</h1>
 </div>
+
 {% bootstrap_messages %}
 <form action="" method="post" class="form">
   {% csrf_token %}
   <div class="alert alert-info">
-    {% blocktrans %}Your about to delete {{ object }} from {{ object.project }}. Are you sure?{% endblocktrans %}
+    {% trans %} 'Your about to. Are you sure?' %}
   </div>
   {% buttons %}
   <button type="submit" class="btn btn-primary">

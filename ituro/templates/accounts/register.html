@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
-{% load i18n %}
-{% load bootstrap3 %}
+{% load i18n bootstrap3 %}
 
-{% bootstrap_messages %}
-
+{% block title %}{% trans "User Register" %} - {% endblock %}
 {% block content %}
 <div class="page-header">
   <h1>{% trans "User Register" %}</h1>
 </div>
 
+{% bootstrap_messages %}
 <form action="{% url "user-register" %}" method="post" class="form">
   {% csrf_token %}
   {% bootstrap_form form %}

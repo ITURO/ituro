@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% load i18n bootstrap3 %}
 
+{% block title %}{% trans 'Add Member' %} - {% endblock %}
 {% block content %}
 <div class="page-header">
   <h1>{% trans 'Add Member' %}</h1>
 </div>
 
+{% bootstrap_messages %}
 <form action="" method="post" class="form">
   {% csrf_token %}
   {% bootstrap_form form %}

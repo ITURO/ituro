@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 04:54+0000\n"
+"POT-Creation-Date: 2015-03-17 10:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,12 +75,24 @@ msgstr ""
 msgid "users"
 msgstr ""
 
-#: accounts/views.py:23
+#: accounts/views.py:20
+msgid "You have logged in successfully."
+msgstr ""
+
+#: accounts/views.py:27
 msgid "You have logged out successfully."
 msgstr ""
 
-#: accounts/views.py:40
+#: accounts/views.py:44
 msgid "ITURO Registration"
+msgstr ""
+
+#: accounts/views.py:50
+msgid "You have created your user account successfully."
+msgstr ""
+
+#: accounts/views.py:69
+msgid "You have updated your profile successfully."
 msgstr ""
 
 #: ituro/local_settings.py:9 ituro/settings.py:111
@@ -131,68 +143,92 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: projects/forms.py:23
+#: projects/forms.py:13
+msgid "I agree terms of service."
+msgstr ""
+
+#: projects/forms.py:25
 msgid "Presentation can only be uploaded for innovative projects."
 msgstr ""
 
-#: projects/forms.py:27
+#: projects/forms.py:29
 msgid "Presentation file is required for innovative projects."
 msgstr ""
 
-#: projects/forms.py:30
+#: projects/forms.py:33 projects/forms.py:65
 msgid "Only PDF files will be accepted."
 msgstr ""
 
-#: projects/forms.py:33
+#: projects/forms.py:37 projects/forms.py:68
 msgid "Max file size is 1MB."
 msgstr ""
 
-#: projects/forms.py:49
+#: projects/forms.py:59
+msgid "Project name is being used."
+msgstr ""
+
+#: projects/forms.py:84
 msgid "User does not exist."
 msgstr ""
 
-#: projects/forms.py:53
+#: projects/forms.py:87
 msgid "You cannot add a member twice."
 msgstr ""
 
-#: projects/models.py:14
+#: projects/models.py:15 templates/projects/project_detail.html:17
 msgid "Category"
 msgstr ""
 
-#: projects/models.py:16
+#: projects/models.py:17
 msgid "Project Name"
 msgstr ""
 
-#: projects/models.py:18
+#: projects/models.py:19
 msgid "Project Presentation File"
 msgstr ""
 
-#: projects/models.py:21
-msgid "Autodesk Digital Design Contest"
-msgstr ""
-
 #: projects/models.py:22
-msgid "Do you want to join the contest?"
+msgid "I want to join Autodesk Digital Design Contest."
 msgstr ""
 
-#: projects/models.py:24
+#: projects/models.py:25
 msgid "Is project valid?"
 msgstr ""
 
-#: projects/models.py:28 projects/models.py:39
+#: projects/models.py:29 projects/models.py:47
 msgid "Project"
 msgstr ""
 
-#: projects/models.py:29
+#: projects/models.py:30
 msgid "Projects"
 msgstr ""
 
-#: projects/models.py:38
+#: projects/models.py:46
 msgid "User"
 msgstr ""
 
-#: projects/models.py:41
+#: projects/models.py:49
 msgid "Is project manager?"
+msgstr ""
+
+#: projects/views.py:58
+msgid "You have created a project successfully."
+msgstr ""
+
+#: projects/views.py:78
+msgid "You have updated the project successfully."
+msgstr ""
+
+#: projects/views.py:96
+msgid "Project deleted."
+msgstr ""
+
+#: projects/views.py:148
+msgid "New member added to project."
+msgstr ""
+
+#: projects/views.py:166
+msgid "Member deleted successfully."
 msgstr ""
 
 #: templates/404.html:6
@@ -207,13 +243,14 @@ msgstr ""
 msgid "An error occured on server."
 msgstr ""
 
-#: templates/accounts/customuser_form.html:10
-#: templates/accounts/register.html:10
+#: templates/accounts/customuser_form.html:4
+#: templates/accounts/customuser_form.html:7
+#: templates/accounts/register.html:5 templates/accounts/register.html.py:8
 msgid "User Register"
 msgstr ""
 
-#: templates/accounts/customuser_form.html:17
-#: templates/accounts/register.html:18
+#: templates/accounts/customuser_form.html:16
+#: templates/accounts/register.html:17 templates/accounts/update.html:16
 msgid "Submit"
 msgstr ""
 
@@ -223,6 +260,11 @@ msgstr ""
 
 #: templates/accounts/email/register.txt:2
 msgid "You have signed up to ITU Robot Olympics."
+msgstr ""
+
+#: templates/accounts/login.html:5 templates/accounts/login.html.py:36
+#: templates/sidebar.html:42
+msgid "Login"
 msgstr ""
 
 #: templates/accounts/login.html:11
@@ -245,38 +287,43 @@ msgstr ""
 msgid "password"
 msgstr ""
 
-#: templates/accounts/login.html:36 templates/sidebar.html:42
-msgid "Login"
-msgstr ""
-
 #: templates/accounts/login.html:37 templates/sidebar.html:47
 msgid "Register"
 msgstr ""
 
-#: templates/accounts/password_reset_complete.html:7
+#: templates/accounts/password_change_done.html:12
+msgid "Your password was changed."
+msgstr ""
+
+#: templates/accounts/password_change_form.html:16
+#: templates/accounts/password_reset_form.html:16
+msgid "Reset my password"
+msgstr ""
+
+#: templates/accounts/password_reset_complete.html:12
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr ""
 
-#: templates/accounts/password_reset_confirm.html:15
+#: templates/accounts/password_reset_confirm.html:17
 msgid "Change my password"
 msgstr ""
 
-#: templates/accounts/password_reset_confirm.html:20
+#: templates/accounts/password_reset_confirm.html:22
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
 msgstr ""
 
-#: templates/accounts/password_reset_done.html:9
+#: templates/accounts/password_reset_done.html:11
 msgid "We have sent you an email. Please check your email address."
 msgstr ""
 
-#: templates/accounts/password_reset_form.html:6
+#: templates/accounts/password_reset_form.html:7
 msgid "Password reset"
 msgstr ""
 
-#: templates/accounts/password_reset_form.html:15
-msgid "Reset my password"
+#: templates/accounts/update.html:4 templates/accounts/update.html.py:7
+msgid "User Profile"
 msgstr ""
 
 #: templates/base.html:10
@@ -287,37 +334,78 @@ msgstr ""
 msgid "ITU Robot Olympics"
 msgstr ""
 
-#: templates/projects/member_create.html:6
-#: templates/projects/member_create.html:14
+#: templates/projects/member_create.html:4
+#: templates/projects/member_create.html:7
+#: templates/projects/member_create.html:16
 msgid "Add Member"
 msgstr ""
 
-#: templates/projects/member_delete.html:6
+#: templates/projects/member_delete.html:4
+#: templates/projects/member_delete.html:7
 msgid "Delete User"
 msgstr ""
 
-#: templates/projects/member_delete.html:12
-#, python-format
-msgid "Your about to delete %(object)s from %(object.project)s. Are you sure?"
-msgstr ""
-
-#: templates/projects/member_delete.html:16
-#: templates/projects/project_confirm_delete.html:16
+#: templates/projects/member_delete.html:18
+#: templates/projects/project_confirm_delete.html:18
 msgid "Confirm"
 msgstr ""
 
-#: templates/projects/project_confirm_delete.html:6
+#: templates/projects/project_confirm_delete.html:4
+#: templates/projects/project_confirm_delete.html:7
+#: templates/projects/project_detail.html:49
 msgid "Delete Project"
 msgstr ""
 
-#: templates/projects/project_confirm_delete.html:12
+#: templates/projects/project_confirm_delete.html:14
 #, python-format
 msgid "Your about to delete %(object)s. Are you sure?"
 msgstr ""
 
-#: templates/projects/project_create.html:6
-#: templates/projects/project_create.html:14
+#: templates/projects/project_create.html:4
+#: templates/projects/project_create.html:7
+#: templates/projects/project_create.html:16
 msgid "Create Project"
+msgstr ""
+
+#: templates/projects/project_detail.html:4
+#: templates/projects/project_detail.html:7
+msgid "Project Detail"
+msgstr ""
+
+#: templates/projects/project_detail.html:12
+msgid "Name"
+msgstr ""
+
+#: templates/projects/project_detail.html:23
+msgid "Presentation"
+msgstr ""
+
+#: templates/projects/project_detail.html:29
+msgid "Project Team"
+msgstr ""
+
+#: templates/projects/project_detail.html:35
+msgid "delete"
+msgstr ""
+
+#: templates/projects/project_detail.html:46
+#: templates/projects/project_update.html:4
+#: templates/projects/project_update.html:7
+#: templates/projects/project_update.html:20
+msgid "Update Project"
+msgstr ""
+
+#: templates/projects/project_detail.html:52
+msgid "New Member"
+msgstr ""
+
+#: templates/projects/project_list.html:4
+#: templates/projects/project_list.html:7
+msgid "My Projects"
+msgstr ""
+
+#: templates/projects/project_list.html:17
+msgid "see project detail"
 msgstr ""
 
 #: templates/sidebar.html:15

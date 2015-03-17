@@ -8,7 +8,9 @@ from projects.models import Project, Membership
 
 class ProjectCreateForm(forms.ModelForm):
     category = forms.ChoiceField(
-        widget=forms.Select, choices=settings.CREATE_CATEGORIES, initial='maze')
+        widget=forms.Select, choices=settings.CREATE_CATEGORIES)
+    terms = forms.BooleanField(
+        label=_("I agree terms of service."), required=True)
 
     class Meta:
         model = Project
@@ -26,13 +28,14 @@ class ProjectCreateForm(forms.ModelForm):
             raise forms.ValidationError(_(
                 "Presentation file is required for innovative projects."))
 
-        if presentation.content_type != 'application/pdf':
+        if category == 'innovative' and \
+           presentation.content_type != 'application/pdf':
             raise forms.ValidationError(_("Only PDF files will be accepted."))
 
-        if presentation.size > settings.MAX_FILE_SIZE:
+        if category == 'innovative' and \
+           presentation.size > settings.MAX_FILE_SIZE:
             raise forms.ValidationError(_("Max file size is 1MB."))
 
-        presentation.name = "{}.pdf".format(self.cleaned_data.get('name'))
         return presentation
 
 

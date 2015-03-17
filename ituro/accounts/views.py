@@ -3,7 +3,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.views import login, logout
 from django.contrib import messages
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -17,6 +17,7 @@ def custom_login(request, *args, **kwargs):
     if request.user.is_authenticated():
         raise PermissionDenied
     else:
+        messages.success(request, _("You have logged in successfully."))
         return login(request, *args, **kwargs)
 
 
@@ -30,7 +31,7 @@ def custom_logout(request):
 class RegisterView(FormView):
     template_name = "accounts/register.html"
     form_class = RegistrationForm
-    success_url = "/accounts/register/success/"
+    success_url = reverse_lazy('login')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -45,6 +46,8 @@ class RegisterView(FormView):
             "from_email": settings.EMAIL_HOST_USER,
         }
         user.email_user(**email_options)
+        messages.success(self.request, _(
+            "You have created your user account successfully."))
         return super(RegisterView, self).form_valid(form)
 
 
@@ -52,6 +55,7 @@ class ProfileUpdateView(UpdateView):
     model = CustomUser
     fields = ('email', 'name', 'phone', 'school')
     template_name = "accounts/update.html"
+    success_url = reverse_lazy('user-update')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -59,3 +63,8 @@ class ProfileUpdateView(UpdateView):
 
     def get_object(self):
         return CustomUser.objects.get(pk=self.request.user.pk)
+
+    def form_valid(self, form):
+        messages.success(self.request, _(
+            "You have updated your profile successfully."))
+        return super(ProfileUpdateView, self).form_valid(form)

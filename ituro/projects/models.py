@@ -1,5 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
@@ -18,8 +19,8 @@ class Project(models.Model):
         verbose_name=_("Project Presentation File"),
         upload_to='presentations', blank=True)
     design = models.BooleanField(
-        verbose_name=_('Autodesk Digital Design Contest'),
-        help_text=_('Do you want to join the contest?'), default=False)
+        verbose_name=_('I want to join Autodesk Digital Design Contest.'),
+        default=False)
     is_valid = models.BooleanField(
         verbose_name=_('Is project valid?'), default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -31,6 +32,10 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absoulte_url(self):
+        return reverse('project_detail', args=[self.pk])
+
 
     def get_presentation_file_name(self):
         return self.presentation.name.split('/')[-1]

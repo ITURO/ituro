@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-
 {% load i18n bootstrap3 %}
 
-{% bootstrap_messages %}
+{% block title %}{% trans "User Profile" %} - {% endblock %}
 {% block content %}
 <div class="page-header">
   <h1>{% trans "User Profile" %}</h1>
 </div>
 
+{% bootstrap_messages %}
 <form action="{% url "user-update" %}" method="post" class="form">
   {% csrf_token %}
   {% bootstrap_form form %}

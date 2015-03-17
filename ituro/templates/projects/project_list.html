@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% load i18n bootstrap3 %}
 
-{% block title %}{% trans 'My Projects' %}{% endblock %}
+{% block title %}{% trans 'My Projects' %} - {% endblock %}
 {% block content %}
 <div class="page-header">
   <h1>{% trans 'My Projects' %}</h1>
 </div>
 
+{% bootstrap_messages %}
 <div class="list-group">
   {% for project in projects %}
   <a href="{% url 'project_detail' project.id %}"

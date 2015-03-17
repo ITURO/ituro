@@ -3,10 +3,12 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, \
     FormView
 from django.http import Http404, HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.contrib import messages
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from accounts.models import CustomUser
 from projects.models import Project, Membership
@@ -36,7 +38,7 @@ class ProjectCreateView(CreateView):
     model = Project
     form_class = ProjectCreateForm
     template_name = 'projects/project_create.html'
-    success_url = "/projects/"
+    success_url = reverse_lazy('project_list')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -52,6 +54,8 @@ class ProjectCreateView(CreateView):
             is_manager=True
         )
 
+        messages.success(self.request, _(
+            "You have created a project successfully."))
         return super(ProjectCreateView, self).form_valid(form)
 
 
@@ -59,7 +63,6 @@ class ProjectUpdateView(UpdateView):
     model = Project
     form_class = ProjectUpdateForm
     template_name = 'projects/project_update.html'
-    success_url = '/projects/'
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -70,10 +73,15 @@ class ProjectUpdateView(UpdateView):
             raise PermissionDenied
         return super(ProjectUpdateView, self).dispatch(*args, **kwargs)
 
+    def form_valid(self, form):
+        messages.info(self.request, _(
+            "You have updated the project successfully."))
+        return super(ProjectUpdateView, self).form_valid(form)
+
 
 class ProjectDeleteView(DeleteView):
     model = Project
-    success_url = "/projects/"
+    success_url = reverse_lazy('project_list')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -84,6 +92,9 @@ class ProjectDeleteView(DeleteView):
             raise PermissionDenied
         return super(ProjectDeleteView, self).dispatch(*args, **kwargs)
 
+    def delete(self, request, *args, **kwargs):
+        messages.info(request, _("Project deleted."))
+        return super(ProjectDeleteView, self).delete(request, *args, **kwargs)
 
 class ProjectDetailView(DetailView):
     model = Project
@@ -104,10 +115,13 @@ class ProjectDetailView(DetailView):
         context['is_manager'] = is_manager
         return context
 
+
 class MemberCreateView(FormView):
     template_name = "projects/member_create.html"
     form_class = MemberCreateForm
-    success_url = "/projects/"
+
+    def get_success_url(self):
+        return reverse('project_detail', args=[self.kwargs.get('pk')])
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -131,6 +145,7 @@ class MemberCreateView(FormView):
         project = Project.objects.get(pk=pk)
         member = CustomUser.objects.get(email=email)
         Membership.objects.create(project=project, member=member)
+        messages.success(self.request, _("New member added to project."))
         return super(MemberCreateView, self).form_valid(form)
 
 
@@ -146,3 +161,7 @@ class MemberDeleteView(DeleteView):
                 is_manager=True).exists() or self.get_object().is_manager:
             raise PermissionDenied
         return super(MemberDeleteView, self).dispatch(*args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        messages.info(request, _("Member deleted successfully."))
+        return super(MemberDleteView, self).delete(request, *args, **kwargs)
