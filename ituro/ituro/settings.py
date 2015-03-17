@@ -75,7 +75,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'tr'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -121,6 +121,7 @@ ALL_CATEGORIES = (
     ('scenario', _('Scenario')),
     ('innovative', _('Innovative')),
 )
+CREATE_CATEGORIES = tuple(ALL_CATEGORIES)
 
 # Import local settings
 try:
