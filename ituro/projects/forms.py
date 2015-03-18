@@ -23,21 +23,19 @@ class ProjectCreateForm(forms.ModelForm):
         presentation = self.cleaned_data.get('presentation')
         category = self.cleaned_data.get('category')
 
-        if category != 'innovative' and presentation is not None:
-            raise forms.ValidationError(_(
-                "Presentation can only be uploaded for innovative projects."))
-
-        if category == 'innovative' and presentation is None:
+        if category == "innovative" and presentation is None:
             raise forms.ValidationError(_(
                 "Presentation file is required for innovative projects."))
+        elif category == "innovative" and presentation is not None:
+            extension = os.path.splitext(presentation.name)[1]
+            if extension != '.pdf':
+                raise forms.ValidationError(_("Only PDF files will be accepted."))
 
-        extension = os.path.splitext(presentation.name)[1]
-        if category == 'innovative' and extension != '.pdf':
-            raise forms.ValidationError(_("Only PDF files will be accepted."))
-
-        if category == 'innovative' and \
-           presentation.size > settings.MAX_FILE_SIZE:
-            raise forms.ValidationError(_("Max file size is 1MB."))
+            if presentation.size > settings.MAX_FILE_SIZE:
+                raise forms.ValidationError(_("Max file size is 1MB."))
+        elif category != "innovative" and presentation is not None:
+            raise forms.ValidationError(_(
+                "Presentation can only be uploaded for innovative projects."))
 
         return presentation
 

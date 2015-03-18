@@ -109,6 +109,8 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 EMAIL_USE_TLS = True
 MAX_FILE_SIZE = 1000000
 LOGIN_REDIRECT_URL = "/"
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_null',)
 
 ALL_CATEGORIES = (
     ('line_follower', _('Line Follower')),
