@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 22:39+0000\n"
+"POT-Creation-Date: 2015-03-18 02:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -154,11 +154,11 @@ msgstr "Sunum dosyası sadece Serbest Kategori projeleri için yüklenebilir."
 msgid "Presentation file is required for innovative projects."
 msgstr "Serbest Kategori projeleri için sunum dosyası gereklidir."
 
-#: projects/forms.py:35 projects/forms.py:67
+#: projects/forms.py:35 projects/forms.py:68
 msgid "Only PDF files will be accepted."
 msgstr "Sadece PDF dosyaları kabul edilir."
 
-#: projects/forms.py:39 projects/forms.py:70
+#: projects/forms.py:39 projects/forms.py:71
 msgid "Max file size is 1MB."
 msgstr "Maksimum dosya boyutu 1MB'tır."
 
@@ -166,11 +166,11 @@ msgstr "Maksimum dosya boyutu 1MB'tır."
 msgid "Project name is being used."
 msgstr "Proje adı kullanımdadır."
 
-#: projects/forms.py:85
+#: projects/forms.py:86
 msgid "User does not exist."
 msgstr "Kullanıcı bulunmamaktadır."
 
-#: projects/forms.py:88
+#: projects/forms.py:89
 msgid "You cannot add a member twice."
 msgstr "Bir üyeyi iki kere ekleyemezsiniz."
 

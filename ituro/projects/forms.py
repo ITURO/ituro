@@ -30,8 +30,8 @@ class ProjectCreateForm(forms.ModelForm):
             raise forms.ValidationError(_(
                 "Presentation file is required for innovative projects."))
 
-        if category == 'innovative' and \
-           presentation.content_type != 'application/pdf':
+        if category == 'innovative' and not presentation.content_type in \
+           ('application/pdf', 'application/octect-stream'):
             raise forms.ValidationError(_("Only PDF files will be accepted."))
 
         if category == 'innovative' and \
@@ -63,7 +63,8 @@ class ProjectUpdateForm(forms.ModelForm):
 
     def clean_presentation(self):
         presentation = self.cleaned_data.get("presentation")
-        if presentation.content_type != 'application/pdf':
+        if presentation.content_type not in (
+                'application/pdf', 'application/octect-stream'):
             raise forms.ValidationError(_("Only PDF files will be accepted."))
 
         if presentation.size > settings.MAX_FILE_SIZE:

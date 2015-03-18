@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 22:39+0000\n"
+"POT-Creation-Date: 2015-03-18 02:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,11 +151,11 @@ msgstr ""
 msgid "Presentation file is required for innovative projects."
 msgstr ""
 
-#: projects/forms.py:35 projects/forms.py:67
+#: projects/forms.py:35 projects/forms.py:68
 msgid "Only PDF files will be accepted."
 msgstr ""
 
-#: projects/forms.py:39 projects/forms.py:70
+#: projects/forms.py:39 projects/forms.py:71
 msgid "Max file size is 1MB."
 msgstr ""
 
@@ -163,11 +163,11 @@ msgstr ""
 msgid "Project name is being used."
 msgstr ""
 
-#: projects/forms.py:85
+#: projects/forms.py:86
 msgid "User does not exist."
 msgstr ""
 
-#: projects/forms.py:88
+#: projects/forms.py:89
 msgid "You cannot add a member twice."
 msgstr ""
 
