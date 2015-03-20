@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import ugettext, ugettext_lazy as _
 from accounts.models import CustomUser
 from accounts.forms import CustomUserCreationForm, CustomUserChangeForm
-from django.utils.translation import ugettext, ugettext_lazy as _
+from projects.models import Membership
 
 
 class CustomUserAdmin(UserAdmin):
@@ -22,9 +23,14 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'name', 'phone', 'school', 'is_staff', 'is_active')
+    list_display = (
+        'email', 'name', 'phone', 'school', 'is_staff', 'is_active',
+        'projects')
     search_fields = ('name', 'email', 'phone', 'school')
     ordering = ('id',)
+
+    def projects(self, obj):
+        return Membership.objects.filter(member=obj).count()
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
