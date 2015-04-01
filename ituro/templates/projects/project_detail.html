@@ -31,7 +31,7 @@
     {% for membership in team %}
     <li>
       {{ membership.member }}
-      {% if is_manager and not user == membership.member %}
+      {% if UPDATE_PERMISSION and is_manager and not user == membership.member %}
       <a href="{% url 'member_delete' membership.id %}">{% trans 'delete' %}</a>
       {% endif %}
     </li>
@@ -40,7 +40,7 @@
 </div>
 {% endif %}
 
-{% if is_manager %}
+{% if is_manager and UPDATE_PERMISSION %}
 <div style="margin-top: 10px;">
   <a class="btn btn-primary" href="{% url "project_update" object.id %}" role="button">
     {% trans 'Update Project' %}

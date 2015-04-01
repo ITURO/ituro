@@ -3,6 +3,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, \
     FormView
 from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -42,6 +43,8 @@ class ProjectCreateView(CreateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
+        if not settings.PROJECT_CREATE:
+            raise PermissionDenied
         return super(ProjectCreateView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
@@ -66,10 +69,11 @@ class ProjectUpdateView(UpdateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_staff and \
-           not Membership.objects.filter(
-                project=self.get_object(), member=self.request.user,
-                is_manager=True).exists():
+        project = self.get_object()
+        if not project.category in dict(settings.UPDATE_CATEGORIES).keys() or \
+           not settings.PROJECT_UPDATE or not Membership.objects.filter(
+               project=project, member=self.request.user,
+               is_manager=True).exists():
             raise PermissionDenied
         return super(ProjectUpdateView, self).dispatch(*args, **kwargs)
 
@@ -85,9 +89,11 @@ class ProjectDeleteView(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not Membership.objects.filter(
-                project=self.get_object(), member=self.request.user,
-                is_manager=True).exists():
+        project = self.get_object()
+        if not project.category in dict(settings.UPDATE_CATEGORIES).keys() or \
+           not settings.PROJECT_UPDATE or not Membership.objects.filter(
+               project=project, member=self.request.user,
+               is_manager=True).exists():
             raise PermissionDenied
         return super(ProjectDeleteView, self).dispatch(*args, **kwargs)
 
@@ -107,11 +113,15 @@ class ProjectDetailView(DetailView):
         return super(ProjectDetailView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        team = Membership.objects.filter(project=self.get_object())
+        project = self.get_object()
+        team = Membership.objects.filter(project=project)
         is_manager = team.get(member=self.request.user).is_manager
+        update = settings.PROJECT_UPDATE and project.category in \
+                 dict(settings.UPDATE_CATEGORIES).keys()
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
         context['team'] = team
         context['is_manager'] = is_manager
+        context['UPDATE_PERMISSION'] = update
         return context
 
 
@@ -124,10 +134,12 @@ class MemberCreateView(FormView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        pk = int(self.kwargs.get("pk"))
-        membership = Membership.objects.filter(
-            member__pk=self.request.user.pk, project__pk=pk, is_manager=True)
-        if not membership.exists():
+        project = get_object_or_404(Project, pk=self.kwargs.get("pk"))
+        is_manager = Membership.objects.filter(
+            member__pk=self.request.user.pk, project=project, is_manager=True
+        ).exists()
+        if not is_manager or not settings.PROJECT_UPDATE or \
+           not project.category in dict(settings.UPDATE_CATEGORIES).keys():
             raise PermissionDenied
         return super(MemberCreateView, self).dispatch(*args, **kwargs)
 
@@ -155,9 +167,11 @@ class MemberDeleteView(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not self.get_queryset().filter(
-                member__email=self.request.user.email,
-                is_manager=True).exists() or self.get_object().is_manager:
+        project = self.get_object().project
+        if not project.category in dict(settings.UPDATE_CATEGORIES) or \
+           not settings.PROJECT_UPDATE or not self.get_queryset().filter(
+               member__email=self.request.user.email,
+               is_manager=True).exists() or self.get_object().is_manager:
             raise PermissionDenied
         return super(MemberDeleteView, self).dispatch(*args, **kwargs)
 

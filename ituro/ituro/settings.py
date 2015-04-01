@@ -44,6 +44,7 @@ INSTALLED_APPS = (
 
     # ITURO apps
     'accounts',
+    'base',
     'projects',
 )
 
@@ -104,6 +105,17 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.abspath(
     os.path.join(BASE_DIR, os.pardir, "public", "media"))
 
+TEMPLATE_CONTEXT_PROCESSORS =(
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "base.context_processors.permissions",
+)
+
 AUTH_USER_MODEL = "accounts.CustomUser"
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 EMAIL_USE_TLS = True
@@ -124,7 +136,20 @@ ALL_CATEGORIES = (
     ('scenario', _('Scenario')),
     ('innovative', _('Innovative')),
 )
+
 CREATE_CATEGORIES = tuple(ALL_CATEGORIES)
+UPDATE_CATEGORIES = tuple(ALL_CATEGORIES)
+CONFIRM_CATEGORIES = tuple(ALL_CATEGORIES)
+ORDER_CATEGORIES = tuple(ALL_CATEGORIES)
+RESULT_CATEGORIES = tuple(ALL_CATEGORIES)
+
+USER_REGISTER = True
+USER_UPDATE = True
+PROJECT_CREATE = True
+PROJECT_UPDATE = True
+PROJECT_CONFIRM = True
+PROJECT_ORDERS = True
+PROJECT_RESULTS = True
 
 # Import local settings
 try:

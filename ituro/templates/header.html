@@ -20,10 +20,10 @@
           <li><a href="http://www.ituro.itu.edu.tr/">{% trans 'Site' %}</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'project_list' %}">{% trans 'My Projects' %}</a></li>
-          <li><a href="{% url 'project_create' %}">{% trans 'New Project' %}</a></li>
+          {% if PROJECT_CREATE %}<li><a href="{% url 'project_create' %}">{% trans 'New Project' %}</a></li>{% endif %}
           {% else %}
           <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
-          <li><a href="{% url 'user-register' %}">{% trans 'Register' %}</a></li>
+          {% if USER_REGISTER %}<li><a href="{% url 'user-register' %}">{% trans 'Register' %}</a></li>{% endif %}
           {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
