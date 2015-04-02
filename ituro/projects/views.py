@@ -139,7 +139,7 @@ class ProjectConfirmView(FormView):
     def form_valid(self, form):
         name = form.cleaned_data.get('name')
         category = form.cleaned_data.get('category')
-        project = Project.objects.get(name=name, category=category).update(
+        project = Project.objects.filter(name=name, category=category).update(
             is_confirmed=True)
         messages.success(self.request, _(
             "Project confirmation process completed successfully."))
