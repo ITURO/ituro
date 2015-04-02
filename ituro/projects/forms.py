@@ -100,7 +100,7 @@ class ProjectConfirmForm(forms.Form):
                 "Error! Please correct the errors below."))
         elif not Membership.objects.filter(
                 project__name=name, project__category=category,
-                member__email=email).exists():
+                member__email=email, is_manager=True).exists():
             raise forms.ValidationError(_(
                 "Error! User is not the manager of the project."))
 
