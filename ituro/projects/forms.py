@@ -73,6 +73,40 @@ class ProjectUpdateForm(forms.ModelForm):
         return presentation
 
 
+class ProjectConfirmForm(forms.Form):
+    name = forms.CharField(label=_("Project Name"), required=True)
+    category = forms.ChoiceField(
+        label=_("Project Category"), widget=forms.Select,
+        choices=settings.CONFIRM_CATEGORIES)
+    email = forms.EmailField(label=_("Project Manager Email"), required=True)
+
+    def clean(self):
+        cleaned_data = super(ProjectConfirmForm, self).clean()
+        name = cleaned_data.get("name")
+        category = cleaned_data.get("category")
+        email = cleaned_data.get("email")
+        error = False
+
+        if not Project.objects.filter(name=name, category=category).exists():
+            self.add_error("name", _("Project does not exist."))
+            error = True
+
+        if not CustomUser.objects.filter(email=email):
+            self.add_error("email", _("User does not exist."))
+            error = True
+
+        if error:
+            raise forms.ValidationError(_(
+                "Error! Please correct the errors below."))
+        elif not Membership.objects.filter(
+                project__name=name, project__category=category,
+                member__email=email).exists():
+            raise forms.ValidationError(_(
+                "Error! User is not the manager of the project."))
+
+        return cleaned_data
+
+
 class MemberCreateForm(forms.Form):
     email = forms.EmailField(required=True)
 

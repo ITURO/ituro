@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n static bootstrap3 %}
+
+{% block title %}{% trans "Project Confirmation" %} - {% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>{% trans 'Confirm Project' %}</h1>
+</div>
+
+{% bootstrap_messages %}
+<form enctype="multipart/form-data" action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">
+    {% trans "Confirm" %}
+  </button>
+  {% endbuttons %}
+</form>
+{% endblock %}

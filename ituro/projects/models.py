@@ -21,8 +21,8 @@ class Project(models.Model):
     design = models.BooleanField(
         verbose_name=_('I want to join Autodesk Digital Design Contest.'),
         default=False)
-    is_valid = models.BooleanField(
-        verbose_name=_('Is project valid?'), default=False)
+    is_confirmed = models.BooleanField(
+        verbose_name=_('Is project confirmed?'), default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

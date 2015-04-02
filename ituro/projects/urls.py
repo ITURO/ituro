@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from projects.views import ProjectCreateView, ProjectDeleteView, \
     ProjectUpdateView, ProjectDetailView, ProjectListView, \
-    MemberCreateView, MemberDeleteView
+    ProjectConfirmView, MemberCreateView, MemberDeleteView
 
 urlpatterns = patterns(
     '',
@@ -14,6 +14,7 @@ urlpatterns = patterns(
         name='project_update'),
     url(r'^(?P<pk>\d+)/$', ProjectDetailView.as_view(),
         name='project_detail'),
+    url(r'^confirm/$', ProjectConfirmView.as_view(), name='project_confirm'),
     url(r'^members/create/(?P<pk>\d+)$', MemberCreateView.as_view(),
         name='member_create'),
     url(r'^members/delete/(?P<pk>\d+)$', MemberDeleteView.as_view(),

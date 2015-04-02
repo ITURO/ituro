@@ -14,7 +14,7 @@ from django.conf import settings
 from accounts.models import CustomUser
 from projects.models import Project, Membership
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, \
-    MemberCreateForm
+    ProjectConfirmForm, MemberCreateForm
 
 
 class ProjectListView(TemplateView):
@@ -123,6 +123,26 @@ class ProjectDetailView(DetailView):
         context['is_manager'] = is_manager
         context['UPDATE_PERMISSION'] = update
         return context
+
+
+class ProjectConfirmView(FormView):
+    template_name = "projects/project_confirm.html"
+    form_class = ProjectConfirmForm
+    success_url = reverse_lazy("project_confirm")
+
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_staff:
+            raise PermissionDenied
+        return super(ProjectConfirmView, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        name = form.cleaned_data.get('name')
+        category = form.cleaned_data.get('category')
+        project = Project.objects.get(name=name, category=category).update(
+            is_confirmed=True)
+        messages.success(self.request, _(
+            "Project confirmation process completed successfully."))
+        return super(ProjectConfirmView, self).form_valid(form)
 
 
 class MemberCreateView(FormView):
