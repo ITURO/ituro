@@ -130,6 +130,7 @@ class ProjectConfirmView(FormView):
     form_class = ProjectConfirmForm
     success_url = reverse_lazy("project_confirm")
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_staff:
             raise PermissionDenied
