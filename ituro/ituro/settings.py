@@ -45,7 +45,9 @@ INSTALLED_APPS = (
     # ITURO apps
     'accounts',
     'base',
+    'orders',
     'projects',
+    'results',
 )
 
 MIDDLEWARE_CLASSES = (
