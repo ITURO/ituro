@@ -9,7 +9,7 @@ from orders.models import LineFollowerStage
 @python_2_unicode_compatible
 class BaseResult(models.Model):
     project = models.ForeignKey(Project)
-    score = models.IntegerField(verbose_name=_('Score'), blank=True)
+    score = models.FloatField(verbose_name=_('Score'), blank=True)
     minutes = models.PositiveSmallIntegerField(verbose_name=_("Minutes"))
     seconds = models.PositiveSmallIntegerField(verbose_name=_("Seconds"))
     miliseconds = models.PositiveSmallIntegerField(
@@ -51,6 +51,45 @@ class LineFollowerResult(BaseResult):
         verbose_name = _("Line Follower Result")
         verbose_name_plural = _("Line Follower Results")
         ordering = ['score']
+
+
+class FireFighterResult(BaseResult):
+    extinguish_success = models.PositiveSmallIntegerField(
+        verbose_name=_("Succesful Extinguish Count"))
+    extinguish_failure = models.PositiveSmallIntegerField(
+        verbose_name=_("Unsuccessful Extinguish Count"))
+
+    class Meta:
+        verbose_name = _("Fire Fighter Result")
+        verbose_name_plural = _("Fire Fighter Results")
+        ordering = ["-score", "minutes", "seconds", "miliseconds"]
+
+
+class BasketballResult(BaseResult):
+    basket1 = models.PositiveSmallIntegerField(verbose_name=_("Basket 1"))
+    basket2 = models.PositiveSmallIntegerField(verbose_name=_("Basket 2"))
+    basket3 = models.PositiveSmallIntegerField(verbose_name=_("Basket 3"))
+    basket4 = models.PositiveSmallIntegerField(verbose_name=_("Basket 4"))
+    total = models.PositiveSmallIntegerField(verbose_name=_("Total Basket"))
+
+    class Meta:
+        verbose_name = _("Basketball Result")
+        verbose_name_plural = _("Basketball Results")
+        ordering = ["-score", "total", "minutes", "seconds", "miliseconds"]
+
+
+class StairClimbing(BaseResult):
+    stair1 = models.BooleanField(verbose_name=_("Stair #1"), default=False)
+    stair2 = models.BooleanField(verbose_name=_("Stair #2"), default=False)
+    stair3 = models.BooleanField(verbose_name=_("Stair #3"), default=False)
+    stair4 = models.BooleanField(verbose_name=_("Stair #4"), default=False)
+    downstairs = models.PositiveSmallIntegerField(
+        verbose_name=_("Downstairs Count"))
+
+    class Meta:
+        verbose_name = _("Stair Climbing Result")
+        verbose_name_plural = _("Stair Climbing Results")
+        ordering = ["-score", "minutes", "seconds", "miliseconds"]
 
 
 class MazeResult(BaseResult):
@@ -95,27 +134,9 @@ class SelfBalancingResult(BaseResult):
             "headway_minutes", "headway_seconds", "headway_miliseconds"]
 
 
-class FireFighterResult(BaseResult):
-    extinguish_success = models.PositiveSmallIntegerField(
-        verbose_name=_("Succesful Extinguish Count"))
-    extinguish_failure = models.PositiveSmallIntegerField(
-        verbose_name=_("Unsuccessful Extinguish Count"))
-
-    class Meta:
-        verbose_name = _("Fire Fighter Result")
-        verbose_name_plural = _("Fire Fighter Results")
-        ordering = ["-score", "minutes", "seconds", "miliseconds"]
+class ScenarioResult(BaseResult):
+    pass
 
 
-class StairClimbing(BaseResult):
-    stair1 = models.BooleanField(verbose_name=_("Stair #1"), default=False)
-    stair2 = models.BooleanField(verbose_name=_("Stair #2"), default=False)
-    stair3 = models.BooleanField(verbose_name=_("Stair #3"), default=False)
-    stair4 = models.BooleanField(verbose_name=_("Stair #4"), default=False)
-    downstairs = models.PositiveSmallIntegerField(
-        verbose_name=_("Downstairs Count"))
-
-    class Meta:
-        verbose_name = _("Stair Climbing Result")
-        verbose_name_plural = _("Stair Climbing Results")
-        ordering = ["-score", "minutes", "seconds", "miliseconds"]
+class InnovativeResult(BaseResult):
+    pass
