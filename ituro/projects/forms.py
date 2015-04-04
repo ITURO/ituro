@@ -17,7 +17,7 @@ class ProjectCreateForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        exclude = ('is_valid', 'is_active')
+        exclude = ('is_confirmed', 'is_active')
 
     def clean_presentation(self):
         presentation = self.cleaned_data.get('presentation')
@@ -45,7 +45,7 @@ class ProjectUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        exclude = ('category', 'is_valid', 'is_active')
+        exclude = ('category', 'is_confirmed', 'is_active')
 
     def __init__(self, *args, **kwargs):
         super(ProjectUpdateForm, self).__init__(*args, **kwargs)
