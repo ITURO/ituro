@@ -20,7 +20,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 'ordering': ['order'],
-                'verbose_name': 'Line Follower Race Orders',
+                'verbose_name': 'Line Follower Race Order',
+                'verbose_name_plural': 'Line Follower Race Orders',
             },
             bases=(models.Model,),
         ),
@@ -50,7 +51,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 'ordering': ['order'],
-                'verbose_name': 'Race Orders',
+                'verbose_name': 'Race Order',
+                'verbose_name_plural': 'Race Orders',
             },
             bases=(models.Model,),
         ),

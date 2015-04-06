@@ -25,6 +25,16 @@
           <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
           {% if USER_REGISTER %}<li><a href="{% url 'user-register' %}">{% trans 'Register' %}</a></li>{% endif %}
           {% endif %}
+          {% if PROJECT_ORDERS %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% trans "Orders" %} <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              {% for category, category_display in ORDER_CATEGORIES %}
+              <li><a href="{% url "race_order_list" category %}">{{ category_display }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}

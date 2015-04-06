@@ -23,11 +23,7 @@ class LineFollowerStage(models.Model):
 
 
     def __str__(self):
-        if self.is_final:
-            return _("Final Stage")
-        else:
-            return _("Stage #{}".format(self.order))
-
+        return "Stage #{}".format(self.order)
 
 @python_2_unicode_compatible
 class BaseOrder(models.Model):

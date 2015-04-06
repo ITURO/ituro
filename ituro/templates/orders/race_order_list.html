@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 %}
+
+{% block title %}{% blocktrans %}{{ category }} Race Orders{% endblocktrans %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% blocktrans %}{{ category  }} Race Orders{% endblocktrans %}</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>{% trans "Race Order" %}</td>
+      <td>{% trans "Robot Name" %}</td>
+    </tr>
+  </thead>
+  {% for order in object_list %}
+  <tr>
+    <td>{{ order.order }}</td>
+    <td>{{ order.project }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

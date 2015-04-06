@@ -19,7 +19,7 @@ class Command(BaseCommand):
         if not category in dict(settings.ALL_CATEGORIES).keys():
             raise CommandError('Category %s does not exist.' % category)
         elif category in ('line_follower', 'micro_sumo'):
-            raise CommandError('...')
+            raise CommandError('Use line follower, micro sumo commands.')
 
         queryset = Membership.objects.filter(
             project__category=category, project__is_confirmed=True,

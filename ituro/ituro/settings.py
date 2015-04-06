@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     # 3rd party apps
     'bootstrap3',
@@ -116,6 +117,7 @@ TEMPLATE_CONTEXT_PROCESSORS =(
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "base.context_processors.permissions",
+    "base.context_processors.categories",
 )
 
 AUTH_USER_MODEL = "accounts.CustomUser"
