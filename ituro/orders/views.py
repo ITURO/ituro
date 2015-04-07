@@ -1,4 +1,3 @@
-from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -10,37 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from orders.models import RaceOrder, LineFollowerStage, LineFollowerRaceOrder
 
 
-class RaceOrderListView(ListView):
-    model = RaceOrder
-    template_name = 'orders/race_order_list.html'
-
-    def dispatch(self, *args, **kwargs):
-        category = self.kwargs.get('slug')
-        if not category in dict(settings.ALL_CATEGORIES).keys():
-            raise Http404
-        if not settings.PROJECT_ORDERS or \
-           not category in dict(settings.ORDER_CATEGORIES).keys():
-            raise PermissionDenied
-
-        if category == 'line_follower':
-            return HttpResponseRedirect(reverse('line_follower_orders_list'))
-        elif category == 'micro_sumo':
-            return Http404
-
-        return super(RaceOrderListView, self).dispatch(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(RaceOrderListView, self).get_context_data(**kwargs)
-        context['category'] = dict(
-            settings.ALL_CATEGORIES)[self.kwargs.get('slug')]
-        return context
-
-    def get_queryset(self):
-        return RaceOrder.objects.filter(
-            project__category=self.kwargs.get('slug'))
-
-
-class LineFollowerStageListView(ListView):
+class LineFollowerStageOrderListView(ListView):
     model = LineFollowerStage
     template_name = 'orders/line_follower_stage_list.html'
 
@@ -49,7 +18,8 @@ class LineFollowerStageListView(ListView):
            not "line_follower" in dict(settings.ORDER_CATEGORIES).keys() or \
            not LineFollowerStage.objects.filter(orders_available=True).exists():
             raise PermissionDenied
-        return super(LineFollowerStageListView, self).dispatch(*args, **kwargs)
+        return super(LineFollowerStageOrderListView, self).dispatch(
+            *args, **kwargs)
 
     def get_queryset(self):
         return LineFollowerStage.objects.filter(orders_available=True)
@@ -78,3 +48,34 @@ class LineFollowerRaceOrderListView(ListView):
     def get_queryset(self):
         return LineFollowerRaceOrder.objects.filter(
             stage__order=self.kwargs.get("order"))
+
+
+class RaceOrderListView(ListView):
+    model = RaceOrder
+    template_name = 'orders/race_order_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        category = self.kwargs.get('slug')
+        if not category in dict(settings.ALL_CATEGORIES).keys():
+            raise Http404
+        if not settings.PROJECT_ORDERS or \
+           not category in dict(settings.ORDER_CATEGORIES).keys():
+            raise PermissionDenied
+
+        if category == 'line_follower':
+            return HttpResponseRedirect(
+                reverse('line_follower_stage_order_list'))
+        elif category == 'micro_sumo':
+            return Http404
+
+        return super(RaceOrderListView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(RaceOrderListView, self).get_context_data(**kwargs)
+        context['category'] = dict(
+            settings.ALL_CATEGORIES)[self.kwargs.get('slug')]
+        return context
+
+    def get_queryset(self):
+        return RaceOrder.objects.filter(
+            project__category=self.kwargs.get('slug'))

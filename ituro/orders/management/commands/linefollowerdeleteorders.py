@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
-from orders.models import RaceOrder
+from orders.models import RaceOrder, LineFollowerRaceOrder
 
 
 class Command(BaseCommand):
@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            day = args[0]
+            day = int(args[0])
         except IndexError:
             raise CommandError('Please specify a day.')
 

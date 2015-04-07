@@ -13,8 +13,6 @@ class BaseResult(models.Model):
     seconds = models.PositiveSmallIntegerField(verbose_name=_("Seconds"))
     miliseconds = models.PositiveSmallIntegerField(
         verbose_name=_("Miliseconds"))
-    is_attended = models.BooleanField(
-        verbose_name=_('Is attended the race?'), default=False)
     disqualification = models.BooleanField(
         verbose_name=_('Disqualification'), default=False)
     is_best = models.BooleanField(
@@ -40,12 +38,12 @@ class LineFollowerResult(BaseResult):
     stage = models.ForeignKey(
         LineFollowerStage, verbose_name=_("Line Follower Stage"))
     runway_out = models.PositiveSmallIntegerField(
-        verbose_name=_("Runway Out Count"))
+        verbose_name=_("Runway Out Count"), default=0)
 
     class Meta:
         verbose_name = _("Line Follower Result")
         verbose_name_plural = _("Line Follower Results")
-        ordering = ['score']
+        ordering = ['disqualification', 'score']
 
     def __str__(self):
         return self.project.name
@@ -53,7 +51,7 @@ class LineFollowerResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=LineFollowerResult)
 def line_follower_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = self.duration * (1 + 0.2 * self.runway_out)
+    instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
 
 
 @python_2_unicode_compatible
@@ -70,7 +68,8 @@ class FireFighterResult(BaseResult):
     class Meta:
         verbose_name = _("Fire Fighter Result")
         verbose_name_plural = _("Fire Fighter Results")
-        ordering = ["-score", "minutes", "seconds", "miliseconds"]
+        ordering = [
+            "disqualification", "-score", "minutes", "seconds", "miliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -78,10 +77,10 @@ class FireFighterResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=FireFighterResult)
 def fire_fighter_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum(
+    instance.score = sum((
         instance.extinguish_success * 100,
         instance.extinguish_failure * (-50),
-        instance.wall_hit * (-15))
+        instance.wall_hit * (-15)))
 
 
 @python_2_unicode_compatible
@@ -98,7 +97,8 @@ class BasketballResult(BaseResult):
     class Meta:
         verbose_name = _("Basketball Result")
         verbose_name_plural = _("Basketball Results")
-        ordering = ["-score", "total", "minutes", "seconds", "miliseconds"]
+        ordering = [
+            "disqualification", "-score", "total", "minutes", "seconds", "miliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -129,7 +129,8 @@ class StairClimbingResult(BaseResult):
     class Meta:
         verbose_name = _("Stair Climbing Result")
         verbose_name_plural = _("Stair Climbing Results")
-        ordering = ["-score", "minutes", "seconds", "miliseconds"]
+        ordering = [
+            "disqualification", "-score", "minutes", "seconds", "miliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -151,7 +152,7 @@ class MazeResult(BaseResult):
     class Meta:
         verbose_name = _("Maze Result")
         verbose_name_plural = _("Maze Results")
-        ordering = ["minutes", "seconds", "miliseconds"]
+        ordering = ["disqualification", "minutes", "seconds", "miliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -173,7 +174,8 @@ class ColorSelectingResult(BaseResult):
     class Meta:
         verbose_name = _("Color Selecting Result")
         verbose_name_plural = _("Color Selecting Results")
-        ordering = ['-score', 'minutes', 'seconds', 'miliseconds']
+        ordering = [
+            "disqualification", "-score", "minutes", "seconds", "miliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -206,8 +208,9 @@ class SelfBalancingResult(BaseResult):
         verbose_name = _("Self Balancing Result")
         verbose_name_plural = _("Self Balancing Results")
         ordering = [
-            "-score", "-seconds", "-miliseconds", "-headway_amount",
-            "headway_minutes", "headway_seconds", "headway_miliseconds"]
+            "disqualification", "-score", "-seconds", "-miliseconds",
+            "-headway_amount", "headway_minutes", "headway_seconds",
+            "headway_miliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -227,7 +230,7 @@ class ScenarioResult(BaseResult):
     class Meta:
         verbose_name = _("Scenario Result")
         verbose_name_plural = _("Scenario Results")
-        ordering = ["-score"]
+        ordering = ["disqualification", "-score"]
 
     def __str__(self):
         return self.project.name
@@ -241,7 +244,7 @@ class InnovativeResult(BaseResult):
     class Meta:
         verbose_name = _("Innovative Result")
         verbose_name_plural = _("Innovative Results")
-        ordering = ["-score"]
+        ordering = ["disqualification", "-score"]
 
     def __str__(self):
         return self.project.name

@@ -35,6 +35,16 @@
             </ul>
           </li>
           {% endif %}
+          {% if PROJECT_RESULTS %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% trans "Results" %} <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              {% for category, category_display in RESULT_CATEGORIES %}
+              <li><a href="{% url "result_list" category %}">{{ category_display }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}

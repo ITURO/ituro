@@ -44,23 +44,24 @@ class Command(BaseCommand):
             next_stage = LineFollowerStage.objects.get(order=2)
             prev_stage_results = LineFollowerResult.objects.filter(
                 stage=prev_stage)
-            next_stage_robot_count = ceil(prev_stage_results * 0.6)
+            next_stage_robot_count = ceil(prev_stage_results.count() * 0.6)
             next_stage_robot_ids = prev_stage_results.values_list(
-                'project.id', flat=True)[:next_stage_robots_count]
-            next_stage_manager_ids = Membership.objects.filter(
+                'project_id', flat=True)[:next_stage_robot_count]
+            next_stage_manager_ids = list(set(Membership.objects.filter(
                 project__id__in=next_stage_robot_ids,
-                is_manager=True).values_list('member.id', flat=True)
-            shuffle(manager_ids)
+                is_manager=True).values_list('member_id', flat=True)))
+            shuffle(next_stage_manager_ids)
 
             count = 1
-            for manager_id in manager_ids:
+            for manager_id in next_stage_manager_ids:
                 projects = Membership.objects.filter(
                     member__id=manager_id, is_manager=True,
-                    project__id__in=next_stage_robot_ids).values_list(
-                        'project.id', flat=True)
+                    project__id__in=next_stage_robot_ids,
+                    project__linefollowerresult__stage=prev_stage,
+                    project__linefollowerresult__disqualification=False)
                 for p in projects:
                     LineFollowerRaceOrder.objects.create(
-                        project_id=robot_p, stage=next_stage, order=count)
+                        project=p.project, stage=next_stage, order=count)
                     count += 1
         elif day == 3:
             prev_stage = LineFollowerStage.objects.get(order=2)
@@ -69,22 +70,23 @@ class Command(BaseCommand):
                 stage=prev_stage)
             next_stage_robot_count = 10
             next_stage_robot_ids = prev_stage_results.values_list(
-                'project.id', flat=True)[:next_stage_robots_count]
-            next_stage_manager_ids = Membership.objects.filter(
+                'project_id', flat=True)[:next_stage_robot_count]
+            next_stage_manager_ids = list(set(Membership.objects.filter(
                 project__id__in=next_stage_robot_ids,
-                is_manager=True).values_list('member.id', flat=True)
-            shuffle(manager_ids)
+                is_manager=True).values_list('member_id', flat=True)))
+            shuffle(next_stage_manager_ids)
 
             count = 1
-            for manager_id in manager_ids:
+            for manager_id in next_stage_manager_ids:
                 projects = Membership.objects.filter(
                     member__id=manager_id, is_manager=True,
-                    project__id__in=next_stage_robot_ids).values_list(
-                        'project.id', flat=True)
+                    project__id__in=next_stage_robot_ids,
+                    project__linefollowerresult__stage=prev_stage,
+                    project__linefollowerresult__disqualification=False)
                 for p in projects:
                     LineFollowerRaceOrder.objects.create(
-                        project_id=robot_p, stage=next_stage, order=count)
+                        project=p.project, stage=next_stage, order=count)
                     count += 1
 
         self.stdout.write(
-            'Line follower race orders generated for %s .' % day)
+            'Line follower race orders generated for day #%s.' % day)

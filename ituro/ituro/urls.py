@@ -13,6 +13,7 @@ urlpatterns = patterns(
     url(r'^accounts/', include('accounts.urls')),
     url(r'^orders/', include('orders.urls')),
     url(r'^projects/', include('projects.urls')),
+    url(r'^results/', include('results.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^captcha/', include('captcha.urls')),
 )

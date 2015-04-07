@@ -8,8 +8,8 @@ from results.models import LineFollowerResult, FireFighterResult, \
 class BaseResultAdmin(admin.ModelAdmin):
     list_display = (
         "project", "score", "minutes", "seconds", "miliseconds",
-        "is_attended", "disqualification", "is_best")
-    list_filter = ("is_attended", "disqualification", "is_best")
+        "disqualification", "is_best")
+    list_filter = ("disqualification", "is_best")
 
 
 admin.site.register(LineFollowerResult, BaseResultAdmin)

@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('order', models.PositiveSmallIntegerField(verbose_name='Race Order')),
-                ('project', models.ForeignKey(verbose_name='Project', to='projects.Project')),
+                ('project', models.OneToOneField(verbose_name='Project', to='projects.Project')),
             ],
             options={
                 'ordering': ['order'],
@@ -61,5 +61,9 @@ class Migration(migrations.Migration):
             name='stage',
             field=models.ForeignKey(verbose_name='Line Follower Stage', to='orders.LineFollowerStage'),
             preserve_default=True,
+        ),
+        migrations.AlterUniqueTogether(
+            name='linefollowerraceorder',
+            unique_together=set([('project', 'stage')]),
         ),
     ]

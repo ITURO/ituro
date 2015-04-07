@@ -21,13 +21,12 @@ class LineFollowerStage(models.Model):
         verbose_name_plural = _("Line Follower Stages")
         ordering = ["order"]
 
-
     def __str__(self):
         return "Stage #{}".format(self.order)
 
+
 @python_2_unicode_compatible
 class BaseOrder(models.Model):
-    project = models.ForeignKey(Project, verbose_name=_("Project"))
     order = models.PositiveSmallIntegerField(verbose_name=_("Race Order"))
 
     class Meta:
@@ -40,14 +39,18 @@ class BaseOrder(models.Model):
 class LineFollowerRaceOrder(BaseOrder):
     stage = models.ForeignKey(
         LineFollowerStage, verbose_name=_("Line Follower Stage"))
+    project = models.ForeignKey(Project, verbose_name=_("Project"))
 
     class Meta:
         verbose_name = _("Line Follower Race Order")
         verbose_name_plural = _("Line Follower Race Orders")
         ordering = ["order"]
+        unique_together = (("project", "stage"),)
 
 
 class RaceOrder(BaseOrder):
+    project = models.OneToOneField(Project, verbose_name=_("Project"))
+
     class Meta:
         verbose_name = _("Race Order")
         verbose_name_plural = _("Race Orders")

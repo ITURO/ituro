@@ -7,7 +7,7 @@
 {% else %}
 {% blocktrans with order=stage.order|ordinal %}Line Follower {{ order }} Stage{% endblocktrans %}
 {% endif %}
-{% trans "Race Orders" %} - {% endblock %}
+{% trans "Results" %} - {% endblock %}
 
 {% block content %}
 <div class="page-header">
@@ -17,21 +17,23 @@
     {% else %}
     {% blocktrans with order=stage.order|ordinal %}Line Follower {{ order }} Stage{% endblocktrans %}
     {% endif %}
-    {% trans "Race Orders" %}
+    {% trans "Results" %}
   </h1>
 </div>
 
-<table class="table table-bordered">
+<table class="table table-striped">
   <thead>
     <tr>
-      <td class="col-lg-2"><strong>{% trans "Race Order" %}</strong></td>
-      <td class="col-lg-10"><strong>{% trans "Robot Name" %}</strong></td>
+      <td>{% trans "Ranking" %}</td>
+      <td>{% trans "Robot Name" %}</td>
+      <td>{% trans "Score" %}</td>
     </tr>
   </thead>
-  {% for order in object_list %}
+  {% for result in object_list %}
   <tr>
-    <td class="col-lg-2">{{ order.order }}</td>
-    <td class="col-lg-10">{{ order.project }}</td>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ result.project }}</td>
+    <td>{{ result.score }}</td>
   </tr>
   {% endfor %}
 </table>
