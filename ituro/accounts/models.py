@@ -63,5 +63,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def has_group(self, group):
+        return self.groups.filter(name=group).exists()
+
     def __str__(self):
         return self.email

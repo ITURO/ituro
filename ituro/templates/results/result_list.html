@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}
+{% if not stage %}
+{{ category }}
+{% else %}
+{% blocktrans with order=stage.order|ordinal %}Line Follower {{ order }} Stage{% endblocktrans %}
+{% endif %}
+{% trans "Results" %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>
+    {% if not stage %}
+    {{ category }}
+    {% else %}
+    {% blocktrans with order=stage.order|ordinal %}Line Follower {{ order }} Stage{% endblocktrans %}
+    {% endif %}
+    {% trans "Results" %}
+  </h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>{% trans "Ranking" %}</td>
+      <td>{% trans "Robot Name" %}</td>
+      <td>{% trans "Score" %}</td>
+    </tr>
+  </thead>
+  {% for result in object_list %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ result.project }}</td>
+    <td>{{ result.score }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

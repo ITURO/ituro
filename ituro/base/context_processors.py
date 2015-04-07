@@ -18,5 +18,6 @@ def permissions(request):
         "PROJECT_CREATE": settings.PROJECT_CREATE,
         "PROJECT_UPDATE": settings.PROJECT_UPDATE,
         "PROJECT_CONFIRM": settings.PROJECT_CONFIRM,
+        "PROJECT_ORDERS": settings.PROJECT_ORDERS,
         "PROJECT_RESULTS": settings.PROJECT_RESULTS,
     }
