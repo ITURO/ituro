@@ -34,13 +34,6 @@ class LCDResultListView(TemplateView):
         if not self.request.user.has_group("lcd"):
             raise PermissionDenied
 
-        category = self.kwargs.get('slug')
-        if not category in dict(settings.ALL_CATEGORIES).keys():
-            raise Http404
-        if not settings.PROJECT_RESULTS or \
-           not category in dict(settings.RESULT_CATEGORIES).keys():
-            raise PermissionDenied
-
         if category == 'line_follower':
             return HttpResponseRedirect(
                 reverse('line_follower_stage_result_list'))
@@ -77,10 +70,6 @@ class LCDLineFollowerStageResultListView(TemplateView):
         if not self.request.user.has_group("lcd"):
             raise PermissionDenied
 
-        if not settings.PROJECT_ORDERS or \
-           not "line_follower" in dict(settings.RESULT_CATEGORIES).keys() or \
-           not LineFollowerStage.objects.filter(results_available=True).exists():
-            raise PermissionDenied
         return super(LCDLineFollowerStageResultListView, self).dispatch(
             *args, **kwargs)
 
@@ -97,10 +86,6 @@ class LCDLineFollowerResultListView(TemplateView):
         if not self.request.user.has_group("lcd"):
             raise PermissionDenied
 
-        order = self.kwargs.get("order")
-        if not LineFollowerStage.objects.filter(
-                order=order, results_available=True).exists():
-            raise PermissionDenied
         return super(LCDLineFollowerResultListView, self).dispatch(
             *args, **kwargs)
 
