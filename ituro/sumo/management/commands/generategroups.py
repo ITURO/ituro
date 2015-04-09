@@ -46,7 +46,7 @@ class Command(BaseCommand):
         for school in school_list:
             for m in Membership.objects.filter(
                     is_manager=True, project__category="micro_sumo",
-                    member__school=school):
+                    member__school=school, project__is_confirmed=True):
                 if len(active_groups) == 0:
                     active_groups = passive_groups[:]
                     shuffle(active_groups)
