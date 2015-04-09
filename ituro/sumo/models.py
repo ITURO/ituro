@@ -68,7 +68,6 @@ class SumoGroupMatch(SumoMatch):
         ordering = ["group__order", "order"]
 
 
-@python_2_unicode_compatible
 class SumoStage(models.Model):
     order = models.PositiveSmallIntegerField(verbose_name=_("Order"))
 
