@@ -36,6 +36,7 @@ class SumoGroup(models.Model):
         return "Group #{}".format(self.order)
 
 
+@python_2_unicode_compatible
 class SumoGroupTeam(models.Model):
     group = models.ForeignKey(SumoGroup, verbose_name=_("Sumo Group"))
     robot = models.ForeignKey(Project, verbose_name=_("Sumo Robot"))
@@ -67,6 +68,7 @@ class SumoGroupMatch(SumoMatch):
         ordering = ["group__order", "order"]
 
 
+@python_2_unicode_compatible
 class SumoStage(models.Model):
     order = models.PositiveSmallIntegerField(verbose_name=_("Order"))
 
