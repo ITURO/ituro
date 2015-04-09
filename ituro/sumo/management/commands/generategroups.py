@@ -55,7 +55,6 @@ class Command(BaseCommand):
                 passive_groups.append(current_group)
                 SumoGroupTeam.objects.create(
                     group=current_group, robot=m.project)
-
         self.stdout.write('Sumo groups generated.')
 
         for group in SumoGroup.objects.all():
@@ -63,7 +62,7 @@ class Command(BaseCommand):
             teams = SumoGroupTeam.objects.filter(group=group)
             team_list = list(teams)
             count = len(team_list)
-            for j in range(f(count) / f(2) / f(count-2)):
+            for j in range(f(count) / f(2) / f(count-2) / 2):
                 for i in range(0, len(team_list) / 2):
                     SumoGroupMatch.objects.create(
                         home=team_list[i].robot,
@@ -72,5 +71,4 @@ class Command(BaseCommand):
                     order += 1
                 hold = team_list.pop()
                 team_list.insert(1, hold)
-
         self.stdout.write("Fixtures generated.")
