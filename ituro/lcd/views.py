@@ -31,9 +31,7 @@ class LCDResultListView(TemplateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.has_group("lcd"):
-            raise PermissionDenied
-
+        category = self.kwargs.get("slug")
         if category == 'line_follower':
             return HttpResponseRedirect(
                 reverse('lcd_line_follower_stage_result_list'))
@@ -67,9 +65,6 @@ class LCDLineFollowerStageResultListView(TemplateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.has_group("lcd"):
-            raise PermissionDenied
-
         return super(LCDLineFollowerStageResultListView, self).dispatch(
             *args, **kwargs)
 
@@ -83,9 +78,6 @@ class LCDLineFollowerResultListView(TemplateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.has_group("lcd"):
-            raise PermissionDenied
-
         return super(LCDLineFollowerResultListView, self).dispatch(
             *args, **kwargs)
 

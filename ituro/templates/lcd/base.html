@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}{% trans "ITU Robot Olympics 2015" %}</title>
+    <link href="{% static "outsource/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "outsource/css/bootstrap-theme.min.css" %}" rel="stylesheet">
+    <link href="{% static "project/css/style.css" %}" rel="stylesheet">
+    {% block extrahead %}{% endblock %}
+  </head>
+
+  <body>
+    <img src="{% static "project/img/lcd_banner.png" %}" class="img-responsive">
+    <div id="content" class="container">
+      {% block content %}{% endblock %}
+    </div>
+    <script src="{% static "outsource/js/jquery.min.js" %}"></script>
+    <script src="{% static "outsource/js/bootstrap.min.js" %}"></script>
+    {% block extrascripts %}{% endblock %}
+  </body>
+</html>

@@ -80,8 +80,7 @@ class BaseResultCreateView(CreateView):
         result.project = Project.objects.get(pk=self.kwargs.get("pid"))
         result.save()
 
-        messages.success(self.request, _(
-            "Result entry for {} robot created.".format(result.project.name)))
+        messages.success(self.request, _("Result entry created."))
         return super(BaseResultCreateView, self).form_valid(form)
 
     def get_success_url(self):
