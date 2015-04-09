@@ -11,12 +11,13 @@ class BaseResult(models.Model):
     score = models.FloatField(verbose_name=_('Score'), blank=True)
     minutes = models.PositiveSmallIntegerField(verbose_name=_("Minutes"))
     seconds = models.PositiveSmallIntegerField(verbose_name=_("Seconds"))
-    miliseconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Miliseconds"))
+    milliseconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Milliseconds"))
     disqualification = models.BooleanField(
         verbose_name=_('Disqualification'), default=False)
     is_best = models.BooleanField(
         verbose_name=_("Is best result?"), default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True
@@ -69,7 +70,7 @@ class FireFighterResult(BaseResult):
         verbose_name = _("Fire Fighter Result")
         verbose_name_plural = _("Fire Fighter Results")
         ordering = [
-            "disqualification", "-score", "minutes", "seconds", "miliseconds"]
+            "disqualification", "-score", "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -98,7 +99,7 @@ class BasketballResult(BaseResult):
         verbose_name = _("Basketball Result")
         verbose_name_plural = _("Basketball Results")
         ordering = [
-            "disqualification", "-score", "total", "minutes", "seconds", "miliseconds"]
+            "disqualification", "-score", "total", "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -130,7 +131,7 @@ class StairClimbingResult(BaseResult):
         verbose_name = _("Stair Climbing Result")
         verbose_name_plural = _("Stair Climbing Results")
         ordering = [
-            "disqualification", "-score", "minutes", "seconds", "miliseconds"]
+            "disqualification", "-score", "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -152,7 +153,7 @@ class MazeResult(BaseResult):
     class Meta:
         verbose_name = _("Maze Result")
         verbose_name_plural = _("Maze Results")
-        ordering = ["disqualification", "minutes", "seconds", "miliseconds"]
+        ordering = ["disqualification", "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -175,7 +176,7 @@ class ColorSelectingResult(BaseResult):
         verbose_name = _("Color Selecting Result")
         verbose_name_plural = _("Color Selecting Results")
         ordering = [
-            "disqualification", "-score", "minutes", "seconds", "miliseconds"]
+            "disqualification", "-score", "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -201,16 +202,16 @@ class SelfBalancingResult(BaseResult):
         verbose_name=_("Headway Minutes"))
     headway_seconds = models.PositiveSmallIntegerField(
         verbose_name=_("Headway Seconds"))
-    headway_miliseconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Miliseconds"))
+    headway_milliseconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Headway Milliseconds"))
 
     class Meta:
         verbose_name = _("Self Balancing Result")
         verbose_name_plural = _("Self Balancing Results")
         ordering = [
-            "disqualification", "-score", "-seconds", "-miliseconds",
+            "disqualification", "-score", "-seconds", "-milliseconds",
             "-headway_amount", "headway_minutes", "headway_seconds",
-            "headway_miliseconds"]
+            "headway_milliseconds"]
 
     def __str__(self):
         return self.project.name

@@ -8,7 +8,7 @@ urlpatterns = patterns(
     url(r'^line_follower/$',
         LineFollowerStageResultListView.as_view(),
         name='line_follower_stage_result_list'),
-    url(r'^line_follower/(?P<order>\d+)$',
+    url(r'^line_follower/(?P<order>\d+)/$',
         LineFollowerResultListView.as_view(),
         name='line_follower_result_list'),
     url(r'^(?P<slug>[-_\w]+)/$',

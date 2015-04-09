@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'base',
     'orders',
     'projects',
+    'referee',
     'results',
 )
 

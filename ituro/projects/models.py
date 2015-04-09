@@ -39,6 +39,24 @@ class Project(models.Model):
     def get_presentation_file_name(self):
         return self.presentation.name.split('/')[-1]
 
+    @property
+    def results(self):
+        RESULTS_DICT = {
+            "line_follower": self.linefollowerresult_set,
+            "fire_fighter": self.firefighterresult_set,
+            "basketball": self.basketballresult_set,
+            "stair_climbing": self.stairclimbingresult_set,
+            "maze": self.mazeresult_set,
+            "color_selecting": self.colorselectingresult_set,
+            "self_balancing": self.selfbalancingresult_set,
+            "scenario": self.scenarioresult_set,
+            "innovative": self.innovativeresult_set,
+        }
+        return RESULTS_DICT[self.category]
+
+    def get_results_count(self):
+        return self.results.count()
+
 
 @python_2_unicode_compatible
 class Membership(models.Model):

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n static bootstrap3 %}
+
+{% block title %}{% trans "Update" %} {{ project.name }} &lt;{{ project.get_category_display }}&gt; - {% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Create Result" %} <small>{{ project.name }}&lt;{{ project.get_category_display }}&gt;</small></h1>
+</div>
+
+{% bootstrap_messages %}
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">
+    {% trans "Create Result" %}
+  </button>
+  {% endbuttons %}
+</form>
+{% endblock %}

@@ -7,7 +7,7 @@ from results.models import LineFollowerResult, FireFighterResult, \
 
 class BaseResultAdmin(admin.ModelAdmin):
     list_display = (
-        "project", "score", "minutes", "seconds", "miliseconds",
+        "project", "score", "minutes", "seconds", "milliseconds",
         "disqualification", "is_best")
     list_filter = ("disqualification", "is_best")
 

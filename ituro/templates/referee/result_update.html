@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n static bootstrap3 %}
+
+{% block title %}{% trans "Update Result" %} {{ object.project.name }}&lt;{{ object.project.category }}&gt; #{{ object.pk }} ({{ object.score }})- {% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Update Result" %} <small>{{ object.project.name }}&lt;{{ object.project.get_category_display }}&gt; #{{ object.pk }} ({{ object.score }})</small></h1>
+</div>
+
+{% bootstrap_messages %}
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">
+    {% trans "Create Result" %}
+  </button>
+  {% endbuttons %}
+</form>
+{% endblock %}

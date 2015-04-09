@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}{% trans "Referee Dashboard" %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Referee Dashboard" %}</h1>
+</div>
+
+{% bootstrap_messages %}
+{% for category_slug, category_display in categories %}
+<h3>
+  <a href="{% url "category_robot_list" category_slug %}">{{ category_display }}</a>
+</h3>
+{% endfor %}
+{% endblock %}
