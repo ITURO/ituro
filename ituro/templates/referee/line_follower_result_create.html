@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load i18n static bootstrap3 %}
 
-{% block title %}{% trans "Create Result" %} - {% endblock %}
+{% block title %}{% trans "Create Result" %} {{ project.name }} &lt;{{ project.get_category_display }}#{{ stage.order  }}&gt; - {% endblock %}
 {% block content %}
 <div class="page-header">
-  <h1>{% trans "Create Project" %}</h1>
+  <h1>{% trans "Create Result" %} <small>{{ project.name }}&lt;{{ project.get_category_display }}#{{ stage.order }}&gt;</small></h1>
 </div>
 
 {% bootstrap_messages %}

@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% for result in results %}
+{% with "line_follower_result_update" as update_url %}
+<li role="presentation">
+  <a role="menuitem" tabindex="-1" href="{% url update_url result.stage.order result.project.pk result.pk %}"><span class="glyphicon glyphicon-pencil"></span> {% trans "Update Result" %} <i>#{{ result.pk }} ({{ result.score }})</i></a>
+</li>
+{% endwith %}
+{% endfor %}
+
+{% for result in results %}
+{% with "line_follower_result_delete" as delete_url %}
+<li role="presentation">
+  <a role="menuitem" tabindex="-1" href="{% url delete_url result.stage.order result.project.pk result.pk %}"><span class="glyphicon glyphicon-minus"></span> {% trans "Delete Result" %} <i>#{{ result.pk }} ({{ result.score }})</i></a>
+</li>
+{% endwith %}
+{% endfor %}

@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from projects.models import Project
-from orders.models import LineFollowerStage, RaceOrder
+from orders.models import LineFollowerStage, LineFollowerRaceOrder, RaceOrder
 from results.models import LineFollowerResult, FireFighterResult, \
     BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
     SelfBalancingResult, ScenarioResult, InnovativeResult
@@ -19,7 +19,13 @@ from results.models import LineFollowerResult, FireFighterResult, \
 
 __all__ = [
     "RefereeHomeView",
+    "RefereeLineFollowerStageListView",
+    "LineFollowerRobotListView",
+    "LineFollowerResultCreateView",
+    "LineFollowerResultUpdateView",
+    "LineFollowerResultDeleteView",
     "CategoryRobotListView",
+    "RefereeLineFollowerStageListView",
     "FireFighterResultCreateView",
     "FireFighterResultUpdateView",
     "FireFighterResultDeleteView",
@@ -47,46 +53,6 @@ __all__ = [
 ]
 
 
-class RefereeHomeView(TemplateView):
-    template_name = "referee/home.html"
-
-    def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_superuser and \
-           not self.request.user.has_group("referee"):
-            raise PermissionDenied
-        return super(RefereeHomeView, self).dispatch(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(RefereeHomeView, self).get_context_data(**kwargs)
-        context["categories"] = settings.ORDER_CATEGORIES
-        return context
-
-
-class CategoryRobotListView(ListView):
-    model = RaceOrder
-    template_name = "referee/order_list.html"
-
-    def dispatch(self, *args, **kwargs):
-        category = self.kwargs.get("category")
-        if not category in dict(settings.ALL_CATEGORIES).keys():
-            raise Http404
-        if not self.request.user.is_superuser and \
-           not self.request.user.has_group("referee"):
-            raise PermissionDenied
-        return super(CategoryRobotListView, self).dispatch(*args, **kwargs)
-
-    def get_queryset(self):
-        return RaceOrder.objects.filter(
-            project__category=self.kwargs.get("category"))
-
-    def get_context_data(self, **kwargs):
-        context = super(CategoryRobotListView, self).get_context_data(**kwargs)
-        context["category"] = self.kwargs.get("category")
-        context["category_display"] = dict(
-            settings.ALL_CATEGORIES)[self.kwargs.get("category")]
-        return context
-
-
 class BaseResultCreateView(CreateView):
     category = None
     fields = ["minutes", "seconds", "milliseconds", "disqualification"]
@@ -97,20 +63,20 @@ class BaseResultCreateView(CreateView):
         if not self.request.user.is_superuser and \
            not self.request.user.has_group("referee"):
             raise PermissionDenied
-        if not Project.objects.filter(
-               category=self.category, pk=self.kwargs.get("pk")).exists:
+        if not RaceOrder.objects.filter(
+                project__category=self.category,
+                project__pk=self.kwargs.get("pid")).exists():
             raise Http404
         return super(BaseResultCreateView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(BaseResultCreateView, self).get_context_data(**kwargs)
-        context["action"] = "create"
-        context["project"] = Project.objects.get(pk=self.kwargs.get("pk"))
+        context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
         return context
 
     def form_valid(self, form):
         result = form.save(commit=False)
-        result.project = Project.objects.get(pk=self.kwargs.get("pk"))
+        result.project = Project.objects.get(pk=self.kwargs.get("pid"))
         result.save()
 
         messages.success(self.request, _(
@@ -136,9 +102,10 @@ class BaseResultUpdateView(UpdateView):
 
     def get_object(self):
         queryset = self.get_queryset()
-        project_pk = self.kwargs.get("project_pk")
-        result_pk = self.kwargs.get("result_pk")
-        queryset = queryset.filter(project__pk=project_pk, pk=result_pk)
+        project_pk = self.kwargs.get("pid")
+        result_pk = self.kwargs.get("rid")
+        queryset = queryset.filter(
+            project__pk=project_pk, pk=result_pk, is_confirmed=True)
 
         try:
             obj = queryset.get()
@@ -146,11 +113,6 @@ class BaseResultUpdateView(UpdateView):
             raise Http404
 
         return obj
-
-    def get_context_data(self, **kwargs):
-        context = super(BaseResultUpdateView, self).get_context_data(**kwargs)
-        context["action"] = "update"
-        return context
 
     def form_valid(self, form):
         result = form.save(commit=True)
@@ -176,8 +138,8 @@ class BaseResultDeleteView(DeleteView):
 
     def get_object(self):
         queryset = self.get_queryset()
-        project_pk = self.kwargs.get("project_pk")
-        result_pk = self.kwargs.get("result_pk")
+        project_pk = self.kwargs.get("pid")
+        result_pk = self.kwargs.get("rid")
         queryset = queryset.filter(project__pk=project_pk, pk=result_pk)
 
         try:
@@ -187,11 +149,6 @@ class BaseResultDeleteView(DeleteView):
 
         return obj
 
-    def get_context_data(self, **kwargs):
-        context = super(BaseResultDeleteView, self).get_context_data(**kwargs)
-        context["action"] = "delete"
-        return context
-
     def delete(self, request, *args, **kwargs):
         messages.info(request, _("Result entry deleted."))
         return super(
@@ -199,6 +156,201 @@ class BaseResultDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("category_robot_list", args=[self.category])
+
+
+class RefereeHomeView(TemplateView):
+    template_name = "referee/home.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(RefereeHomeView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(RefereeHomeView, self).get_context_data(**kwargs)
+        context["categories"] = settings.ORDER_CATEGORIES
+        return context
+
+
+class RefereeLineFollowerStageListView(ListView):
+    model = LineFollowerStage
+    template_name = "referee/line_follower_stage_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(RefereeLineFollowerStageListView, self).dispatch(
+            *args, **kwargs)
+
+
+class LineFollowerRobotListView(ListView):
+    model = LineFollowerRaceOrder
+    template_name = "referee/line_follower_order_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        order = self.kwargs.get("order")
+        if not LineFollowerStage.objects.filter(order=order).exists():
+            raise Http404
+
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(LineFollowerRobotListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return LineFollowerRaceOrder.objects.filter(
+            stage__order=self.kwargs.get("order"))
+
+
+class LineFollowerResultCreateView(CreateView):
+    model = LineFollowerResult
+    category = "line_follower"
+    template_name = "referee/line_follower_result_create.html"
+    fields = BaseResultCreateView.fields + ["runway_out"]
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        if not LineFollowerRaceOrder.objects.filter(
+                stage__order=self.kwargs.get("order"),
+                project__pk=self.kwargs.get("pid")).exists():
+            raise Http404
+
+        return super(LineFollowerResultCreateView, self).dispatch(
+            *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(LineFollowerResultCreateView, self).get_context_data(
+            **kwargs)
+        context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
+        context["stage"] = LineFollowerStage.objects.get()
+        return context
+
+    def form_valid(self, form):
+        result = form.save(commit=False)
+        result.project = Project.objects.get(pk=self.kwargs.get("pid"))
+        result.stage = LineFollowerStage.objects.get(pk=self.kwargs["order"])
+        result.save()
+
+        messages.success(self.request, _(
+            "Result entry for {} (Stage #{}) robot created.".format(
+                result.project.name, result.stage.order)))
+        return super(LineFollowerResultCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse(
+            "line_follower_robot_list", args=[self.kwargs.get("order")])
+
+
+class LineFollowerResultUpdateView(UpdateView):
+    model = LineFollowerResult
+    category = "line_follower"
+    template_name = "referee/line_follower_result_update.html"
+    fields = LineFollowerResultCreateView.fields
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(LineFollowerResultUpdateView, self).dispatch(
+            *args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        pid = self.kwargs.get("pid")
+        rid = self.kwargs.get("rid")
+        sid = self.kwargs.get("order")
+        queryset = queryset.filter(stage__order=sid, project__pk=pid, pk=rid)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def form_valid(self, form):
+        result = form.save(commit=True)
+        messages.success(self.request, _(
+            "Result entry for {} #{} updated.".format(
+                result.project.name, result.stage.order)))
+        return super(LineFollowerResultUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("line_follower_robot_list", args=[
+            self.kwargs.get("order")])
+
+
+class LineFollowerResultDeleteView(DeleteView):
+    model = LineFollowerResult
+    template_name = "referee/line_follower_result_delete.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(LineFollowerResultDeleteView, self).dispatch(
+            *args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        pid = self.kwargs.get("pid")
+        rid = self.kwargs.get("rid")
+        sid = self.kwargs.get("order")
+        queryset = queryset.filter(stage__order=sid, project__pk=pid, pk=rid)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def delete(self, request, *args, **kwargs):
+        messages.info(request, _("Result entry deleted."))
+        return super(LineFollowerResultDeleteView,
+                     self).delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("line_follower_robot_list", args=[
+            self.kwargs.get("order")])
+
+
+class CategoryRobotListView(ListView):
+    model = RaceOrder
+    template_name = "referee/order_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        category = self.kwargs.get("category")
+        if not category in dict(settings.ALL_CATEGORIES).keys():
+            raise Http404
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(CategoryRobotListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return RaceOrder.objects.filter(
+            project__category=self.kwargs.get("category"))
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryRobotListView, self).get_context_data(**kwargs)
+        context["category"] = self.kwargs.get("category")
+        context["category_display"] = dict(
+            settings.ALL_CATEGORIES)[self.kwargs.get("category")]
+        return context
 
 
 class FireFighterResultCreateView(BaseResultCreateView):

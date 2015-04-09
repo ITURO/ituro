@@ -24,12 +24,12 @@ class BaseResult(models.Model):
 
     @property
     def duration(self):
-        return self.minutes * 60 + self.seconds + self.miliseconds * 0.01
+        return self.minutes * 60 + self.seconds + self.milliseconds * 0.01
 
     @property
     def duration_pretty(self):
-        return "{} minutes, {} seconds, {} miliseconds".format(
-            self.minutes, self.seconds, self.miliseconds)
+        return "{} minutes, {} seconds, {} milliseconds".format(
+            self.minutes, self.seconds, self.milliseconds)
 
 
 @python_2_unicode_compatible

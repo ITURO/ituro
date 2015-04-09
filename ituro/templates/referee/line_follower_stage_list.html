@@ -11,7 +11,7 @@
 {% bootstrap_messages %}
 {% for stage in object_list %}
 <h2>
-  <a href="{% url "referee_line_follower_race_order_list" stage.order %}">
+  <a href="{% url "line_follower_robot_list" stage.order %}">
     {% trans "Line Follower" %}
     {% if not stage.is_final %}
     {{ stage.order|ordinal }} {% trans "Stage" %}

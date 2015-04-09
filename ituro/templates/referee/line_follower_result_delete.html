@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load i18n bootstrap3 %}
 
-{% block title %}{% trans "Delete Result" %} {{ object.project.name }}&lt;{{ object.project.category }}&gt; #{{ object.pk }} ({{ object.score }})- {% endblock %}
+{% block title %}{% trans "Delete Result" %} {{ object.project.name }}&lt;{{ object.project.category }}#{{ stage.order }}&gt; #{{ object.pk }} ({{ object.score }})- {% endblock %}
 {% block content %}
 <div class="page-header">
-  <h1>{% trans "Delete Result" %} <small>{{ object.project.name }}&lt;{{ object.project.category }}&gt; #{{ object.pk }} ({{ object.score }})</small></h1>
+  <h1>{% trans "Delete Result" %} <small>{{ object.project.name }}&lt;{{ object.project.category }}#{{ stage.order }}&gt; #{{ object.pk }} ({{ object.score }})</small></h1>
 </div>
 
 {% bootstrap_messages %}
