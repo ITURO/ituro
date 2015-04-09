@@ -30,9 +30,6 @@ class LCDResultListView(TemplateView):
     template_name = 'lcd/result_list.html'
 
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.has_group("lcd"):
-            raise PermissionDenied
-
         category = self.kwargs.get('slug')
         if not category in dict(settings.ALL_CATEGORIES).keys():
             raise Http404
@@ -72,9 +69,6 @@ class LCDLineFollowerStageResultListView(TemplateView):
     template_name = 'lcd/line_follower_stage_list.html'
 
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.has_group("lcd"):
-            raise PermissionDenied
-
         if not settings.PROJECT_ORDERS or \
            not "line_follower" in dict(settings.RESULT_CATEGORIES).keys() or \
            not LineFollowerStage.objects.filter(results_available=True).exists():
@@ -91,9 +85,6 @@ class LCDLineFollowerResultListView(TemplateView):
     template_name = 'lcd/result_list.html'
 
     def dispatch(self, *args, **kwargs):
-        if not self.request.user.has_group("lcd"):
-            raise PermissionDenied
-
         order = self.kwargs.get("order")
         if not LineFollowerStage.objects.filter(
                 order=order, results_available=True).exists():
