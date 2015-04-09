@@ -16,7 +16,7 @@ class BaseResult(models.Model):
     disqualification = models.BooleanField(
         verbose_name=_('Disqualification'), default=False)
     is_best = models.BooleanField(
-        verbose_name=_("Is best result?"), default=True)
+        verbose_name=_("Is best result?"), default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -53,6 +53,7 @@ class LineFollowerResult(BaseResult):
 @receiver(models.signals.pre_save, sender=LineFollowerResult)
 def line_follower_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
+    import ipdb;ipdb.set_trace()
 
 
 @python_2_unicode_compatible

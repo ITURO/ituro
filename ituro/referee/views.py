@@ -55,7 +55,8 @@ __all__ = [
 
 class BaseResultCreateView(CreateView):
     category = None
-    fields = ["minutes", "seconds", "milliseconds", "disqualification"]
+    fields = [
+        "minutes", "seconds", "milliseconds", "disqualification", "is_best"]
     template_name = "referee/result_create.html"
 
     @method_decorator(login_required)
@@ -89,7 +90,8 @@ class BaseResultCreateView(CreateView):
 
 class BaseResultUpdateView(UpdateView):
     category = None
-    fields = ["minutes", "seconds", "milliseconds", "disqualification"]
+    fields = [
+        "minutes", "seconds", "milliseconds", "disqualification", "is_best"]
     template_name = "referee/result_update.html"
 
     @method_decorator(login_required)

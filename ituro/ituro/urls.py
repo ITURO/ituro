@@ -11,6 +11,7 @@ urlpatterns = patterns(
         url=reverse_lazy('project_list')), name='homepage'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^lcd/', include('lcd.urls')),
     url(r'^orders/', include('orders.urls')),
     url(r'^projects/', include('projects.urls')),
     url(r'^referee/', include('referee.urls')),

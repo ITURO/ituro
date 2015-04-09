@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     # ITURO apps
     'accounts',
     'base',
+    'lcd',
     'orders',
     'projects',
     'referee',
