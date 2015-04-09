@@ -5,7 +5,7 @@
 {% if not stage %}
 {{ category }}
 {% else %}
-{% trans "Line Follower" %} {{ stage.order|ordinal }} Stage
+{% trans "Line Follower" %} {{ stage.order|ordinal }} {% trans "Stage" %}
 {% endif %}
 {% trans "Results" %} - {% endblock %}
 
@@ -15,7 +15,7 @@
     {% if not stage %}
     {{ category }}
     {% else %}
-    {% trans "Line Follower" %} {{ stage.order|ordinal }} Stage
+    {% trans "Line Follower" %} {{ stage.order|ordinal }} {% trans "Stage" %}
     {% endif %}
     {% trans "Results" %}
   </h1>
