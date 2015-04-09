@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from projects.models import Project
 from orders.models import LineFollowerStage
 
-@python_2_unicode_compatible
 class BaseResult(models.Model):
     score = models.FloatField(verbose_name=_('Score'), blank=True)
     minutes = models.PositiveSmallIntegerField(verbose_name=_("Minutes"))
@@ -47,7 +46,7 @@ class LineFollowerResult(BaseResult):
         ordering = ['disqualification', 'score']
 
     def __str__(self):
-        return u"{}".format(self.project.name)
+        return self.pk
 
 
 @receiver(models.signals.pre_save, sender=LineFollowerResult)

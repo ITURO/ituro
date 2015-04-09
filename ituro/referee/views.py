@@ -242,9 +242,7 @@ class LineFollowerResultCreateView(CreateView):
         result.stage = LineFollowerStage.objects.get(pk=self.kwargs["order"])
         result.save()
 
-        messages.success(self.request, _(
-            "Result entry for {} (Stage #{}) robot created.".format(
-                result.project.name, result.stage.order)))
+        messages.success(self.request, _("Result entry generated."))
         return super(LineFollowerResultCreateView, self).form_valid(form)
 
     def get_success_url(self):
