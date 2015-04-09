@@ -29,6 +29,7 @@ RESULTS_DICT = {
 class LCDResultListView(TemplateView):
     template_name = 'lcd/result_list.html'
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.has_group("lcd"):
             raise PermissionDenied
@@ -44,7 +45,7 @@ class LCDResultListView(TemplateView):
             return HttpResponseRedirect(
                 reverse('line_follower_stage_result_list'))
         elif category == 'micro_sumo':
-            return Http404
+            raise Http404
 
         return super(LCDResultListView, self).dispatch(*args, **kwargs)
 
@@ -71,6 +72,7 @@ class LCDLineFollowerStageResultListView(TemplateView):
     model = LineFollowerStage
     template_name = 'lcd/line_follower_stage_list.html'
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.has_group("lcd"):
             raise PermissionDenied
@@ -90,6 +92,7 @@ class LCDLineFollowerResultListView(TemplateView):
     model = LineFollowerResult
     template_name = 'lcd/result_list.html'
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.has_group("lcd"):
             raise PermissionDenied
