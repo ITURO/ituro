@@ -36,7 +36,7 @@ class LCDResultListView(TemplateView):
 
         if category == 'line_follower':
             return HttpResponseRedirect(
-                reverse('line_follower_stage_result_list'))
+                reverse('lcd_line_follower_stage_result_list'))
         elif category == 'micro_sumo':
             raise Http404
 
