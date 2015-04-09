@@ -33,7 +33,11 @@
   <tr>
     <td>{{ forloop.counter }}</td>
     <td>{{ result.project }}</td>
+    {% if result.disqualification %}
+    <td class="danger">-</td>
+    {% else %}
     <td>{{ result.score }}</td>
+    {% endif %}
   </tr>
   {% endfor %}
 </table>

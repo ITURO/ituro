@@ -21,18 +21,6 @@ class SumoMatch(models.Model):
     def __str__(self):
         return " vs. ".join([self.home.name, self.away.name])
 
-    @property
-    def winner(self):
-        if self.away is None:
-            return self.home
-
-        if self.home_score > self.away_score:
-            return self.home
-        elif self.home_score < self.away_score:
-            return self.away
-
-        return None
-
 
 @python_2_unicode_compatible
 class SumoGroup(models.Model):
@@ -54,11 +42,13 @@ class SumoGroupTeam(models.Model):
     point = models.PositiveSmallIntegerField(verbose_name=_("Point"), default=0)
     order = models.PositiveSmallIntegerField(verbose_name=_("Order"), default=0)
     average = models.IntegerField(verbose_name=_("Average"), default=0)
+    is_attended = models.BooleanField(
+         verbose_name=_("Is attended?"), default=True)
 
     class Meta:
         verbose_name = _("Sumo Group Team")
         verbose_name_plural = _("Sumo Group Teams")
-        ordering = ["order"]
+        ordering = ["-point", "-average", "order"]
 
     def __str__(self):
         return "Group {}: {}".format(self.group.order, self.robot.name)
@@ -77,11 +67,6 @@ class SumoGroupMatch(SumoMatch):
         ordering = ["group__order", "order"]
 
 
-@receiver(models.signals.post_save, sender=SumoGroupMatch)
-def sumo_group_calculate_points(sender, instance, *args, **kwargs):
-    pass
-
-
 class SumoStage(models.Model):
     order = models.PositiveSmallIntegerField(verbose_name=_("Order"))
 
@@ -90,6 +75,7 @@ class SumoStageMatch(SumoMatch):
     home = models.ForeignKey(Project, related_name="stage_home")
     away = models.ForeignKey(Project, related_name="stage_away", null=True)
     stage = models.ForeignKey(SumoStage, verbose_name=_("Sumo Stage"))
+
 
     class Meta:
         verbose_name = _("Sumo Stage Match")
