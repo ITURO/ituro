@@ -8,9 +8,8 @@ from projects.models import Project
 
 @python_2_unicode_compatible
 class SumoMatch(models.Model):
-    home = models.ForeignKey(Project, related_name='home')
-    away = models.ForeignKey(Project, related_name='away', null=True)
-    is_played = models.BooleanField(verbose_name='Game played?')
+    is_played = models.BooleanField(
+        verbose_name=_('Game played?'), default=False)
     home_score = models.PositiveSmallIntegerField(verbose_name=_('Home Score'))
     away_score = models.PositiveSmallIntegerField(verbose_name=_('Away Score'))
 
@@ -64,6 +63,8 @@ class SumoGroupTeam(models.Model):
 
 
 class SumoGroupMatch(SumoMatch):
+    home = models.ForeignKey(Project, related_name="group_home")
+    away = models.ForeignKey(Project, related_name="group_away", null=True)
     group = models.ForeignKey(SumoGroup, verbose_name=_("Sumo Group"))
 
     class Meta:
@@ -82,6 +83,8 @@ class SumoStage(models.Model):
 
 
 class SumoStageMatch(SumoMatch):
+    home = models.ForeignKey(Project, related_name="stage_home")
+    away = models.ForeignKey(Project, related_name="stage_away", null=True)
     stage = models.ForeignKey(SumoStage, verbose_name=_("Sumo Stage"))
 
     class Meta:
