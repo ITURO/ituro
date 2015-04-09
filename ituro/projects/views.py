@@ -139,10 +139,15 @@ class ProjectConfirmView(FormView):
     def form_valid(self, form):
         name = form.cleaned_data.get('name')
         category = form.cleaned_data.get('category')
-        project = Project.objects.filter(name=name, category=category).update(
+        Project.objects.filter(name=name, category=category).update(
             is_confirmed=True)
         messages.success(self.request, _(
             "Project confirmation process completed successfully."))
+
+        project = Project.objects.get(name=name, category=category)
+        if project.design:
+            messages.info(self.request, _(
+                "Project will attend to Autodesk Design Contest."))
         return super(ProjectConfirmView, self).form_valid(form)
 
 
