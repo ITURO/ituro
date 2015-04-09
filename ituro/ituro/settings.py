@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'projects',
     'referee',
     'results',
+    'sumo',
 )
 
 MIDDLEWARE_CLASSES = (
