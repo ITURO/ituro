@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 05:52+0000\n"
+"POT-Creation-Date: 2015-04-09 18:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,54 +91,59 @@ msgstr ""
 msgid "You have updated your profile successfully."
 msgstr ""
 
-#: ituro/local_settings.py:23 ituro/settings.py:134
+#: ituro/local_settings.py:23 ituro/settings.py:135
+#: templates/lcd/line_follower_stage_list.html:15
+#: templates/lcd/result_list.html:12 templates/lcd/result_list.html.py:22
 #: templates/orders/line_follower_stage_list.html:15
+#: templates/orders/race_order_list.html:8
+#: templates/orders/race_order_list.html:18
 #: templates/referee/line_follower_stage_list.html:15
 #: templates/results/line_follower_stage_list.html:15
+#: templates/results/result_list.html:8 templates/results/result_list.html:18
 msgid "Line Follower"
 msgstr ""
 
-#: ituro/local_settings.py:24 ituro/settings.py:135
+#: ituro/local_settings.py:24 ituro/settings.py:136
 msgid "Micro Sumo"
 msgstr ""
 
-#: ituro/local_settings.py:25 ituro/settings.py:136
+#: ituro/local_settings.py:25 ituro/settings.py:137
 msgid "Fire Fighter"
 msgstr ""
 
-#: ituro/local_settings.py:26 ituro/settings.py:137
+#: ituro/local_settings.py:26 ituro/settings.py:138
 msgid "Basketball"
 msgstr ""
 
-#: ituro/local_settings.py:27 ituro/settings.py:138
+#: ituro/local_settings.py:27 ituro/settings.py:139
 msgid "Stair Climbing"
 msgstr ""
 
-#: ituro/local_settings.py:28 ituro/settings.py:139
+#: ituro/local_settings.py:28 ituro/settings.py:140
 msgid "Maze"
 msgstr ""
 
-#: ituro/local_settings.py:29 ituro/settings.py:140
+#: ituro/local_settings.py:29 ituro/settings.py:141
 msgid "Color Selecting"
 msgstr ""
 
-#: ituro/local_settings.py:30 ituro/settings.py:141
+#: ituro/local_settings.py:30 ituro/settings.py:142
 msgid "Self Balancing"
 msgstr ""
 
-#: ituro/local_settings.py:31 ituro/settings.py:142
+#: ituro/local_settings.py:31 ituro/settings.py:143
 msgid "Scenario"
 msgstr ""
 
-#: ituro/local_settings.py:32 ituro/settings.py:143
+#: ituro/local_settings.py:32 ituro/settings.py:144
 msgid "Innovative"
 msgstr ""
 
-#: ituro/settings.py:92
+#: ituro/settings.py:93
 msgid "Turkish"
 msgstr ""
 
-#: ituro/settings.py:93
+#: ituro/settings.py:94
 msgid "English"
 msgstr ""
 
@@ -162,7 +167,7 @@ msgstr ""
 msgid "Race Results Availability"
 msgstr ""
 
-#: orders/models.py:20 orders/models.py:41 results/models.py:40
+#: orders/models.py:20 orders/models.py:41 results/models.py:39
 msgid "Line Follower Stage"
 msgstr ""
 
@@ -315,271 +320,279 @@ msgid "Member deleted successfully."
 msgstr ""
 
 #: referee/views.py:83
-msgid "Result entry for {} robot created."
+msgid "Result entry created."
 msgstr ""
 
-#: referee/views.py:120
+#: referee/views.py:121
 msgid "{} #{} result updated."
 msgstr ""
 
-#: referee/views.py:153 referee/views.py:321
+#: referee/views.py:154 referee/views.py:320
 msgid "Result entry deleted."
 msgstr ""
 
 #: referee/views.py:244
-msgid "Result entry for {} (Stage #{}) robot created."
+msgid "Result entry generated."
 msgstr ""
 
-#: referee/views.py:284
+#: referee/views.py:283
 msgid "Result entry for {} #{} updated."
 msgstr ""
 
-#: results/models.py:11 templates/results/result_list.html:29
+#: results/models.py:10 templates/lcd/result_list.html:50
+#: templates/results/result_list.html:29
 msgid "Score"
 msgstr ""
 
-#: results/models.py:12
+#: results/models.py:11
 msgid "Minutes"
 msgstr ""
 
-#: results/models.py:13
+#: results/models.py:12
 msgid "Seconds"
 msgstr ""
 
-#: results/models.py:15
+#: results/models.py:14
 msgid "Milliseconds"
 msgstr ""
 
-#: results/models.py:17
+#: results/models.py:16
 msgid "Disqualification"
 msgstr ""
 
-#: results/models.py:19
+#: results/models.py:18
 msgid "Is best result?"
 msgstr ""
 
-#: results/models.py:42
+#: results/models.py:41
 msgid "Runway Out Count"
 msgstr ""
 
-#: results/models.py:45
+#: results/models.py:44
 msgid "Line Follower Result"
 msgstr ""
 
-#: results/models.py:46 templates/results/line_follower_stage_list.html:4
+#: results/models.py:45 templates/lcd/line_follower_stage_list.html:4
+#: templates/lcd/line_follower_stage_list.html:8
+#: templates/results/line_follower_stage_list.html:4
 #: templates/results/line_follower_stage_list.html:8
 msgid "Line Follower Results"
 msgstr ""
 
-#: results/models.py:63
+#: results/models.py:67
 msgid "Succesful Extinguish Count"
 msgstr ""
 
-#: results/models.py:65
+#: results/models.py:69
 msgid "Unsuccessful Extinguish Count"
 msgstr ""
 
-#: results/models.py:67
+#: results/models.py:71
 msgid "Wall Hit Count"
 msgstr ""
 
-#: results/models.py:70
+#: results/models.py:74
 msgid "Fire Fighter Result"
 msgstr ""
 
-#: results/models.py:71
+#: results/models.py:75
 msgid "Fire Fighter Results"
 msgstr ""
 
-#: results/models.py:91
+#: results/models.py:95
 msgid "Basket 1"
 msgstr ""
 
-#: results/models.py:92
+#: results/models.py:96
 msgid "Basket 2"
 msgstr ""
 
-#: results/models.py:93
+#: results/models.py:97
 msgid "Basket 3"
 msgstr ""
 
-#: results/models.py:94
+#: results/models.py:98
 msgid "Basket 4"
 msgstr ""
 
-#: results/models.py:96
+#: results/models.py:100
 msgid "Total Basket"
 msgstr ""
 
-#: results/models.py:99
+#: results/models.py:103
 msgid "Basketball Result"
 msgstr ""
 
-#: results/models.py:100
+#: results/models.py:104
 msgid "Basketball Results"
 msgstr ""
 
-#: results/models.py:123
+#: results/models.py:127
 msgid "Stair #1"
 msgstr ""
 
-#: results/models.py:124
+#: results/models.py:128
 msgid "Stair #2"
 msgstr ""
 
-#: results/models.py:125
+#: results/models.py:129
 msgid "Stair #3"
 msgstr ""
 
-#: results/models.py:126
+#: results/models.py:130
 msgid "Stair #4"
 msgstr ""
 
-#: results/models.py:128
+#: results/models.py:132
 msgid "Downstairs Count"
 msgstr ""
 
-#: results/models.py:131
+#: results/models.py:135
 msgid "Stair Climbing Result"
 msgstr ""
 
-#: results/models.py:132
+#: results/models.py:136
 msgid "Stair Climbing Results"
 msgstr ""
 
-#: results/models.py:154
+#: results/models.py:158
 msgid "Maze Result"
 msgstr ""
 
-#: results/models.py:155
+#: results/models.py:159
 msgid "Maze Results"
 msgstr ""
 
-#: results/models.py:167
+#: results/models.py:171
 msgid "Cylinder Obtain Count"
 msgstr ""
 
-#: results/models.py:169
+#: results/models.py:173
 msgid "Cylinder Successful Placement Count"
 msgstr ""
 
-#: results/models.py:171
+#: results/models.py:175
 msgid "Cylinder Unsuccessful Placement Count"
 msgstr ""
 
-#: results/models.py:173
+#: results/models.py:177
 msgid "Cylinder Partial Placement Count"
 msgstr ""
 
-#: results/models.py:176
+#: results/models.py:180
 msgid "Color Selecting Result"
 msgstr ""
 
-#: results/models.py:177
+#: results/models.py:181
 msgid "Color Selecting Results"
 msgstr ""
 
-#: results/models.py:199
+#: results/models.py:203
 msgid "Headway Amount (cm)"
 msgstr ""
 
-#: results/models.py:200
+#: results/models.py:204
 msgid "Impact Test"
 msgstr ""
 
-#: results/models.py:202
+#: results/models.py:206
 msgid "Headway Minutes"
 msgstr ""
 
-#: results/models.py:204
+#: results/models.py:208
 msgid "Headway Seconds"
 msgstr ""
 
-#: results/models.py:206
+#: results/models.py:210
 msgid "Headway Milliseconds"
 msgstr ""
 
-#: results/models.py:209
+#: results/models.py:213
 msgid "Self Balancing Result"
 msgstr ""
 
-#: results/models.py:210
+#: results/models.py:214
 msgid "Self Balancing Results"
 msgstr ""
 
-#: results/models.py:232
+#: results/models.py:236
 msgid "Scenario Result"
 msgstr ""
 
-#: results/models.py:233
+#: results/models.py:237
 msgid "Scenario Results"
 msgstr ""
 
-#: results/models.py:246
+#: results/models.py:250
 msgid "Innovative Result"
 msgstr ""
 
-#: results/models.py:247
+#: results/models.py:251
 msgid "Innovative Results"
+msgstr ""
+
+#: sumo/models.py:12
+msgid "Game played?"
 msgstr ""
 
 #: sumo/models.py:14
 msgid "Home Score"
 msgstr ""
 
-#: sumo/models.py:15
+#: sumo/models.py:16
 msgid "Away Score"
 msgstr ""
 
-#: sumo/models.py:38 sumo/models.py:54 sumo/models.py:81
+#: sumo/models.py:39 sumo/models.py:55 sumo/models.py:72 sumo/models.py:86
+#: templates/lcd/result_list.html:32
 msgid "Order"
 msgstr ""
 
-#: sumo/models.py:42 sumo/models.py:51 sumo/models.py:67
+#: sumo/models.py:43 sumo/models.py:52 sumo/models.py:70
 msgid "Sumo Group"
 msgstr ""
 
-#: sumo/models.py:43
+#: sumo/models.py:44
 msgid "Sumo Groups"
 msgstr ""
 
-#: sumo/models.py:52
+#: sumo/models.py:53
 msgid "Sumo Robot"
 msgstr ""
 
-#: sumo/models.py:53
+#: sumo/models.py:54
 msgid "Point"
 msgstr ""
 
-#: sumo/models.py:55
+#: sumo/models.py:56
 msgid "Average"
 msgstr ""
 
-#: sumo/models.py:58
+#: sumo/models.py:59
 msgid "Sumo Group Team"
 msgstr ""
 
-#: sumo/models.py:59
+#: sumo/models.py:60
 msgid "Sumo Group Teams"
 msgstr ""
 
-#: sumo/models.py:70
+#: sumo/models.py:75
 msgid "Sumo Group Match"
 msgstr ""
 
-#: sumo/models.py:71
+#: sumo/models.py:76
 msgid "Sumo Group Matches"
 msgstr ""
 
-#: sumo/models.py:85
+#: sumo/models.py:92
 msgid "Sumo Stage"
 msgstr ""
 
-#: sumo/models.py:88
+#: sumo/models.py:95
 msgid "Sumo Stage Match"
 msgstr ""
 
-#: sumo/models.py:89
+#: sumo/models.py:96
 msgid "Sumo Stage Matches"
 msgstr ""
 
@@ -694,7 +707,7 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-#: templates/base.html:10
+#: templates/base.html:10 templates/lcd/base.html:10
 msgid "ITU Robot Olympics 2015"
 msgstr ""
 
@@ -723,7 +736,9 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-#: templates/header.html:40 templates/referee/line_follower_order_list.html:33
+#: templates/header.html:40 templates/lcd/line_follower_stage_list.html:21
+#: templates/lcd/result_list.html:14 templates/lcd/result_list.html.py:24
+#: templates/referee/line_follower_order_list.html:33
 #: templates/referee/order_list.html:32
 #: templates/results/line_follower_stage_list.html:21
 #: templates/results/result_list.html:10 templates/results/result_list.html:20
@@ -738,32 +753,53 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+#: templates/lcd/firefighterresult_form.html:4
+#: templates/lcd/firefighterresult_form.html:16
+#: templates/referee/line_follower_order_list.html:49
+#: templates/referee/line_follower_result_create.html:4
+#: templates/referee/line_follower_result_create.html:7
+#: templates/referee/line_follower_result_create.html:16
+#: templates/referee/order_list.html:48 templates/referee/result_create.html:7
+#: templates/referee/result_create.html:16
+#: templates/results/firefighterresult_form.html:4
+#: templates/results/firefighterresult_form.html:16
+msgid "Create Result"
+msgstr ""
+
+#: templates/lcd/firefighterresult_form.html:7
+#: templates/projects/project_create.html:4
+#: templates/projects/project_create.html:7
+#: templates/projects/project_create.html:16
+#: templates/results/firefighterresult_form.html:7
+msgid "Create Project"
+msgstr ""
+
+#: templates/lcd/line_follower_stage_list.html:17
+#: templates/lcd/result_list.html:12 templates/lcd/result_list.html.py:22
 #: templates/orders/line_follower_stage_list.html:17
+#: templates/orders/race_order_list.html:8
+#: templates/orders/race_order_list.html:18
 #: templates/referee/line_follower_stage_list.html:17
 #: templates/results/line_follower_stage_list.html:17
 msgid "Stage"
 msgstr ""
 
+#: templates/lcd/line_follower_stage_list.html:19
 #: templates/orders/line_follower_stage_list.html:19
 #: templates/referee/line_follower_stage_list.html:19
 #: templates/results/line_follower_stage_list.html:19
 msgid "Final Stage"
 msgstr ""
 
-#: templates/orders/race_order_list.html:8
-#: templates/orders/race_order_list.html:18
-#: templates/referee/line_follower_order_list.html:10
-#: templates/referee/line_follower_order_list.html:20
-#: templates/referee/order_list.html:9 templates/referee/order_list.html:19
-#: templates/results/result_list.html:8 templates/results/result_list.html:18
-#, python-format
-msgid "Line Follower %(order)s Stage"
-msgstr ""
-
+#: templates/lcd/result_list.html:33 templates/lcd/result_list.html.py:49
 #: templates/orders/race_order_list.html:28
 #: templates/referee/line_follower_order_list.html:31
 #: templates/referee/order_list.html:30 templates/results/result_list.html:28
 msgid "Robot Name"
+msgstr ""
+
+#: templates/lcd/result_list.html:48 templates/results/result_list.html:27
+msgid "Ranking"
 msgstr ""
 
 #: templates/projects/member_create.html:4
@@ -805,13 +841,6 @@ msgstr ""
 #: templates/projects/project_confirm_delete.html:14
 #, python-format
 msgid "You are about to delete %(object)s. Are you sure?"
-msgstr ""
-
-#: templates/projects/project_create.html:4
-#: templates/projects/project_create.html:7
-#: templates/projects/project_create.html:16
-#: templates/results/firefighterresult_form.html:7
-msgid "Create Project"
 msgstr ""
 
 #: templates/projects/project_detail.html:4
@@ -882,6 +911,13 @@ msgstr ""
 msgid "Delete Result"
 msgstr ""
 
+#: templates/referee/line_follower_order_list.html:10
+#: templates/referee/line_follower_order_list.html:20
+#: templates/referee/order_list.html:9 templates/referee/order_list.html:19
+#, python-format
+msgid "Line Follower %(order)s Stage"
+msgstr ""
+
 #: templates/referee/line_follower_order_list.html:32
 #: templates/referee/order_list.html:31
 msgid "Referee"
@@ -892,17 +928,6 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: templates/referee/line_follower_order_list.html:49
-#: templates/referee/line_follower_result_create.html:4
-#: templates/referee/line_follower_result_create.html:7
-#: templates/referee/line_follower_result_create.html:16
-#: templates/referee/order_list.html:48 templates/referee/result_create.html:7
-#: templates/referee/result_create.html:16
-#: templates/results/firefighterresult_form.html:4
-#: templates/results/firefighterresult_form.html:16
-msgid "Create Result"
-msgstr ""
-
 #: templates/referee/line_follower_result_delete.html:14
 #: templates/referee/result_delete.html:14
 msgid "You are about to delete the result entry. Are you sure?"
@@ -910,8 +935,4 @@ msgstr ""
 
 #: templates/referee/result_create.html:4
 msgid "Update"
-msgstr ""
-
-#: templates/results/result_list.html:27
-msgid "Ranking"
 msgstr ""
