@@ -74,7 +74,7 @@ class SumoGroupMatch(SumoMatch):
     class Meta:
         verbose_name = _("Sumo Group Match")
         verbose_name_plural = _("Sumo Group Matches")
-        ordering = ["group__order"]
+        ordering = ["group__order", "order"]
 
 
 @receiver(models.signals.post_save, sender=SumoGroupMatch)

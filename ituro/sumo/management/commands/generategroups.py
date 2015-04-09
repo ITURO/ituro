@@ -67,7 +67,7 @@ class Command(BaseCommand):
                     SumoGroupMatch.objects.create(
                         home=team_list[i].robot,
                         away=team_list[len(team_list) - i - 1].robot,
-                        group=group)
+                        group=group, order=order)
                     order += 1
                 hold = team_list.pop()
                 team_list.insert(1, hold)
