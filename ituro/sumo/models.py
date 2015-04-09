@@ -49,9 +49,9 @@ class SumoGroup(models.Model):
 class SumoGroupTeam(models.Model):
     group = models.ForeignKey(SumoGroup, verbose_name=_("Sumo Group"))
     robot = models.ForeignKey(Project, verbose_name=_("Sumo Robot"))
-    point = models.PositiveSmallIntegerField(verbose_name=_("Point"))
-    order = models.PositiveSmallIntegerField(verbose_name=_("Order"))
-    average = models.IntegerField(verbose_name=_("Average"))
+    point = models.PositiveSmallIntegerField(verbose_name=_("Point"), default=0)
+    order = models.PositiveSmallIntegerField(verbose_name=_("Order"), default=0)
+    average = models.IntegerField(verbose_name=_("Average"), default=0)
 
     class Meta:
         verbose_name = _("Sumo Group Team")
