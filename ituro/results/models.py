@@ -46,7 +46,7 @@ class LineFollowerResult(BaseResult):
         ordering = ['disqualification', 'score']
 
     def __str__(self):
-        return self.pk
+        return self.project.name
 
 
 @receiver(models.signals.pre_save, sender=LineFollowerResult)
