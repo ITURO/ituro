@@ -4,6 +4,7 @@ from optparse import make_option
 from projects.models import Project, Membership
 from sumo.models import SumoGroup, SumoGroupTeam, SumoGroupMatch
 from random import shuffle, randint
+from math import factorial as f
 
 
 class Command(BaseCommand):
@@ -56,3 +57,20 @@ class Command(BaseCommand):
                     group=current_group, robot=m.project)
 
         self.stdout.write('Sumo groups generated.')
+
+        for group in SumoGroup.objects.all():
+            order = 1
+            teams = SumoGroupTeam.objects.filter(group=group)
+            team_list = list(teams)
+            count = len(team_list)
+            for j in range(f(count) / f(2) / f(count-2)):
+                for i in range(0, len(team_list) / 2):
+                    SumoGroupMatch.objects.create(
+                        home=team_list[i].robot,
+                        away=team_list[len(team_list) - i - 1].robot,
+                        group=group)
+                    order += 1
+                hold = team_list.pop()
+                team_list.insert(1, hold)
+
+        self.stdout.write("Fixtures generated.")

@@ -10,8 +10,10 @@ from projects.models import Project
 class SumoMatch(models.Model):
     is_played = models.BooleanField(
         verbose_name=_('Game played?'), default=False)
-    home_score = models.PositiveSmallIntegerField(verbose_name=_('Home Score'))
-    away_score = models.PositiveSmallIntegerField(verbose_name=_('Away Score'))
+    home_score = models.PositiveSmallIntegerField(
+        verbose_name=_('Home Score'), default=0)
+    away_score = models.PositiveSmallIntegerField(
+        verbose_name=_('Away Score'), default=0)
 
     class Meta:
         abstract = True
@@ -66,6 +68,8 @@ class SumoGroupMatch(SumoMatch):
     home = models.ForeignKey(Project, related_name="group_home")
     away = models.ForeignKey(Project, related_name="group_away", null=True)
     group = models.ForeignKey(SumoGroup, verbose_name=_("Sumo Group"))
+    order = models.PositiveSmallIntegerField(
+        verbose_name=_("Order"), default=0)
 
     class Meta:
         verbose_name = _("Sumo Group Match")
