@@ -140,10 +140,10 @@ class StairClimbingResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=StairClimbingResult)
 def stair_climbing_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum(
+    instance.score = sum((
         (int(instance.stair1) + int(instance.stair2)) * 10,
         (int(instance.stair3) + int(instance.stair4)) * 20,
-        instance.downstairs * 10)
+        instance.downstairs * 10))
 
 
 @python_2_unicode_compatible
