@@ -55,16 +55,6 @@ def line_follower_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
 
 
-@receiver(models.signals.post_save, sender=LineFollowerResult)
-def line_follower_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(
-        project=instance.project, stage=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
-
-
 @python_2_unicode_compatible
 class FireFighterResult(BaseResult):
     project = models.ForeignKey(
@@ -94,14 +84,6 @@ def fire_fighter_result_calculate_score(sender, instance, *args, **kwargs):
         instance.wall_hit * (-15)))
 
 
-@receiver(models.signals.post_save, sender=FireFighterResult)
-def fire_fighter_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(project=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
-
 
 @python_2_unicode_compatible
 class BasketballResult(BaseResult):
@@ -122,15 +104,6 @@ class BasketballResult(BaseResult):
 
     def __str__(self):
         return self.project.name
-
-
-@receiver(models.signals.post_save, sender=BasketballResult)
-def basketball_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(project=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
 
 
 @receiver(models.signals.pre_save, sender=BasketballResult)
@@ -173,15 +146,6 @@ def stair_climbing_result_calculate_score(sender, instance, *args, **kwargs):
         instance.downstairs * 10)
 
 
-@receiver(models.signals.post_save, sender=StairClimbingResult)
-def stair_climbing_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(project=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
-
-
 @python_2_unicode_compatible
 class MazeResult(BaseResult):
     project = models.ForeignKey(
@@ -202,15 +166,6 @@ def maze_result_calculate_score(sender, instance, *args, **kwargs):
         instance.minutes * 60,
         instance.seconds,
         instance.milliseconds * 0.01))
-
-
-@receiver(models.signals.post_save, sender=MazeResult)
-def maze_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(project=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
 
 
 @python_2_unicode_compatible
@@ -245,15 +200,6 @@ def color_selecting_result_calculate_score(sender, instance, *args, **kwargs):
         instance.place_partial * 100)
 
 
-@receiver(models.signals.post_save, sender=ColorSelectingResult)
-def color_selecting_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(project=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
-
-
 @python_2_unicode_compatible
 class SelfBalancingResult(BaseResult):
     project = models.ForeignKey(
@@ -286,15 +232,6 @@ def self_balancing_result_calculate_score(sender, instance, *args, **kwargs):
         instance.duration, instance.headway_amount, 30 * int(instance.impact))
 
 
-@receiver(models.signals.post_save, sender=SelfBalancingResult)
-def self_balancing_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(project=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
-
-
 @python_2_unicode_compatible
 class ScenarioResult(BaseResult):
     project = models.ForeignKey(
@@ -309,15 +246,6 @@ class ScenarioResult(BaseResult):
         return self.project.name
 
 
-@receiver(models.signals.post_save, sender=ScenarioResult)
-def scenario_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(project=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
-
-
 @python_2_unicode_compatible
 class InnovativeResult(BaseResult):
     project = models.ForeignKey(
@@ -330,12 +258,3 @@ class InnovativeResult(BaseResult):
 
     def __str__(self):
         return self.project.name
-
-
-@receiver(models.signals.post_save, sender=InnovativeResult)
-def innovative_result_set_best_score(sender, instance, *args, **kwargs):
-    queryset = sender.objects.filter(project=instance.project)
-    best = queryset.first()
-    best.is_best = True
-    best.save()
-    queryset.exclude(pk=best.pk).update(is_best=False)
