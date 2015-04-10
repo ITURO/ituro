@@ -68,6 +68,7 @@ class SumoGroupMatch(SumoMatch):
         ordering = ["group__order", "order"]
 
 
+@python_2_unicode_compatible
 class SumoStage(models.Model):
     order = models.PositiveSmallIntegerField(verbose_name=_("Order"))
 
@@ -76,10 +77,17 @@ class SumoStage(models.Model):
         verbose_name_plural = _("Sumo Stages")
         ordering = ["order"]
 
+    def __str__(self):
+        return u"Stage #{}".format(self.order)
+
 
 class SumoStageMatch(SumoMatch):
-    home = models.ForeignKey(Project, related_name="stage_home")
-    away = models.ForeignKey(Project, related_name="stage_away", null=True)
+    home = models.ForeignKey(
+        Project, related_name="stage_home",
+        limit_choices_to={"category": "micro_sumo", "is_confirmed": True})
+    away = models.ForeignKey(
+        Project, related_name="stage_away", null=True,
+        limit_choices_to={"category": "micro_sumo", "is_confirmed": True})
     stage = models.ForeignKey(SumoStage, verbose_name=_("Sumo Stage"))
 
     class Meta:

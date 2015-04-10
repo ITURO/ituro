@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}{% trans "Micro Sumo Orders" %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Micro Sumo Orders" %}</h1>
+</div>
+
+{% bootstrap_messages %}
+{% if groups %}
+<h2>
+  <a href="{% url "sumo_order_group_list" %}">
+    {% trans "Micro Sumo Groups" %}
+  </a>
+</h2>
+{% endif %}
+{% if stages %}
+<h2>
+  <a href="{% url "sumo_order_stage_list" %}">
+    {% trans "Micro Sumo Stages" %}
+  </a>
+</h2>
+{% endif %}
+{% if final %}
+<h2>
+  <a href="{% url "sumo_order_final_detail" %}">
+    {% trans "Micro Sumo Final Group" %}
+  </a>
+</h2>
+{% endif %}
+{% endblock %}

@@ -1,4 +1,6 @@
 from django.views.generic.list import ListView
+from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -7,6 +9,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from orders.models import RaceOrder, LineFollowerStage, LineFollowerRaceOrder
+from sumo.models import *
 
 
 class LineFollowerStageOrderListView(ListView):
@@ -79,3 +82,95 @@ class RaceOrderListView(ListView):
     def get_queryset(self):
         return RaceOrder.objects.filter(
             project__category=self.kwargs.get('slug'))
+
+
+class SumoOrderHomeView(TemplateView):
+    template_name = "orders/sumo_home.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not "micro_sumo" in dict(settings.ORDER_CATEGORIES).keys():
+            raise PermissionDenied
+        return super(SumoOrderHomeView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SumoOrderHomeView, self).get_context_data(**kwargs)
+        context["groups"] = settings.SUMO_GROUP_ORDERS
+        context["stages"] = settings.SUMO_STAGE_ORDERS
+        context["final"] = settings.SUMO_FINAL_ORDERS
+        return context
+
+class SumoOrderGroupListView(ListView):
+    model = SumoGroup
+    template_name = 'orders/sumo_group_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_GROUP_ORDERS:
+            raise PermissionDenied
+        return super(SumoOrderGroupListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return SumoGroup.objects.filter(is_final=False)
+
+
+class SumoOrderGroupDetailView(DetailView):
+    model = SumoGroup
+    template_name = "orders/sumo_group_detail.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_GROUP_ORDERS:
+            raise PermissionDenied
+        return super(SumoOrderGroupDetailView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        group = self.get_object()
+        context = super(SumoOrderGroupDetailView, self).get_context_data(
+            **kwargs)
+        context["matches"] = SumoGroupMatch.objects.filter(group=group)
+        context["teams"] = SumoGroupTeam.objects.filter(group=group)
+        return context
+
+
+class SumoOrderStageListView(ListView):
+    model = SumoStage
+    template_name = "orders/sumo_stage_list.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_STAGE_ORDERS:
+            raise PermissionDenied
+        return super(SumoOrderStageListView, self).dispatch(*args, **kwargs)
+
+
+class SumoOrderStageDetailView(ListView):
+    model = SumoStageMatch
+    template_name = "orders/sumo_stage_detail.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_STAGE_ORDERS:
+            raise PermissionDenied
+        return super(SumoOrderStageDetailView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SumoOrderStageDetailView, self).get_context_data(
+            **kwargs)
+        context["stage"] = SumoStage.objects.get(pk=self.kwargs.get("pk"))
+        return context
+
+    def get_queryset(self):
+        return SumoStageMatch.objects.filter(stage__pk=self.kwargs.get("pk"))
+
+
+class SumoOrderFinalDetailView(TemplateView):
+    template_name = "orders/sumo_final.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_FINAL_ORDERS:
+            raise PermissionDenied
+        return super(SumoOrderFinalDetailView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SumoOrderFinalDetailView, self).dispatch(
+            *args, **kwargs)
+        group = SumoGroup.objects.filter(is_final=True).first()
+        context["group"] = group
+        context["matches"] = SumoGroupMatch.objects.filter(group=group)
+        return context

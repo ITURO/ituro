@@ -16,7 +16,7 @@ class BaseResult(models.Model):
     disqualification = models.BooleanField(
         verbose_name=_('Disqualification'), default=False)
     is_best = models.BooleanField(
-        verbose_name=_("Is best result?"), default=False)
+        verbose_name=_("Is best result?"), default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
