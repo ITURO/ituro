@@ -52,7 +52,7 @@ class SumoGroupTeam(models.Model):
         ordering = ["-point", "-average", "order"]
 
     def __str__(self):
-        return "Group {}: {}".format(self.group.order, self.robot.name)
+        return u"Group {}: {}".format(self.group.order, self.robot.name)
 
 
 class SumoGroupMatch(SumoMatch):
