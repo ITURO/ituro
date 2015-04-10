@@ -1,4 +1,6 @@
 from django.views.generic.list import ListView
+from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -10,6 +12,7 @@ from orders.models import LineFollowerStage
 from results.models import LineFollowerResult, FireFighterResult, \
     BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
     SelfBalancingResult, ScenarioResult, InnovativeResult
+from sumo.models import *
 
 
 RESULTS_DICT = {
@@ -40,7 +43,7 @@ class ResultListView(ListView):
             return HttpResponseRedirect(
                 reverse('line_follower_stage_result_list'))
         elif category == 'micro_sumo':
-            return Http404
+            return HttpResponseRedirect(reverse('sumo_result_home'))
 
         return super(ResultListView, self).dispatch(*args, **kwargs)
 
@@ -93,3 +96,90 @@ class LineFollowerResultListView(ListView):
     def get_queryset(self):
         return LineFollowerResult.objects.filter(
             stage__order=self.kwargs.get("order"))
+
+
+class SumoResultHomeView(TemplateView):
+    template_name = "results/sumo_home.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not "micro_sumo" in dict(settings.RESULT_CATEGORIES).keys():
+            raise PermissionDenied
+        return super(SumoResultHomeView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SumoResultHomeView, self).get_context_data(**kwargs)
+        context["groups"] = settings.SUMO_GROUP_RESULTS
+        context["stages"] = settings.SUMO_STAGE_RESULTS
+        context["final"] = settings.SUMO_FINAL_RESULTS
+        return context
+
+
+class SumoResultGroupListView(ListView):
+    model = SumoGroup
+    template_name = 'results/sumo_group_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_GROUP_RESULTS:
+            raise PermissionDenied
+        return super(SumoResultGroupListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return SumoGroup.objects.filter(is_final=False)
+
+
+class SumoResultGroupDetailView(DetailView):
+    model = SumoGroup
+    template_name = "results/sumo_group_detail.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_GROUP_RESULTS:
+            raise PermissionDenied
+        return super(SumoResultGroupDetailView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        group = self.get_object()
+        context = super(SumoResultGroupDetailView, self).get_context_data(
+            **kwargs)
+        context["matches"] = SumoGroupMatch.objects.filter(group=group)
+        context["teams"] = SumoGroupTeam.objects.filter(group=group)
+        return context
+
+
+class SumoResultStageListView(ListView):
+    model = SumoStage
+    template_name = "results/sumo_stage_list.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_STAGE_RESULTS:
+            raise PermissionDenied
+        return super(SumoResultStageListView, self).dispatch(*args, **kwargs)
+
+
+class SumoResultStageDetailView(ListView):
+    model = SumoStageMatch
+    template_name = "results/sumo_stage_detail.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_STAGE_RESULTS:
+            raise PermissionDenied
+        return super(SumoResultStageDetailview, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return SumoStageMatch.objects.filter(stage__pk=self.kwargs.get("pk"))
+
+
+class SumoResultFinalDetailView(TemplateView):
+    template_name = "results/sumo_final.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.SUMO_FINAL_RESULTS:
+            raise PermissionDenied
+        return super(SumoResultFinalDetailView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SumoResultFinalDetailView, self).dispatch(
+            *args, **kwargs)
+        group = SumoGroup.objects.filter(is_final=True).first()
+        context["group"] = group
+        context["matches"] = SumoGroupMatch.objects.filter(group=group)
+        return context

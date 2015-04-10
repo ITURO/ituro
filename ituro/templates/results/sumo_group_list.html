@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}{% trans "Micro Sumo Group Results" %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Micro Sumo Group Results" %}</h1>
+</div>
+
+{% bootstrap_messages %}
+{% for group in object_list %}
+<h2>
+  <a href="{% url "sumo_result_group_detail" group.pk %}">
+    {% trans "Micro Sumo" %} {{ group.order|ordinal }} {% trans "Group" %}
+  </a>
+</h2>
+{% endfor %}
+{% endblock %}

@@ -158,6 +158,10 @@ PROJECT_CONFIRM = True
 PROJECT_ORDERS = True
 PROJECT_RESULTS = True
 
+SUMO_GROUP_RESULTS = True
+SUMO_STAGE_RESULTS = False
+SUMO_FINAL_RESULTS= False
+
 # Import local settings
 try:
     from local_settings import *
