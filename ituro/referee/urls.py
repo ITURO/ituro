@@ -41,7 +41,7 @@ urlpatterns = patterns(
         name='fire_fighter_result_delete'),
 
     # Basketball
-    url(r'^basketball/(?P<pk>\d+)/create/$',
+    url(r'^basketball/(?P<pid>\d+)/create/$',
         BasketballResultCreateView.as_view(),
         name='basketball_result_create'),
     url(r'^basketball/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
@@ -52,7 +52,7 @@ urlpatterns = patterns(
         name='basketball_result_delete'),
 
     # Stair Climbing
-    url(r'^stair_climbing/(?P<pk>\d+)/create/$',
+    url(r'^stair_climbing/(?P<pid>\d+)/create/$',
         StairClimbingResultCreateView.as_view(),
         name='stair_climbing_result_create'),
     url(r'^stair_climbing/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
@@ -63,7 +63,7 @@ urlpatterns = patterns(
         name='stair_climbing_result_delete'),
 
     # Maze
-    url(r'^maze/(?P<pk>\d+)/create/$',
+    url(r'^maze/(?P<pid>\d+)/create/$',
         MazeResultCreateView.as_view(),
         name='maze_result_create'),
     url(r'^maze/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
@@ -74,7 +74,7 @@ urlpatterns = patterns(
         name='maze_result_delete'),
 
     # Color Selecting
-    url(r'^color_selecting/(?P<pk>\d+)/create/$',
+    url(r'^color_selecting/(?P<pid>\d+)/create/$',
         ColorSelectingResultCreateView.as_view(),
         name='color_selecting_result_create'),
     url(r'^color_selecting/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
@@ -85,7 +85,7 @@ urlpatterns = patterns(
         name='color_selecting_result_delete'),
 
     # Self Balancing
-    url(r'^self_balancing/(?P<pk>\d+)/create/$',
+    url(r'^self_balancing/(?P<pid>\d+)/create/$',
         SelfBalancingResultCreateView.as_view(),
         name='self_balancing_result_create'),
     url(r'^self_balancing/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
@@ -96,7 +96,7 @@ urlpatterns = patterns(
         name='self_balancing_result_delete'),
 
     # Scenario
-    url(r'^scenario/(?P<pk>\d+)/create/$',
+    url(r'^scenario/(?P<pid>\d+)/create/$',
         ScenarioResultCreateView.as_view(),
         name='scenario_result_create'),
     url(r'^scenario/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
@@ -107,7 +107,7 @@ urlpatterns = patterns(
         name='scenario_result_delete'),
 
     # Innovative
-    url(r'^innovative/(?P<pk>\d+)/create/$',
+    url(r'^innovative/(?P<pid>\d+)/create/$',
         InnovativeResultCreateView.as_view(),
         name='innovative_result_create'),
     url(r'^innovative/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
