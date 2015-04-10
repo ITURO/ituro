@@ -105,8 +105,7 @@ class BaseResultUpdateView(UpdateView):
         queryset = self.get_queryset()
         project_pk = self.kwargs.get("pid")
         result_pk = self.kwargs.get("rid")
-        queryset = queryset.filter(
-            project__pk=project_pk, pk=result_pk, is_confirmed=True)
+        queryset = queryset.filter(project__pk=project_pk, pk=result_pk)
 
         try:
             obj = queryset.get()
