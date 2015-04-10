@@ -232,7 +232,8 @@ class LineFollowerResultCreateView(CreateView):
         context = super(LineFollowerResultCreateView, self).get_context_data(
             **kwargs)
         context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
-        context["stage"] = LineFollowerStage.objects.get()
+        context["stage"] = LineFollowerStage.objects.filter(
+            order=self.kwargs.get("order")).first()
         return context
 
     def form_valid(self, form):
