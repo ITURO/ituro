@@ -193,11 +193,11 @@ class ColorSelectingResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=ColorSelectingResult)
 def color_selecting_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum(
+    instance.score = sum((
         instance.obtain * 100,
         instance.place_success * 400,
         instance.place_failure * 50,
-        instance.place_partial * 100)
+        instance.place_partial * 100))
 
 
 @python_2_unicode_compatible
