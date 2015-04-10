@@ -116,8 +116,7 @@ class BaseResultUpdateView(UpdateView):
 
     def form_valid(self, form):
         result = form.save(commit=True)
-        messages.success(self.request, _(
-            "{} #{} result updated.".format(result.project.name, result.pk)))
+        messages.success(self.request, _("Result updated."))
         return super(BaseResultUpdateView, self).form_valid(form)
 
     def get_success_url(self):
