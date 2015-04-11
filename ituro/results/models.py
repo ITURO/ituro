@@ -228,8 +228,8 @@ class SelfBalancingResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=SelfBalancingResult)
 def self_balancing_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum(
-        instance.duration, instance.headway_amount, 30 * int(instance.impact))
+    instance.score = sum((
+        instance.duration, instance.headway_amount, 30 * int(instance.impact)))
 
 
 @python_2_unicode_compatible
