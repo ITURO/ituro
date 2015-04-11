@@ -477,13 +477,15 @@ class ScenarioResultDeleteView(BaseResultDeleteView):
 class InnovativeResultCreateView(BaseResultCreateView):
     model = InnovativeResult
     category = "innovative"
-    fields = BaseResultCreateView.fields + ["score"]
+    fields = ["design", "digital_design", "innovative", "technical",
+              "presentation", "opinion"]
 
 
 class InnovativeResultUpdateView(BaseResultUpdateView):
     model = InnovativeResult
     category = "innovative"
-    fields = InnovativeResultCreateView.fields
+    fields = ["design", "digital_design", "innovative", "technical",
+              "presentation", "opinion"]
 
 
 class InnovativeResultDeleteView(BaseResultDeleteView):
