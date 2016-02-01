@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n static bootstrap3 project_qrcode_generator user_qrcode_generator %}
+
+{% block title %}{% trans 'Project QrCode' %}: {{ object.name }} - {% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>{% trans 'Project QRCode' %}</h1>
+</div>
+
+{% bootstrap_messages %}
+<div>
+  <h3><strong>{% trans 'Project Name' %}</strong></h3>
+  <p>{{ object.name }}</p>
+</div>
+<div>
+  <h3><strong>{% trans 'User Name' %}</strong></h3>
+  <p>{{ object.manager.name }}</p>
+</div>
+
+<div class="row" style="margin-top: 10px;">
+  <div class="col-md-6">
+    <h3 style="text-align:center"><strong>{% trans 'Project QRCode' %}</strong></h3>
+    <p style="text-align:center">{{ project_qr|project_qrcode:"Project Qrcode" }}</p>
+  </div>
+  <div class="col-md-6">
+    <h3 style="text-align:center"><strong>{% trans 'User QRCode' %}</strong></h3>
+    <p style="text-align:center">{{ user_qr|user_qrcode:"User Qrcode" }}</p>
+  </div>
+</div>
+<div style="margin-top: 10px;">
+  <a class="btn btn-primary" href="{% url "project_confirm" %}" role="button">
+    {% trans 'Back' %}
+  </a>
+</div>
+
+
+{% endblock %}
