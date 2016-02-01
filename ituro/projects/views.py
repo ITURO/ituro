@@ -12,9 +12,9 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from accounts.models import CustomUser
-from projects.models import Project, Membership
+from projects.models import Project
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, \
-    ProjectConfirmForm, MemberCreateForm
+    ProjectConfirmForm
 
 
 class ProjectListView(TemplateView):
@@ -26,10 +26,7 @@ class ProjectListView(TemplateView):
         return super(ProjectListView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        ms = Membership.objects.filter(member=self.request.user)
-        projects = list()
-        for m in ms:
-            projects.append(m.project)
+        projects = Project.objects.filter(manager=self.request.user)
         context = super(ProjectListView, self).get_context_data(**kwargs)
         context['projects'] = projects
         return context
@@ -49,14 +46,8 @@ class ProjectCreateView(CreateView):
 
     def form_valid(self, form):
         project = form.save(commit=False)
+        project.manager = self.request.user
         project.save()
-
-        Membership.objects.create(
-            member=self.request.user,
-            project=project,
-            is_manager=True
-        )
-
         messages.success(self.request, _(
             "You have created a project successfully."))
         return super(ProjectCreateView, self).form_valid(form)
@@ -71,9 +62,7 @@ class ProjectUpdateView(UpdateView):
     def dispatch(self, *args, **kwargs):
         project = self.get_object()
         if not project.category in dict(settings.UPDATE_CATEGORIES).keys() or \
-           not settings.PROJECT_UPDATE or not Membership.objects.filter(
-               project=project, member=self.request.user,
-               is_manager=True).exists():
+           not settings.PROJECT_UPDATE or not project.manager==self.request.user:
             raise PermissionDenied
         return super(ProjectUpdateView, self).dispatch(*args, **kwargs)
 
@@ -91,9 +80,7 @@ class ProjectDeleteView(DeleteView):
     def dispatch(self, *args, **kwargs):
         project = self.get_object()
         if not project.category in dict(settings.UPDATE_CATEGORIES).keys() or \
-           not settings.PROJECT_UPDATE or not Membership.objects.filter(
-               project=project, member=self.request.user,
-               is_manager=True).exists():
+           not settings.PROJECT_UPDATE or not project.manager==self.request.user:
             raise PermissionDenied
         return super(ProjectDeleteView, self).dispatch(*args, **kwargs)
 
@@ -107,20 +94,16 @@ class ProjectDetailView(DetailView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if not Membership.objects.filter(
-               project=self.get_object(), member=self.request.user).exists():
+        project = self.get_object()
+        if not project.manager == self.request.user:
             raise PermissionDenied
         return super(ProjectDetailView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         project = self.get_object()
-        team = Membership.objects.filter(project=project)
-        is_manager = team.get(member=self.request.user).is_manager
         update = settings.PROJECT_UPDATE and project.category in \
                  dict(settings.UPDATE_CATEGORIES).keys()
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
-        context['team'] = team
-        context['is_manager'] = is_manager
         context['UPDATE_PERMISSION'] = update
         return context
 
@@ -149,65 +132,3 @@ class ProjectConfirmView(FormView):
             messages.info(self.request, _(
                 "Project will attend to Autodesk Design Contest."))
         return super(ProjectConfirmView, self).form_valid(form)
-
-
-class MemberCreateView(FormView):
-    template_name = "projects/member_create.html"
-    form_class = MemberCreateForm
-
-    def get_success_url(self):
-        return reverse('project_detail', args=[self.kwargs.get('pk')])
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        project = get_object_or_404(Project, pk=self.kwargs.get("pk"))
-        is_manager = Membership.objects.filter(
-            member__pk=self.request.user.pk, project=project, is_manager=True
-        ).exists()
-        if not is_manager or not settings.PROJECT_UPDATE or \
-           not project.category in dict(settings.UPDATE_CATEGORIES).keys():
-            raise PermissionDenied
-        return super(MemberCreateView, self).dispatch(*args, **kwargs)
-
-    def get_form_kwargs(self):
-        kwargs = super(MemberCreateView, self).get_form_kwargs()
-        kwargs.update({'project_pk': self.kwargs.get('pk')})
-        return kwargs
-
-    def form_valid(self, form):
-        email = form.cleaned_data.get('email')
-        pk = int(self.kwargs.get('pk'))
-        membership = Membership.objects.filter(
-            project__pk=pk, member__email=email)
-        project = Project.objects.get(pk=pk)
-        member = CustomUser.objects.get(email=email)
-        Membership.objects.create(project=project, member=member)
-        messages.success(self.request, _("New member added to project."))
-        return super(MemberCreateView, self).form_valid(form)
-
-
-class MemberDeleteView(DeleteView):
-    model = Membership
-    template_name = "projects/member_delete.html"
-    success_url = "/projects/"
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        project = self.get_object().project
-        if not project.category in dict(settings.UPDATE_CATEGORIES) or \
-           not settings.PROJECT_UPDATE or not self.get_queryset().filter(
-               member__email=self.request.user.email,
-               is_manager=True).exists() or self.get_object().is_manager:
-            raise PermissionDenied
-        return super(MemberDeleteView, self).dispatch(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(MemberDeleteView, self).get_context_data(**kwargs)
-        context['project'] = self.get_object().project.name
-        context['member'] = self.get_object().member.email
-        return context
-
-
-    def delete(self, request, *args, **kwargs):
-        messages.info(request, _("Member deleted successfully."))
-        return super(MemberDeleteView, self).delete(request, *args, **kwargs)

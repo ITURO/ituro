@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from captcha.fields import CaptchaField
 from accounts.models import CustomUser
-from projects.models import Project, Membership
+from projects.models import Project
 
 
 class ProjectCreateForm(forms.ModelForm):
@@ -17,7 +17,7 @@ class ProjectCreateForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        exclude = ('is_confirmed', 'is_active')
+        exclude = ('manager','is_confirmed', 'is_active')
 
     def clean_presentation(self):
         presentation = self.cleaned_data.get('presentation')
@@ -98,27 +98,5 @@ class ProjectConfirmForm(forms.Form):
         if error:
             raise forms.ValidationError(_(
                 "Error! Please correct the errors below."))
-        elif not Membership.objects.filter(
-                project__name=name, project__category=category,
-                member__email=email, is_manager=True).exists():
-            raise forms.ValidationError(_(
-                "Error! User is not the manager of the project."))
-
+                
         return cleaned_data
-
-
-class MemberCreateForm(forms.Form):
-    email = forms.EmailField(required=True)
-
-    def __init__(self, *args, **kwargs):
-        self.project_pk = int(kwargs.pop('project_pk'))
-        super(MemberCreateForm, self).__init__(*args, **kwargs)
-
-    def clean_email(self):
-        email = self.cleaned_data["email"]
-        if not CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError(_("User does not exist."))
-        if Membership.objects.filter(
-                project__pk=self.project_pk, member__email=email).exists():
-            raise forms.ValidationError(_("You cannot add a member twice."))
-        return email
