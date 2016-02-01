@@ -24,32 +24,14 @@
   <h3><a href="{{ object.presentation.url }}">{{ object.get_presentation_file_name }}</a></h3>
 </div>
 {% endif %}
-{% if team %}
-<div style="margin-top: 10px;">
-  <h3><strong>{% trans 'Project Team' %}</strong></h3>
-  <ul class="list-unstyled">
-    {% for membership in team %}
-    <li>
-      {{ membership.member }}
-      {% if UPDATE_PERMISSION and is_manager and not user == membership.member %}
-      <a href="{% url 'member_delete' membership.id %}">{% trans 'delete' %}</a>
-      {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
 
-{% if is_manager and UPDATE_PERMISSION %}
+{% if UPDATE_PERMISSION %}
 <div style="margin-top: 10px;">
   <a class="btn btn-primary" href="{% url "project_update" object.id %}" role="button">
     {% trans 'Update Project' %}
   </a>
   <a class="btn btn-danger" href="{% url "project_delete" object.id %}" role="button">
     {% trans 'Delete Project' %}
-  </a>
-  <a class="btn btn-success" href="{% url "member_create" object.id %}" role="button">
-    {% trans 'New Member' %}
   </a>
 </div>
 {% endif %}

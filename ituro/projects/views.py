@@ -111,7 +111,6 @@ class ProjectDetailView(DetailView):
 class ProjectConfirmView(FormView):
     template_name = "projects/project_confirm.html"
     form_class = ProjectConfirmForm
-    success_url = reverse_lazy("project_confirm")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -131,4 +130,25 @@ class ProjectConfirmView(FormView):
         if project.design:
             messages.info(self.request, _(
                 "Project will attend to Autodesk Design Contest."))
-        return super(ProjectConfirmView, self).form_valid(form)
+        return HttpResponseRedirect(reverse("project_qrcode",
+                                                args=(project.id,)))
+
+
+class ProjectQRCodeView(DetailView):
+    model=Project
+    template_name="projects/project_qrcode.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_staff:
+            raise PermissionDenied
+        return super(ProjectQRCodeView, self).dispatch(*args,**kwargs)
+
+    def get_context_data(self, **kwargs):
+        project = self.get_object()
+        user_qr = project.manager.qrcode
+        project_qr = project.qrcode
+        context = super(ProjectQRCodeView, self).get_context_data(**kwargs)
+        context["user_qr"] = user_qr
+        context["project_qr"] = project_qr
+        return context
