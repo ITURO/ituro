@@ -46,7 +46,14 @@ class ProjectCreateView(CreateView):
 
     def form_valid(self, form):
         project = form.save(commit=False)
+        category = form.instance.category
         project.manager = self.request.user
+        projects=Project.objects.filter(manager=project.manager)
+        projects=projects.filter(category=category)
+        if projects.exists():
+            messages.error(self.request,
+                _("You can not have more than 1 project in the same category"))
+            return HttpResponseRedirect(reverse("project_create"))
         project.save()
         messages.success(self.request, _(
             "You have created a project successfully."))
@@ -62,14 +69,28 @@ class ProjectUpdateView(UpdateView):
     def dispatch(self, *args, **kwargs):
         project = self.get_object()
         if not project.category in dict(settings.UPDATE_CATEGORIES).keys() or \
-           not settings.PROJECT_UPDATE or not project.manager==self.request.user:
+           not settings.PROJECT_UPDATE or project.is_confirmed or \
+           not project.manager==self.request.user:
             raise PermissionDenied
         return super(ProjectUpdateView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
+        category = self.get_object().category
+        form = form.instance
+        projects=Project.objects.filter(manager=form.manager)
+        projects=projects.filter(category=category)
+        pk = self.kwargs.get("pk")
+        if projects.exists():
+            messages.error(self.request,
+                _("Users can not have more than 1 project in the same category"))
+            return HttpResponseRedirect(reverse("project_update",
+                                                args=(pk,)))
         messages.info(self.request, _(
             "You have updated the project successfully."))
-        return super(ProjectUpdateView, self).form_valid(form)
+        return super(ProjectUpdateView,self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("project_list")
 
 
 class ProjectDeleteView(DeleteView):
