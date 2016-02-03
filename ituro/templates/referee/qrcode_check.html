@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% load i18n bootstrap3 %}
+{% load i18n static bootstrap3 %}
 
-{% block title %}{% trans 'Add Member' %} - {% endblock %}
+{% block title %}{% trans "QRCode Check" %}{% endblock %}
 {% block content %}
 <div class="page-header">
-  <h1>{% trans 'Add Member' %}</h1>
+  <h1>{% trans "QRCode Check" %}</h1>
 </div>
 
 {% bootstrap_messages %}
@@ -13,7 +13,7 @@
   {% bootstrap_form form %}
   {% buttons %}
   <button type="submit" class="btn btn-primary">
-    {% trans 'Add Member' %}
+    {% trans "Check" %}
   </button>
   {% endbuttons %}
 </form>

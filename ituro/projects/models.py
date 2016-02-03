@@ -11,6 +11,7 @@ from accounts.models import CustomUser
 
 @python_2_unicode_compatible
 class Project(models.Model):
+    manager = models.ForeignKey(CustomUser)
     category = models.CharField(
         verbose_name=_('Category'), max_length=30,
         choices=settings.ALL_CATEGORIES)
@@ -57,30 +58,13 @@ class Project(models.Model):
     def get_results_count(self):
         return self.results.count()
 
-
-@python_2_unicode_compatible
-class Membership(models.Model):
-    member = models.ForeignKey(CustomUser, verbose_name=_('User'))
-    project = models.ForeignKey(Project, verbose_name=_('Project'))
-    is_manager = models.BooleanField(
-        verbose_name=_('Is project manager?'), default=False)
-
-    class Meta:
-        unique_together = (("member", "project"),)
-
-    def __str__(self):
-        return self.member.email
-
-    def clean(self):
-        if self.is_manager:
-            members = self.__class__.objects.filter(
-                project=self.project).exclude(member=self.member).update(
-                    is_manager=False)
-
+    @property
+    def qrcode(self):
+        return "{}-{}-{}-{}".format(
+                self.manager.id,self.created_at.year,self.category,self.id)
 
 @receiver(models.signals.pre_delete, sender=Project)
 def project_delete_handler(sender, **kwargs):
     project = kwargs.get('instance')
-    Membership.objects.filter(project=project).delete()
     if project.presentation:
         project.presentation.delete()

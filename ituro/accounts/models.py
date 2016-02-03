@@ -68,3 +68,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    @property
+    def qrcode(self):
+        return "{}-{}".format(self.id, self.date_joined.year)
