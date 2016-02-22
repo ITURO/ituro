@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from projects.views import ProjectCreateView, ProjectDeleteView, \
     ProjectUpdateView, ProjectDetailView, ProjectListView, \
-    ProjectConfirmView, ProjectQRCodeView
+    ProjectConfirmView, QRCodeDetailView
 
 urlpatterns = patterns(
     '',
@@ -15,6 +15,6 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/$', ProjectDetailView.as_view(),
         name='project_detail'),
     url(r'^confirm/$', ProjectConfirmView.as_view(), name='project_confirm'),
-    url(r'^confirm/(?P<pk>\d+)/$', ProjectQRCodeView.as_view(),
-        name="project_qrcode")
+    url(r'^confirm/(?P<pk>\d+)/qrcode/$', QRCodeDetailView.as_view(),
+        name="qrcode_detail")
     )

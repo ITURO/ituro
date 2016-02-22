@@ -54,6 +54,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _('users')
         swappable = 'AUTH_USER_MODEL'
 
+    @property
+    def qrcode(self):
+        return "{}-{}".format(self.id, self.date_joined.year)
+
     def get_full_name(self):
         return self.name
 
@@ -68,7 +72,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-    @property
-    def qrcode(self):
-        return "{}-{}".format(self.id, self.date_joined.year)

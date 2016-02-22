@@ -55,13 +55,15 @@ class Project(models.Model):
         }
         return RESULTS_DICT[self.category]
 
-    def get_results_count(self):
-        return self.results.count()
-
     @property
     def qrcode(self):
         return "{}-{}-{}-{}".format(
                 self.manager.id,self.created_at.year,self.category,self.id)
+
+    def get_results_count(self):
+        return self.results.count()
+
+
 
 @receiver(models.signals.pre_delete, sender=Project)
 def project_delete_handler(sender, **kwargs):

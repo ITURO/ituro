@@ -1,9 +1,8 @@
-from django.views.generic.detail import SingleObjectMixin, DetailView
+from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, \
     FormView
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -48,16 +47,17 @@ class ProjectCreateView(CreateView):
         project = form.save(commit=False)
         category = form.instance.category
         project.manager = self.request.user
-        projects=Project.objects.filter(manager=project.manager)
-        projects=projects.filter(category=category)
-        if projects.exists():
+        manager_projects = Project.objects.filter(manager=project.manager,
+                                                    category=category)
+        if manager_projects.exists():
             messages.error(self.request,
                 _("You can not have more than 1 project in the same category"))
             return HttpResponseRedirect(reverse("project_create"))
-        project.save()
-        messages.success(self.request, _(
-            "You have created a project successfully."))
-        return super(ProjectCreateView, self).form_valid(form)
+        else:
+            project.save()
+            messages.success(self.request, _(
+                "You have created a project successfully."))
+            return super(ProjectCreateView, self).form_valid(form)
 
 
 class ProjectUpdateView(UpdateView):
@@ -77,20 +77,21 @@ class ProjectUpdateView(UpdateView):
     def form_valid(self, form):
         category = self.get_object().category
         form = form.instance
-        projects=Project.objects.filter(manager=form.manager)
-        projects=projects.filter(category=category)
+        manager_projects=Project.objects.filter(manager=form.manager,
+                                                category=category)
         pk = self.kwargs.get("pk")
-        if projects.exists():
+        if manager_projects.exists():
             messages.error(self.request,
-                _("Users can not have more than 1 project in the same category"))
-            return HttpResponseRedirect(reverse("project_update",
-                                                args=(pk,)))
-        messages.info(self.request, _(
-            "You have updated the project successfully."))
-        return super(ProjectUpdateView,self).form_valid(form)
+                _("Users can not have more than 1 project in the same \
+                    category"))
+            return HttpResponseRedirect(reverse("project_update", args=(pk,)))
+        else:
+            messages.info(self.request, _(
+                "You have updated the project successfully."))
+            return super(ProjectUpdateView,self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("project_list")
+        return reverse("project_list")
 
 
 class ProjectDeleteView(DeleteView):
@@ -101,7 +102,8 @@ class ProjectDeleteView(DeleteView):
     def dispatch(self, *args, **kwargs):
         project = self.get_object()
         if not project.category in dict(settings.UPDATE_CATEGORIES).keys() or \
-           not settings.PROJECT_UPDATE or not project.manager==self.request.user:
+           not settings.PROJECT_UPDATE or \
+           not project.manager==self.request.user:
             raise PermissionDenied
         return super(ProjectDeleteView, self).dispatch(*args, **kwargs)
 
@@ -151,25 +153,25 @@ class ProjectConfirmView(FormView):
         if project.design:
             messages.info(self.request, _(
                 "Project will attend to Autodesk Design Contest."))
-        return HttpResponseRedirect(reverse("project_qrcode",
+        return HttpResponseRedirect(reverse("qrcode_detail",
                                                 args=(project.id,)))
 
 
-class ProjectQRCodeView(DetailView):
+class QRCodeDetailView(DetailView):
     model=Project
-    template_name="projects/project_qrcode.html"
+    template_name="projects/qrcode_detail.html"
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_staff:
             raise PermissionDenied
-        return super(ProjectQRCodeView, self).dispatch(*args,**kwargs)
+        return super(QRCodeDetailView, self).dispatch(*args,**kwargs)
 
     def get_context_data(self, **kwargs):
         project = self.get_object()
         user_qr = project.manager.qrcode
         project_qr = project.qrcode
-        context = super(ProjectQRCodeView, self).get_context_data(**kwargs)
+        context = super(QRCodeDetailView, self).get_context_data(**kwargs)
         context["user_qr"] = user_qr
         context["project_qr"] = project_qr
         return context

@@ -44,7 +44,7 @@
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
           <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="{% url "category_qrcode" order.project.pk %}"><span class="glyphicon glyphicon-check"></span> {% trans "Check QRCode" %}</a>
+            <a role="menuitem" tabindex="-1" href="{% url "category_qrcode_check" order.project.category order.project.pk %}"><span class="glyphicon glyphicon-check"></span> {% trans "Check QRCode" %}</a>
           </li>
           {% with order.project.category|add:"_result_create" as create_url %}
           <li role="presentation">

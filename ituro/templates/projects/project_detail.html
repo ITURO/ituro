@@ -27,9 +27,9 @@
 
 {% if UPDATE_PERMISSION %}
 <div style="margin-top: 10px;">
-  <a class="btn btn-primary" href="{% url "project_update" object.id %}" role="button">
-    {% trans 'Update Project' %}
-  </a>
+    <a class="btn btn-primary" href="{% url "project_update" object.id %}" role="button">
+      {% trans 'Update Project' %}
+    </a>
   <a class="btn btn-danger" href="{% url "project_delete" object.id %}" role="button">
     {% trans 'Delete Project' %}
   </a>

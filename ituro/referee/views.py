@@ -198,9 +198,9 @@ class LineFollowerQRCodeCheckView(FormView):
         project_id = project_qrcode[-1]
         project_category = project_qrcode[2]
         pid = self.kwargs.get("pid")
+        order = self.kwargs.get("order")
         project= get_object_or_404(Project, id=project_id)
         user = get_object_or_404(CustomUser, id=user_id)
-        order = self.kwargs.get("order")
 
         if not pid == project_id:
             messages.error(self.request, _("Wrong Robot"))
@@ -217,11 +217,12 @@ class LineFollowerQRCodeCheckView(FormView):
                                                   args=(order,)))
         else:
             messages.success(self.request, _("Codes are matched"))
-            return HttpResponseRedirect(reverse("line_follower_result_create",
-                                            kwargs={
-                                                    "order":order,
-                                                    "pid":pid
-                                                    }))
+            return super(LineFollowerQRCodeCheckView, self).form_valid(form)
+
+    def get_success_url(self):
+        order = self.kwargs.get("order")
+        pid = self.kwargs.get("pid")
+        return reverse("line_follower_result_create", args=(order,pid,))
 
 
 class RefereeLineFollowerStageListView(ListView):
@@ -424,9 +425,9 @@ class CategoryQRCodeCheckView(FormView):
         project_id = project_qrcode[-1]
         project_category = project_qrcode[2]
         pid = self.kwargs.get("pid")
+        category = self.kwargs.get("category")
         project = get_object_or_404(Project, id=project_id)
         user = get_object_or_404(CustomUser, id=user_id)
-        category = self.kwargs.get("category")
 
         if not pid == project_id:
             messages.error(self.request, _("Wrong Robot"))
@@ -443,11 +444,13 @@ class CategoryQRCodeCheckView(FormView):
                                                   args=(category,)))
         else:
             messages.success(self.request, _("Codes are matched"))
-            return HttpResponseRedirect(reverse("line_follower_result_create",
-                                            kwargs={
-                                                    "category":category,
-                                                    "pid":pid
-                                                    }))
+            return super(CategoryQRCodeCheckView, self).form_valid(form)
+
+    def get_success_url(self):
+        category = str(self.kwargs.get("category"))
+        pid = self.kwargs.get("pid")
+        url = "{}_result_create".format(category)
+        return reverse(url, args=(pid,))
 
 
 class FireFighterResultCreateView(BaseResultCreateView):

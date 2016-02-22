@@ -19,7 +19,7 @@ urlpatterns = patterns(
         name='line_follower_result_create'),
     url(r'^line_follower/(?P<order>\d+)/(?P<pid>\d+)/check/$',
         LineFollowerQRCodeCheckView.as_view(),
-        name='line_follower_qrcode'),
+        name='line_follower_qrcode_check'),
     url(r'^line_follower/(?P<order>\d+)/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
         LineFollowerResultUpdateView.as_view(),
         name='line_follower_result_update'),
@@ -33,7 +33,7 @@ urlpatterns = patterns(
         name='category_robot_list'),
     url(r'^(?P<category>[-_\w]+)/(?P<pid>\d+)/check/$',
         CategoryQRCodeCheckView.as_view(),
-        name="category_qrcode"),
+        name="category_qrcode_check"),
 
     # Fire Fighter
     url(r'^fire_fighter/(?P<pid>\d+)/create/$',
