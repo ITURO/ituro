@@ -1,6 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, \
+    FormView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -11,7 +12,9 @@ from django.contrib import messages
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from projects.models import Project
+from accounts.models import CustomUser
 from orders.models import LineFollowerStage, LineFollowerRaceOrder, RaceOrder
+from referee.forms import QRCodeCheckForm
 from results.models import LineFollowerResult, FireFighterResult, \
     BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
     SelfBalancingResult, ScenarioResult, InnovativeResult
@@ -21,10 +24,12 @@ __all__ = [
     "RefereeHomeView",
     "RefereeLineFollowerStageListView",
     "LineFollowerRobotListView",
+    "LineFollowerQRCodeCheckView",
     "LineFollowerResultCreateView",
     "LineFollowerResultUpdateView",
     "LineFollowerResultDeleteView",
     "CategoryRobotListView",
+    "CategoryQRCodeCheckView",
     "RefereeLineFollowerStageListView",
     "FireFighterResultCreateView",
     "FireFighterResultUpdateView",
@@ -349,6 +354,77 @@ class CategoryRobotListView(ListView):
         context["category_display"] = dict(
             settings.ALL_CATEGORIES)[self.kwargs.get("category")]
         return context
+
+
+class BaseQRCodeCheckView(FormView):
+    template_name = "referee/qrcode_check.html"
+    form_class = QRCodeCheckForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(BaseQRCodeCheckView, self).dispatch(*args,**kwargs)
+
+    def form_valid(self, form):
+        project_qrcode = str(form.cleaned_data.get("project_qrcode"))
+        user_qrcode = str(form.cleaned_data.get("user_qrcode"))
+        project_qrcode = project_qrcode.split("-")
+        user_qrcode = user_qrcode.split("-")
+        user_id = user_qrcode[0]
+        project_user_id = project_qrcode[0]
+        project_id = project_qrcode[-1]
+        project_category = project_qrcode[2]
+        pid = self.kwargs.get("pid")
+        project = Project.objects.filter(id=project_id)
+        user = CustomUser.objects.filter(id=user_id)
+
+        if not user.exists():
+            messages.error(self.request, _("User does not exist."))
+        elif not project.exists():
+            messages.error(self.request, _("Project does not exist."))
+        elif not pid == project_id:
+            messages.error(self.request, _("Wrong Robot"))
+        elif project_category != project[0].category:
+            messages.error(self.request, _("Wrong Category"))
+        elif not project_user_id == user_id and \
+             not project[0].manager.id == user_id:
+            messages.error(self.request, _("Codes are mismatched"))
+        else:
+            messages.success(self.request, _("Codes are matched"))
+            return super(BaseQRCodeCheckView, self).form_valid(form)
+
+        return HttpResponseRedirect(self.get_failure_url())
+
+    def get_success_url(self):
+        raise NotImplementedError()
+
+    def get_failure_url(self):
+        raise NotImplementedError()
+
+
+class LineFollowerQRCodeCheckView(BaseQRCodeCheckView):
+    def get_success_url(self):
+        order = self.kwargs.get("order")
+        pid = self.kwargs.get("pid")
+        return reverse("line_follower_result_create", args=(order,pid,))
+
+    def get_failure_url(self):
+        order = self.kwargs.get("order")
+        return reverse("line_follower_robot_list", args=(order,))
+
+
+class CategoryQRCodeCheckView(BaseQRCodeCheckView):
+    def get_success_url(self):
+        category = str(self.kwargs.get("category"))
+        pid = self.kwargs.get("pid")
+        url = "{}_result_create".format(category)
+        return reverse(url, args=(pid,))
+
+    def get_failure_url(self):
+        category = str(self.kwargs.get("category"))
+        return reverse("category_robot_list", args=(category,))
 
 
 class FireFighterResultCreateView(BaseResultCreateView):

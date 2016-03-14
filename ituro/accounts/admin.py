@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext, ugettext_lazy as _
 from accounts.models import CustomUser
 from accounts.forms import CustomUserCreationForm, CustomUserChangeForm
-from projects.models import Membership
+from projects.models import Project
 
 
 class CustomUserAdmin(UserAdmin):
@@ -24,13 +24,13 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
     list_display = (
-        'email', 'name', 'phone', 'school', 'is_staff', 'is_active',
+        'email', 'name', 'phone', 'school', 'is_staff', 'is_active','qrcode',
         'projects')
     search_fields = ('name', 'email', 'phone', 'school')
     ordering = ('id',)
 
     def projects(self, obj):
-        return Membership.objects.filter(member=obj).count()
+        return Project.objects.filter(manager=obj).count()
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

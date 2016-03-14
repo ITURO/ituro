@@ -1,10 +1,11 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from optparse import make_option
-from projects.models import Project, Membership
+from projects.models import Project
 from sumo.models import SumoGroup, SumoGroupTeam, SumoGroupMatch
 from random import shuffle, randint
 from math import factorial as f
+from math import ceil
 
 
 class Command(BaseCommand):
@@ -13,13 +14,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         school_dict = dict()
-        for m in Membership.objects.filter(
-            project__category="micro_sumo",
-                project__is_confirmed=True, is_manager=True):
-            if school_dict.has_key(m.member.school):
-                school_dict[m.member.school] += 1
+        for m in Project.objects.filter(
+            category="micro_sumo",is_confirmed=True):
+            if school_dict.has_key(m.manager.school):
+                school_dict[m.manager.school] += 1
             else:
-                school_dict[m.member.school] = 1
+                school_dict[m.manager.school] = 1
         school_pairs = school_dict.items()
         school_pairs.sort(key=lambda tup: tup[1])
         school_list = map(lambda x: x[0], school_pairs)
@@ -44,9 +44,9 @@ class Command(BaseCommand):
         shuffle(active_groups)
 
         for school in school_list:
-            for m in Membership.objects.filter(
-                    is_manager=True, project__category="micro_sumo",
-                    member__school=school, project__is_confirmed=True):
+            for m in Project.objects.filter(
+                    category="micro_sumo",
+                    manager__school=school, is_confirmed=True):
                 if len(active_groups) == 0:
                     active_groups = passive_groups[:]
                     shuffle(active_groups)
@@ -54,10 +54,11 @@ class Command(BaseCommand):
                 current_group = active_groups.pop()
                 passive_groups.append(current_group)
                 SumoGroupTeam.objects.create(
-                    group=current_group, robot=m.project)
+                    group=current_group, robot=m)
         self.stdout.write('Sumo groups generated.')
 
         for group in SumoGroup.objects.all():
+            import pdb;pdb.set_trace()
             order = 1
             teams = SumoGroupTeam.objects.filter(group=group)
             team_list = list(teams)

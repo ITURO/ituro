@@ -21,4 +21,13 @@
   </button>
   {% endbuttons %}
 </form>
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("label[for='id_manager']").insertAfter("#id_name");
+  $("label[for='id_manager']").css("padding-top","10px");
+  $("#id_manager").insertAfter("label[for='id_manager']");
+  $("#id_manager").val("{{ object.manager.email }}"); 
+});
+</script>
 {% endblock %}

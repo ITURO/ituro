@@ -33,9 +33,9 @@ class CustomUserManager(BaseUserManager):
 @python_2_unicode_compatible
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
-    name = models.CharField(_('full name'), max_length=60, blank=True)
-    phone = models.CharField(_('phone'), max_length=15, blank=True)
-    school = models.CharField(_('school'), max_length=50, blank=True)
+    name = models.CharField(_('full name'), max_length=60)
+    phone = models.CharField(_('phone'), max_length=15)
+    school = models.CharField(_('school'), max_length=50)
     is_staff = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '
                     'site.'))
@@ -53,6 +53,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = _('user')
         verbose_name_plural = _('users')
         swappable = 'AUTH_USER_MODEL'
+
+    @property
+    def qrcode(self):
+        return "{}-{}".format(self.id, self.date_joined.year)
 
     def get_full_name(self):
         return self.name
