@@ -177,54 +177,6 @@ class RefereeHomeView(TemplateView):
         return context
 
 
-class LineFollowerQRCodeCheckView(FormView):
-    template_name = "referee/qrcode_check.html"
-    form_class = QRCodeCheckForm
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_superuser and \
-           not self.request.user.has_group("referee"):
-            raise PermissionDenied
-        return super(LineFollowerQRCodeCheckView, self).dispatch(*args,**kwargs)
-
-    def form_valid(self, form):
-        project_qrcode = str(form.cleaned_data.get("project_qrcode"))
-        user_qrcode = str(form.cleaned_data.get("user_qrcode"))
-        project_qrcode = project_qrcode.split("-")
-        user_qrcode = user_qrcode.split("-")
-        user_id = user_qrcode[0]
-        project_user_id = project_qrcode[0]
-        project_id = project_qrcode[-1]
-        project_category = project_qrcode[2]
-        pid = self.kwargs.get("pid")
-        order = self.kwargs.get("order")
-        project= get_object_or_404(Project, id=project_id)
-        user = get_object_or_404(CustomUser, id=user_id)
-
-        if not pid == project_id:
-            messages.error(self.request, _("Wrong Robot"))
-            return HttpResponseRedirect(reverse("line_follower_robot_list",
-                                                args=(order,)))
-        elif not project_category=="line_follower":
-            messages.error(self.request, _("Wrong Category"))
-            return HttpResponseRedirect(reverse("line_follower_robot_list",
-                                                args=(order,)))
-        elif not project_user_id == user_id and \
-             not project.manager.id == user_id:
-              messages.error(self.request, _("Codes are mismatched"))
-              return HttpResponseRedirect(reverse("line_follower_robot_list",
-                                                  args=(order,)))
-        else:
-            messages.success(self.request, _("Codes are matched"))
-            return super(LineFollowerQRCodeCheckView, self).form_valid(form)
-
-    def get_success_url(self):
-        order = self.kwargs.get("order")
-        pid = self.kwargs.get("pid")
-        return reverse("line_follower_result_create", args=(order,pid,))
-
-
 class RefereeLineFollowerStageListView(ListView):
     model = LineFollowerStage
     template_name = "referee/line_follower_stage_list.html"
@@ -404,7 +356,7 @@ class CategoryRobotListView(ListView):
         return context
 
 
-class CategoryQRCodeCheckView(FormView):
+class BaseQRCodeCheckView(FormView):
     template_name = "referee/qrcode_check.html"
     form_class = QRCodeCheckForm
 
@@ -413,7 +365,7 @@ class CategoryQRCodeCheckView(FormView):
         if not self.request.user.is_superuser and \
            not self.request.user.has_group("referee"):
             raise PermissionDenied
-        return super(CategoryQRCodeCheckView, self).dispatch(*args,**kwargs)
+        return super(BaseQRCodeCheckView, self).dispatch(*args,**kwargs)
 
     def form_valid(self, form):
         project_qrcode = str(form.cleaned_data.get("project_qrcode"))
@@ -425,32 +377,54 @@ class CategoryQRCodeCheckView(FormView):
         project_id = project_qrcode[-1]
         project_category = project_qrcode[2]
         pid = self.kwargs.get("pid")
-        category = self.kwargs.get("category")
-        project = get_object_or_404(Project, id=project_id)
-        user = get_object_or_404(CustomUser, id=user_id)
+        project = Project.objects.filter(id=project_id)
+        user = CustomUser.objects.filter(id=user_id)
 
-        if not pid == project_id:
+        if not user.exists():
+            messages.error(self.request, _("User does not exist."))
+        elif not project.exists():
+            messages.error(self.request, _("Project does not exist."))
+        elif not pid == project_id:
             messages.error(self.request, _("Wrong Robot"))
-            return HttpResponseRedirect(reverse("category_robot_list",
-                                                args=(category,)))
-        elif not project_category==category:
+        elif project_category != project[0].category:
             messages.error(self.request, _("Wrong Category"))
-            return HttpResponseRedirect(reverse("category_robot_list",
-                                                args=(category,)))
         elif not project_user_id == user_id and \
-             not project.manager.id == user_id:
-              messages.error(self.request, _("Codes are mismatched"))
-              return HttpResponseRedirect(reverse("category_robot_list",
-                                                  args=(category,)))
+             not project[0].manager.id == user_id:
+            messages.error(self.request, _("Codes are mismatched"))
         else:
             messages.success(self.request, _("Codes are matched"))
-            return super(CategoryQRCodeCheckView, self).form_valid(form)
+            return super(BaseQRCodeCheckView, self).form_valid(form)
 
+        return HttpResponseRedirect(self.get_failure_url())
+
+    def get_success_url(self):
+        raise NotImplementedError()
+
+    def get_failure_url(self):
+        raise NotImplementedError()
+
+
+class LineFollowerQRCodeCheckView(BaseQRCodeCheckView):
+    def get_success_url(self):
+        order = self.kwargs.get("order")
+        pid = self.kwargs.get("pid")
+        return reverse("line_follower_result_create", args=(order,pid,))
+
+    def get_failure_url(self):
+        order = self.kwargs.get("order")
+        return reverse("line_follower_robot_list", args=(order,))
+
+
+class CategoryQRCodeCheckView(BaseQRCodeCheckView):
     def get_success_url(self):
         category = str(self.kwargs.get("category"))
         pid = self.kwargs.get("pid")
         url = "{}_result_create".format(category)
         return reverse(url, args=(pid,))
+
+    def get_failure_url(self):
+        category = str(self.kwargs.get("category"))
+        return reverse("category_robot_list", args=(category,))
 
 
 class FireFighterResultCreateView(BaseResultCreateView):

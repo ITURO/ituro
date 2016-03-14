@@ -19,9 +19,6 @@ class Project(models.Model):
     presentation = models.FileField(
         verbose_name=_("Project Presentation File"),
         upload_to='presentations', blank=True)
-    design = models.BooleanField(
-        verbose_name=_('I want to join Autodesk Digital Design Contest.'),
-        default=False)
     is_confirmed = models.BooleanField(
         verbose_name=_('Is project confirmed?'), default=False)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -42,22 +42,16 @@ class ProjectCreateForm(forms.ModelForm):
 
 
 class ProjectUpdateForm(forms.ModelForm):
-    manager = forms.EmailField(required=True)
     presentation = forms.FileField(required=True)
 
     class Meta:
         model = Project
-        exclude = ('category', 'is_confirmed', 'is_active')
+        exclude = ('category', 'is_confirmed', 'is_active', 'manager')
 
     def __init__(self, *args, **kwargs):
         super(ProjectUpdateForm, self).__init__(*args, **kwargs)
         if self.instance.category != 'innovative':
             self.fields.pop('presentation')
-
-    def clean_manager(self):
-        email = str(self.cleaned_data.get("manager"))
-        user = get_object_or_404(CustomUser,email=email)
-        return user
 
     def clean_name(self):
         name = self.cleaned_data.get('name')

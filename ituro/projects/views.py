@@ -75,20 +75,9 @@ class ProjectUpdateView(UpdateView):
         return super(ProjectUpdateView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
-        category = self.get_object().category
-        form = form.instance
-        manager_projects=Project.objects.filter(manager=form.manager,
-                                                category=category)
-        pk = self.kwargs.get("pk")
-        if manager_projects.exists():
-            messages.error(self.request,
-                _("Users can not have more than 1 project in the same \
-                    category"))
-            return HttpResponseRedirect(reverse("project_update", args=(pk,)))
-        else:
-            messages.info(self.request, _(
-                "You have updated the project successfully."))
-            return super(ProjectUpdateView,self).form_valid(form)
+        messages.info(self.request, _(
+            "You have updated the project successfully."))
+        return super(ProjectUpdateView,self).form_valid(form)
 
     def get_success_url(self):
         return reverse("project_list")
@@ -150,11 +139,8 @@ class ProjectConfirmView(FormView):
             "Project confirmation process completed successfully."))
 
         project = Project.objects.get(name=name, category=category)
-        if project.design:
-            messages.info(self.request, _(
-                "Project will attend to Autodesk Design Contest."))
-        return HttpResponseRedirect(reverse("qrcode_detail",
-                                                args=(project.id,)))
+        return HttpResponseRedirect(
+                reverse("qrcode_detail", args=(project.id,)))
 
 
 class QRCodeDetailView(DetailView):

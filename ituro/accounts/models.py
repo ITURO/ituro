@@ -33,9 +33,9 @@ class CustomUserManager(BaseUserManager):
 @python_2_unicode_compatible
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
-    name = models.CharField(_('full name'), max_length=60, blank=True)
-    phone = models.CharField(_('phone'), max_length=15, blank=True)
-    school = models.CharField(_('school'), max_length=50, blank=True)
+    name = models.CharField(_('full name'), max_length=60)
+    phone = models.CharField(_('phone'), max_length=15)
+    school = models.CharField(_('school'), max_length=50)
     is_staff = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '
                     'site.'))
