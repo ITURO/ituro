@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from optparse import make_option
-from projects.models import Project, Membership
+from projects.models import Project
 from orders.models import LineFollowerRaceOrder, LineFollowerStage
 from random import shuffle
 
@@ -22,5 +22,4 @@ class Command(BaseCommand):
         self.stdout.write("Line Follower Day #{} Orders".format(day))
         for order in LineFollowerRaceOrder.objects.filter(stage__order=day):
             self.stdout.write(u"{}. {} by {}".format(
-                order.order, order.project,
-                order.project.membership_set.filter(is_manager=True)[0].member))
+                order.order, order.project, order.project.manager))

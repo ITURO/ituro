@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-10 02:28+0000\n"
+"POT-Creation-Date: 2016-03-19 01:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,8 +91,15 @@ msgstr ""
 msgid "You have updated your profile successfully."
 msgstr ""
 
-#: ituro/local_settings.py:23 ituro/settings.py:135
-#: templates/lcd/line_follower_stage_list.html:15
+#: ituro/settings.py:93
+msgid "Turkish"
+msgstr ""
+
+#: ituro/settings.py:94
+msgid "English"
+msgstr ""
+
+#: ituro/settings.py:135 templates/lcd/line_follower_stage_list.html:15
 #: templates/lcd/result_list.html:12 templates/lcd/result_list.html.py:22
 #: templates/orders/line_follower_stage_list.html:15
 #: templates/orders/race_order_list.html:8
@@ -103,8 +110,7 @@ msgstr ""
 msgid "Line Follower"
 msgstr ""
 
-#: ituro/local_settings.py:24 ituro/settings.py:136
-#: templates/orders/sumo_group_detail.html:4
+#: ituro/settings.py:136 templates/orders/sumo_group_detail.html:4
 #: templates/orders/sumo_group_detail.html:9
 #: templates/orders/sumo_group_list.html:15
 #: templates/orders/sumo_stage_detail.html:4
@@ -116,44 +122,36 @@ msgstr ""
 msgid "Micro Sumo"
 msgstr ""
 
-#: ituro/local_settings.py:25 ituro/settings.py:137
+#: ituro/settings.py:137
 msgid "Fire Fighter"
 msgstr ""
 
-#: ituro/local_settings.py:26 ituro/settings.py:138
+#: ituro/settings.py:138
 msgid "Basketball"
 msgstr ""
 
-#: ituro/local_settings.py:27 ituro/settings.py:139
+#: ituro/settings.py:139
 msgid "Stair Climbing"
 msgstr ""
 
-#: ituro/local_settings.py:28 ituro/settings.py:140
+#: ituro/settings.py:140
 msgid "Maze"
 msgstr ""
 
-#: ituro/local_settings.py:29 ituro/settings.py:141
+#: ituro/settings.py:141
 msgid "Color Selecting"
 msgstr ""
 
-#: ituro/local_settings.py:30 ituro/settings.py:142
+#: ituro/settings.py:142
 msgid "Self Balancing"
 msgstr ""
 
-#: ituro/local_settings.py:31 ituro/settings.py:143
+#: ituro/settings.py:143
 msgid "Scenario"
 msgstr ""
 
-#: ituro/local_settings.py:32 ituro/settings.py:144
+#: ituro/settings.py:144 results/models.py:258
 msgid "Innovative"
-msgstr ""
-
-#: ituro/settings.py:93
-msgid "Turkish"
-msgstr ""
-
-#: ituro/settings.py:94
-msgid "English"
 msgstr ""
 
 #: orders/models.py:9
@@ -192,8 +190,7 @@ msgstr ""
 msgid "Race Order"
 msgstr ""
 
-#: orders/models.py:42 orders/models.py:52 projects/models.py:29
-#: projects/models.py:64
+#: orders/models.py:42 orders/models.py:52 projects/models.py:27
 msgid "Project"
 msgstr ""
 
@@ -216,136 +213,134 @@ msgstr ""
 msgid "Race Orders"
 msgstr ""
 
-#: projects/forms.py:15
+#: projects/forms.py:16
 msgid "I agree terms of service."
 msgstr ""
 
-#: projects/forms.py:28
+#: projects/forms.py:29
 msgid "Presentation file is required for innovative projects."
 msgstr ""
 
-#: projects/forms.py:32 projects/forms.py:68
+#: projects/forms.py:33 projects/forms.py:69
 msgid "Only PDF files will be accepted."
 msgstr ""
 
-#: projects/forms.py:35 projects/forms.py:71
+#: projects/forms.py:36 projects/forms.py:72
 msgid "Max file size is 1MB."
 msgstr ""
 
-#: projects/forms.py:38
+#: projects/forms.py:39
 msgid "Presentation can only be uploaded for innovative projects."
 msgstr ""
 
-#: projects/forms.py:60
+#: projects/forms.py:61
 msgid "Project name is being used."
 msgstr ""
 
-#: projects/forms.py:77 projects/models.py:17
+#: projects/forms.py:78 projects/models.py:18
+#: templates/projects/qrcode_detail.html:12
 msgid "Project Name"
 msgstr ""
 
-#: projects/forms.py:79
+#: projects/forms.py:80
 msgid "Project Category"
 msgstr ""
 
-#: projects/forms.py:81
+#: projects/forms.py:82
 msgid "Project Manager Email"
 msgstr ""
 
-#: projects/forms.py:91
+#: projects/forms.py:92 referee/views.py:386
 msgid "Project does not exist."
 msgstr ""
 
-#: projects/forms.py:95 projects/forms.py:120
+#: projects/forms.py:96 referee/views.py:384
 msgid "User does not exist."
 msgstr ""
 
-#: projects/forms.py:100
+#: projects/forms.py:101
 msgid "Error! Please correct the errors below."
 msgstr ""
 
-#: projects/forms.py:105
-msgid "Error! User is not the manager of the project."
-msgstr ""
-
-#: projects/forms.py:123
-msgid "You cannot add a member twice."
-msgstr ""
-
-#: projects/models.py:15 templates/projects/project_detail.html:17
+#: projects/models.py:16 templates/projects/project_detail.html:17
 msgid "Category"
 msgstr ""
 
-#: projects/models.py:19
+#: projects/models.py:20
 msgid "Project Presentation File"
 msgstr ""
 
-#: projects/models.py:22
-msgid "I want to join Autodesk Digital Design Contest."
-msgstr ""
-
-#: projects/models.py:25
+#: projects/models.py:23
 msgid "Is project confirmed?"
 msgstr ""
 
-#: projects/models.py:30
+#: projects/models.py:28
 msgid "Projects"
 msgstr ""
 
-#: projects/models.py:63
-msgid "User"
+#: projects/views.py:54
+msgid "You can not have more than 1 project in the same category"
 msgstr ""
 
-#: projects/models.py:66
-msgid "Is project manager?"
-msgstr ""
-
-#: projects/views.py:61
+#: projects/views.py:59
 msgid "You have created a project successfully."
 msgstr ""
 
-#: projects/views.py:82
+#: projects/views.py:79
 msgid "You have updated the project successfully."
 msgstr ""
 
-#: projects/views.py:101
+#: projects/views.py:100
 msgid "Project deleted."
 msgstr ""
 
-#: projects/views.py:145
+#: projects/views.py:139
 msgid "Project confirmation process completed successfully."
 msgstr ""
 
-#: projects/views.py:150
-msgid "Project will attend to Autodesk Design Contest."
+#: referee/forms.py:8 templates/projects/qrcode_detail.html:25
+msgid "User QRCode"
 msgstr ""
 
-#: projects/views.py:185
-msgid "New member added to project."
+#: referee/forms.py:10 templates/projects/qrcode_detail.html:8
+#: templates/projects/qrcode_detail.html:21
+msgid "Project QRCode"
 msgstr ""
 
-#: projects/views.py:212
-msgid "Member deleted successfully."
-msgstr ""
-
-#: referee/views.py:83
+#: referee/views.py:88
 msgid "Result entry created."
 msgstr ""
 
-#: referee/views.py:121
-msgid "{} #{} result updated."
+#: referee/views.py:124
+msgid "Result updated."
 msgstr ""
 
-#: referee/views.py:154 referee/views.py:320
+#: referee/views.py:157 referee/views.py:324
 msgid "Result entry deleted."
 msgstr ""
 
-#: referee/views.py:244
+#: referee/views.py:248
 msgid "Result entry generated."
 msgstr ""
 
-#: referee/views.py:283
+#: referee/views.py:287
 msgid "Result entry for {} #{} updated."
+msgstr ""
+
+#: referee/views.py:388
+msgid "Wrong Robot"
+msgstr ""
+
+#: referee/views.py:390
+msgid "Wrong Category"
+msgstr ""
+
+#: referee/views.py:393
+msgid "Codes are mismatched"
+msgstr ""
+
+#: referee/views.py:395
+msgid "Codes are matched"
 msgstr ""
 
 #: results/models.py:11 templates/lcd/result_list.html:50
@@ -388,155 +383,175 @@ msgstr ""
 msgid "Line Follower Results"
 msgstr ""
 
-#: results/models.py:73
+#: results/models.py:63
 msgid "Succesful Extinguish Count"
 msgstr ""
 
-#: results/models.py:75
+#: results/models.py:65
 msgid "Unsuccessful Extinguish Count"
 msgstr ""
 
-#: results/models.py:77
+#: results/models.py:67
 msgid "Wall Hit Count"
 msgstr ""
 
-#: results/models.py:80
+#: results/models.py:70
 msgid "Fire Fighter Result"
 msgstr ""
 
-#: results/models.py:81
+#: results/models.py:71
 msgid "Fire Fighter Results"
 msgstr ""
 
-#: results/models.py:110
+#: results/models.py:92
 msgid "Basket 1"
 msgstr ""
 
-#: results/models.py:111
+#: results/models.py:93
 msgid "Basket 2"
 msgstr ""
 
-#: results/models.py:112
+#: results/models.py:94
 msgid "Basket 3"
 msgstr ""
 
-#: results/models.py:113
+#: results/models.py:95
 msgid "Basket 4"
 msgstr ""
 
-#: results/models.py:115
+#: results/models.py:97
 msgid "Total Basket"
 msgstr ""
 
-#: results/models.py:118
+#: results/models.py:100
 msgid "Basketball Result"
 msgstr ""
 
-#: results/models.py:119
+#: results/models.py:101
 msgid "Basketball Results"
 msgstr ""
 
-#: results/models.py:151
+#: results/models.py:124
 msgid "Stair #1"
 msgstr ""
 
-#: results/models.py:152
+#: results/models.py:125
 msgid "Stair #2"
 msgstr ""
 
-#: results/models.py:153
+#: results/models.py:126
 msgid "Stair #3"
 msgstr ""
 
-#: results/models.py:154
+#: results/models.py:127
 msgid "Stair #4"
 msgstr ""
 
-#: results/models.py:156
+#: results/models.py:129
 msgid "Downstairs Count"
 msgstr ""
 
-#: results/models.py:159
+#: results/models.py:132
 msgid "Stair Climbing Result"
 msgstr ""
 
-#: results/models.py:160
+#: results/models.py:133
 msgid "Stair Climbing Results"
 msgstr ""
 
-#: results/models.py:191
+#: results/models.py:155
 msgid "Maze Result"
 msgstr ""
 
-#: results/models.py:192
+#: results/models.py:156
 msgid "Maze Results"
 msgstr ""
 
-#: results/models.py:221
+#: results/models.py:176
 msgid "Cylinder Obtain Count"
 msgstr ""
 
-#: results/models.py:223
+#: results/models.py:178
 msgid "Cylinder Successful Placement Count"
 msgstr ""
 
-#: results/models.py:225
+#: results/models.py:180
 msgid "Cylinder Unsuccessful Placement Count"
 msgstr ""
 
-#: results/models.py:227
+#: results/models.py:182
 msgid "Cylinder Partial Placement Count"
 msgstr ""
 
-#: results/models.py:230
+#: results/models.py:185
 msgid "Color Selecting Result"
 msgstr ""
 
-#: results/models.py:231
+#: results/models.py:186
 msgid "Color Selecting Results"
 msgstr ""
 
-#: results/models.py:262
+#: results/models.py:208
 msgid "Headway Amount (cm)"
 msgstr ""
 
-#: results/models.py:263
+#: results/models.py:209
 msgid "Impact Test"
 msgstr ""
 
-#: results/models.py:265
+#: results/models.py:211
 msgid "Headway Minutes"
 msgstr ""
 
-#: results/models.py:267
+#: results/models.py:213
 msgid "Headway Seconds"
 msgstr ""
 
-#: results/models.py:269
+#: results/models.py:215
 msgid "Headway Milliseconds"
 msgstr ""
 
-#: results/models.py:272
+#: results/models.py:218
 msgid "Self Balancing Result"
 msgstr ""
 
-#: results/models.py:273
+#: results/models.py:219
 msgid "Self Balancing Results"
 msgstr ""
 
-#: results/models.py:304
+#: results/models.py:241
 msgid "Scenario Result"
 msgstr ""
 
-#: results/models.py:305
+#: results/models.py:242
 msgid "Scenario Results"
 msgstr ""
 
-#: results/models.py:327
+#: results/models.py:254
+msgid "Design"
+msgstr ""
+
+#: results/models.py:256
+msgid "Digital Design"
+msgstr ""
+
+#: results/models.py:260
+msgid "Technical"
+msgstr ""
+
+#: results/models.py:262 templates/projects/project_detail.html:23
+msgid "Presentation"
+msgstr ""
+
+#: results/models.py:264
+msgid "Opinion"
+msgstr ""
+
+#: results/models.py:267
 msgid "Innovative Result"
 msgstr ""
 
-#: results/models.py:328
+#: results/models.py:268
 msgid "Innovative Results"
 msgstr ""
 
@@ -737,6 +752,10 @@ msgid "ITU Robot Olympics"
 msgstr ""
 
 #: templates/header.html:20
+msgid "en"
+msgstr ""
+
+#: templates/header.html:20
 msgid "Site"
 msgstr ""
 
@@ -772,11 +791,11 @@ msgstr ""
 
 #: templates/lcd/firefighterresult_form.html:4
 #: templates/lcd/firefighterresult_form.html:16
-#: templates/referee/line_follower_order_list.html:49
+#: templates/referee/line_follower_order_list.html:52
 #: templates/referee/line_follower_result_create.html:4
 #: templates/referee/line_follower_result_create.html:7
 #: templates/referee/line_follower_result_create.html:16
-#: templates/referee/order_list.html:48 templates/referee/result_create.html:7
+#: templates/referee/order_list.html:51 templates/referee/result_create.html:7
 #: templates/referee/result_create.html:16
 #: templates/results/firefighterresult_form.html:4
 #: templates/results/firefighterresult_form.html:16
@@ -892,28 +911,6 @@ msgstr ""
 msgid "Micro Sumo Stage Orders"
 msgstr ""
 
-#: templates/projects/member_create.html:4
-#: templates/projects/member_create.html:7
-#: templates/projects/member_create.html:16
-msgid "Add Member"
-msgstr ""
-
-#: templates/projects/member_delete.html:4
-#: templates/projects/member_delete.html:7
-msgid "Delete User"
-msgstr ""
-
-#: templates/projects/member_delete.html:14
-#, python-format
-msgid "You are about to remove %(member)s from %(project)s. Are you sure?"
-msgstr ""
-
-#: templates/projects/member_delete.html:18
-#: templates/projects/project_confirm.html:16
-#: templates/projects/project_confirm_delete.html:18
-msgid "Confirm"
-msgstr ""
-
 #: templates/projects/project_confirm.html:4
 msgid "Project Confirmation"
 msgstr ""
@@ -922,9 +919,14 @@ msgstr ""
 msgid "Confirm Project"
 msgstr ""
 
+#: templates/projects/project_confirm.html:16
+#: templates/projects/project_confirm_delete.html:18
+msgid "Confirm"
+msgstr ""
+
 #: templates/projects/project_confirm_delete.html:4
 #: templates/projects/project_confirm_delete.html:7
-#: templates/projects/project_detail.html:49
+#: templates/projects/project_detail.html:34
 msgid "Delete Project"
 msgstr ""
 
@@ -942,27 +944,11 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: templates/projects/project_detail.html:23
-msgid "Presentation"
-msgstr ""
-
-#: templates/projects/project_detail.html:29
-msgid "Project Team"
-msgstr ""
-
-#: templates/projects/project_detail.html:35
-msgid "delete"
-msgstr ""
-
-#: templates/projects/project_detail.html:46
+#: templates/projects/project_detail.html:31
 #: templates/projects/project_update.html:4
 #: templates/projects/project_update.html:7
 #: templates/projects/project_update.html:20
 msgid "Update Project"
-msgstr ""
-
-#: templates/projects/project_detail.html:52
-msgid "New Member"
 msgstr ""
 
 #: templates/projects/project_list.html:18
@@ -977,6 +963,18 @@ msgstr ""
 msgid "Create a new project."
 msgstr ""
 
+#: templates/projects/qrcode_detail.html:4
+msgid "Project QrCode"
+msgstr ""
+
+#: templates/projects/qrcode_detail.html:16
+msgid "User Name"
+msgstr ""
+
+#: templates/projects/qrcode_detail.html:31
+msgid "Back"
+msgstr ""
+
 #: templates/referee/home.html:4 templates/referee/home.html.py:8
 msgid "Referee Dashboard"
 msgstr ""
@@ -985,7 +983,7 @@ msgstr ""
 #: templates/referee/line_follower_result_update.html:4
 #: templates/referee/line_follower_result_update.html:7
 #: templates/referee/line_follower_result_update.html:16
-#: templates/referee/order_list.html:55 templates/referee/result_update.html:4
+#: templates/referee/order_list.html:58 templates/referee/result_update.html:4
 #: templates/referee/result_update.html:7
 #: templates/referee/result_update.html:16
 msgid "Update Result"
@@ -995,7 +993,7 @@ msgstr ""
 #: templates/referee/line_follower_result_delete.html:4
 #: templates/referee/line_follower_result_delete.html:7
 #: templates/referee/line_follower_result_delete.html:18
-#: templates/referee/order_list.html:63 templates/referee/result_delete.html:4
+#: templates/referee/order_list.html:66 templates/referee/result_delete.html:4
 #: templates/referee/result_delete.html:7
 #: templates/referee/result_delete.html:18
 msgid "Delete Result"
@@ -1018,9 +1016,22 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
+#: templates/referee/line_follower_order_list.html:48
+#: templates/referee/order_list.html:47
+msgid "Check QRCode"
+msgstr ""
+
 #: templates/referee/line_follower_result_delete.html:14
 #: templates/referee/result_delete.html:14
 msgid "You are about to delete the result entry. Are you sure?"
+msgstr ""
+
+#: templates/referee/qrcode_check.html:4 templates/referee/qrcode_check.html:7
+msgid "QRCode Check"
+msgstr ""
+
+#: templates/referee/qrcode_check.html:16
+msgid "Check"
 msgstr ""
 
 #: templates/referee/result_create.html:4

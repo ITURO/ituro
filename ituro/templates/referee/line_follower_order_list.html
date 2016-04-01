@@ -44,6 +44,9 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url "line_follower_qrcode_check" order.stage.order order.project.pk %}"><span class="glyphicon glyphicon-check"></span> {% trans "Check QRCode" %}</a>
+          </li>
           {% with order.project.category|add:"_result_create" as create_url %}
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="{% url create_url order.stage.order order.project.pk %}"><span class="glyphicon glyphicon-plus"></span> {% trans "Create Result" %}</a>
