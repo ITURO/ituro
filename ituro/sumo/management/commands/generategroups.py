@@ -5,7 +5,6 @@ from projects.models import Project
 from sumo.models import SumoGroup, SumoGroupTeam, SumoGroupMatch
 from random import shuffle, randint
 from math import factorial as f
-from math import ceil
 
 
 class Command(BaseCommand):
@@ -14,17 +13,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         school_dict = dict()
-        for m in Project.objects.filter(
-            category="micro_sumo",is_confirmed=True):
-            if school_dict.has_key(m.manager.school):
-                school_dict[m.manager.school] += 1
+        for p in Project.objects.filter(
+                category="micro_sumo",
+                is_confirmed=True):
+            if school_dict.has_key(p.manager.school):
+                school_dict[p.manager.school] += 1
             else:
-                school_dict[m.manager.school] = 1
+                school_dict[p.manager.school] = 1
         school_pairs = school_dict.items()
         school_pairs.sort(key=lambda tup: tup[1])
         school_list = map(lambda x: x[0], school_pairs)
         robot_count = sum(school_dict.values())
-
         # generate groups
         if robot_count % 4 == 1:
             group_count = robot_count / 4
@@ -44,7 +43,7 @@ class Command(BaseCommand):
         shuffle(active_groups)
 
         for school in school_list:
-            for m in Project.objects.filter(
+            for p in Project.objects.filter(
                     category="micro_sumo",
                     manager__school=school, is_confirmed=True):
                 if len(active_groups) == 0:
@@ -54,11 +53,11 @@ class Command(BaseCommand):
                 current_group = active_groups.pop()
                 passive_groups.append(current_group)
                 SumoGroupTeam.objects.create(
-                    group=current_group, robot=m)
+                    group=current_group, robot=p)
+
         self.stdout.write('Sumo groups generated.')
 
         for group in SumoGroup.objects.all():
-            import pdb;pdb.set_trace()
             order = 1
             teams = SumoGroupTeam.objects.filter(group=group)
             team_list = list(teams)
@@ -66,10 +65,11 @@ class Command(BaseCommand):
             for j in range(f(count) / f(2) / f(count-2) / 2):
                 for i in range(0, len(team_list) / 2):
                     SumoGroupMatch.objects.create(
-                        home=team_list[i].robot,
-                        away=team_list[len(team_list) - i - 1].robot,
-                        group=group, order=order)
+                     home=team_list[i].robot,
+                     away=team_list[len(team_list) - i - 1].robot,
+                     group=group, order=order)
                     order += 1
                 hold = team_list.pop()
                 team_list.insert(1, hold)
+
         self.stdout.write("Fixtures generated.")
