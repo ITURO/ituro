@@ -4,32 +4,21 @@
 {% block title %}{% trans 'Project QrCode' %}: {{ object.name }} - {% endblock %}
 {% block content %}
 
-<div class="page-header">
-  <h1>{% trans 'Project QRCode' %}</h1>
-</div>
-{% bootstrap_messages %}
-<div>
-  <h3><strong>{% trans 'Project Name' %}</strong></h3>
-  <p>{{ object.name }}</p>
-</div>
-<div>
-  <h3><strong>{% trans 'User Name' %}</strong></h3>
-  <p>{{ object.manager.name }}</p>
-</div>
-<div class="row" style="margin-top: 10px;">
-  <div class="col-md-6">
-    <h3 style="text-align:center"><strong>{% trans 'Project QRCode' %}</strong></h3>
-    <p style="text-align:center">{{ project_qr|project_qrcode:"Project Qrcode" }}</p>
-  </div>
-  <div class="col-md-6">
-    <h3 style="text-align:center"><strong>{% trans 'User QRCode' %}</strong></h3>
-    <p style="text-align:center">{{ user_qr|user_qrcode:"User Qrcode" }}</p>
+<div style="width: 8cm; height: 2cm; display: table; margin-left:auto; margin-right:auto; margin-top: 15px;">
+  <div style="display: table-row;">
+    <div style="display: table-cell; width: 4.2cm; overflow: hidden;">
+      <div style="width: 60px; float: left;">{{ user_qr|user_qrcode }}</div>
+      <div style="margin-left: 64px; margin-top: 14px; font-size: 12px"><b>{{ object.manager.name }}</b></div>
+    </div>
+    <div style="display: table-cell; width: 3.8cm; overflow: hidden;">
+      <div style="width: 60px; float: left;">{{ project_qr|project_qrcode }}</div>
+      <div style="margin-left: 64px; margin-top: 14px; font-size: 12px"><b>{{ object.name }}</b></div>
+    </div>
   </div>
 </div>
-<div style="margin-top: 10px;">
-  <a class="btn btn-primary" href="{% url "project_confirm" %}" role="button">
-    {% trans 'Back' %}
-  </a>
+
+<div class="no-print text-center" style="margin-top: 25px;">
+  <a class="btn btn-primary" href="{% url "project_confirm" %}" role="button">{% trans 'Back' %}</a>
 </div>
 
 {% endblock %}
