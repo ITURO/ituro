@@ -33,7 +33,7 @@ class ProjectCreateForm(forms.ModelForm):
                 raise forms.ValidationError(_("Only PDF files will be accepted."))
 
             if len(presentation.name) > 50:
-            raise forms.ValidationError(_("Max character number of the filename is 50."))
+                raise forms.ValidationError(_("Max character number of the filename is 50."))
 
             if presentation.size > settings.MAX_FILE_SIZE:
                 raise forms.ValidationError(_("Max file size is 1MB."))
