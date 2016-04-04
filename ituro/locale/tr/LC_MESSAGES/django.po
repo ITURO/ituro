@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 01:57+0000\n"
+"POT-Creation-Date: 2016-03-31 19:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -224,44 +224,48 @@ msgstr "Kullanım koşullarını kabul ediyorum."
 msgid "Presentation file is required for innovative projects."
 msgstr "Serbest Kategori projeleri için sunum dosyası gereklidir."
 
-#: projects/forms.py:33 projects/forms.py:69
+#: projects/forms.py:33 projects/forms.py:72
 msgid "Only PDF files will be accepted."
 msgstr "Sadece PDF dosyaları kabul edilir."
 
-#: projects/forms.py:36 projects/forms.py:72
+#: projects/forms.py:36 projects/forms.py:75
+msgid "Max character number of the filename is 50."
+msgstr "Dosya adı için maksimum karakter sayısı 50'dir."
+
+#: projects/forms.py:39 projects/forms.py:78
 msgid "Max file size is 1MB."
 msgstr "Maksimum dosya boyutu 1MB'tır."
 
-#: projects/forms.py:39
+#: projects/forms.py:42
 msgid "Presentation can only be uploaded for innovative projects."
 msgstr "Sunum dosyası sadece Serbest Kategori projeleri için yüklenebilir."
 
-#: projects/forms.py:61
+#: projects/forms.py:64
 msgid "Project name is being used."
 msgstr "Proje adı kullanımdadır."
 
-#: projects/forms.py:78 projects/models.py:18
+#: projects/forms.py:84 projects/models.py:18
 #: templates/projects/qrcode_detail.html:12
 msgid "Project Name"
 msgstr "İsim"
 
-#: projects/forms.py:80
+#: projects/forms.py:86
 msgid "Project Category"
 msgstr "İsim"
 
-#: projects/forms.py:82
+#: projects/forms.py:88
 msgid "Project Manager Email"
 msgstr "Proje Yöneticisi E-Posta Adresi"
 
-#: projects/forms.py:92 referee/views.py:386
+#: projects/forms.py:98 referee/views.py:386
 msgid "Project does not exist."
 msgstr "Kullanıcı bulunmamaktadır."
 
-#: projects/forms.py:96 referee/views.py:384
+#: projects/forms.py:102 referee/views.py:384
 msgid "User does not exist."
 msgstr "Kullanıcı bulunmamaktadır."
 
-#: projects/forms.py:101
+#: projects/forms.py:107
 msgid "Error! Please correct the errors below."
 msgstr "Hata! Lütfen aşağıdaki hataları düzeltin."
 
