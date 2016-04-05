@@ -433,7 +433,9 @@ class FireFighterResultCreateView(BaseResultCreateView):
     model = FireFighterResult
     category = "fire_fighter"
     fields = BaseResultCreateView.fields + [
-        "extinguish_success", "extinguish_failure", "wall_hit"]
+        "extinguish_success", "extinguish_failure", "wall_hit",
+        "touching_candles", "interfering_robots", "pre_start_extinguish",
+        "is_complete"]
 
 
 class FireFighterResultUpdateView(BaseResultUpdateView):
@@ -451,7 +453,7 @@ class BasketballResultCreateView(BaseResultCreateView):
     model = BasketballResult
     category = "basketball"
     fields = BaseResultCreateView.fields + [
-        "basket1", "basket2", "basket3", "basket4"]
+        "basket1", "basket2", "basket3", "basket4", "basket5"]
 
 
 class BasketballResultUpdateView(BaseResultUpdateView):
@@ -469,7 +471,8 @@ class StairClimbingResultCreateView(BaseResultCreateView):
     model = StairClimbingResult
     category = "stair_climbing"
     fields = BaseResultCreateView.fields + [
-        "stair1", "stair2", "stair3", "stair4", "downstairs"]
+        "stair1", "stair2", "stair3", "stair4", "stair5", "stair6", "stair7",
+        "down6", "down5", "down4", "down3", "down2", "down1", "is_complete"]
 
 
 class StairClimbingResultUpdateView(BaseResultUpdateView):
@@ -502,7 +505,7 @@ class ColorSelectingResultCreateView(BaseResultCreateView):
     model = ColorSelectingResult
     category = "color_selecting"
     fields = BaseResultCreateView.fields + [
-        "obtain", "place_success", "place_failure", "place_partial"]
+        "place_success", "place_failure", "place_partial"]
 
 
 class ColorSelectingResultUpdateView(BaseResultUpdateView):
@@ -520,8 +523,8 @@ class SelfBalancingResultCreateView(BaseResultCreateView):
     model = SelfBalancingResult
     category = "self_balancing"
     fields = BaseResultCreateView.fields + [
-        "headway_amount", "impact", "headway_minutes", "headway_seconds",
-        "headway_milliseconds"]
+        "headway_amount", "stage3_minutes", "stage3_seconds",
+        "stage3_milliseconds"]
 
 
 class SelfBalancingResultUpdateView(BaseResultUpdateView):
@@ -538,7 +541,7 @@ class SelfBalancingResultDeleteView(BaseResultDeleteView):
 class ScenarioResultCreateView(BaseResultCreateView):
     model = ScenarioResult
     category = "scenario"
-    fields = BaseResultCreateView.fields + ["score"]
+    fields = BaseResultCreateView.fields + ["blocks", "total_referee_point"]
 
 
 class ScenarioResultUpdateView(BaseResultUpdateView):
