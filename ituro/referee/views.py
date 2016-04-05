@@ -368,28 +368,29 @@ class BaseQRCodeCheckView(FormView):
         return super(BaseQRCodeCheckView, self).dispatch(*args,**kwargs)
 
     def form_valid(self, form):
-        project_qrcode = str(form.cleaned_data.get("project_qrcode"))
-        user_qrcode = str(form.cleaned_data.get("user_qrcode"))
-        project_qrcode = project_qrcode.split("-")
-        user_qrcode = user_qrcode.split("-")
+        project_qrcode = form.cleaned_data.get("project_qrcode")
+        user_qrcode = form.cleaned_data.get("user_qrcode")
         user_id = user_qrcode[0]
+        user_year = user_qrcode[1]
         project_user_id = project_qrcode[0]
         project_id = project_qrcode[-1]
         project_category = project_qrcode[2]
         pid = self.kwargs.get("pid")
-        project = Project.objects.filter(id=project_id)
-        user = CustomUser.objects.filter(id=user_id)
 
-        if not user.exists():
+        if CustomUser.objects.filter(id=user_id).exists():
+            user = CustomUser.objects.get(id=user_id)
+        else:
             messages.error(self.request, _("User does not exist."))
-        elif not project.exists():
+        if Project.objects.filter(id=project_id):
+            project = Project.objects.get(id=project_id)
+        else:
             messages.error(self.request, _("Project does not exist."))
-        elif not pid == project_id:
+        if not pid == project_id:
             messages.error(self.request, _("Wrong Robot"))
-        elif project_category != project[0].category:
+        elif project_category != project.category:
             messages.error(self.request, _("Wrong Category"))
         elif not project_user_id == user_id and \
-             not project[0].manager.id == user_id:
+             not project.manager.id == user_id:
             messages.error(self.request, _("Codes are mismatched"))
         else:
             messages.success(self.request, _("Codes are matched"))
