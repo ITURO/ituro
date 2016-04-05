@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-31 19:42+0300\n"
+"POT-Creation-Date: 2016-04-05 22:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -221,48 +221,47 @@ msgstr ""
 msgid "Presentation file is required for innovative projects."
 msgstr ""
 
-#: projects/forms.py:33 projects/forms.py:72
+#: projects/forms.py:34 projects/forms.py:74
 msgid "Only PDF files will be accepted."
 msgstr ""
 
-#: projects/forms.py:36 projects/forms.py:75
+#: projects/forms.py:38 projects/forms.py:78
 msgid "Max character number of the filename is 50."
 msgstr ""
 
-#: projects/forms.py:39 projects/forms.py:78
+#: projects/forms.py:41 projects/forms.py:81
 msgid "Max file size is 1MB."
 msgstr ""
 
-#: projects/forms.py:42
+#: projects/forms.py:44
 msgid "Presentation can only be uploaded for innovative projects."
 msgstr ""
 
-#: projects/forms.py:64
+#: projects/forms.py:66
 msgid "Project name is being used."
 msgstr ""
 
-#: projects/forms.py:84 projects/models.py:18
-#: templates/projects/qrcode_detail.html:12
+#: projects/forms.py:87 projects/models.py:18
 msgid "Project Name"
 msgstr ""
 
-#: projects/forms.py:86
+#: projects/forms.py:89
 msgid "Project Category"
 msgstr ""
 
-#: projects/forms.py:88
+#: projects/forms.py:91
 msgid "Project Manager Email"
 msgstr ""
 
-#: projects/forms.py:98 referee/views.py:386
+#: projects/forms.py:101 referee/views.py:388
 msgid "Project does not exist."
 msgstr ""
 
-#: projects/forms.py:102 referee/views.py:384
+#: projects/forms.py:105 referee/views.py:384
 msgid "User does not exist."
 msgstr ""
 
-#: projects/forms.py:107
+#: projects/forms.py:110
 msgid "Error! Please correct the errors below."
 msgstr ""
 
@@ -302,13 +301,35 @@ msgstr ""
 msgid "Project confirmation process completed successfully."
 msgstr ""
 
-#: referee/forms.py:8 templates/projects/qrcode_detail.html:25
+#: referee/forms.py:9
 msgid "User QRCode"
 msgstr ""
 
-#: referee/forms.py:10 templates/projects/qrcode_detail.html:8
-#: templates/projects/qrcode_detail.html:21
+#: referee/forms.py:12
 msgid "Project QRCode"
+msgstr ""
+
+#: referee/forms.py:19
+msgid "User Qrcode format is wrong."
+msgstr ""
+
+#: referee/forms.py:25
+msgid "User Qrcode must contain 2 integer."
+msgstr ""
+
+#: referee/forms.py:32
+msgid "Project Qrcode format is wrong."
+msgstr ""
+
+#: referee/forms.py:36
+msgid ""
+"There is no category for                                                 "
+"given project qrcode"
+msgstr ""
+
+#: referee/forms.py:42
+msgid ""
+"Project Qrcode must contain 3                                         integer"
 msgstr ""
 
 #: referee/views.py:88
@@ -331,19 +352,19 @@ msgstr ""
 msgid "Result entry for {} #{} updated."
 msgstr ""
 
-#: referee/views.py:388
+#: referee/views.py:390
 msgid "Wrong Robot"
 msgstr ""
 
-#: referee/views.py:390
+#: referee/views.py:392
 msgid "Wrong Category"
 msgstr ""
 
-#: referee/views.py:393
+#: referee/views.py:395
 msgid "Codes are mismatched"
 msgstr ""
 
-#: referee/views.py:395
+#: referee/views.py:397
 msgid "Codes are matched"
 msgstr ""
 
@@ -971,11 +992,7 @@ msgstr ""
 msgid "Project QrCode"
 msgstr ""
 
-#: templates/projects/qrcode_detail.html:16
-msgid "User Name"
-msgstr ""
-
-#: templates/projects/qrcode_detail.html:31
+#: templates/projects/qrcode_detail.html:21
 msgid "Back"
 msgstr ""
 

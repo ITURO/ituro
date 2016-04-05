@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-31 19:42+0300\n"
+"POT-Creation-Date: 2016-04-05 22:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -179,7 +179,7 @@ msgstr "Yarışma Sonuçları Uygunluğu"
 
 #: orders/models.py:20 orders/models.py:41 results/models.py:40
 msgid "Line Follower Stage"
-msgstr "Çizgi İzleyen"
+msgstr "Çizgi İzleyen Etabı"
 
 #: orders/models.py:21 templates/orders/line_follower_stage_list.html:4
 #: templates/orders/line_follower_stage_list.html:8
@@ -199,7 +199,7 @@ msgstr "Proje"
 
 #: orders/models.py:45
 msgid "Line Follower Race Order"
-msgstr "Çizgi İzleyen"
+msgstr "Çizgi İzleyen Yarışma Sırası"
 
 #: orders/models.py:46 templates/referee/line_follower_stage_list.html:4
 #: templates/referee/line_follower_stage_list.html:8
@@ -224,48 +224,47 @@ msgstr "Kullanım koşullarını kabul ediyorum."
 msgid "Presentation file is required for innovative projects."
 msgstr "Serbest Kategori projeleri için sunum dosyası gereklidir."
 
-#: projects/forms.py:33 projects/forms.py:72
+#: projects/forms.py:34 projects/forms.py:74
 msgid "Only PDF files will be accepted."
 msgstr "Sadece PDF dosyaları kabul edilir."
 
-#: projects/forms.py:36 projects/forms.py:75
+#: projects/forms.py:38 projects/forms.py:78
 msgid "Max character number of the filename is 50."
 msgstr "Dosya adı için maksimum karakter sayısı 50'dir."
 
-#: projects/forms.py:39 projects/forms.py:78
+#: projects/forms.py:41 projects/forms.py:81
 msgid "Max file size is 1MB."
 msgstr "Maksimum dosya boyutu 1MB'tır."
 
-#: projects/forms.py:42
+#: projects/forms.py:44
 msgid "Presentation can only be uploaded for innovative projects."
 msgstr "Sunum dosyası sadece Serbest Kategori projeleri için yüklenebilir."
 
-#: projects/forms.py:64
+#: projects/forms.py:66
 msgid "Project name is being used."
 msgstr "Proje adı kullanımdadır."
 
-#: projects/forms.py:84 projects/models.py:18
-#: templates/projects/qrcode_detail.html:12
+#: projects/forms.py:87 projects/models.py:18
 msgid "Project Name"
-msgstr "İsim"
+msgstr "Proje Adı"
 
-#: projects/forms.py:86
+#: projects/forms.py:89
 msgid "Project Category"
-msgstr "İsim"
+msgstr "Proje Kategorisi"
 
-#: projects/forms.py:88
+#: projects/forms.py:91
 msgid "Project Manager Email"
 msgstr "Proje Yöneticisi E-Posta Adresi"
 
-#: projects/forms.py:98 referee/views.py:386
+#: projects/forms.py:101 referee/views.py:388
 msgid "Project does not exist."
-msgstr "Kullanıcı bulunmamaktadır."
+msgstr "Proje bulunmamaktadır."
 
-#: projects/forms.py:102 referee/views.py:384
+#: projects/forms.py:105 referee/views.py:384
 msgid "User does not exist."
 msgstr "Kullanıcı bulunmamaktadır."
 
-#: projects/forms.py:107
+#: projects/forms.py:110
 msgid "Error! Please correct the errors below."
 msgstr "Hata! Lütfen aşağıdaki hataları düzeltin."
 
@@ -279,7 +278,7 @@ msgstr "Proje Sunum Dosyası"
 
 #: projects/models.py:23
 msgid "Is project confirmed?"
-msgstr "Proje geçerli mi?"
+msgstr "Proje onaylı mı?"
 
 #: projects/models.py:28
 msgid "Projects"
@@ -305,28 +304,52 @@ msgstr "Proje silindi."
 msgid "Project confirmation process completed successfully."
 msgstr "Başarıyla bir proje oluşturdunuz."
 
-#: referee/forms.py:8 templates/projects/qrcode_detail.html:25
+#: referee/forms.py:9
 #, fuzzy
 #| msgid "User Profile"
 msgid "User QRCode"
-msgstr "Kullanıcı Profili"
+msgstr "Kullanıcı QR Kodu"
 
-#: referee/forms.py:10 templates/projects/qrcode_detail.html:8
-#: templates/projects/qrcode_detail.html:21
+#: referee/forms.py:12
 #, fuzzy
 #| msgid "Project Name"
 msgid "Project QRCode"
-msgstr "İsim"
+msgstr "Proje QR Kodu"
+
+#: referee/forms.py:19
+msgid "User Qrcode format is wrong."
+msgstr "QR kod formatı yanlış."
+
+#: referee/forms.py:25
+msgid "User Qrcode must contain 2 integer."
+msgstr "Kullanıcı QR kodu iki tamsayı içermeli."
+
+#: referee/forms.py:32
+#, fuzzy
+#| msgid "Project Confirmation"
+msgid "Project Qrcode format is wrong."
+msgstr "Proje QR kod formatı yanlış."
+
+#: referee/forms.py:36
+msgid ""
+"There is no category for                                                 "
+"given project qrcode"
+msgstr "Proje QR kodunda kategori bulunmamakta."
+
+#: referee/forms.py:42
+msgid ""
+"Project Qrcode must contain 3                                         integer"
+msgstr "Proje QR kodu 3 tamsayı içermeli."
 
 #: referee/views.py:88
 msgid "Result entry created."
-msgstr "Sonuç girdisi silindi."
+msgstr "Sonuç girdisi oluşturuldu."
 
 #: referee/views.py:124
 #, fuzzy
 #| msgid "{} #{} result updated."
 msgid "Result updated."
-msgstr "{} #{} sonucu güncellendi."
+msgstr "Sonuç güncellendi."
 
 #: referee/views.py:157 referee/views.py:324
 msgid "Result entry deleted."
@@ -334,29 +357,29 @@ msgstr "Sonuç girdisi silindi."
 
 #: referee/views.py:248
 msgid "Result entry generated."
-msgstr "Sonuç girdisi silindi."
+msgstr "Sonuç girdisi oluşturuldu."
 
 #: referee/views.py:287
 msgid "Result entry for {} #{} updated."
 msgstr "{} #{} için sonuç girdisi güncellendi."
 
-#: referee/views.py:388
+#: referee/views.py:390
 #, fuzzy
 #| msgid "Sumo Robot"
 msgid "Wrong Robot"
-msgstr "Sumo Robotu"
+msgstr "Yanlış Robot"
 
-#: referee/views.py:390
+#: referee/views.py:392
 #, fuzzy
 #| msgid "Project Category"
 msgid "Wrong Category"
-msgstr "İsim"
+msgstr "Yanlış Kategori"
 
-#: referee/views.py:393
+#: referee/views.py:395
 msgid "Codes are mismatched"
 msgstr "Kodlar eşleşmedi"
 
-#: referee/views.py:395
+#: referee/views.py:397
 msgid "Codes are matched"
 msgstr "Kodlar eşleşti"
 
@@ -375,7 +398,7 @@ msgstr "Saniye"
 
 #: results/models.py:15
 msgid "Milliseconds"
-msgstr "Salise"
+msgstr "Milisaniye"
 
 #: results/models.py:17
 msgid "Disqualification"
@@ -450,19 +473,19 @@ msgstr "Basketbol Sonuçları"
 
 #: results/models.py:124
 msgid "Stair #1"
-msgstr "Basamak 1"
+msgstr "Basamak #1"
 
 #: results/models.py:125
 msgid "Stair #2"
-msgstr "Basamak 2"
+msgstr "Basamak #2"
 
 #: results/models.py:126
 msgid "Stair #3"
-msgstr "Basamak 3"
+msgstr "Basamak #3"
 
 #: results/models.py:127
 msgid "Stair #4"
-msgstr "Basamak 4"
+msgstr "Basamak #4"
 
 #: results/models.py:129
 msgid "Downstairs Count"
@@ -526,7 +549,7 @@ msgstr "İlerleme Saniye"
 
 #: results/models.py:215
 msgid "Headway Milliseconds"
-msgstr "İlerleme Salise"
+msgstr "İlerleme Milisaniye"
 
 #: results/models.py:218
 msgid "Self Balancing Result"
@@ -740,7 +763,7 @@ msgstr ""
 
 #: templates/accounts/password_reset_done.html:11
 msgid "We have sent you an email. Please check your email address."
-msgstr "Size bir e-posta gönderdik. Lütfen e-posta adresini kontrol et."
+msgstr "Size bir e-posta gönderdik. Lütfen e-posta adresinizi kontrol ediniz."
 
 #: templates/accounts/password_reset_form.html:7
 msgid "Password reset"
@@ -776,7 +799,7 @@ msgstr "tr"
 
 #: templates/header.html:20
 msgid "Site"
-msgstr ""
+msgstr "Site"
 
 #: templates/header.html:22 templates/projects/project_list.html:4
 #: templates/projects/project_list.html:8
@@ -936,7 +959,7 @@ msgstr "Proje Onay"
 
 #: templates/projects/project_confirm.html:7
 msgid "Confirm Project"
-msgstr "Proje Ekle"
+msgstr "Projeyi Onayla"
 
 #: templates/projects/project_confirm.html:16
 #: templates/projects/project_confirm_delete.html:18
@@ -947,7 +970,7 @@ msgstr "Onayla"
 #: templates/projects/project_confirm_delete.html:7
 #: templates/projects/project_detail.html:34
 msgid "Delete Project"
-msgstr "Proje Sil"
+msgstr "Projeyi Sil"
 
 #: templates/projects/project_confirm_delete.html:14
 #, python-format
@@ -986,15 +1009,9 @@ msgstr "Yeni bir proje ekleyin."
 #, fuzzy
 #| msgid "Project Name"
 msgid "Project QrCode"
-msgstr "İsim"
+msgstr "Proje QR Kodu"
 
-#: templates/projects/qrcode_detail.html:16
-#, fuzzy
-#| msgid "User"
-msgid "User Name"
-msgstr "Kullanıcı"
-
-#: templates/projects/qrcode_detail.html:31
+#: templates/projects/qrcode_detail.html:21
 msgid "Back"
 msgstr "Geri"
 
@@ -1077,6 +1094,11 @@ msgstr "Mikro Sumo Grup Sonuçları"
 #: templates/results/sumo_home.html:4 templates/results/sumo_home.html.py:8
 msgid "Micro Sumo Results"
 msgstr "Mikro Sumo Sonuçlar"
+
+#, fuzzy
+#~| msgid "User"
+#~ msgid "User Name"
+#~ msgstr "Kullanıcı"
 
 #~ msgid "Error! User is not the manager of the project."
 #~ msgstr "Hata! Kullanıcı proje yöneticisi değil."
