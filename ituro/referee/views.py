@@ -242,7 +242,7 @@ class LineFollowerResultCreateView(CreateView):
     def form_valid(self, form):
         result = form.save(commit=False)
         result.project = Project.objects.get(pk=self.kwargs.get("pid"))
-        result.stage = LineFollowerStage.objects.get(pk=self.kwargs["order"])
+        result.stage = LineFollowerStage.objects.get(order=self.kwargs["order"])
         result.save()
 
         messages.success(self.request, _("Result entry generated."))
