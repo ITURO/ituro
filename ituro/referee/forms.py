@@ -6,9 +6,11 @@ from django.utils.translation import ugettext_lazy as _
 class QRCodeCheckForm(forms.Form):
 
     user_qrcode = forms.CharField(max_length=50, required=True,
-                                  label=_("User QRCode"))
+                                  label=_("User QRCode"),
+                                  initial="1-2016")
     project_qrcode = forms.CharField(max_length=50, required=True,
-                                     label=_("Project QRCode"))
+                                     label=_("Project QRCode"),
+                                     initial="1-2016-line_follower-1")
 
     def clean_user_qrcode(self):
         qrcode = str(self.cleaned_data.get("user_qrcode")).split("-")
@@ -19,7 +21,8 @@ class QRCodeCheckForm(forms.Form):
             if not number.isdigit():
                 error = True
         if error:
-            raise forms.ValidationError(_("User Qrcode must contain 2 integer."))
+            raise forms.ValidationError(
+                _("User Qrcode must contain 2 integer."))
         return qrcode
 
     def clean_project_qrcode(self):
