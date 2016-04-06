@@ -58,5 +58,5 @@ class Command(BaseCommand):
                 LineFollowerRaceOrder.objects.create(
                     project=project, stage=next_stage, order=count)
                 count += 1
-                self.stdout.write(
+        self.stdout.write(
             'Line follower race orders generated for day #%s.' % day)
