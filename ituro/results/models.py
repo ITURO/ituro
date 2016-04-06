@@ -62,9 +62,18 @@ class FireFighterResult(BaseResult):
     extinguish_success = models.PositiveSmallIntegerField(
         verbose_name=_("Succesful Extinguish Count"))
     extinguish_failure = models.PositiveSmallIntegerField(
-        verbose_name=_("Unsuccessful Extinguish Count"))
+        verbose_name=_("Penalty Extinguish Count"))
     wall_hit = models.PositiveSmallIntegerField(
-        verbose_name=_("Wall Hit Count"))
+        verbose_name=_("Wall Touching Count"))
+    interfering_robot = models.PositiveSmallIntegerField(
+        verbose_name=_("Interfering Robot Count"))
+    touching_candles = models.PositiveSmallIntegerField(
+        verbose_name=_("Touching Candles Count"))
+    pre_extinguish = models.PositiveSmallIntegerField(
+        verbose_name=_("Pre-Start Systems Count"))
+    is_complete = models.BooleanField(
+        verbose_name=_("Extinguish all candles"),default=False)
+
 
     class Meta:
         verbose_name = _("Fire Fighter Result")
@@ -79,10 +88,13 @@ class FireFighterResult(BaseResult):
 @receiver(models.signals.pre_save, sender=FireFighterResult)
 def fire_fighter_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        instance.extinguish_success * 100,
-        instance.extinguish_failure * (-50),
-        instance.wall_hit * (-15)))
-
+        instance.extinguish_success * 150,
+        instance.extinguish_failure * 50,
+        instance.wall_hit * (-10),
+        instance.touching_candles * (-100),
+        instance.pre_extinguish * (-50),
+        instance.interfering_robot * (-30),
+        int(instance.is_complete) * ((300 - instance.duration) / 4)))
 
 
 @python_2_unicode_compatible
@@ -93,14 +105,13 @@ class BasketballResult(BaseResult):
     basket2 = models.PositiveSmallIntegerField(verbose_name=_("Basket 2"))
     basket3 = models.PositiveSmallIntegerField(verbose_name=_("Basket 3"))
     basket4 = models.PositiveSmallIntegerField(verbose_name=_("Basket 4"))
-    total = models.PositiveSmallIntegerField(
-        verbose_name=_("Total Basket"), blank=True)
+    basket5 = models.PositiveSmallIntegerField(verbose_name=_("Basket 5"))
 
     class Meta:
         verbose_name = _("Basketball Result")
         verbose_name_plural = _("Basketball Results")
         ordering = [
-            "disqualification", "-score", "total", "minutes", "seconds", "milliseconds"]
+            "disqualification", "-score", "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -108,13 +119,12 @@ class BasketballResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=BasketballResult)
 def basketball_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.total = sum((
-        instance.basket1, instance.basket2, instance.basket3, instance.basket4))
     instance.score = sum((
-        sum(range(5, 5 - instance.basket1, -1)),
+        sum(range(6, 6 - instance.basket1, -1)),
         sum(range(6, 6 - instance.basket2, -1)),
         sum(range(6, 6 - instance.basket3, -1)),
-        sum(range(5, 5 - instance.basket4, -1)))) * 10
+        sum(range(6, 6 - instance.basket4, -1)),
+        sum(range(6, 6 - instance.basket5, -1)))) * 10
 
 
 @python_2_unicode_compatible
@@ -125,8 +135,17 @@ class StairClimbingResult(BaseResult):
     stair2 = models.BooleanField(verbose_name=_("Stair #2"), default=False)
     stair3 = models.BooleanField(verbose_name=_("Stair #3"), default=False)
     stair4 = models.BooleanField(verbose_name=_("Stair #4"), default=False)
-    downstairs = models.PositiveSmallIntegerField(
-        verbose_name=_("Downstairs Count"))
+    stair5 = models.BooleanField(verbose_name=_("Stair #5"), default=False)
+    stair6 = models.BooleanField(verbose_name=_("Stair #6"), default=False)
+    stair7 = models.BooleanField(verbose_name=_("Stair #7"), default=False)
+    down6 = models.BooleanField(verbose_name=_("Down #6"), default=False)
+    down5 = models.BooleanField(verbose_name=_("Down #5"), default=False)
+    down4 = models.BooleanField(verbose_name=_("Down #4"), default=False)
+    down3 = models.BooleanField(verbose_name=_("Down #3"), default=False)
+    down2 = models.BooleanField(verbose_name=_("Down #2"), default=False)
+    down1 = models.BooleanField(verbose_name=_("Down #1"), default=False)
+    is_complete = models.BooleanField(
+        verbose_name=_("Is finish?"), default=False)
 
     class Meta:
         verbose_name = _("Stair Climbing Result")
@@ -141,9 +160,16 @@ class StairClimbingResult(BaseResult):
 @receiver(models.signals.pre_save, sender=StairClimbingResult)
 def stair_climbing_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        (int(instance.stair1) + int(instance.stair2)) * 10,
-        (int(instance.stair3) + int(instance.stair4)) * 20,
-        instance.downstairs * 10))
+        (int(instance.stair1) + int(instance.stair2) + int(instance.stair3)) * 10,
+        (int(instance.stair4)) * 40,
+        (int(instance.stair5))* 80,
+        (int(instance.stair6))* 100,
+        (int(instance.stair7))* 120,
+        (int(instance.down6) + int(instance.down5) + int(instance.down4)) * 20,
+        (int(instance.down1) + int(instance.down2) + int(instance.down3)) * 10,
+        (int(instance.is_complete)) * 40,
+        instance.duration * (-5)
+        ))
 
 
 @python_2_unicode_compatible
@@ -178,8 +204,6 @@ class ColorSelectingResult(BaseResult):
         verbose_name=_("Cylinder Successful Placement Count"))
     place_failure = models.PositiveSmallIntegerField(
         verbose_name=_("Cylinder Unsuccessful Placement Count"))
-    place_partial = models.PositiveSmallIntegerField(
-        verbose_name=_("Cylinder Partial Placement Count"))
 
     class Meta:
         verbose_name = _("Color Selecting Result")
@@ -195,9 +219,8 @@ class ColorSelectingResult(BaseResult):
 def color_selecting_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
         instance.obtain * 100,
-        instance.place_success * 400,
-        instance.place_failure * 50,
-        instance.place_partial * 100))
+        instance.place_success * 200,
+        instance.place_failure * (-50)))
 
 
 @python_2_unicode_compatible
@@ -206,21 +229,20 @@ class SelfBalancingResult(BaseResult):
         Project, limit_choices_to={"category": "self_balancing"})
     headway_amount = models.PositiveSmallIntegerField(
         verbose_name=_("Headway Amount (cm)"))
-    impact = models.BooleanField(verbose_name=_("Impact Test"), default=False)
-    headway_minutes = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Minutes"))
-    headway_seconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Seconds"))
-    headway_milliseconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Milliseconds"))
+    stage3_minutes = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage3 Minutes"))
+    stage3_seconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage3 Seconds"))
+    stage3_milliseconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage3 Milliseconds"))
 
     class Meta:
         verbose_name = _("Self Balancing Result")
         verbose_name_plural = _("Self Balancing Results")
         ordering = [
             "disqualification", "-score", "-seconds", "-milliseconds",
-            "-headway_amount", "headway_minutes", "headway_seconds",
-            "headway_milliseconds"]
+            "-headway_amount", "stage3_minutes", "stage3_seconds",
+            "stage3_milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -229,7 +251,9 @@ class SelfBalancingResult(BaseResult):
 @receiver(models.signals.pre_save, sender=SelfBalancingResult)
 def self_balancing_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        instance.duration, instance.headway_amount, 30 * int(instance.impact)))
+        instance.duration, instance.headway_amount * 1.5,
+        (instance.stage3_minutes * 60 + instance.stage3_seconds +
+        instance.stage3_milliseconds * 0.01) * 2))
 
 
 @python_2_unicode_compatible
