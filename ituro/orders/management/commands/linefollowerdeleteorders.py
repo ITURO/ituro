@@ -13,8 +13,8 @@ class Command(BaseCommand):
         except IndexError:
             raise CommandError('Please specify a day.')
 
-        if day < 1 or day > 3:
-            raise CommandError('Day interval is 1 <= day <= 3.')
+        if day < 1 or day > 2:
+            raise CommandError('Day interval is 1 <= day <= 2.')
 
         LineFollowerRaceOrder.objects.filter(stage__order=day).delete()
         self.stdout.write(
