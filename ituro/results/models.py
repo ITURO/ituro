@@ -111,7 +111,7 @@ class BasketballResult(BaseResult):
         verbose_name = _("Basketball Result")
         verbose_name_plural = _("Basketball Results")
         ordering = [
-            "disqualification", "-score", "total", "minutes", "seconds", "milliseconds"]
+            "disqualification", "-score", "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
