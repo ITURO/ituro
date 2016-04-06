@@ -105,8 +105,7 @@ class BasketballResult(BaseResult):
     basket2 = models.PositiveSmallIntegerField(verbose_name=_("Basket 2"))
     basket3 = models.PositiveSmallIntegerField(verbose_name=_("Basket 3"))
     basket4 = models.PositiveSmallIntegerField(verbose_name=_("Basket 4"))
-    total = models.PositiveSmallIntegerField(
-        verbose_name=_("Total Basket"), blank=True)
+    basket5 = models.PositiveSmallIntegerField(verbose_name=_("Basket 5"))
 
     class Meta:
         verbose_name = _("Basketball Result")
@@ -120,13 +119,12 @@ class BasketballResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=BasketballResult)
 def basketball_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.total = sum((
-        instance.basket1, instance.basket2, instance.basket3, instance.basket4))
     instance.score = sum((
-        sum(range(5, 5 - instance.basket1, -1)),
+        sum(range(6, 6 - instance.basket1, -1)),
         sum(range(6, 6 - instance.basket2, -1)),
         sum(range(6, 6 - instance.basket3, -1)),
-        sum(range(5, 5 - instance.basket4, -1)))) * 10
+        sum(range(6, 6 - instance.basket4, -1)),
+        sum(range(6, 6 - instance.basket5, -1)))) * 10
 
 
 @python_2_unicode_compatible

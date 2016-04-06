@@ -453,7 +453,7 @@ class BasketballResultCreateView(BaseResultCreateView):
     model = BasketballResult
     category = "basketball"
     fields = BaseResultCreateView.fields + [
-        "basket1", "basket2", "basket3", "basket4"]
+        "basket1", "basket2", "basket3", "basket4", "basket5"]
 
 
 class BasketballResultUpdateView(BaseResultUpdateView):
