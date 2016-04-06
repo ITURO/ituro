@@ -204,8 +204,6 @@ class ColorSelectingResult(BaseResult):
         verbose_name=_("Cylinder Successful Placement Count"))
     place_failure = models.PositiveSmallIntegerField(
         verbose_name=_("Cylinder Unsuccessful Placement Count"))
-    place_partial = models.PositiveSmallIntegerField(
-        verbose_name=_("Cylinder Partial Placement Count"))
 
     class Meta:
         verbose_name = _("Color Selecting Result")
@@ -221,9 +219,8 @@ class ColorSelectingResult(BaseResult):
 def color_selecting_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
         instance.obtain * 100,
-        instance.place_success * 400,
-        instance.place_failure * 50,
-        instance.place_partial * 100))
+        instance.place_success * 200,
+        instance.place_failure * (-50)))
 
 
 @python_2_unicode_compatible

@@ -505,7 +505,7 @@ class ColorSelectingResultCreateView(BaseResultCreateView):
     model = ColorSelectingResult
     category = "color_selecting"
     fields = BaseResultCreateView.fields + [
-        "obtain", "place_success", "place_failure", "place_partial"]
+        "obtain", "place_success", "place_failure"]
 
 
 class ColorSelectingResultUpdateView(BaseResultUpdateView):
