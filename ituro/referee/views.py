@@ -523,8 +523,8 @@ class SelfBalancingResultCreateView(BaseResultCreateView):
     model = SelfBalancingResult
     category = "self_balancing"
     fields = BaseResultCreateView.fields + [
-        "headway_amount", "impact", "headway_minutes", "headway_seconds",
-        "headway_milliseconds"]
+        "headway_amount", "stage3_minutes", "stage3_seconds",
+        "stage3_milliseconds"]
 
 
 class SelfBalancingResultUpdateView(BaseResultUpdateView):

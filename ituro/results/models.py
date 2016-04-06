@@ -229,21 +229,20 @@ class SelfBalancingResult(BaseResult):
         Project, limit_choices_to={"category": "self_balancing"})
     headway_amount = models.PositiveSmallIntegerField(
         verbose_name=_("Headway Amount (cm)"))
-    impact = models.BooleanField(verbose_name=_("Impact Test"), default=False)
-    headway_minutes = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Minutes"))
-    headway_seconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Seconds"))
-    headway_milliseconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Milliseconds"))
+    stage3_minutes = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage3 Minutes"))
+    stage3_seconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage3 Seconds"))
+    stage3_milliseconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage3 Milliseconds"))
 
     class Meta:
         verbose_name = _("Self Balancing Result")
         verbose_name_plural = _("Self Balancing Results")
         ordering = [
             "disqualification", "-score", "-seconds", "-milliseconds",
-            "-headway_amount", "headway_minutes", "headway_seconds",
-            "headway_milliseconds"]
+            "-headway_amount", "stage3_minutes", "stage3_seconds",
+            "stage3_milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -252,7 +251,9 @@ class SelfBalancingResult(BaseResult):
 @receiver(models.signals.pre_save, sender=SelfBalancingResult)
 def self_balancing_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        instance.duration, instance.headway_amount, 30 * int(instance.impact)))
+        instance.duration, instance.headway_amount * 1.5,
+        (instance.stage3_minutes * 60 + instance.stage3_seconds +
+        instance.stage3_milliseconds * 0.01) * 2))
 
 
 @python_2_unicode_compatible
