@@ -62,9 +62,18 @@ class FireFighterResult(BaseResult):
     extinguish_success = models.PositiveSmallIntegerField(
         verbose_name=_("Succesful Extinguish Count"))
     extinguish_failure = models.PositiveSmallIntegerField(
-        verbose_name=_("Unsuccessful Extinguish Count"))
+        verbose_name=_("Penalty Extinguish Count"))
     wall_hit = models.PositiveSmallIntegerField(
-        verbose_name=_("Wall Hit Count"))
+        verbose_name=_("Wall Touching Count"))
+    interfering_robot = models.PositiveSmallIntegerField(
+        verbose_name=_("Interfering Robot Count"))
+    touching_candles = models.PositiveSmallIntegerField(
+        verbose_name=_("Touching Candles Count"))
+    pre_extinguish = models.PositiveSmallIntegerField(
+        verbose_name=_("Pre-Start Systems Count"))
+    is_complete = models.BooleanField(
+        verbose_name=_("Extinguish all candles"),default=False)
+
 
     class Meta:
         verbose_name = _("Fire Fighter Result")
@@ -79,10 +88,13 @@ class FireFighterResult(BaseResult):
 @receiver(models.signals.pre_save, sender=FireFighterResult)
 def fire_fighter_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        instance.extinguish_success * 100,
-        instance.extinguish_failure * (-50),
-        instance.wall_hit * (-15)))
-
+        instance.extinguish_success * 150,
+        instance.extinguish_failure * 50,
+        instance.wall_hit * (-10),
+        instance.touching_candles * (-100),
+        instance.pre_extinguish * (-50),
+        instance.interfering_robot * (-30),
+        int(instance.is_complete) * (300 - instance.duration)))
 
 
 @python_2_unicode_compatible

@@ -433,7 +433,9 @@ class FireFighterResultCreateView(BaseResultCreateView):
     model = FireFighterResult
     category = "fire_fighter"
     fields = BaseResultCreateView.fields + [
-        "extinguish_success", "extinguish_failure", "wall_hit"]
+        "extinguish_success", "extinguish_failure", "wall_hit",
+        "pre_extinguish", "touching_candles", "interfering_robot",
+        "is_complete"]
 
 
 class FireFighterResultUpdateView(BaseResultUpdateView):
