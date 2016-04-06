@@ -135,8 +135,17 @@ class StairClimbingResult(BaseResult):
     stair2 = models.BooleanField(verbose_name=_("Stair #2"), default=False)
     stair3 = models.BooleanField(verbose_name=_("Stair #3"), default=False)
     stair4 = models.BooleanField(verbose_name=_("Stair #4"), default=False)
-    downstairs = models.PositiveSmallIntegerField(
-        verbose_name=_("Downstairs Count"))
+    stair5 = models.BooleanField(verbose_name=_("Stair #5"), default=False)
+    stair6 = models.BooleanField(verbose_name=_("Stair #6"), default=False)
+    stair7 = models.BooleanField(verbose_name=_("Stair #7"), default=False)
+    down6 = models.BooleanField(verbose_name=_("Down #6"), default=False)
+    down5 = models.BooleanField(verbose_name=_("Down #5"), default=False)
+    down4 = models.BooleanField(verbose_name=_("Down #4"), default=False)
+    down3 = models.BooleanField(verbose_name=_("Down #3"), default=False)
+    down2 = models.BooleanField(verbose_name=_("Down #2"), default=False)
+    down1 = models.BooleanField(verbose_name=_("Down #1"), default=False)
+    is_complete = models.BooleanField(
+        verbose_name=_("Is finish?"), default=False)
 
     class Meta:
         verbose_name = _("Stair Climbing Result")
@@ -151,9 +160,16 @@ class StairClimbingResult(BaseResult):
 @receiver(models.signals.pre_save, sender=StairClimbingResult)
 def stair_climbing_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        (int(instance.stair1) + int(instance.stair2)) * 10,
-        (int(instance.stair3) + int(instance.stair4)) * 20,
-        instance.downstairs * 10))
+        (int(instance.stair1) + int(instance.stair2) + int(instance.stair3)) * 10,
+        (int(instance.stair4)) * 40,
+        (int(instance.stair5))* 80,
+        (int(instance.stair6))* 100,
+        (int(instance.stair7))* 120,
+        (int(instance.down6) + int(instance.down5) + int(instance.down4)) * 20,
+        (int(instance.down1) + int(instance.down2) + int(instance.down3)) * 10,
+        (int(instance.is_complete)) * 40,
+        instance.duration * (-5)
+        ))
 
 
 @python_2_unicode_compatible

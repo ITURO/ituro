@@ -471,7 +471,8 @@ class StairClimbingResultCreateView(BaseResultCreateView):
     model = StairClimbingResult
     category = "stair_climbing"
     fields = BaseResultCreateView.fields + [
-        "stair1", "stair2", "stair3", "stair4", "downstairs"]
+        "stair1", "stair2", "stair3", "stair4", "stair5", "stair6", "stair7",
+        "down6", "down5", "down4", "down3", "down2", "down1", "is_complete"]
 
 
 class StairClimbingResultUpdateView(BaseResultUpdateView):
