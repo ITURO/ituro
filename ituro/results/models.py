@@ -94,7 +94,7 @@ def fire_fighter_result_calculate_score(sender, instance, *args, **kwargs):
         instance.touching_candles * (-100),
         instance.pre_extinguish * (-50),
         instance.interfering_robot * (-30),
-        int(instance.is_complete) * ((300 - instance.duration)/4)))
+        int(instance.is_complete) * ((300 - instance.duration) / 4)))
 
 
 @python_2_unicode_compatible
