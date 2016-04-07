@@ -10,7 +10,7 @@ class QRCodeCheckForm(forms.Form):
                                   initial="1-2016")
     project_qrcode = forms.CharField(max_length=50, required=True,
                                      label=_("Project QRCode"),
-                                     initial="1-2016-line_follower-1")
+                                     initial="1-2016-")
 
     def clean_user_qrcode(self):
         qrcode = str(self.cleaned_data.get("user_qrcode")).split("-")
