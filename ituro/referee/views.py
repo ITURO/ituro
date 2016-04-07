@@ -11,13 +11,16 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.db import IntegrityError
 from projects.models import Project
 from accounts.models import CustomUser
 from orders.models import LineFollowerStage, LineFollowerRaceOrder, RaceOrder
 from referee.forms import QRCodeCheckForm
 from results.models import LineFollowerResult, FireFighterResult, \
     BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
-    SelfBalancingResult, ScenarioResult, InnovativeResult
+    SelfBalancingResult, ScenarioResult, InnovativeJuryResult, InnovativeJury, \
+    InnovativeTotalResult
+
 
 
 __all__ = [
@@ -52,6 +55,7 @@ __all__ = [
     "ScenarioResultCreateView",
     "ScenarioResultUpdateView",
     "ScenarioResultDeleteView",
+    "InnovativeResultListView",
     "InnovativeResultCreateView",
     "InnovativeResultUpdateView",
     "InnovativeResultDeleteView",
@@ -69,10 +73,12 @@ class BaseResultCreateView(CreateView):
         if not self.request.user.is_superuser and \
            not self.request.user.has_group("referee"):
             raise PermissionDenied
+
         if not RaceOrder.objects.filter(
                 project__category=self.category,
                 project__pk=self.kwargs.get("pid")).exists():
             raise Http404
+
         return super(BaseResultCreateView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -84,8 +90,8 @@ class BaseResultCreateView(CreateView):
         result = form.save(commit=False)
         result.project = Project.objects.get(pk=self.kwargs.get("pid"))
         result.save()
-
         messages.success(self.request, _("Result entry created."))
+
         return super(BaseResultCreateView, self).form_valid(form)
 
     def get_success_url(self):
@@ -122,6 +128,7 @@ class BaseResultUpdateView(UpdateView):
     def form_valid(self, form):
         result = form.save(commit=True)
         messages.success(self.request, _("Result updated."))
+
         return super(BaseResultUpdateView, self).form_valid(form)
 
     def get_success_url(self):
@@ -342,9 +349,12 @@ class CategoryRobotListView(ListView):
         if not self.request.user.is_superuser and \
            not self.request.user.has_group("referee"):
             raise PermissionDenied
+        if category == "innovative":
+            return HttpResponseRedirect(reverse('innovative_referee'))
+
         return super(CategoryRobotListView, self).dispatch(*args, **kwargs)
 
-    def get_queryset(self):
+    def get_queryset(self): 
         return RaceOrder.objects.filter(
             project__category=self.kwargs.get("category"))
 
@@ -550,20 +560,137 @@ class ScenarioResultDeleteView(BaseResultDeleteView):
     category = "scenario"
 
 
-class InnovativeResultCreateView(BaseResultCreateView):
-    model = InnovativeResult
+class InnovativeResultListView(ListView):
+    model = InnovativeJuryResult
+    template_name = "referee/innovative_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(InnovativeResultListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return Project.objects.filter(category="innovative", is_confirmed=True)
+
+    def get_context_data(self, **kwargs):
+        context = super(InnovativeResultListView, self).get_context_data(**kwargs)
+        context["category"] = self.kwargs.get("category")
+        context["category_display"] = dict(
+            settings.ALL_CATEGORIES)["innovative"]
+        return context
+
+
+class InnovativeResultCreateView(CreateView):
+    model = InnovativeJuryResult
     category = "innovative"
-    fields = ["design", "digital_design", "innovative", "technical",
-              "presentation", "opinion"]
+    fields = ["design", "innovative", "technical",
+              "presentation", "opinion", "jury"]
+    template_name = "referee/innovative_create.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(InnovativeResultCreateView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(InnovativeResultCreateView, self).get_context_data(**kwargs)
+        context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
+        return context
+
+    def form_valid(self, form):
+        try:
+            result = form.save(commit=False)
+            result.project = Project.objects.get(pk=self.kwargs.get("pid"))
+            result.save()
+            messages.success(self.request, _("Result entry created."))
+        except IntegrityError:
+            messages.error(self.request, _("Juries can give only one score for each project."))
+            return HttpResponseRedirect(reverse('innovative_referee'))
+
+        return super(InnovativeResultCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("category_robot_list", args=[self.category])
 
 
-class InnovativeResultUpdateView(BaseResultUpdateView):
-    model = InnovativeResult
+class InnovativeResultUpdateView(UpdateView):
+    model = InnovativeJuryResult
     category = "innovative"
-    fields = ["design", "digital_design", "innovative", "technical",
-              "presentation", "opinion"]
+    fields = ["design", "innovative", "technical",
+              "presentation", "opinion", "jury"]
+    template_name = "referee/innovative_update.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(InnovativeResultUpdateView, self).dispatch(*args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        project_pk = self.kwargs.get("pid")
+        result_pk = self.kwargs.get("rid")
+        queryset = queryset.filter(project__pk=project_pk, pk=result_pk)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def form_valid(self, form):
+        try:
+            result = form.save(commit=True)
+            messages.success(self.request, _("Result updated."))
+        except IntegrityError:
+            messages.error(self.request, _("Juries can give only one score for each project."))
+            return HttpResponseRedirect(reverse('innovative_referee'))
+
+        return super(InnovativeResultUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("category_robot_list", args=[self.category])
 
 
-class InnovativeResultDeleteView(BaseResultDeleteView):
-    model = InnovativeResult
+class InnovativeResultDeleteView(DeleteView):
+    model = InnovativeJuryResult
     category = "innovative"
+    template_name = "referee/innovative_delete.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(InnovativeResultDeleteView, self).dispatch(*args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        project_pk = self.kwargs.get("pid")
+        result_pk = self.kwargs.get("rid")
+        queryset = queryset.filter(project__pk=project_pk, pk=result_pk)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def delete(self, request, *args, **kwargs):
+        messages.info(request, _("Result entry deleted."))
+        return super(
+            InnovativeResultDeleteView, self).delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("category_robot_list", args=[self.category])

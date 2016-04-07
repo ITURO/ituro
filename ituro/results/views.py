@@ -11,7 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 from orders.models import LineFollowerStage
 from results.models import LineFollowerResult, FireFighterResult, \
     BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
-    SelfBalancingResult, ScenarioResult, InnovativeResult
+    SelfBalancingResult, ScenarioResult, InnovativeJuryResult, InnovativeJury, \
+    InnovativeTotalResult
 from sumo.models import *
 
 
@@ -24,7 +25,7 @@ RESULTS_DICT = {
     "color_selecting": ColorSelectingResult,
     "self_balancing": SelfBalancingResult,
     "scenario": ScenarioResult,
-    "innovative": InnovativeResult,
+    "innovative": InnovativeJuryResult,
 }
 
 
@@ -38,12 +39,13 @@ class ResultListView(ListView):
         if not settings.PROJECT_RESULTS or \
            not category in dict(settings.RESULT_CATEGORIES).keys():
             raise PermissionDenied
-
         if category == 'line_follower':
             return HttpResponseRedirect(
                 reverse('line_follower_stage_result_list'))
         elif category == 'micro_sumo':
             return HttpResponseRedirect(reverse('sumo_result_home'))
+        elif category == 'innovative':
+            return HttpResponseRedirect(reverse('innovative_referee'))
 
         return super(ResultListView, self).dispatch(*args, **kwargs)
 
@@ -55,6 +57,7 @@ class ResultListView(ListView):
         context = super(ResultListView, self).get_context_data(**kwargs)
         context['category'] = dict(
             settings.ALL_CATEGORIES)[self.kwargs.get('slug')]
+
         return context
 
 
@@ -182,4 +185,20 @@ class SumoResultFinalDetailView(TemplateView):
         group = SumoGroup.objects.filter(is_final=True).first()
         context["group"] = group
         context["matches"] = SumoGroupMatch.objects.filter(group=group)
+        return context
+
+
+class InnovativeResultView(ListView):
+    template_name = "results/innovative_result.html"
+
+    def dispatch(self, *args, **kwargs):
+        return super(InnovativeResultView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return InnovativeTotalResult.objects.filter(project__is_confirmed=True).order_by("-score")
+
+    def get_context_data(self, **kwargs):
+        category = self.kwargs.get('slug')
+        context = super(InnovativeResultView, self).get_context_data(**kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["innovative"]
         return context

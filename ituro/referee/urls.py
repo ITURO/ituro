@@ -7,6 +7,20 @@ urlpatterns = patterns(
     # Referee Home View
     url(r'^$', RefereeHomeView.as_view(), name="referee_home"),
 
+    # Innovative
+    url(r'^innovative/$',
+        InnovativeResultListView.as_view(),
+        name='innovative_referee'),
+    url(r'^innovative/(?P<pid>\d+)/create/$',
+        InnovativeResultCreateView.as_view(),
+        name='innovative_result_create'),
+    url(r'^innovative/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+        InnovativeResultUpdateView.as_view(),
+        name='innovative_result_update'),
+    url(r'^innovative/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+        InnovativeResultDeleteView.as_view(),
+        name='innovative_result_delete'),
+
     # Line Follower
     url(r'^line_follower/$',
         RefereeLineFollowerStageListView.as_view(),
@@ -112,14 +126,5 @@ urlpatterns = patterns(
         ScenarioResultDeleteView.as_view(),
         name='scenario_result_delete'),
 
-    # Innovative
-    url(r'^innovative/(?P<pid>\d+)/create/$',
-        InnovativeResultCreateView.as_view(),
-        name='innovative_result_create'),
-    url(r'^innovative/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        InnovativeResultUpdateView.as_view(),
-        name='innovative_result_update'),
-    url(r'^innovative/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        InnovativeResultDeleteView.as_view(),
-        name='innovative_result_delete'),
+
 )
