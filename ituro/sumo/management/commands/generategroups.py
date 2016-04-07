@@ -64,7 +64,6 @@ class Command(BaseCommand):
             count = len(team_list)
             if count % 2 == 0:
                 for i in range(0,count-1):
-                    import pdb;pdb.set_trace()
                     hold = team_list[count-1]
                     lst = team_list[0:count-1]
                     lst_shift = team_list[0:count-1]
