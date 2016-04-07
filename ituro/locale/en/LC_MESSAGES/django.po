@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-07 02:36+0000\n"
+"POT-Creation-Date: 2016-04-07 12:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -809,7 +809,7 @@ msgid "Change Password"
 msgstr ""
 
 #: templates/base.html:10 templates/lcd/base.html:10
-msgid "ITU Robot Olympics 2015"
+msgid "ITU Robot Olympics 2016"
 msgstr ""
 
 #: templates/base.html:25
