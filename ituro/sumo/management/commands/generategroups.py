@@ -62,13 +62,41 @@ class Command(BaseCommand):
             teams = SumoGroupTeam.objects.filter(group=group)
             team_list = list(teams)
             count = len(team_list)
-            for j in range(f(count) / f(2) / f(count-2) / 2):
-                for i in range(0, len(team_list) / 2):
-                    SumoGroupMatch.objects.create(
-                        home=team_list[i].robot,
-                        away=team_list[len(team_list) - i - 1].robot,
-                        group=group, order=order)
+            if count % 2 == 0:
+                for i in range(0,count-1):
+                    import pdb;pdb.set_trace()
+                    hold = team_list[count-1]
+                    lst = team_list[0:count-1]
+                    lst_shift = team_list[0:count-1]
+                    for j in range(0,len(lst)/2):
+                        home = lst.pop()
+                        away = lst.pop(0)
+                        SumoGroupMatch.objects.create(home=home.robot,
+                                                      away=away.robot,
+                                                      group=group,
+                                                      order=order)
+                        order += 1
+                    SumoGroupMatch.objects.create(home=hold.robot,
+                                                  away=lst.pop().robot,
+                                                  group=group,
+                                                  order=order)
                     order += 1
-                hold = team_list.pop()
-                team_list.insert(1, hold)
+                    lst_shift.insert(0,lst_shift.pop())
+                    lst_shift.append(hold)
+                    team_list = lst_shift
+            else:
+                for i in range(0,count):
+                    hold = team_list[0]
+                    lst = team_list[1:count]
+                    for j in range(0,len(lst)/2):
+                        home = lst.pop()
+                        away = lst.pop(0)
+                        SumoGroupMatch.objects.create(home=home.robot,
+                                                      away=away.robot,
+                                                      group=group,
+                                                      order=order)
+                        order += 1
+                    hold.point += 3
+                    hold.save()
+                    team_list.insert(0,team_list.pop())
         self.stdout.write("Fixtures generated.")
