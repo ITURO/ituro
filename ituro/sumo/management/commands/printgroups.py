@@ -11,7 +11,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for group in SumoGroup.objects.all():
-            import pdb;pdb.set_trace()
             self.stdout.write("Micro Sumo Group #{}".format(group.order))
             for team in SumoGroupTeam.objects.filter(group=group):
                 manager = team.robot.manager

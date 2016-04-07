@@ -249,7 +249,7 @@ class LineFollowerResultCreateView(CreateView):
     def form_valid(self, form):
         result = form.save(commit=False)
         result.project = Project.objects.get(pk=self.kwargs.get("pid"))
-        result.stage = LineFollowerStage.objects.get(pk=self.kwargs["order"])
+        result.stage = LineFollowerStage.objects.get(order=self.kwargs["order"])
         result.save()
 
         messages.success(self.request, _("Result entry generated."))
@@ -378,28 +378,30 @@ class BaseQRCodeCheckView(FormView):
         return super(BaseQRCodeCheckView, self).dispatch(*args,**kwargs)
 
     def form_valid(self, form):
-        project_qrcode = str(form.cleaned_data.get("project_qrcode"))
-        user_qrcode = str(form.cleaned_data.get("user_qrcode"))
-        project_qrcode = project_qrcode.split("-")
-        user_qrcode = user_qrcode.split("-")
+        project_qrcode = form.cleaned_data.get("project_qrcode")
+        user_qrcode = form.cleaned_data.get("user_qrcode")
         user_id = user_qrcode[0]
+        user_year = user_qrcode[1]
+        project_year = project_qrcode[1]
         project_user_id = project_qrcode[0]
         project_id = project_qrcode[-1]
         project_category = project_qrcode[2]
         pid = self.kwargs.get("pid")
-        project = Project.objects.filter(id=project_id)
-        user = CustomUser.objects.filter(id=user_id)
 
-        if not user.exists():
+        if CustomUser.objects.filter(id=user_id).exists():
+            user = CustomUser.objects.get(id=user_id)
+        else:
             messages.error(self.request, _("User does not exist."))
-        elif not project.exists():
+        if Project.objects.filter(id=project_id).exists():
+            project = Project.objects.get(id=project_id)
+        else:
             messages.error(self.request, _("Project does not exist."))
-        elif not pid == project_id:
+        if not pid == project_id:
             messages.error(self.request, _("Wrong Robot"))
-        elif project_category != project[0].category:
+        elif project_category != project.category:
             messages.error(self.request, _("Wrong Category"))
         elif not project_user_id == user_id and \
-             not project[0].manager.id == user_id:
+             not project.manager.id == user_id or not user_year==project_year:
             messages.error(self.request, _("Codes are mismatched"))
         else:
             messages.success(self.request, _("Codes are matched"))
@@ -441,7 +443,9 @@ class FireFighterResultCreateView(BaseResultCreateView):
     model = FireFighterResult
     category = "fire_fighter"
     fields = BaseResultCreateView.fields + [
-        "extinguish_success", "extinguish_failure", "wall_hit"]
+        "extinguish_success", "extinguish_failure", "wall_hit",
+        "pre_extinguish", "touching_candles", "interfering_robot",
+        "is_complete"]
 
 
 class FireFighterResultUpdateView(BaseResultUpdateView):
@@ -459,7 +463,7 @@ class BasketballResultCreateView(BaseResultCreateView):
     model = BasketballResult
     category = "basketball"
     fields = BaseResultCreateView.fields + [
-        "basket1", "basket2", "basket3", "basket4"]
+        "basket1", "basket2", "basket3", "basket4", "basket5"]
 
 
 class BasketballResultUpdateView(BaseResultUpdateView):
@@ -477,7 +481,8 @@ class StairClimbingResultCreateView(BaseResultCreateView):
     model = StairClimbingResult
     category = "stair_climbing"
     fields = BaseResultCreateView.fields + [
-        "stair1", "stair2", "stair3", "stair4", "downstairs"]
+        "stair1", "stair2", "stair3", "stair4", "stair5", "stair6", "stair7",
+        "down6", "down5", "down4", "down3", "down2", "down1", "is_complete"]
 
 
 class StairClimbingResultUpdateView(BaseResultUpdateView):
@@ -510,7 +515,7 @@ class ColorSelectingResultCreateView(BaseResultCreateView):
     model = ColorSelectingResult
     category = "color_selecting"
     fields = BaseResultCreateView.fields + [
-        "obtain", "place_success", "place_failure", "place_partial"]
+        "obtain", "place_success", "place_failure"]
 
 
 class ColorSelectingResultUpdateView(BaseResultUpdateView):
@@ -528,8 +533,8 @@ class SelfBalancingResultCreateView(BaseResultCreateView):
     model = SelfBalancingResult
     category = "self_balancing"
     fields = BaseResultCreateView.fields + [
-        "headway_amount", "impact", "headway_minutes", "headway_seconds",
-        "headway_milliseconds"]
+        "headway_amount", "stage3_minutes", "stage3_seconds",
+        "stage3_milliseconds"]
 
 
 class SelfBalancingResultUpdateView(BaseResultUpdateView):

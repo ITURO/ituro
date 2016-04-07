@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 01:57+0000\n"
+"POT-Creation-Date: 2016-04-07 12:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,7 +150,7 @@ msgstr ""
 msgid "Scenario"
 msgstr ""
 
-#: ituro/settings.py:144 results/models.py:258
+#: ituro/settings.py:144 results/models.py:282
 msgid "Innovative"
 msgstr ""
 
@@ -221,44 +221,47 @@ msgstr ""
 msgid "Presentation file is required for innovative projects."
 msgstr ""
 
-#: projects/forms.py:33 projects/forms.py:69
+#: projects/forms.py:34 projects/forms.py:74
 msgid "Only PDF files will be accepted."
 msgstr ""
 
-#: projects/forms.py:36 projects/forms.py:72
+#: projects/forms.py:38 projects/forms.py:78
+msgid "Max character number of the filename is 50."
+msgstr ""
+
+#: projects/forms.py:41 projects/forms.py:81
 msgid "Max file size is 1MB."
 msgstr ""
 
-#: projects/forms.py:39
+#: projects/forms.py:44
 msgid "Presentation can only be uploaded for innovative projects."
 msgstr ""
 
-#: projects/forms.py:61
+#: projects/forms.py:66
 msgid "Project name is being used."
 msgstr ""
 
-#: projects/forms.py:78 projects/models.py:18
-#: templates/projects/qrcode_detail.html:12
+#: projects/forms.py:87 projects/models.py:18
 msgid "Project Name"
 msgstr ""
 
-#: projects/forms.py:80
+#: projects/forms.py:89
 msgid "Project Category"
 msgstr ""
 
-#: projects/forms.py:82
+#: projects/forms.py:91
 msgid "Project Manager Email"
 msgstr ""
 
-#: projects/forms.py:92 referee/views.py:386
+#: projects/forms.py:101 referee/views.py:388
 msgid "Project does not exist."
 msgstr ""
 
-#: projects/forms.py:96 referee/views.py:384
+#: projects/forms.py:105 referee/views.py:384
 msgid "User does not exist."
 msgstr ""
 
-#: projects/forms.py:101
+#: projects/forms.py:110
 msgid "Error! Please correct the errors below."
 msgstr ""
 
@@ -298,13 +301,35 @@ msgstr ""
 msgid "Project confirmation process completed successfully."
 msgstr ""
 
-#: referee/forms.py:8 templates/projects/qrcode_detail.html:25
+#: referee/forms.py:9
 msgid "User QRCode"
 msgstr ""
 
-#: referee/forms.py:10 templates/projects/qrcode_detail.html:8
-#: templates/projects/qrcode_detail.html:21
+#: referee/forms.py:12
 msgid "Project QRCode"
+msgstr ""
+
+#: referee/forms.py:19
+msgid "User Qrcode format is wrong."
+msgstr ""
+
+#: referee/forms.py:25
+msgid "User Qrcode must contain 2 integer."
+msgstr ""
+
+#: referee/forms.py:32
+msgid "Project Qrcode format is wrong."
+msgstr ""
+
+#: referee/forms.py:36
+msgid ""
+"There is no category for                                                 "
+"given project qrcode"
+msgstr ""
+
+#: referee/forms.py:42
+msgid ""
+"Project Qrcode must contain 3                                         integer"
 msgstr ""
 
 #: referee/views.py:88
@@ -327,19 +352,19 @@ msgstr ""
 msgid "Result entry for {} #{} updated."
 msgstr ""
 
-#: referee/views.py:388
+#: referee/views.py:390
 msgid "Wrong Robot"
 msgstr ""
 
-#: referee/views.py:390
+#: referee/views.py:392
 msgid "Wrong Category"
 msgstr ""
 
-#: referee/views.py:393
+#: referee/views.py:395
 msgid "Codes are mismatched"
 msgstr ""
 
-#: referee/views.py:395
+#: referee/views.py:397
 msgid "Codes are matched"
 msgstr ""
 
@@ -388,170 +413,214 @@ msgid "Succesful Extinguish Count"
 msgstr ""
 
 #: results/models.py:65
-msgid "Unsuccessful Extinguish Count"
+msgid "Penalty Extinguish Count"
 msgstr ""
 
 #: results/models.py:67
-msgid "Wall Hit Count"
+msgid "Wall Touching Count"
 msgstr ""
 
-#: results/models.py:70
-msgid "Fire Fighter Result"
+#: results/models.py:69
+msgid "Interfering Robot Count"
 msgstr ""
 
 #: results/models.py:71
+msgid "Touching Candles Count"
+msgstr ""
+
+#: results/models.py:73
+msgid "Pre-Start Systems Count"
+msgstr ""
+
+#: results/models.py:75
+msgid "Extinguish all candles"
+msgstr ""
+
+#: results/models.py:79
+msgid "Fire Fighter Result"
+msgstr ""
+
+#: results/models.py:80
 msgid "Fire Fighter Results"
 msgstr ""
 
-#: results/models.py:92
+#: results/models.py:104
 msgid "Basket 1"
 msgstr ""
 
-#: results/models.py:93
+#: results/models.py:105
 msgid "Basket 2"
 msgstr ""
 
-#: results/models.py:94
+#: results/models.py:106
 msgid "Basket 3"
 msgstr ""
 
-#: results/models.py:95
+#: results/models.py:107
 msgid "Basket 4"
 msgstr ""
 
-#: results/models.py:97
-msgid "Total Basket"
+#: results/models.py:108
+msgid "Basket 5"
 msgstr ""
 
-#: results/models.py:100
+#: results/models.py:111
 msgid "Basketball Result"
 msgstr ""
 
-#: results/models.py:101
+#: results/models.py:112
 msgid "Basketball Results"
 msgstr ""
 
-#: results/models.py:124
+#: results/models.py:134
 msgid "Stair #1"
 msgstr ""
 
-#: results/models.py:125
+#: results/models.py:135
 msgid "Stair #2"
 msgstr ""
 
-#: results/models.py:126
+#: results/models.py:136
 msgid "Stair #3"
 msgstr ""
 
-#: results/models.py:127
+#: results/models.py:137
 msgid "Stair #4"
 msgstr ""
 
-#: results/models.py:129
-msgid "Downstairs Count"
+#: results/models.py:138
+msgid "Stair #5"
 msgstr ""
 
-#: results/models.py:132
+#: results/models.py:139
+msgid "Stair #6"
+msgstr ""
+
+#: results/models.py:140
+msgid "Stair #7"
+msgstr ""
+
+#: results/models.py:141
+msgid "Down #6"
+msgstr ""
+
+#: results/models.py:142
+msgid "Down #5"
+msgstr ""
+
+#: results/models.py:143
+msgid "Down #4"
+msgstr ""
+
+#: results/models.py:144
+msgid "Down #3"
+msgstr ""
+
+#: results/models.py:145
+msgid "Down #2"
+msgstr ""
+
+#: results/models.py:146
+msgid "Down #1"
+msgstr ""
+
+#: results/models.py:148
+msgid "Is finish?"
+msgstr ""
+
+#: results/models.py:151
 msgid "Stair Climbing Result"
 msgstr ""
 
-#: results/models.py:133
+#: results/models.py:152
 msgid "Stair Climbing Results"
 msgstr ""
 
-#: results/models.py:155
+#: results/models.py:181
 msgid "Maze Result"
 msgstr ""
 
-#: results/models.py:156
+#: results/models.py:182
 msgid "Maze Results"
 msgstr ""
 
-#: results/models.py:176
+#: results/models.py:202
 msgid "Cylinder Obtain Count"
 msgstr ""
 
-#: results/models.py:178
+#: results/models.py:204
 msgid "Cylinder Successful Placement Count"
 msgstr ""
 
-#: results/models.py:180
+#: results/models.py:206
 msgid "Cylinder Unsuccessful Placement Count"
 msgstr ""
 
-#: results/models.py:182
-msgid "Cylinder Partial Placement Count"
-msgstr ""
-
-#: results/models.py:185
+#: results/models.py:209
 msgid "Color Selecting Result"
 msgstr ""
 
-#: results/models.py:186
+#: results/models.py:210
 msgid "Color Selecting Results"
 msgstr ""
 
-#: results/models.py:208
+#: results/models.py:231
 msgid "Headway Amount (cm)"
 msgstr ""
 
-#: results/models.py:209
-msgid "Impact Test"
+#: results/models.py:233
+msgid "Stage3 Minutes"
 msgstr ""
 
-#: results/models.py:211
-msgid "Headway Minutes"
+#: results/models.py:235
+msgid "Stage3 Seconds"
 msgstr ""
 
-#: results/models.py:213
-msgid "Headway Seconds"
+#: results/models.py:237
+msgid "Stage3 Milliseconds"
 msgstr ""
 
-#: results/models.py:215
-msgid "Headway Milliseconds"
-msgstr ""
-
-#: results/models.py:218
+#: results/models.py:240
 msgid "Self Balancing Result"
 msgstr ""
 
-#: results/models.py:219
+#: results/models.py:241
 msgid "Self Balancing Results"
 msgstr ""
 
-#: results/models.py:241
+#: results/models.py:265
 msgid "Scenario Result"
 msgstr ""
 
-#: results/models.py:242
+#: results/models.py:266
 msgid "Scenario Results"
 msgstr ""
 
-#: results/models.py:254
+#: results/models.py:278
 msgid "Design"
 msgstr ""
 
-#: results/models.py:256
+#: results/models.py:280
 msgid "Digital Design"
 msgstr ""
 
-#: results/models.py:260
+#: results/models.py:284
 msgid "Technical"
 msgstr ""
 
-#: results/models.py:262 templates/projects/project_detail.html:23
+#: results/models.py:286 templates/projects/project_detail.html:23
 msgid "Presentation"
 msgstr ""
 
-#: results/models.py:264
+#: results/models.py:288
 msgid "Opinion"
 msgstr ""
 
-#: results/models.py:267
+#: results/models.py:291
 msgid "Innovative Result"
 msgstr ""
 
-#: results/models.py:268
+#: results/models.py:292
 msgid "Innovative Results"
 msgstr ""
 
@@ -740,7 +809,7 @@ msgid "Change Password"
 msgstr ""
 
 #: templates/base.html:10 templates/lcd/base.html:10
-msgid "ITU Robot Olympics 2015"
+msgid "ITU Robot Olympics 2016"
 msgstr ""
 
 #: templates/base.html:25
@@ -967,11 +1036,7 @@ msgstr ""
 msgid "Project QrCode"
 msgstr ""
 
-#: templates/projects/qrcode_detail.html:16
-msgid "User Name"
-msgstr ""
-
-#: templates/projects/qrcode_detail.html:31
+#: templates/projects/qrcode_detail.html:21
 msgid "Back"
 msgstr ""
 

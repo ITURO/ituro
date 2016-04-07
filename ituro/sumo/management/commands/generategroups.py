@@ -58,7 +58,6 @@ class Command(BaseCommand):
         self.stdout.write('Sumo groups generated.')
 
         for group in SumoGroup.objects.all():
-            import pdb;pdb.set_trace()
             order = 1
             teams = SumoGroupTeam.objects.filter(group=group)
             team_list = list(teams)

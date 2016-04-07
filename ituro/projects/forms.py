@@ -18,7 +18,7 @@ class ProjectCreateForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        exclude = ('manager','is_confirmed', 'is_active')
+        exclude = ('manager', 'is_confirmed', 'is_active')
 
     def clean_presentation(self):
         presentation = self.cleaned_data.get('presentation')
@@ -30,7 +30,12 @@ class ProjectCreateForm(forms.ModelForm):
         elif category == "innovative" and presentation is not None:
             extension = os.path.splitext(presentation.name)[1]
             if extension != '.pdf':
-                raise forms.ValidationError(_("Only PDF files will be accepted."))
+                raise forms.ValidationError(
+                    _("Only PDF files will be accepted."))
+
+            if len(presentation.name) > 50:
+                raise forms.ValidationError(
+                    _("Max character number of the filename is 50."))
 
             if presentation.size > settings.MAX_FILE_SIZE:
                 raise forms.ValidationError(_("Max file size is 1MB."))
@@ -67,6 +72,10 @@ class ProjectUpdateForm(forms.ModelForm):
 
         if extension != '.pdf':
             raise forms.ValidationError(_("Only PDF files will be accepted."))
+
+        if len(presentation.name) > 50:
+            raise forms.ValidationError(
+                _("Max character number of the filename is 50."))
 
         if presentation.size > settings.MAX_FILE_SIZE:
             raise forms.ValidationError(_("Max file size is 1MB."))
