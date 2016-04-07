@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-05 22:13+0000\n"
+"POT-Creation-Date: 2016-04-07 02:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,7 +150,7 @@ msgstr ""
 msgid "Scenario"
 msgstr ""
 
-#: ituro/settings.py:144 results/models.py:258
+#: ituro/settings.py:144 results/models.py:282
 msgid "Innovative"
 msgstr ""
 
@@ -413,170 +413,214 @@ msgid "Succesful Extinguish Count"
 msgstr ""
 
 #: results/models.py:65
-msgid "Unsuccessful Extinguish Count"
+msgid "Penalty Extinguish Count"
 msgstr ""
 
 #: results/models.py:67
-msgid "Wall Hit Count"
+msgid "Wall Touching Count"
 msgstr ""
 
-#: results/models.py:70
-msgid "Fire Fighter Result"
+#: results/models.py:69
+msgid "Interfering Robot Count"
 msgstr ""
 
 #: results/models.py:71
+msgid "Touching Candles Count"
+msgstr ""
+
+#: results/models.py:73
+msgid "Pre-Start Systems Count"
+msgstr ""
+
+#: results/models.py:75
+msgid "Extinguish all candles"
+msgstr ""
+
+#: results/models.py:79
+msgid "Fire Fighter Result"
+msgstr ""
+
+#: results/models.py:80
 msgid "Fire Fighter Results"
 msgstr ""
 
-#: results/models.py:92
+#: results/models.py:104
 msgid "Basket 1"
 msgstr ""
 
-#: results/models.py:93
+#: results/models.py:105
 msgid "Basket 2"
 msgstr ""
 
-#: results/models.py:94
+#: results/models.py:106
 msgid "Basket 3"
 msgstr ""
 
-#: results/models.py:95
+#: results/models.py:107
 msgid "Basket 4"
 msgstr ""
 
-#: results/models.py:97
-msgid "Total Basket"
+#: results/models.py:108
+msgid "Basket 5"
 msgstr ""
 
-#: results/models.py:100
+#: results/models.py:111
 msgid "Basketball Result"
 msgstr ""
 
-#: results/models.py:101
+#: results/models.py:112
 msgid "Basketball Results"
 msgstr ""
 
-#: results/models.py:124
+#: results/models.py:134
 msgid "Stair #1"
 msgstr ""
 
-#: results/models.py:125
+#: results/models.py:135
 msgid "Stair #2"
 msgstr ""
 
-#: results/models.py:126
+#: results/models.py:136
 msgid "Stair #3"
 msgstr ""
 
-#: results/models.py:127
+#: results/models.py:137
 msgid "Stair #4"
 msgstr ""
 
-#: results/models.py:129
-msgid "Downstairs Count"
+#: results/models.py:138
+msgid "Stair #5"
 msgstr ""
 
-#: results/models.py:132
+#: results/models.py:139
+msgid "Stair #6"
+msgstr ""
+
+#: results/models.py:140
+msgid "Stair #7"
+msgstr ""
+
+#: results/models.py:141
+msgid "Down #6"
+msgstr ""
+
+#: results/models.py:142
+msgid "Down #5"
+msgstr ""
+
+#: results/models.py:143
+msgid "Down #4"
+msgstr ""
+
+#: results/models.py:144
+msgid "Down #3"
+msgstr ""
+
+#: results/models.py:145
+msgid "Down #2"
+msgstr ""
+
+#: results/models.py:146
+msgid "Down #1"
+msgstr ""
+
+#: results/models.py:148
+msgid "Is finish?"
+msgstr ""
+
+#: results/models.py:151
 msgid "Stair Climbing Result"
 msgstr ""
 
-#: results/models.py:133
+#: results/models.py:152
 msgid "Stair Climbing Results"
 msgstr ""
 
-#: results/models.py:155
+#: results/models.py:181
 msgid "Maze Result"
 msgstr ""
 
-#: results/models.py:156
+#: results/models.py:182
 msgid "Maze Results"
 msgstr ""
 
-#: results/models.py:176
+#: results/models.py:202
 msgid "Cylinder Obtain Count"
 msgstr ""
 
-#: results/models.py:178
+#: results/models.py:204
 msgid "Cylinder Successful Placement Count"
 msgstr ""
 
-#: results/models.py:180
+#: results/models.py:206
 msgid "Cylinder Unsuccessful Placement Count"
 msgstr ""
 
-#: results/models.py:182
-msgid "Cylinder Partial Placement Count"
-msgstr ""
-
-#: results/models.py:185
+#: results/models.py:209
 msgid "Color Selecting Result"
 msgstr ""
 
-#: results/models.py:186
+#: results/models.py:210
 msgid "Color Selecting Results"
 msgstr ""
 
-#: results/models.py:208
+#: results/models.py:231
 msgid "Headway Amount (cm)"
 msgstr ""
 
-#: results/models.py:209
-msgid "Impact Test"
+#: results/models.py:233
+msgid "Stage3 Minutes"
 msgstr ""
 
-#: results/models.py:211
-msgid "Headway Minutes"
+#: results/models.py:235
+msgid "Stage3 Seconds"
 msgstr ""
 
-#: results/models.py:213
-msgid "Headway Seconds"
+#: results/models.py:237
+msgid "Stage3 Milliseconds"
 msgstr ""
 
-#: results/models.py:215
-msgid "Headway Milliseconds"
-msgstr ""
-
-#: results/models.py:218
+#: results/models.py:240
 msgid "Self Balancing Result"
 msgstr ""
 
-#: results/models.py:219
+#: results/models.py:241
 msgid "Self Balancing Results"
 msgstr ""
 
-#: results/models.py:241
+#: results/models.py:265
 msgid "Scenario Result"
 msgstr ""
 
-#: results/models.py:242
+#: results/models.py:266
 msgid "Scenario Results"
 msgstr ""
 
-#: results/models.py:254
+#: results/models.py:278
 msgid "Design"
 msgstr ""
 
-#: results/models.py:256
+#: results/models.py:280
 msgid "Digital Design"
 msgstr ""
 
-#: results/models.py:260
+#: results/models.py:284
 msgid "Technical"
 msgstr ""
 
-#: results/models.py:262 templates/projects/project_detail.html:23
+#: results/models.py:286 templates/projects/project_detail.html:23
 msgid "Presentation"
 msgstr ""
 
-#: results/models.py:264
+#: results/models.py:288
 msgid "Opinion"
 msgstr ""
 
-#: results/models.py:267
+#: results/models.py:291
 msgid "Innovative Result"
 msgstr ""
 
-#: results/models.py:268
+#: results/models.py:292
 msgid "Innovative Results"
 msgstr ""
 
