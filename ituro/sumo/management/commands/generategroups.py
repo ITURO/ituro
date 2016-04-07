@@ -96,7 +96,5 @@ class Command(BaseCommand):
                                                       group=group,
                                                       order=order)
                         order += 1
-                    hold.point += 3
-                    hold.save()
                     team_list.insert(0,team_list.pop())
         self.stdout.write("Fixtures generated.")
