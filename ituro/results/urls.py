@@ -33,6 +33,11 @@ urlpatterns = patterns(
         SumoResultFinalDetailView.as_view(),
         name='sumo_result_final_detail'),
 
+    # Innovative
+    url(r'^innovative/$',
+        InnovativeResultView.as_view(),
+        name='innovative_result'),
+
     url(r'^(?P<slug>[-_\w]+)/$',
         ResultListView.as_view(),
         name='result_list'),

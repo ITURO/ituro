@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from orders.models import *
 from results.models import LineFollowerResult, FireFighterResult, \
     BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
-    SelfBalancingResult, ScenarioResult, InnovativeResult
+    SelfBalancingResult, ScenarioResult, InnovativeJuryResult
 
 
 RESULTS_DICT = {
@@ -22,7 +22,7 @@ RESULTS_DICT = {
     "color_selecting": ColorSelectingResult,
     "self_balancing": SelfBalancingResult,
     "scenario": ScenarioResult,
-    "innovative": InnovativeResult,
+    "innovative": InnovativeJuryResult,
 }
 
 

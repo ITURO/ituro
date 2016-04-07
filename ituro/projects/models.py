@@ -48,7 +48,7 @@ class Project(models.Model):
             "color_selecting": self.colorselectingresult_set,
             "self_balancing": self.selfbalancingresult_set,
             "scenario": self.scenarioresult_set,
-            "innovative": self.innovativeresult_set,
+            "innovative": self.innovativejuryresult_set,
         }
         return RESULTS_DICT[self.category]
 

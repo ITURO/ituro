@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import MaxValueValidator, MinValueValidator
 from projects.models import Project
 from orders.models import LineFollowerStage
 
@@ -95,7 +96,6 @@ def fire_fighter_result_calculate_score(sender, instance, *args, **kwargs):
         instance.pre_extinguish * (-50),
         instance.interfering_robot * (-30),
         int(instance.is_complete) * ((300 - instance.duration) / 4)))
-
 
 @python_2_unicode_compatible
 class BasketballResult(BaseResult):
@@ -271,36 +271,71 @@ class ScenarioResult(BaseResult):
 
 
 @python_2_unicode_compatible
-class InnovativeResult(BaseResult):
+class InnovativeJury(models.Model):
+    jury = models.CharField(max_length=30, unique=True)
+
+    class Meta:
+        verbose_name = _("Innovative Jury")
+        verbose_name_plural = _("Innovative Juries")
+        ordering = ["jury"]
+
+    def __str__(self):
+        return self.jury
+
+
+@python_2_unicode_compatible
+class InnovativeJuryResult(models.Model):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "innovative"})
-    design = models.PositiveSmallIntegerField(
+    jury = models.ForeignKey(InnovativeJury)
+    jury_score = models.FloatField(
+        verbose_name=_('Jury Score'), blank=True, default=0)
+    design = models.FloatField(
+        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
         verbose_name=_("Design"), default=0)
-    digital_design = models.PositiveSmallIntegerField(
-        verbose_name=_("Digital Design"), default=0)
-    innovative = models.PositiveSmallIntegerField(
+    innovative = models.FloatField(
+        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
         verbose_name=_("Innovative"), default=0)
-    technical = models.PositiveSmallIntegerField(
+    technical = models.FloatField(
+        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
         verbose_name=_("Technical"), default=0)
-    presentation = models.PositiveSmallIntegerField(
+    presentation = models.FloatField(
+        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
         verbose_name=_("Presentation"), default=0)
-    opinion = models.PositiveSmallIntegerField(
+    opinion = models.FloatField(
+        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
         verbose_name=_("Opinion"), default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _("Innovative Result")
         verbose_name_plural = _("Innovative Results")
-        ordering = ["disqualification", "-score"]
+        ordering = ["project", "jury"]
+        unique_together = ('project','jury')
 
     def __str__(self):
         return self.project.name
 
 
-@receiver(models.signals.pre_save, sender=InnovativeResult)
-def innovative_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum((
+@python_2_unicode_compatible
+class InnovativeTotalResult(models.Model):
+    project = models.ForeignKey(
+        Project, limit_choices_to={"category": "innovative"}, unique=True)
+    score = models.FloatField(verbose_name=_('Score'), default=0)
+
+    class Meta:
+        verbose_name = _("Innovative Total Result")
+        verbose_name_plural = _("Innovative Total Results")
+        ordering = ["project"]
+
+    def __str__(self):
+        return self.project.name
+
+
+@receiver(models.signals.pre_save, sender=InnovativeJuryResult)
+def innovative_jury_result_calculate_score(sender, instance, *args, **kwargs):
+    instance.jury_score = sum((
         instance.design * 0.2,
-        instance.digital_design * 0.1,
         instance.innovative * 0.3,
         instance.technical * 0.25,
         instance.presentation * 0.1,
