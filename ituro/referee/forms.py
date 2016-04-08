@@ -4,13 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class QRCodeCheckForm(forms.Form):
-
-    user_qrcode = forms.CharField(max_length=50, required=True,
-                                  label=_("User QRCode"),
-                                  initial="1-2016")
-    project_qrcode = forms.CharField(max_length=50, required=True,
-                                     label=_("Project QRCode"),
-                                     initial="1-2016-")
+    user_qrcode = forms.CharField(
+            max_length=50, required=True, label=_("User QRCode"))
+    project_qrcode = forms.CharField(
+            max_length=50, required=True, label=_("Project QRCode"))
 
     def clean_user_qrcode(self):
         qrcode = str(self.cleaned_data.get("user_qrcode")).split("-")
