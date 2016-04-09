@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+{% if keyword == "groups" %}
+<div class="page-header">
+  <h1>{% trans "Micro Sumo Groups" %}</h1>
+</div>
+{% elif keyword == "stages" %}
+<div class="page-header">
+  <h1>{% trans "Micro Sumo Stages" %}</h1>
+</div>
+{% endif %}
+{% for object in object_list %}
+{% if keyword == "groups" %}
+{% if not object.is_final %}
+<h3>
+  <a href="{% url "micro_sumo_orders" keyword object.id %}">{{ object }}</a>
+</h3>
+{% elif object.is_final %}
+<h3>
+  <a href="{% url "micro_sumo_orders" keyword object.id %}">{% trans "Final Group" %}</a>
+</h3>
+{% endif %}
+{% elif keyword == "stages" %}
+<h3>
+  <a href="{% url "micro_sumo_orders" keyword object.id %}">{{ object }}</a>
+</h3>
+{% endif %}
+{% endfor %}
+{% endblock %}
