@@ -7,15 +7,16 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy, NoReverseMatch
 from django.contrib import messages
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db import IntegrityError
 from projects.models import Project
 from accounts.models import CustomUser
+from sumo.models import SumoStage, SumoStageMatch, SumoGroup, SumoGroupMatch
 from orders.models import LineFollowerStage, LineFollowerRaceOrder, RaceOrder
-from referee.forms import QRCodeCheckForm
+from referee.forms import QRCodeCheckForm, MicroSumoQRCodeCheckForm
 from results.models import LineFollowerResult, FireFighterResult, \
     BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
     SelfBalancingResult, ScenarioResult, InnovativeJuryResult, InnovativeJury, \
@@ -59,6 +60,13 @@ __all__ = [
     "InnovativeResultCreateView",
     "InnovativeResultUpdateView",
     "InnovativeResultDeleteView",
+    'MicroSumoRefereeBaseListView',
+    'MicroSumoTypeRefereeListView',
+    "MicroSumoOrdersRefereeListView",
+    "MicroSumoGroupResultUpdateView",
+    "MicroSumoStageResultUpdateView",
+    "MicroSumoGroupQRCodeCheckView",
+    "MicroSumoStageQRCodeCheckView",
 ]
 
 
@@ -354,7 +362,7 @@ class CategoryRobotListView(ListView):
 
         return super(CategoryRobotListView, self).dispatch(*args, **kwargs)
 
-    def get_queryset(self): 
+    def get_queryset(self):
         return RaceOrder.objects.filter(
             project__category=self.kwargs.get("category"))
 
@@ -699,3 +707,184 @@ class InnovativeResultDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("category_robot_list", args=[self.category])
+
+
+class MicroSumoRefereeBaseListView(TemplateView):
+    template_name = "referee/micro_sumo_base.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.has_group("referee") and \
+            not self.request.user.is_superuser:
+            raise PermissionDenied
+        return super(MicroSumoRefereeBaseListView, self).dispatch(*args,**kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(MicroSumoRefereeBaseListView, self).get_context_data(**kwargs)
+        context["stage_check"] = SumoStage.objects.all().exists()
+        context["groups_check"] = SumoGroup.objects.all().exists()
+        return context
+
+
+class MicroSumoTypeRefereeListView(ListView):
+    template_name = "referee/micro_sumo_type_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.has_group("referee") and \
+            not self.request.user.is_superuser:
+            raise PermissionDenied
+        return super(MicroSumoTypeRefereeListView, self).dispatch(*args,**kwargs)
+
+    def get_context_data(self, **kwargs):
+        keyword = self.kwargs.get("type")
+        context = super(MicroSumoTypeRefereeListView, self).get_context_data(**kwargs)
+        context["keyword"] = keyword
+        return context
+
+    def get_queryset(self):
+        keyword = self.kwargs.get("type")
+        if keyword == "groups":
+            queryset = SumoGroup.objects.all()
+        elif keyword == "stages":
+            queryset = SumoStage.objects.all()
+        else:
+            raise NoReverseMatch
+        return queryset
+
+class MicroSumoOrdersRefereeListView(ListView):
+    template_name = "referee/micro_sumo_orders.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.has_group("referee") and \
+            not self.request.user.is_superuser:
+            raise PermissionDenied
+        return super(MicroSumoOrdersRefereeListView, self).dispatch(*args,**kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(MicroSumoOrdersRefereeListView, self).get_context_data(**kwargs)
+        order = self.kwargs.get("order")
+        keyword = self.kwargs.get("type")
+        context["keyword"] = keyword
+        context["order_list"] = self.get_queryset()
+        return context
+
+    def get_queryset(self):
+        keyword = self.kwargs.get("type")
+        order = self.kwargs.get("order")
+        if keyword == "groups":
+            queryset = SumoGroupMatch.objects.filter(group=order)
+        elif keyword == "stages":
+            queryset = SumoStageMatch.objects.filter(stage=order)
+        else:
+            raise NoReverseMatch
+        return queryset
+
+
+class MicroSumoGroupResultUpdateView(UpdateView):
+    model = SumoGroupMatch
+    fields = ["home_score","away_score","is_played"]
+    template_name = "referee/micro_sumo_result_update.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(MicroSumoGroupResultUpdateView, self).dispatch(*args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        group = self.kwargs.get("order")
+        match_pk = self.kwargs.get("pid")
+        queryset = queryset.filter(pk=match_pk,group=group)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def form_valid(self, form):
+        result = form.save(commit=True)
+        messages.success(self.request, _("Result updated."))
+
+        return super(MicroSumoGroupResultUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        group = self.kwargs.get("order")
+        return reverse("micro_sumo_orders", args=["groups",group])
+
+
+class MicroSumoStageResultUpdateView(UpdateView):
+    model = SumoStageMatch
+    fields = ["home_score","away_score","is_played"]
+    template_name = "referee/micro_sumo_result_update.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(MicroSumoStageResultUpdateView, self).dispatch(*args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        match_pk = self.kwargs.get("pid")
+        stage = self.kwargs.get("order")
+        queryset = queryset.filter(stage=stage, pk=match_pk)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def form_valid(self, form):
+        result = form.save(commit=True)
+        messages.success(self.request, _("Result updated."))
+
+        return super(MicroSumoStageResultUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        stage = self.kwargs.get("order")
+        return reverse("micro_sumo_orders", args=["stages",stage])
+
+
+class BaseMicroSumoQRCodeCheckView(FormView):
+    template_name = "referee/qrcode_check.html"
+    form_class = MicroSumoQRCodeCheckForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(BaseMicroSumoQRCodeCheckView, self).dispatch(*args,**kwargs)
+
+    def form_valid(self,form):
+        return super(BaseMicroSumoQRCodeCheckView,self).form_valid(form)
+
+class MicroSumoGroupQRCodeCheckView(BaseMicroSumoQRCodeCheckView):
+    def get_success_url(self):
+        order = self.kwargs.get("order")
+        pid = self.kwargs.get("pid")
+        return reverse("micro_sumo_group_result_update",args=[order,pid,])
+    def get_failure_url(self):
+        order = self.kwargs.get("order")
+        return reverse("micro_sumo_orders", args=["groups",order])
+
+
+class MicroSumoStageQRCodeCheckView(BaseMicroSumoQRCodeCheckView):
+    def get_success_url(self):
+        order = self.kwargs.get("order")
+        pid = self.kwargs.get("pid")
+        return reverse("micro_sumo_stage_result_update",args=[order,pid,])
+    def get_failure_url(self):
+        order = self.kwargs.get("order")
+        return reverse("micro_sumo_orders", args=["stages",order])

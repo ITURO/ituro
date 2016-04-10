@@ -7,6 +7,29 @@ urlpatterns = patterns(
     # Referee Home View
     url(r'^$', RefereeHomeView.as_view(), name="referee_home"),
 
+    #Micro Sumo
+    url(r'^micro_sumo/$',
+        MicroSumoRefereeBaseListView.as_view(),
+        name="micro_sumo_base_referee"),
+    url(r'^micro_sumo/(?P<type>[\w-]+)/$',
+        MicroSumoTypeRefereeListView.as_view(),
+        name="micro_sumo_type_list"),
+    url(r'^micro_sumo/(?P<type>[\w-]+)/(?P<order>\d+)/$',
+        MicroSumoOrdersRefereeListView.as_view(),
+        name="micro_sumo_orders"),
+    url(r'^micro_sumo/groups/(?P<order>\d+)/(?P<pid>\d+)/update/$',
+        MicroSumoGroupResultUpdateView.as_view(),
+        name="micro_sumo_group_result_update"),
+    url(r'^micro_sumo/stages/(?P<order>\d+)/(?P<pid>\d+)/update/$',
+        MicroSumoStageResultUpdateView.as_view(),
+        name="micro_sumo_stage_result_update"),
+    url(r'^micro_sumo/groups/(?P<order>\d+)/(?P<pid>\d+)/$',
+        MicroSumoGroupQRCodeCheckView.as_view(),
+        name="micro_sumo_group_qrcode_check"),
+    url(r'^micro_sumo/stages/(?P<order>\d+)/(?P<pid>\d+)/$',
+        MicroSumoStageQRCodeCheckView.as_view(),
+        name="micro_sumo_stage_qrcode_check"),
+
     # Innovative
     url(r'^innovative/$',
         InnovativeResultListView.as_view(),

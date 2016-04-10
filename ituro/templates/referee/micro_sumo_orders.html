@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block content %}
+<div class="page-header">
+  {% if keyword == "groups" %}
+  {% if order_list.0.group.is_final %}
+  <h1>
+   {% trans "Final Group Exhibitions" %}
+  </h1>
+  {% elif not order_list.0.group.is_final %}
+  <h1>
+    {{ order_list.0.group }} {% trans "Exhibitions" %}
+  </h1>
+  {% endif %}
+  {% elif keyword == "stages" %}
+  <h1>
+    {{ order_list.0.stage }} {% trans "Exhibitions" %}
+  </h1>
+{% endif %}
+</div>
+{% bootstrap_messages %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td class="col-lg-2"><strong>{% trans "Race Order" %}</strong></td>
+      <td class="col-lg-6"><strong>{% trans "Home" %}</strong></td>
+      <td class="col-lg-6"><strong>{% trans "Away" %}</strong></td>
+      <td class="col-lg-2"><strong>{% trans "Referee" %}</strong></td>
+      <td class="col-lg-2"><strong>{% trans "Results" %}</strong></td>
+    </tr>
+  </thead>
+  {% for match in order_list %}
+  <tr>
+    {% if keyword == "groups" %}
+    <td class="col-lg-2">{{ match.order }}</td>
+    {% elif keyword == "stages" %}
+    <td class="col-lg-2">{{ forloop.counter }}</td>
+    {% endif %}
+    <td class="col-lg-6">{{ match.home }}</td>
+    <td class="col-lg-6">{{ match.away }}</td>
+    <td class="col-lg-2">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+          <span class="glyphicon glyphicon-wrench"></span> {% trans "Actions" %}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          {% if keyword == "groups" %}
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url "micro_sumo_group_qrcode_check" match.group.id match.id %}"><span class="glyphicon glyphicon-check"></span>{% trans "Check QRCode" %}</a>
+          </li>
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url "micro_sumo_group_result_update" match.group.id match.id %}"><span class="glyphicon glyphicon-plus"></span>{% trans "Create Result" %}</a>
+          </li>
+          {% elif keyword == "stages" %}
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url "micro_sumo_stage_qrcode_check" match.stage.id match.id %}"><span class="glyphicon glyphicon-check"></span>{% trans "Check QRCode" %}</a>
+          </li>
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url "micro_sumo_stage_result_update" match.stage.id match.id %}"><span class="glyphicon glyphicon-plus"></span>{% trans "Create Result" %}</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </td>
+    <td class="col-lg-2">{{match.home_score}} - {{match.away_score}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

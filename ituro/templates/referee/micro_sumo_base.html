@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+<div class="page-header">
+  <h1>{% trans "Micro Sumo Referee Dashboard" %}</h1>
+</div>
+
+{% if groups_check %}
+<h3>
+  <a href="groups">Groups</a>
+</h3>
+{% endif %}
+{% if stage_check %}
+<h3>
+  <a href="stages">Stages</a>
+</h3>
+{% endif %}
+{% endblock %}
