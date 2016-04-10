@@ -14,15 +14,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         order = 1
-        count = SumoStage.objects.all()
-        robots = list()
-        for match in SumoStageMatch.objects.filter(stage__order=count):
-            if match.away_score > match.home_score:
-                robots.append(match.away)
-            else:
-                robots.append(match.home)
+        robots = list(SumoGroupTeam.objects.filter(group__is_final=True))
         count = len(robots)
-        final_group = SumoGroup.objects.create(order=SumoGroup.objects.all().count()+1,is_final=True)
         for i in range(0,count-1):
             hold = robots[count-1]
             lst = robots[0:count-1]
