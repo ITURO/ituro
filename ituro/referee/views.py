@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.core.urlresolvers import reverse, reverse_lazy, NoReverseMatch
 from django.contrib import messages
 from django.conf import settings
@@ -358,7 +358,7 @@ class CategoryRobotListView(ListView):
            not self.request.user.has_group("referee"):
             raise PermissionDenied
         if category == "innovative":
-            return HttpResponseRedirect(reverse('innovative_referee'))
+            return redirect(reverse('innovative_referee'))
 
         return super(CategoryRobotListView, self).dispatch(*args, **kwargs)
 
@@ -624,7 +624,7 @@ class InnovativeResultCreateView(CreateView):
             messages.success(self.request, _("Result entry created."))
         except IntegrityError:
             messages.error(self.request, _("Juries can give only one score for each project."))
-            return HttpResponseRedirect(reverse('innovative_referee'))
+            return redirect(reverse('innovative_referee'))
 
         return super(InnovativeResultCreateView, self).form_valid(form)
 
@@ -666,7 +666,7 @@ class InnovativeResultUpdateView(UpdateView):
             messages.success(self.request, _("Result updated."))
         except IntegrityError:
             messages.error(self.request, _("Juries can give only one score for each project."))
-            return HttpResponseRedirect(reverse('innovative_referee'))
+            return redirect(reverse('innovative_referee'))
 
         return super(InnovativeResultUpdateView, self).form_valid(form)
 
