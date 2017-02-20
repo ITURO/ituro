@@ -20,8 +20,8 @@ class ProjectAdmin(admin.ModelAdmin):
         if not "manager" in change_array and not "category" in change_array:
             form.save()
         else:
-            if projects.exists():
-                raise forms.ValidationError("One category one robot")
+            if category == "line_follower" and projects.exists():
+                raise forms.ValidationError("One category one robot in line follower category!")
             else:
                 form.save()
 

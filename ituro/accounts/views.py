@@ -35,6 +35,8 @@ class RegisterView(FormView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             raise PermissionDenied
+        if settings.USER_REGISTER == False:
+	    raise PermissionDenied
         return super(RegisterView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
