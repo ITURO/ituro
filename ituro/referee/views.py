@@ -15,26 +15,31 @@ from django.db import IntegrityError
 from projects.models import Project
 from accounts.models import CustomUser
 from sumo.models import SumoStage, SumoStageMatch, SumoGroup, SumoGroupMatch
-from orders.models import LineFollowerStage, LineFollowerRaceOrder, RaceOrder
+from orders.models import LineFollowerStage, LineFollowerRaceOrder, LineFollowerJuniorStage, LineFollowerJuniorRaceOrder, RaceOrder
 from referee.forms import QRCodeCheckForm, MicroSumoQRCodeCheckForm
-from results.models import LineFollowerResult, FireFighterResult, \
-    BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
-    SelfBalancingResult, ScenarioResult, InnovativeJuryResult, InnovativeJury, \
-    InnovativeTotalResult
+from results.models import LineFollowerResult, LineFollowerJuniorResult, \
+    FireFighterResult, BasketballResult, StairClimbingResult, MazeResult, \
+    ColorSelectingResult, SelfBalancingResult, ScenarioResult, \
+    InnovativeJuryResult, InnovativeJury, InnovativeTotalResult
 
 
 
 __all__ = [
     "RefereeHomeView",
     "RefereeLineFollowerStageListView",
+    "RefereeLineFollowerJuniorStageListView",
     "LineFollowerRobotListView",
     "LineFollowerQRCodeCheckView",
     "LineFollowerResultCreateView",
     "LineFollowerResultUpdateView",
     "LineFollowerResultDeleteView",
+    "LineFollowerJuniorRobotListView",
+    "LineFollowerJuniorQRCodeCheckView",
+    "LineFollowerJuniorResultCreateView",
+    "LineFollowerJuniorResultUpdateView",
+    "LineFollowerJuniorResultDeleteView",
     "CategoryRobotListView",
     "CategoryQRCodeCheckView",
-    "RefereeLineFollowerStageListView",
     "FireFighterResultCreateView",
     "FireFighterResultUpdateView",
     "FireFighterResultDeleteView",
@@ -345,6 +350,159 @@ class LineFollowerResultDeleteView(DeleteView):
             self.kwargs.get("order")])
 
 
+class RefereeLineFollowerJuniorStageListView(ListView):
+    model = LineFollowerJuniorStage
+    template_name = "referee/line_follower_junior_stage_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(RefereeLineFollowerJuniorStageListView, self).dispatch(
+            *args, **kwargs)
+
+
+class LineFollowerJuniorRobotListView(ListView):
+    model = LineFollowerJuniorRaceOrder
+    template_name = "referee/line_follower_junior_order_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        order = self.kwargs.get("order")
+        if not LineFollowerJuniorStage.objects.filter(order=order).exists():
+            raise Http404
+
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(LineFollowerJuniorRobotListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return LineFollowerJuniorRaceOrder.objects.filter(
+            stage__order=self.kwargs.get("order"))
+
+
+class LineFollowerJuniorResultCreateView(CreateView):
+    model = LineFollowerJuniorResult
+    category = "line_follower_junior"
+    template_name = "referee/line_follower_result_create.html"
+    fields = BaseResultCreateView.fields + ["runway_out"]
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        if not LineFollowerJuniorRaceOrder.objects.filter(
+                stage__order=self.kwargs.get("order"),
+                project__pk=self.kwargs.get("pid")).exists():
+            raise Http404
+
+        return super(LineFollowerJuniorResultCreateView, self).dispatch(
+            *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(LineFollowerJuniorResultCreateView, self).get_context_data(
+            **kwargs)
+        context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
+        context["stage"] = LineFollowerJuniorStage.objects.filter(
+            order=self.kwargs.get("order")).first()
+        return context
+
+    def form_valid(self, form):
+        result = form.save(commit=False)
+        result.project = Project.objects.get(pk=self.kwargs.get("pid"))
+        result.stage = LineFollowerJuniorStage.objects.get(order=self.kwargs["order"])
+        result.save()
+
+        messages.success(self.request, _("Result entry generated."))
+        return super(LineFollowerJuniorResultCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse(
+            "line_follower_junior_robot_list", args=[self.kwargs.get("order")])
+
+
+class LineFollowerJuniorResultUpdateView(UpdateView):
+    model = LineFollowerJuniorResult
+    category = "line_follower_junior"
+    template_name = "referee/line_follower_result_update.html"
+    fields = LineFollowerJuniorResultCreateView.fields
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(LineFollowerJuniorResultUpdateView, self).dispatch(
+            *args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        pid = self.kwargs.get("pid")
+        rid = self.kwargs.get("rid")
+        sid = self.kwargs.get("order")
+        queryset = queryset.filter(stage__order=sid, project__pk=pid, pk=rid)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def form_valid(self, form):
+        result = form.save(commit=True)
+        messages.success(self.request, _(
+            "Result entry for {} #{} updated.".format(
+                result.project.name, result.stage.order)))
+        return super(LineFollowerJuniorResultUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("line_follower_junior_robot_list", args=[
+            self.kwargs.get("order")])
+
+
+class LineFollowerJuniorResultDeleteView(DeleteView):
+    model = LineFollowerJuniorResult
+    template_name = "referee/line_follower_result_delete.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(LineFollowerJuniorResultDeleteView, self).dispatch(
+            *args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        pid = self.kwargs.get("pid")
+        rid = self.kwargs.get("rid")
+        sid = self.kwargs.get("order")
+        queryset = queryset.filter(stage__order=sid, project__pk=pid, pk=rid)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def delete(self, request, *args, **kwargs):
+        messages.info(request, _("Result entry deleted."))
+        return super(LineFollowerJuniorResultDeleteView,
+                     self).delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("line_follower_junior_robot_list", args=[
+            self.kwargs.get("order")])
+
+
 class CategoryRobotListView(ListView):
     model = RaceOrder
     template_name = "referee/order_list.html"
@@ -433,6 +591,18 @@ class LineFollowerQRCodeCheckView(BaseQRCodeCheckView):
     def get_failure_url(self):
         order = self.kwargs.get("order")
         return reverse("line_follower_robot_list", args=(order,))
+
+
+class LineFollowerJuniorQRCodeCheckView(BaseQRCodeCheckView):
+    def get_success_url(self):
+        order = self.kwargs.get("order")
+        pid = self.kwargs.get("pid")
+        return reverse("line_follower_junior_result_create", args=(order,pid,))
+
+    def get_failure_url(self):
+        order = self.kwargs.get("order")
+        return reverse("line_follower_junior_robot_list", args=(order,))
+
 
 
 class CategoryQRCodeCheckView(BaseQRCodeCheckView):

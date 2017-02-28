@@ -64,6 +64,26 @@ urlpatterns = patterns(
         LineFollowerResultDeleteView.as_view(),
         name='line_follower_result_delete'),
 
+    # Line Follower Junior
+    url(r'^line_follower_junior/$',
+        RefereeLineFollowerJuniorStageListView.as_view(),
+        name='referee_line_follower_junior_stage_list_view'),
+    url(r'^line_follower_junior/(?P<order>\d+)/$',
+        LineFollowerJuniorRobotListView.as_view(),
+        name='line_follower_junior_robot_list'),
+    url(r'^line_follower_junior/(?P<order>\d+)/(?P<pid>\d+)/create/$',
+        LineFollowerJuniorResultCreateView.as_view(),
+        name='line_follower_junior_result_create'),
+    url(r'^line_follower_junior/(?P<order>\d+)/(?P<pid>\d+)/check/$',
+        LineFollowerJuniorQRCodeCheckView.as_view(),
+        name='line_follower_junior_qrcode_check'),
+    url(r'^line_follower_junior/(?P<order>\d+)/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+        LineFollowerJuniorResultUpdateView.as_view(),
+        name='line_follower_junior_result_update'),
+    url(r'^line_follower_junior/(?P<order>\d+)/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+        LineFollowerJuniorResultDeleteView.as_view(),
+        name='line_follower_junior_result_delete'),
+
     # Generic Robot List View
     url(r'^(?P<category>[-_\w]+)/$',
         CategoryRobotListView.as_view(),

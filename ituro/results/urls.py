@@ -13,6 +13,14 @@ urlpatterns = patterns(
         LineFollowerResultListView.as_view(),
         name='line_follower_result_list'),
 
+    # Line Follower Junior
+    url(r'^line_follower_junior/$',
+        LineFollowerJuniorStageResultListView.as_view(),
+        name='line_follower_junior_stage_result_list'),
+    url(r'^line_follower_junior/(?P<order>\d+)/$',
+        LineFollowerJuniorResultListView.as_view(),
+        name='line_follower_junior_result_list'),
+
     # Micro Sumo
     url(r'^micro_sumo/$',
         SumoResultHomeView.as_view(),

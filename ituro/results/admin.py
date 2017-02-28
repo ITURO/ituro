@@ -2,10 +2,10 @@
 
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from results.models import LineFollowerResult, FireFighterResult, \
-    BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
-    SelfBalancingResult, ScenarioResult, InnovativeJuryResult, InnovativeJury, \
-    InnovativeTotalResult
+from results.models import LineFollowerResult, LineFollowerJuniorResult, \
+    FireFighterResult, BasketballResult, StairClimbingResult, MazeResult, \
+    ColorSelectingResult, SelfBalancingResult, ScenarioResult, \
+    InnovativeJuryResult, InnovativeJury, InnovativeTotalResult
 
 
 class BaseResultAdmin(admin.ModelAdmin):
@@ -21,6 +21,7 @@ class InnovativeJuryResultAdmin(admin.ModelAdmin):
 
 
 admin.site.register(LineFollowerResult, BaseResultAdmin)
+admin.site.register(LineFollowerJuniorResult, BaseResultAdmin)
 admin.site.register(FireFighterResult, BaseResultAdmin)
 admin.site.register(BasketballResult, BaseResultAdmin)
 admin.site.register(StairClimbingResult, BaseResultAdmin)

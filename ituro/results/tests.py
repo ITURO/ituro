@@ -6,10 +6,10 @@ from django.utils import timezone
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from results.models import InnovativeTotalResult, InnovativeJuryResult, \
-    InnovativeJury, LineFollowerResult
+    InnovativeJury, LineFollowerResult, LineFollowerJuniorResult
 from accounts.models import CustomUser, CustomUserManager
 from projects.models import Project
-from orders.models import LineFollowerStage
+from orders.models import LineFollowerStage, LineFollowerJuniorStage
 
 
 
@@ -339,7 +339,6 @@ class LineFollowerResultTestCase(TestCase):
             manager=user1,
             category="line_follower",
             name="My Line Follower",
-            presentation="presentations/example3.pdf",
             is_confirmed=True,
             created_at=timezone.now()
             )
@@ -366,7 +365,7 @@ class LineFollowerResultTestCase(TestCase):
 
         self.assertEqual(result1.score, 189.56)
 
-    
+
 class LineFollowerJuniorResultTestCase(TestCase):
     def test_line_follower_junior_results(self):
         "Testing line follower junior results"
@@ -385,7 +384,6 @@ class LineFollowerJuniorResultTestCase(TestCase):
             manager=user1,
             category="line_follower_junior",
             name="My Line Follower Junior Robot",
-            presentation="presentations/example3.pdf",
             is_confirmed=True,
             created_at=timezone.now()
             )
@@ -411,3 +409,4 @@ class LineFollowerJuniorResultTestCase(TestCase):
             )
 
         self.assertEqual(result1.score, 189.56)
+

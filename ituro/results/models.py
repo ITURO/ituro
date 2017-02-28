@@ -5,7 +5,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from projects.models import Project
-from orders.models import LineFollowerStage
+from orders.models import LineFollowerStage, LineFollowerJuniorStage
 
 
 class BaseResult(models.Model):
@@ -53,6 +53,29 @@ class LineFollowerResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=LineFollowerResult)
 def line_follower_result_calculate_score(sender, instance, *args, **kwargs):
+    instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
+
+
+@python_2_unicode_compatible
+class LineFollowerJuniorResult(BaseResult):
+    project = models.ForeignKey(
+        Project, limit_choices_to={"category": "line_follower_junior"})
+    stage = models.ForeignKey(
+        LineFollowerJuniorStage, verbose_name=_("Line Follower Junior Stage"))
+    runway_out = models.PositiveSmallIntegerField(
+        verbose_name=_("Runway Out Count"), default=0)
+
+    class Meta:
+        verbose_name = _("Line Follower Junior Result")
+        verbose_name_plural = _("Line Follower Junior Results")
+        ordering = ['disqualification', 'score']
+
+    def __str__(self):
+        return self.project.name
+
+
+@receiver(models.signals.pre_save, sender=LineFollowerJuniorResult)
+def line_follower_junior_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
 
 

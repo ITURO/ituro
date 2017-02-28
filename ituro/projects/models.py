@@ -41,6 +41,7 @@ class Project(models.Model):
     def results(self):
         RESULTS_DICT = {
             "line_follower": self.linefollowerresult_set,
+            "line_follower_junior": self.linefollowerjuniorresult_set,
             "fire_fighter": self.firefighterresult_set,
             "basketball": self.basketballresult_set,
             "stair_climbing": self.stairclimbingresult_set,

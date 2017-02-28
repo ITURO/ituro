@@ -49,9 +49,10 @@ class ProjectCreateView(CreateView):
         project.manager = self.request.user
         manager_projects = Project.objects.filter(manager=project.manager,
                                                     category=category)
-        if category == "line_follower" and manager_projects.exists():
+        if category in ("line_follower", "line_follower_junior") and \
+            manager_projects.exists():
             messages.error(self.request,
-                _("You can not have more than 1 project in Line Follower category."))
+                _("You can not have more than 1 project in Line Follower categories."))
             return HttpResponseRedirect(reverse("project_create"))
         else:
             project.save()

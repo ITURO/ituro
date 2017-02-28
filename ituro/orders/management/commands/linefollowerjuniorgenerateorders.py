@@ -2,18 +2,17 @@ from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from optparse import make_option
 from projects.models import Project
-from orders.models import LineFollowerRaceOrder, LineFollowerStage
-from results.models import LineFollowerResult
+from orders.models import LineFollowerJuniorRaceOrder, LineFollowerJuniorStage
+from results.models import LineFollowerJuniorResult
 from random import shuffle
 from math import ceil
 
 
 class Command(BaseCommand):
     args = '<day>'
-    help = 'Generates race orders for line follower.'
+    help = 'Generates race orders for line follower junior.'
 
     def handle(self, *args, **options):
-        #FIXME: make it generic
         try:
             day = int(args[0])
         except:
@@ -23,9 +22,9 @@ class Command(BaseCommand):
                 raise CommandError('Day interval is 1 <= day <= 2.')
 
         if day == 1:
-            stage = LineFollowerStage.objects.get(order=1)
+            stage = LineFollowerJuniorStage.objects.get(order=1)
             queryset = Project.objects.filter(
-                category='line_follower', is_confirmed=True)
+                category='line_follower_junior', is_confirmed=True)
 
             manager_ids = list(set(queryset.values_list('manager', flat=True)))
             shuffle(manager_ids)
@@ -33,13 +32,13 @@ class Command(BaseCommand):
             count = 1
             for manager_id in manager_ids:
                 project = queryset.get(manager__id=manager_id)
-                LineFollowerRaceOrder.objects.create(
+                LineFollowerJuniorRaceOrder.objects.create(
                     project_id=project.id, stage=stage, order=count)
                 count += 1
         elif day == 2:
-            prev_stage = LineFollowerStage.objects.get(order=1)
-            next_stage = LineFollowerStage.objects.get(order=2)
-            prev_stage_results = LineFollowerResult.objects.filter(
+            prev_stage = LineFollowerJuniorStage.objects.get(order=1)
+            next_stage = LineFollowerJuniorStage.objects.get(order=2)
+            prev_stage_results = LineFollowerJuniorResult.objects.filter(
                 stage=prev_stage)
             next_stage_robot_count = ceil(prev_stage_results.count() * 0.4)
             next_stage_robot_ids = prev_stage_results.values_list(
@@ -53,11 +52,11 @@ class Command(BaseCommand):
                 project = Project.objects.get(
                     manager_id=manager_id,
                     id__in=next_stage_robot_ids,
-                    linefollowerresult__stage=prev_stage,
-                    linefollowerresult__is_best=True,
-                    linefollowerresult__disqualification=False)
-                LineFollowerRaceOrder.objects.create(
+                    linefollowerjuniorresult__stage=prev_stage,
+                    linefollowerjuniorresult__is_best=True,
+                    linefollowerjuniorresult__disqualification=False)
+                LineFollowerJuniorRaceOrder.objects.create(
                     project=project, stage=next_stage, order=count)
                 count += 1
         self.stdout.write(
-            'Line follower race orders generated for day #%s.' % day)
+            'Line follower junior race orders generated for day #%s.' % day)
