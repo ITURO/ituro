@@ -729,7 +729,7 @@ class SelfBalancingResultDeleteView(BaseResultDeleteView):
 class ScenarioResultCreateView(BaseResultCreateView):
     model = ScenarioResult
     category = "scenario"
-    fields = BaseResultCreateView.fields + ["score"]
+    fields = BaseResultCreateView.fields + ["is_finished", "is_parked", "sign_successed", "sign_failed"]
 
 
 class ScenarioResultUpdateView(BaseResultUpdateView):
