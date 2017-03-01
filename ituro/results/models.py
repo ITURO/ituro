@@ -283,6 +283,14 @@ def self_balancing_result_calculate_score(sender, instance, *args, **kwargs):
 class ScenarioResult(BaseResult):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "scenario"})
+    is_finished = models.BooleanField(
+        verbose_name=_("Is finish?"), default=False)
+    is_parked = models.BooleanField(
+        verbose_name=_("Is Parked?"), default=False)
+    sign_succeed = models.PositiveSmallIntegerField(
+        verbose_name=_("Succeed Signs"), default=0)
+    sign_failed = models.PositiveSmallIntegerField(
+        verbose_name=_("Failed Signs"), default=0)
 
     class Meta:
         verbose_name = _("Scenario Result")
@@ -291,6 +299,14 @@ class ScenarioResult(BaseResult):
 
     def __str__(self):
         return self.project.name
+
+
+@receiver(models.signals.pre_save, sender=ScenarioResult)
+def scenario_result_calculate_score(sender, instance, *args, **kwargs):
+    instance.score = sum((
+        instance.is_finished * 100,
+        instance.is_parked * 200, instance.sign_succeed * 20,
+        instance.sign_failed * -10))
 
 
 @python_2_unicode_compatible
