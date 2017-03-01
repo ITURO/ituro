@@ -80,45 +80,19 @@ def line_follower_junior_result_calculate_score(sender, instance, *args, **kwarg
 
 
 @python_2_unicode_compatible
-class FireFighterResult(BaseResult):
+class ConstructionResult(BaseResult):
     project = models.ForeignKey(
-        Project, limit_choices_to={"category": "fire_fighter"})
-    extinguish_success = models.PositiveSmallIntegerField(
-        verbose_name=_("Succesful Extinguish Count"))
-    extinguish_failure = models.PositiveSmallIntegerField(
-        verbose_name=_("Penalty Extinguish Count"))
-    wall_hit = models.PositiveSmallIntegerField(
-        verbose_name=_("Wall Touching Count"))
-    interfering_robot = models.PositiveSmallIntegerField(
-        verbose_name=_("Interfering Robot Count"))
-    touching_candles = models.PositiveSmallIntegerField(
-        verbose_name=_("Touching Candles Count"))
-    pre_extinguish = models.PositiveSmallIntegerField(
-        verbose_name=_("Pre-Start Systems Count"))
-    is_complete = models.BooleanField(
-        verbose_name=_("Extinguish all candles"),default=False)
-
+        Project, limit_choices_to={"category": "construction"})
 
     class Meta:
-        verbose_name = _("Fire Fighter Result")
-        verbose_name_plural = _("Fire Fighter Results")
+        verbose_name = _("Construction Result")
+        verbose_name_plural = _("Construction Results")
         ordering = [
             "disqualification", "-score", "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
 
-
-@receiver(models.signals.pre_save, sender=FireFighterResult)
-def fire_fighter_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum((
-        instance.extinguish_success * 150,
-        instance.extinguish_failure * 50,
-        instance.wall_hit * (-10),
-        instance.touching_candles * (-100),
-        instance.pre_extinguish * (-50),
-        instance.interfering_robot * (-30),
-        int(instance.is_complete) * ((300 - instance.duration) / 4)))
 
 @python_2_unicode_compatible
 class BasketballResult(BaseResult):

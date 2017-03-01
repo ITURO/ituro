@@ -10,7 +10,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from orders.models import LineFollowerStage, LineFollowerJuniorStage
 from results.models import LineFollowerResult, LineFollowerJuniorResult, \
-    FireFighterResult, BasketballResult, StairClimbingResult, MazeResult, \
+    ConstructionResult, BasketballResult, StairClimbingResult, MazeResult, \
     ColorSelectingResult, SelfBalancingResult, ScenarioResult, \
     InnovativeJuryResult, InnovativeJury, InnovativeTotalResult
 from sumo.models import *
@@ -19,7 +19,7 @@ from sumo.models import *
 RESULTS_DICT = {
     "line_follower": LineFollowerResult,
     "line_follower_junior": LineFollowerJuniorResult,
-    "fire_fighter": FireFighterResult,
+    "construction": ConstructionResult,
     "basketball": BasketballResult,
     "stair_climbing": StairClimbingResult,
     "maze": MazeResult,
