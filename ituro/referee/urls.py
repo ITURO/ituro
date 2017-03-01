@@ -92,16 +92,16 @@ urlpatterns = patterns(
         CategoryQRCodeCheckView.as_view(),
         name="category_qrcode_check"),
 
-    # Fire Fighter
-    url(r'^fire_fighter/(?P<pid>\d+)/create/$',
-        FireFighterResultCreateView.as_view(),
-        name='fire_fighter_result_create'),
-    url(r'^fire_fighter/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        FireFighterResultUpdateView.as_view(),
-        name='fire_fighter_result_update'),
-    url(r'^fire_fighter/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        FireFighterResultDeleteView.as_view(),
-        name='fire_fighter_result_delete'),
+    # Construction
+    url(r'^construction/(?P<pid>\d+)/create/$',
+        ConstructionResultCreateView.as_view(),
+        name='construction_result_create'),
+    url(r'^construction/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+        ConstructionResultUpdateView.as_view(),
+        name='construction_result_update'),
+    url(r'^consruction/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+        ConstructionResultDeleteView.as_view(),
+        name='construction_result_delete'),
 
     # Basketball
     url(r'^basketball/(?P<pid>\d+)/create/$',
