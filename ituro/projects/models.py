@@ -42,7 +42,7 @@ class Project(models.Model):
         RESULTS_DICT = {
             "line_follower": self.linefollowerresult_set,
             "line_follower_junior": self.linefollowerjuniorresult_set,
-            "fire_fighter": self.firefighterresult_set,
+            "construction": self.constructionresult_set,
             "basketball": self.basketballresult_set,
             "stair_climbing": self.stairclimbingresult_set,
             "maze": self.mazeresult_set,
