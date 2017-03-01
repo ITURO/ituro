@@ -18,7 +18,7 @@ from sumo.models import SumoStage, SumoStageMatch, SumoGroup, SumoGroupMatch
 from orders.models import LineFollowerStage, LineFollowerRaceOrder, LineFollowerJuniorStage, LineFollowerJuniorRaceOrder, RaceOrder
 from referee.forms import QRCodeCheckForm, MicroSumoQRCodeCheckForm
 from results.models import LineFollowerResult, LineFollowerJuniorResult, \
-    FireFighterResult, BasketballResult, StairClimbingResult, MazeResult, \
+    ConstructionResult, BasketballResult, StairClimbingResult, MazeResult, \
     ColorSelectingResult, SelfBalancingResult, ScenarioResult, \
     InnovativeJuryResult, InnovativeJury, InnovativeTotalResult
 
@@ -40,9 +40,9 @@ __all__ = [
     "LineFollowerJuniorResultDeleteView",
     "CategoryRobotListView",
     "CategoryQRCodeCheckView",
-    "FireFighterResultCreateView",
-    "FireFighterResultUpdateView",
-    "FireFighterResultDeleteView",
+    "ConstructionResultCreateView",
+    "ConstructionResultUpdateView",
+    "ConstructionResultDeleteView",
     "BasketballResultCreateView",
     "BasketballResultUpdateView",
     "BasketballResultDeleteView",
@@ -617,24 +617,22 @@ class CategoryQRCodeCheckView(BaseQRCodeCheckView):
         return reverse("category_robot_list", args=(category,))
 
 
-class FireFighterResultCreateView(BaseResultCreateView):
+class ConstructionResultCreateView(BaseResultCreateView):
     model = FireFighterResult
-    category = "fire_fighter"
+    category = "construction"
     fields = BaseResultCreateView.fields + [
-        "extinguish_success", "extinguish_failure", "wall_hit",
-        "pre_extinguish", "touching_candles", "interfering_robot",
-        "is_complete"]
+        "score"]
 
 
-class FireFighterResultUpdateView(BaseResultUpdateView):
+class ConstructionResultUpdateView(BaseResultUpdateView):
     model = FireFighterResult
-    category = "fire_fighter"
+    category = "construction"
     fields = FireFighterResultCreateView.fields
 
 
-class FireFighterResultDeleteView(BaseResultDeleteView):
+class ConstructionResultDeleteView(BaseResultDeleteView):
     model = FireFighterResult
-    category = "fire_fighter"
+    category = "construction"
 
 
 class BasketballResultCreateView(BaseResultCreateView):

@@ -135,7 +135,7 @@ ALL_CATEGORIES = (
     ('line_follower', _('Line Follower')),
     ('line_follower_junior', _('Line Follower Junior')),
     ('micro_sumo', _('Micro Sumo')),
-    ('fire_fighter', _('Fire Fighter')),
+    ('construction', _('Construction')),
     ('basketball', _('Basketball')),
     ('stair_climbing', _('Stair Climbing')),
     ('maze', _('Maze')),
