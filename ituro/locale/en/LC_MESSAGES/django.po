@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-07 12:38+0000\n"
+"POT-Creation-Date: 2017-02-27 22:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,15 +79,15 @@ msgstr ""
 msgid "You have logged out successfully."
 msgstr ""
 
-#: accounts/views.py:43
+#: accounts/views.py:45
 msgid "ITURO Registration"
 msgstr ""
 
-#: accounts/views.py:49
+#: accounts/views.py:51
 msgid "You have created your user account successfully."
 msgstr ""
 
-#: accounts/views.py:68
+#: accounts/views.py:70
 msgid "You have updated your profile successfully."
 msgstr ""
 
@@ -105,6 +105,8 @@ msgstr ""
 #: templates/orders/race_order_list.html:8
 #: templates/orders/race_order_list.html:18
 #: templates/referee/line_follower_stage_list.html:15
+#: templates/results/innovative_result.html:8
+#: templates/results/innovative_result.html:18
 #: templates/results/line_follower_stage_list.html:15
 #: templates/results/result_list.html:8 templates/results/result_list.html:18
 msgid "Line Follower"
@@ -150,7 +152,7 @@ msgstr ""
 msgid "Scenario"
 msgstr ""
 
-#: ituro/settings.py:144 results/models.py:282
+#: ituro/settings.py:144 results/models.py:311
 msgid "Innovative"
 msgstr ""
 
@@ -174,7 +176,7 @@ msgstr ""
 msgid "Race Results Availability"
 msgstr ""
 
-#: orders/models.py:20 orders/models.py:41 results/models.py:40
+#: orders/models.py:20 orders/models.py:41 results/models.py:41
 msgid "Line Follower Stage"
 msgstr ""
 
@@ -186,6 +188,7 @@ msgstr ""
 #: orders/models.py:30 orders/models.py:55
 #: templates/orders/race_order_list.html:27
 #: templates/referee/line_follower_order_list.html:30
+#: templates/referee/micro_sumo_orders.html:26
 #: templates/referee/order_list.html:29
 msgid "Race Order"
 msgstr ""
@@ -253,11 +256,11 @@ msgstr ""
 msgid "Project Manager Email"
 msgstr ""
 
-#: projects/forms.py:101 referee/views.py:388
+#: projects/forms.py:101 referee/views.py:406
 msgid "Project does not exist."
 msgstr ""
 
-#: projects/forms.py:105 referee/views.py:384
+#: projects/forms.py:105 referee/views.py:402
 msgid "User does not exist."
 msgstr ""
 
@@ -282,7 +285,7 @@ msgid "Projects"
 msgstr ""
 
 #: projects/views.py:54
-msgid "You can not have more than 1 project in the same category"
+msgid "You can not have more than 1 project in Line Follower category."
 msgstr ""
 
 #: projects/views.py:59
@@ -301,7 +304,7 @@ msgstr ""
 msgid "Project confirmation process completed successfully."
 msgstr ""
 
-#: referee/forms.py:9
+#: referee/forms.py:10
 msgid "User QRCode"
 msgstr ""
 
@@ -309,138 +312,216 @@ msgstr ""
 msgid "Project QRCode"
 msgstr ""
 
-#: referee/forms.py:19
+#: referee/forms.py:18
 msgid "User Qrcode format is wrong."
 msgstr ""
 
-#: referee/forms.py:25
+#: referee/forms.py:24
 msgid "User Qrcode must contain 2 integer."
 msgstr ""
 
-#: referee/forms.py:32
+#: referee/forms.py:31
 msgid "Project Qrcode format is wrong."
 msgstr ""
 
-#: referee/forms.py:36
+#: referee/forms.py:35
 msgid ""
 "There is no category for                                                 "
 "given project qrcode"
 msgstr ""
 
-#: referee/forms.py:42
+#: referee/forms.py:41
 msgid ""
 "Project Qrcode must contain 3                                         integer"
 msgstr ""
 
-#: referee/views.py:88
+#: referee/forms.py:48
+msgid "Home User QRCode"
+msgstr ""
+
+#: referee/forms.py:50
+msgid "Home Project QRCode"
+msgstr ""
+
+#: referee/forms.py:52
+msgid "Away User QRCode"
+msgstr ""
+
+#: referee/forms.py:54
+msgid "Away Project QRCode"
+msgstr ""
+
+#: referee/forms.py:64
+msgid "Home User QRCode format is wrong"
+msgstr ""
+
+#: referee/forms.py:66
+msgid "Away User QRCode format is wrong"
+msgstr ""
+
+#: referee/forms.py:68
+msgid "Home Project QRCode format is wrong"
+msgstr ""
+
+#: referee/forms.py:70
+msgid "Away Project QRCode format is wrong"
+msgstr ""
+
+#: referee/forms.py:72
+msgid "Home User does not exists"
+msgstr ""
+
+#: referee/forms.py:74
+msgid "Away User does not exists"
+msgstr ""
+
+#: referee/forms.py:76
+msgid "Home Project does not exists"
+msgstr ""
+
+#: referee/forms.py:78
+msgid "Away Project does not exists"
+msgstr ""
+
+#: referee/forms.py:80
+msgid "Home years mismatched"
+msgstr ""
+
+#: referee/forms.py:82
+msgid "Away years mismatched"
+msgstr ""
+
+#: referee/forms.py:84
+msgid "Home users mismatched"
+msgstr ""
+
+#: referee/forms.py:86
+msgid "Away users mismatched"
+msgstr ""
+
+#: referee/forms.py:88
+msgid "Home: Wrong Category"
+msgstr ""
+
+#: referee/forms.py:90
+msgid "Away: Wrong Category"
+msgstr ""
+
+#: referee/views.py:101 referee/views.py:624
 msgid "Result entry created."
 msgstr ""
 
-#: referee/views.py:124
+#: referee/views.py:138 referee/views.py:666 referee/views.py:813
+#: referee/views.py:850
 msgid "Result updated."
 msgstr ""
 
-#: referee/views.py:157 referee/views.py:324
+#: referee/views.py:172 referee/views.py:339 referee/views.py:704
 msgid "Result entry deleted."
 msgstr ""
 
-#: referee/views.py:248
+#: referee/views.py:263
 msgid "Result entry generated."
 msgstr ""
 
-#: referee/views.py:287
+#: referee/views.py:302
 msgid "Result entry for {} #{} updated."
 msgstr ""
 
-#: referee/views.py:390
+#: referee/views.py:408
 msgid "Wrong Robot"
 msgstr ""
 
-#: referee/views.py:392
+#: referee/views.py:410
 msgid "Wrong Category"
 msgstr ""
 
-#: referee/views.py:395
+#: referee/views.py:413
 msgid "Codes are mismatched"
 msgstr ""
 
-#: referee/views.py:397
+#: referee/views.py:415
 msgid "Codes are matched"
 msgstr ""
 
-#: results/models.py:11 templates/lcd/result_list.html:50
+#: referee/views.py:626 referee/views.py:668
+msgid "Juries can give only one score for each project."
+msgstr ""
+
+#: results/models.py:12 results/models.py:337 templates/lcd/result_list.html:50
+#: templates/results/innovative_result.html:29
 #: templates/results/result_list.html:29
 msgid "Score"
 msgstr ""
 
-#: results/models.py:12
+#: results/models.py:13
 msgid "Minutes"
 msgstr ""
 
-#: results/models.py:13
+#: results/models.py:14
 msgid "Seconds"
 msgstr ""
 
-#: results/models.py:15
+#: results/models.py:16
 msgid "Milliseconds"
 msgstr ""
 
-#: results/models.py:17
+#: results/models.py:18
 msgid "Disqualification"
 msgstr ""
 
-#: results/models.py:19
+#: results/models.py:20
 msgid "Is best result?"
 msgstr ""
 
-#: results/models.py:42
+#: results/models.py:43
 msgid "Runway Out Count"
 msgstr ""
 
-#: results/models.py:45
+#: results/models.py:46
 msgid "Line Follower Result"
 msgstr ""
 
-#: results/models.py:46 templates/lcd/line_follower_stage_list.html:4
+#: results/models.py:47 templates/lcd/line_follower_stage_list.html:4
 #: templates/lcd/line_follower_stage_list.html:8
 #: templates/results/line_follower_stage_list.html:4
 #: templates/results/line_follower_stage_list.html:8
 msgid "Line Follower Results"
 msgstr ""
 
-#: results/models.py:63
+#: results/models.py:64
 msgid "Succesful Extinguish Count"
 msgstr ""
 
-#: results/models.py:65
+#: results/models.py:66
 msgid "Penalty Extinguish Count"
 msgstr ""
 
-#: results/models.py:67
+#: results/models.py:68
 msgid "Wall Touching Count"
 msgstr ""
 
-#: results/models.py:69
+#: results/models.py:70
 msgid "Interfering Robot Count"
 msgstr ""
 
-#: results/models.py:71
+#: results/models.py:72
 msgid "Touching Candles Count"
 msgstr ""
 
-#: results/models.py:73
+#: results/models.py:74
 msgid "Pre-Start Systems Count"
 msgstr ""
 
-#: results/models.py:75
+#: results/models.py:76
 msgid "Extinguish all candles"
 msgstr ""
 
-#: results/models.py:79
+#: results/models.py:80
 msgid "Fire Fighter Result"
 msgstr ""
 
-#: results/models.py:80
+#: results/models.py:81
 msgid "Fire Fighter Results"
 msgstr ""
 
@@ -588,40 +669,72 @@ msgstr ""
 msgid "Self Balancing Results"
 msgstr ""
 
-#: results/models.py:265
-msgid "Scenario Result"
+#: results/models.py:263
+msgid "Finished?"
+msgstr ""
+
+#: results/models.py:264
+msgid "Parked?"
 msgstr ""
 
 #: results/models.py:266
+msgid "Successed Signes"
+msgstr ""
+
+#: results/models.py:268
+msgid "Failed Signes"
+msgstr ""
+
+#: results/models.py:271
+msgid "Scenario Result"
+msgstr ""
+
+#: results/models.py:272
 msgid "Scenario Results"
 msgstr ""
 
-#: results/models.py:278
-msgid "Design"
-msgstr ""
-
-#: results/models.py:280
-msgid "Digital Design"
-msgstr ""
-
-#: results/models.py:284
-msgid "Technical"
-msgstr ""
-
-#: results/models.py:286 templates/projects/project_detail.html:23
-msgid "Presentation"
-msgstr ""
-
-#: results/models.py:288
-msgid "Opinion"
-msgstr ""
-
 #: results/models.py:291
-msgid "Innovative Result"
+msgid "Innovative Jury"
 msgstr ""
 
 #: results/models.py:292
+msgid "Innovative Juries"
+msgstr ""
+
+#: results/models.py:305
+msgid "Jury Score"
+msgstr ""
+
+#: results/models.py:308
+msgid "Design"
+msgstr ""
+
+#: results/models.py:314
+msgid "Technical"
+msgstr ""
+
+#: results/models.py:317 templates/projects/project_detail.html:23
+msgid "Presentation"
+msgstr ""
+
+#: results/models.py:320
+msgid "Opinion"
+msgstr ""
+
+#: results/models.py:324
+msgid "Innovative Result"
+msgstr ""
+
+#: results/models.py:325
 msgid "Innovative Results"
+msgstr ""
+
+#: results/models.py:340
+msgid "Innovative Total Result"
+msgstr ""
+
+#: results/models.py:341
+msgid "Innovative Total Results"
 msgstr ""
 
 #: sumo/models.py:12
@@ -657,7 +770,7 @@ msgstr ""
 msgid "Point"
 msgstr ""
 
-#: sumo/models.py:45 templates/results/sumo_group_detail.html:21
+#: sumo/models.py:45
 msgid "Average"
 msgstr ""
 
@@ -722,8 +835,8 @@ msgid "An error occured on server."
 msgstr ""
 
 #: templates/accounts/customuser_form.html:4
-#: templates/accounts/customuser_form.html:7
-#: templates/accounts/register.html:5 templates/accounts/register.html.py:8
+#: templates/accounts/customuser_form.html:7 templates/accounts/register.html:5
+#: templates/accounts/register.html.py:8
 msgid "User Register"
 msgstr ""
 
@@ -843,8 +956,12 @@ msgstr ""
 
 #: templates/header.html:40 templates/lcd/line_follower_stage_list.html:21
 #: templates/lcd/result_list.html:14 templates/lcd/result_list.html.py:24
+#: templates/referee/innovative_list.html:23
 #: templates/referee/line_follower_order_list.html:33
+#: templates/referee/micro_sumo_orders.html:30
 #: templates/referee/order_list.html:32
+#: templates/results/innovative_result.html:10
+#: templates/results/innovative_result.html:20
 #: templates/results/line_follower_stage_list.html:21
 #: templates/results/result_list.html:10 templates/results/result_list.html:20
 msgid "Results"
@@ -860,10 +977,17 @@ msgstr ""
 
 #: templates/lcd/firefighterresult_form.html:4
 #: templates/lcd/firefighterresult_form.html:16
+#: templates/referee/innovative_create.html:7
+#: templates/referee/innovative_create.html:16
+#: templates/referee/innovative_list.html:41
 #: templates/referee/line_follower_order_list.html:52
 #: templates/referee/line_follower_result_create.html:4
 #: templates/referee/line_follower_result_create.html:7
 #: templates/referee/line_follower_result_create.html:16
+#: templates/referee/micro_sumo_orders.html:54
+#: templates/referee/micro_sumo_orders.html:61
+#: templates/referee/micro_sumo_result_create.html:7
+#: templates/referee/micro_sumo_result_create.html:16
 #: templates/referee/order_list.html:51 templates/referee/result_create.html:7
 #: templates/referee/result_create.html:16
 #: templates/results/firefighterresult_form.html:4
@@ -888,6 +1012,8 @@ msgstr ""
 #: templates/orders/sumo_stage_detail.html:9
 #: templates/orders/sumo_stage_list.html:15
 #: templates/referee/line_follower_stage_list.html:17
+#: templates/results/innovative_result.html:8
+#: templates/results/innovative_result.html:18
 #: templates/results/line_follower_stage_list.html:17
 #: templates/results/result_list.html:8 templates/results/result_list.html:18
 msgid "Stage"
@@ -902,12 +1028,17 @@ msgstr ""
 
 #: templates/lcd/result_list.html:33 templates/lcd/result_list.html.py:49
 #: templates/orders/race_order_list.html:28
+#: templates/referee/innovative_list.html:21
 #: templates/referee/line_follower_order_list.html:31
-#: templates/referee/order_list.html:30 templates/results/result_list.html:28
+#: templates/referee/order_list.html:30
+#: templates/results/innovative_result.html:28
+#: templates/results/result_list.html:28
 msgid "Robot Name"
 msgstr ""
 
-#: templates/lcd/result_list.html:48 templates/results/result_list.html:27
+#: templates/lcd/result_list.html:48
+#: templates/results/innovative_result.html:27
+#: templates/results/result_list.html:27
 msgid "Ranking"
 msgstr ""
 
@@ -940,13 +1071,13 @@ msgstr ""
 
 #: templates/orders/sumo_group_detail.html:36
 #: templates/orders/sumo_stage_detail.html:20
-#: templates/results/sumo_group_detail.html:38
+#: templates/referee/micro_sumo_orders.html:27
 msgid "Home"
 msgstr ""
 
 #: templates/orders/sumo_group_detail.html:37
 #: templates/orders/sumo_stage_detail.html:21
-#: templates/results/sumo_group_detail.html:40
+#: templates/referee/micro_sumo_orders.html:28
 msgid "Away"
 msgstr ""
 
@@ -959,11 +1090,15 @@ msgstr ""
 msgid "Micro Sumo Orders"
 msgstr ""
 
-#: templates/orders/sumo_home.html:15 templates/results/sumo_home.html:15
+#: templates/orders/sumo_home.html:15
+#: templates/referee/micro_sumo_type_list.html:7
+#: templates/results/sumo_home.html:15
 msgid "Micro Sumo Groups"
 msgstr ""
 
-#: templates/orders/sumo_home.html:22 templates/results/sumo_home.html:22
+#: templates/orders/sumo_home.html:22
+#: templates/referee/micro_sumo_type_list.html:11
+#: templates/results/sumo_home.html:22
 msgid "Micro Sumo Stages"
 msgstr ""
 
@@ -1044,24 +1179,78 @@ msgstr ""
 msgid "Referee Dashboard"
 msgstr ""
 
-#: templates/referee/line_follower_actions.html:6
-#: templates/referee/line_follower_result_update.html:4
-#: templates/referee/line_follower_result_update.html:7
-#: templates/referee/line_follower_result_update.html:16
-#: templates/referee/order_list.html:58 templates/referee/result_update.html:4
-#: templates/referee/result_update.html:7
-#: templates/referee/result_update.html:16
-msgid "Update Result"
+#: templates/referee/innovative_create.html:4
+#: templates/referee/micro_sumo_result_create.html:4
+#: templates/referee/result_create.html:4
+msgid "Update"
 msgstr ""
 
+#: templates/referee/innovative_delete.html:4
+#: templates/referee/innovative_delete.html:7
+#: templates/referee/innovative_delete.html:18
+#: templates/referee/innovative_list.html:56
 #: templates/referee/line_follower_actions.html:14
 #: templates/referee/line_follower_result_delete.html:4
 #: templates/referee/line_follower_result_delete.html:7
 #: templates/referee/line_follower_result_delete.html:18
+#: templates/referee/micro_sumo_result_delete.html:4
+#: templates/referee/micro_sumo_result_delete.html:7
+#: templates/referee/micro_sumo_result_delete.html:18
 #: templates/referee/order_list.html:66 templates/referee/result_delete.html:4
 #: templates/referee/result_delete.html:7
 #: templates/referee/result_delete.html:18
 msgid "Delete Result"
+msgstr ""
+
+#: templates/referee/innovative_delete.html:14
+#: templates/referee/line_follower_result_delete.html:14
+#: templates/referee/micro_sumo_result_delete.html:14
+#: templates/referee/result_delete.html:14
+msgid "You are about to delete the result entry. Are you sure?"
+msgstr ""
+
+#: templates/referee/innovative_list.html:7
+#: templates/referee/innovative_list.html:13
+msgid "List"
+msgstr ""
+
+#: templates/referee/innovative_list.html:22
+#: templates/referee/line_follower_order_list.html:32
+#: templates/referee/micro_sumo_orders.html:29
+#: templates/referee/order_list.html:31
+msgid "Referee"
+msgstr ""
+
+#: templates/referee/innovative_list.html:32
+#: templates/referee/line_follower_order_list.html:43
+#: templates/referee/micro_sumo_orders.html:45
+#: templates/referee/order_list.html:42
+msgid "Actions"
+msgstr ""
+
+#: templates/referee/innovative_list.html:37
+#: templates/referee/line_follower_order_list.html:48
+#: templates/referee/micro_sumo_orders.html:51
+#: templates/referee/micro_sumo_orders.html:58
+#: templates/referee/order_list.html:47
+msgid "Check QRCode"
+msgstr ""
+
+#: templates/referee/innovative_list.html:48
+#: templates/referee/innovative_update.html:4
+#: templates/referee/innovative_update.html:7
+#: templates/referee/innovative_update.html:16
+#: templates/referee/line_follower_actions.html:6
+#: templates/referee/line_follower_result_update.html:4
+#: templates/referee/line_follower_result_update.html:7
+#: templates/referee/line_follower_result_update.html:16
+#: templates/referee/micro_sumo_result_update.html:4
+#: templates/referee/micro_sumo_result_update.html:7
+#: templates/referee/micro_sumo_result_update.html:16
+#: templates/referee/order_list.html:58 templates/referee/result_update.html:4
+#: templates/referee/result_update.html:7
+#: templates/referee/result_update.html:16
+msgid "Update Result"
 msgstr ""
 
 #: templates/referee/line_follower_order_list.html:10
@@ -1071,24 +1260,21 @@ msgstr ""
 msgid "Line Follower %(order)s Stage"
 msgstr ""
 
-#: templates/referee/line_follower_order_list.html:32
-#: templates/referee/order_list.html:31
-msgid "Referee"
+#: templates/referee/micro_sumo_base.html:6
+msgid "Micro Sumo Referee Dashboard"
 msgstr ""
 
-#: templates/referee/line_follower_order_list.html:43
-#: templates/referee/order_list.html:42
-msgid "Actions"
+#: templates/referee/micro_sumo_orders.html:9
+msgid "Final Group Exhibitions"
 msgstr ""
 
-#: templates/referee/line_follower_order_list.html:48
-#: templates/referee/order_list.html:47
-msgid "Check QRCode"
+#: templates/referee/micro_sumo_orders.html:13
+#: templates/referee/micro_sumo_orders.html:18
+msgid "Exhibitions"
 msgstr ""
 
-#: templates/referee/line_follower_result_delete.html:14
-#: templates/referee/result_delete.html:14
-msgid "You are about to delete the result entry. Are you sure?"
+#: templates/referee/micro_sumo_type_list.html:22
+msgid "Final Group"
 msgstr ""
 
 #: templates/referee/qrcode_check.html:4 templates/referee/qrcode_check.html:7
@@ -1099,16 +1285,8 @@ msgstr ""
 msgid "Check"
 msgstr ""
 
-#: templates/referee/result_create.html:4
-msgid "Update"
-msgstr ""
-
 #: templates/results/sumo_group_detail.html:18
 msgid "Rank"
-msgstr ""
-
-#: templates/results/sumo_group_detail.html:39
-msgid "Result"
 msgstr ""
 
 #: templates/results/sumo_group_list.html:4
