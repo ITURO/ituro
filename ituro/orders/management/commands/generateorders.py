@@ -27,8 +27,9 @@ class Command(BaseCommand):
 
         count = 1
         for manager_id in manager_ids:
-            project = queryset.get(manager_id=manager_id)
-            RaceOrder.objects.create(project_id=project.id, order=count)
-            count += 1
+            projects = queryset.filter(manager_id=manager_id)
+            for project in projects:
+                RaceOrder.objects.create(project_id=project.id, order=count)
+                count += 1
 
         self.stdout.write('Race orders generated for %s category.' % category)
