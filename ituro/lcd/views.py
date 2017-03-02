@@ -74,8 +74,14 @@ class LCDLineFollowerStageResultListView(TemplateView):
         return super(LCDLineFollowerStageResultListView, self).dispatch(
             *args, **kwargs)
 
-    def get_queryset(self):
-        return LineFollowerStage.objects.filter(results_available=True)
+    def get_context_data(self, **kwargs):
+        context = super(LCDLineFollowerStageResultListView,
+                        self).get_context_data(**kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
+        stages = LineFollowerStage.objects.all()
+        context['stages'] = stages
+
+        return context
 
 
 class LCDLineFollowerResultListView(TemplateView):
@@ -118,8 +124,14 @@ class LCDLineFollowerJuniorStageResultListView(TemplateView):
         return super(LCDLineFollowerJuniorStageResultListView, self).dispatch(
             *args, **kwargs)
 
-    def get_queryset(self):
-        return LineFollowerJuniorStage.objects.filter(results_available=True)
+    def get_context_data(self, **kwargs):
+        context = super(LCDLineFollowerJuniorStageResultListView,
+                        self).get_context_data(**kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower_junior"]
+        stages = LineFollowerJuniorStage.objects.all()
+        context['stages'] = stages
+
+        return context
 
 
 class LCDLineFollowerJuniorResultListView(TemplateView):
@@ -132,8 +144,8 @@ class LCDLineFollowerJuniorResultListView(TemplateView):
             *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(LCDLineFollowerJuniorResultListView, self).get_context_data(
-            **kwargs)
+        context = super(LCDLineFollowerJuniorResultListView,
+                        self).get_context_data(**kwargs)
         context['category'] = dict(settings.ALL_CATEGORIES)["line_follower_junior"]
         stage = LineFollowerJuniorStage.objects.filter(
             order=self.kwargs.get("order"))[0]

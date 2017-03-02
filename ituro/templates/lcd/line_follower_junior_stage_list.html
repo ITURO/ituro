@@ -9,7 +9,7 @@
 </div>
 
 {% bootstrap_messages %}
-{% for stage in object_list %}
+{% for stage in stages %}
 <h2>
   <a href="{% url "lcd_line_follower_junior_result_list" stage.order %}">
     {% trans "Line Follower Junior" %}
