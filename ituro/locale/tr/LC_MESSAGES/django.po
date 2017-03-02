@@ -208,7 +208,7 @@ msgstr "Çizgi İzleyen Minikler Etabı"
 #: orders/models.py:42 templates/orders/line_follower_junior_stage_list.html:4
 #: templates/orders/line_follower_junior_stage_list.html:8
 msgid "Line Follower Junior Stages"
-msgstr "Çizgi İzleyen Etapları"
+msgstr "Çizgi İzleyen Minikler Etapları"
 
 #: orders/models.py:51 orders/models.py:88
 #: templates/orders/junior_race_order_list.html:19
