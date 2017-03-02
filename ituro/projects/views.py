@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.shortcuts import redirect
 from accounts.models import CustomUser
 from projects.models import Project
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, \
@@ -140,8 +141,10 @@ class ProjectConfirmView(FormView):
             "Project confirmation process completed successfully."))
 
         project = Project.objects.get(name=name, category=category)
-        return HttpResponseRedirect(
+        if category in ("line_follower", "line_follower_junior"):
+            return HttpResponseRedirect(
                 reverse("qrcode_detail", args=(project.id,)))
+        return redirect(reverse("project_confirm"))
 
 
 class QRCodeDetailView(DetailView):
