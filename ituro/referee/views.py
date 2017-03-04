@@ -978,9 +978,12 @@ class MicroSumoGroupResultUpdateView(UpdateView):
         return obj
 
     def form_valid(self, form):
+        if form.cleaned_data.get("home_score") + form.cleaned_data.get("away_score") != 3:
+            messages.error(self.request, _("Number of matches must be three!"))
+            return redirect(reverse("micro_sumo_group_result_update", args=(self.kwargs.get("order"), self.kwargs.get("pid"))))
+
         result = form.save(commit=True)
         messages.success(self.request, _("Result updated."))
-
         return super(MicroSumoGroupResultUpdateView, self).form_valid(form)
 
     def get_success_url(self):
@@ -1015,6 +1018,10 @@ class MicroSumoStageResultUpdateView(UpdateView):
         return obj
 
     def form_valid(self, form):
+        if form.cleaned_data.get("home_score") + form.cleaned_data.get("away_score") != 3:
+            messages.error(self.request, _("Number of matches must be three!"))
+            return redirect(reverse("micro_sumo_group_result_update", args=(self.kwargs.get("order"), self.kwargs.get("pid"))))
+
         result = form.save(commit=True)
         messages.success(self.request, _("Result updated."))
 
