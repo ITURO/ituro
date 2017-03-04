@@ -15,7 +15,8 @@ from django.db import IntegrityError
 from projects.models import Project
 from accounts.models import CustomUser
 from sumo.models import SumoStage, SumoStageMatch, SumoGroup, SumoGroupMatch
-from orders.models import LineFollowerStage, LineFollowerRaceOrder, LineFollowerJuniorStage, LineFollowerJuniorRaceOrder, RaceOrder
+from orders.models import LineFollowerStage, LineFollowerRaceOrder, \
+    LineFollowerJuniorStage, LineFollowerJuniorRaceOrder, RaceOrder
 from referee.forms import QRCodeCheckForm, MicroSumoQRCodeCheckForm
 from results.models import LineFollowerResult, LineFollowerJuniorResult, \
     ConstructionResult, BasketballResult, StairClimbingResult, MazeResult, \
@@ -377,7 +378,8 @@ class LineFollowerJuniorRobotListView(ListView):
            not self.request.user.has_group("referee"):
             raise PermissionDenied
 
-        return super(LineFollowerJuniorRobotListView, self).dispatch(*args, **kwargs)
+        return super(LineFollowerJuniorRobotListView, self).dispatch(
+            *args,**kwargs)
 
     def get_queryset(self):
         return LineFollowerJuniorRaceOrder.objects.filter(
@@ -405,8 +407,8 @@ class LineFollowerJuniorResultCreateView(CreateView):
             *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(LineFollowerJuniorResultCreateView, self).get_context_data(
-            **kwargs)
+        context = super(LineFollowerJuniorResultCreateView,
+                        self).get_context_data(**kwargs)
         context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
         context["stage"] = LineFollowerJuniorStage.objects.filter(
             order=self.kwargs.get("order")).first()
@@ -415,7 +417,8 @@ class LineFollowerJuniorResultCreateView(CreateView):
     def form_valid(self, form):
         result = form.save(commit=False)
         result.project = Project.objects.get(pk=self.kwargs.get("pid"))
-        result.stage = LineFollowerJuniorStage.objects.get(order=self.kwargs["order"])
+        result.stage = LineFollowerJuniorStage.objects.get(
+            order=self.kwargs["order"])
         result.save()
 
         messages.success(self.request, _("Result entry generated."))
@@ -620,8 +623,7 @@ class CategoryQRCodeCheckView(BaseQRCodeCheckView):
 class ConstructionResultCreateView(BaseResultCreateView):
     model = ConstructionResult
     category = "construction"
-    fields = BaseResultCreateView.fields + [
-        "score"]
+    fields = BaseResultCreateView.fields + ["score"]
 
 
 class ConstructionResultUpdateView(BaseResultUpdateView):
@@ -758,7 +760,8 @@ class InnovativeResultListView(ListView):
         return Project.objects.filter(category="innovative", is_confirmed=True)
 
     def get_context_data(self, **kwargs):
-        context = super(InnovativeResultListView, self).get_context_data(**kwargs)
+        context = super(InnovativeResultListView,self).get_context_data(
+            **kwargs)
         context["category"] = self.kwargs.get("category")
         context["category_display"] = dict(
             settings.ALL_CATEGORIES)["innovative"]
@@ -781,7 +784,8 @@ class InnovativeResultCreateView(CreateView):
         return super(InnovativeResultCreateView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(InnovativeResultCreateView, self).get_context_data(**kwargs)
+        context = super(InnovativeResultCreateView, self).get_context_data(
+            **kwargs)
         context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
         return context
 
@@ -792,7 +796,8 @@ class InnovativeResultCreateView(CreateView):
             result.save()
             messages.success(self.request, _("Result entry created."))
         except IntegrityError:
-            messages.error(self.request, _("Juries can give only one score for each project."))
+            messages.error(self.request,
+                           _("Juries can give only one score for each project."))
             return redirect(reverse('innovative_referee'))
 
         return super(InnovativeResultCreateView, self).form_valid(form)
@@ -834,7 +839,8 @@ class InnovativeResultUpdateView(UpdateView):
             result = form.save(commit=True)
             messages.success(self.request, _("Result updated."))
         except IntegrityError:
-            messages.error(self.request, _("Juries can give only one score for each project."))
+            messages.error(self.request,
+                           _("Juries can give only one score for each project."))
             return redirect(reverse('innovative_referee'))
 
         return super(InnovativeResultUpdateView, self).form_valid(form)
@@ -871,8 +877,8 @@ class InnovativeResultDeleteView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         messages.info(request, _("Result entry deleted."))
-        return super(
-            InnovativeResultDeleteView, self).delete(request, *args, **kwargs)
+        return super(InnovativeResultDeleteView, self).delete(
+            request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse("category_robot_list", args=[self.category])
@@ -886,10 +892,12 @@ class MicroSumoRefereeBaseListView(TemplateView):
         if not self.request.user.has_group("referee") and \
             not self.request.user.is_superuser:
             raise PermissionDenied
-        return super(MicroSumoRefereeBaseListView, self).dispatch(*args,**kwargs)
+        return super(MicroSumoRefereeBaseListView, self).dispatch(
+            *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(MicroSumoRefereeBaseListView, self).get_context_data(**kwargs)
+        context = super(MicroSumoRefereeBaseListView, self).get_context_data(
+            **kwargs)
         context["stage_check"] = SumoStage.objects.all().exists()
         context["groups_check"] = SumoGroup.objects.all().exists()
         return context
@@ -903,11 +911,13 @@ class MicroSumoTypeRefereeListView(ListView):
         if not self.request.user.has_group("referee") and \
             not self.request.user.is_superuser:
             raise PermissionDenied
-        return super(MicroSumoTypeRefereeListView, self).dispatch(*args,**kwargs)
+        return super(MicroSumoTypeRefereeListView, self).dispatch(
+            *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         keyword = self.kwargs.get("type")
-        context = super(MicroSumoTypeRefereeListView, self).get_context_data(**kwargs)
+        context = super(MicroSumoTypeRefereeListView, self).get_context_data(
+            **kwargs)
         context["keyword"] = keyword
         return context
 
@@ -929,10 +939,12 @@ class MicroSumoOrdersRefereeListView(ListView):
         if not self.request.user.has_group("referee") and \
             not self.request.user.is_superuser:
             raise PermissionDenied
-        return super(MicroSumoOrdersRefereeListView, self).dispatch(*args,**kwargs)
+        return super(MicroSumoOrdersRefereeListView, self).dispatch(
+            *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(MicroSumoOrdersRefereeListView, self).get_context_data(**kwargs)
+        context = super(MicroSumoOrdersRefereeListView, self).get_context_data(
+            **kwargs)
         order = self.kwargs.get("order")
         keyword = self.kwargs.get("type")
         context["keyword"] = keyword
@@ -962,13 +974,14 @@ class MicroSumoGroupResultUpdateView(UpdateView):
            not self.request.user.has_group("referee"):
             raise PermissionDenied
 
-        return super(MicroSumoGroupResultUpdateView, self).dispatch(*args, **kwargs)
+        return super(MicroSumoGroupResultUpdateView, self).dispatch(
+            *args, **kwargs)
 
     def get_object(self):
         queryset = self.get_queryset()
         group = self.kwargs.get("order")
         match_pk = self.kwargs.get("pid")
-        queryset = queryset.filter(pk=match_pk,group=group)
+        queryset = queryset.filter(pk=match_pk, group=group)
 
         try:
             obj = queryset.get()
@@ -978,9 +991,13 @@ class MicroSumoGroupResultUpdateView(UpdateView):
         return obj
 
     def form_valid(self, form):
-        if form.cleaned_data.get("home_score") + form.cleaned_data.get("away_score") != 3:
-            messages.error(self.request, _("Number of matches must be three!"))
-            return redirect(reverse("micro_sumo_group_result_update", args=(self.kwargs.get("order"), self.kwargs.get("pid"))))
+        home_score = form.cleaned_data.get("home_score")
+        away_score = form.cleaned_data.get("away_score")
+
+        if home_score + away_score != 3:
+            messages.error(self.request, _("Number of matches must be three."))
+            return redirect(reverse("micro_sumo_group_result_update", args=(
+                self.kwargs.get("order"), self.kwargs.get("pid"))))
 
         result = form.save(commit=True)
         messages.success(self.request, _("Result updated."))
@@ -1018,9 +1035,13 @@ class MicroSumoStageResultUpdateView(UpdateView):
         return obj
 
     def form_valid(self, form):
-        if form.cleaned_data.get("home_score") + form.cleaned_data.get("away_score") != 3:
-            messages.error(self.request, _("Number of matches must be three!"))
-            return redirect(reverse("micro_sumo_group_result_update", args=(self.kwargs.get("order"), self.kwargs.get("pid"))))
+        home_score = form.cleaned_data.get("home_score")
+        away_score = form.cleaned_data.get("away_score")
+
+        if home_score + away_score != 3:
+            messages.error(self.request, _("Number of matches must be three."))
+            return redirect(reverse("micro_sumo_group_result_update", args=(
+                self.kwargs.get("order"), self.kwargs.get("pid"))))
 
         result = form.save(commit=True)
         messages.success(self.request, _("Result updated."))
@@ -1041,7 +1062,8 @@ class BaseMicroSumoQRCodeCheckView(FormView):
         if not self.request.user.is_superuser and \
            not self.request.user.has_group("referee"):
             raise PermissionDenied
-        return super(BaseMicroSumoQRCodeCheckView, self).dispatch(*args,**kwargs)
+        return super(BaseMicroSumoQRCodeCheckView, self).dispatch(
+            *args, **kwargs)
 
     def form_valid(self,form):
         return super(BaseMicroSumoQRCodeCheckView,self).form_valid(form)
@@ -1051,6 +1073,7 @@ class MicroSumoGroupQRCodeCheckView(BaseMicroSumoQRCodeCheckView):
         order = self.kwargs.get("order")
         pid = self.kwargs.get("pid")
         return reverse("micro_sumo_group_result_update",args=[order,pid,])
+
     def get_failure_url(self):
         order = self.kwargs.get("order")
         return reverse("micro_sumo_orders", args=["groups",order])
@@ -1061,6 +1084,7 @@ class MicroSumoStageQRCodeCheckView(BaseMicroSumoQRCodeCheckView):
         order = self.kwargs.get("order")
         pid = self.kwargs.get("pid")
         return reverse("micro_sumo_stage_result_update",args=[order,pid,])
+
     def get_failure_url(self):
         order = self.kwargs.get("order")
         return reverse("micro_sumo_orders", args=["stages",order])
