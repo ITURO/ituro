@@ -120,8 +120,8 @@ def basketball_result_calculate_score(sender, instance, *args, **kwargs):
         sum(range(6, 6 - instance.basket1, -1)),
         sum(range(6, 6 - instance.basket2, -1)),
         sum(range(6, 6 - instance.basket3, -1)),
-        sum(range(6, 6 - instance.basket4, -1)),
-        sum(range(6, 6 - instance.basket5, -1)))) * 10
+        sum(range(6, 6 - instance.basket4, -1)) * 2,
+        sum(range(6, 6 - instance.basket5, -1)) * 2)) * 10
 
 
 @python_2_unicode_compatible
