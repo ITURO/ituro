@@ -204,7 +204,8 @@ class SumoOrderStageDetailView(ListView):
 
 
 class SumoOrderFinalDetailView(TemplateView):
-    template_name = "orders/sumo_final.html"
+    model = SumoGroup
+    template_name = "orders/sumo_group_detail.html"
 
     def dispatch(self, *args, **kwargs):
         if not settings.SUMO_FINAL_ORDERS:
@@ -212,9 +213,9 @@ class SumoOrderFinalDetailView(TemplateView):
         return super(SumoOrderFinalDetailView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(SumoOrderFinalDetailView, self).dispatch(
-            *args, **kwargs)
-        group = SumoGroup.objects.filter(is_final=True).first()
+        context = super(SumoOrderFinalDetailView, self).get_context_data(**kwargs)
+        group = SumoGroup.objects.get(is_final=True)
         context["group"] = group
+        context["teams"] = SumoGroupTeam.objects.filter(group=group)
         context["matches"] = SumoGroupMatch.objects.filter(group=group)
         return context

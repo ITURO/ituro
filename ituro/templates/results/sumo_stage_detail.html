@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}{% trans "Micro Sumo" %} {{ object_list.0.stage.order|ordinal }} {% trans "Stage" %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>
+    {% trans "Micro Sumo" %} {{ object_list.0.stage.order|ordinal }} {% trans "Stage" %}
+  </h1>
+</div>
+
+{% bootstrap_messages %}
+<div class="col-md-offset-3 col-md-6 col-xs-12">
+  <h2 class="text-center">{% trans "Stage Matches" %}</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td>{% trans "#" %}</td>
+        <td>{% trans "Home" %}</td>
+        <td>{% trans "Away" %}</td>
+        <td>{% trans "Home Score" %}</td>
+        <td>{% trans "Away Score" %}</td>
+      </tr>
+    </thead>
+    {% for match in object_list %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ match.home }}</td>
+      <td>{% if match.home == match.away %} - {% else %}{{ match.away }}{% endif %}</td>
+      <td>{{ match.home_score }}</td>
+      <td>{{ match.away_score }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

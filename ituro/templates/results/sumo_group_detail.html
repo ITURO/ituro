@@ -6,7 +6,12 @@
 {% block content %}
 <div class="page-header">
   <h1>
+    {% if group.is_final %}
+    {% trans "Micro Sumo Final Group" %}
+    {% else %}
     {% trans "Micro Sumo" %} {{ object.order|ordinal }} {% trans "Group" %}
+    {% endif %}
+
   </h1>
 </div>
 
@@ -21,11 +26,19 @@
       </tr>
     </thead>
     {% for team in teams %}
+    {% if group.is_final %}
+    <tr>
+      <td>#{{ forloop.counter }}</td>
+      <td>{{ team.robot }}</td>
+      <td>{{ team.point }}</td>
+    </tr>
+    {% else %}
     <tr class="{% if forloop.counter < 3 and team.is_attended %}success{% else %}danger{% endif %}">
       <td>#{{ forloop.counter }}</td>
       <td>{{ team.robot }}</td>
       <td>{{ team.point }}</td>
     </tr>
+    {% endif %}
     {% endfor %}
   </table>
 </div>
