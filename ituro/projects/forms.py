@@ -11,7 +11,7 @@ from projects.models import Project
 
 class ProjectCreateForm(forms.ModelForm):
     category = forms.ChoiceField(
-        widget=forms.Select, choices=settings.UPDATE_CATEGORIES)
+        widget=forms.Select, choices=settings.CREATE_CATEGORIES)
     terms = forms.BooleanField(
         label=_("I agree terms of service."), required=True)
     captcha = CaptchaField()
