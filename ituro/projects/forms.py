@@ -104,6 +104,10 @@ class ProjectConfirmForm(forms.Form):
         if not CustomUser.objects.filter(email=email):
             self.add_error("email", _("User does not exist."))
             error = True
+        elif not error and not Project.objects.filter(
+                name=name, category=category, manager__email=email).exists():
+            self.add_error("email", _("Project does not belong to user."))
+            error = True
 
         if error:
             raise forms.ValidationError(_(
