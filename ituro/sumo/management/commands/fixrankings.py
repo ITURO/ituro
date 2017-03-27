@@ -8,70 +8,110 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for group in SumoGroup.objects.all():
-            query = SumoGroupTeam.objects.filter(group=group)
             order = 0
-            for i in range(0, len(query)):
-                if query[i].order == 0:
-                    rivals_check = SumoGroupTeam.objects.filter(group=query[i].group,
-                                                            average=query[i].average,
-                                                            point=query[i].point).exclude(id=query[i].id).exists()
-                    if rivals_check:
-                        rivals = SumoGroupTeam.objects.filter(group=query[i].group,
-                                                              average=query[i].average,
-                                                              point=query[i].point).exclude(id=query[i].id)
-                        rival_count = rivals.count()
-                        if rival_count == 1:
-                            rival = rivals.first()
-                            context = check_double_average(query[i], rival, order)
-                            order = context["order"]
-                            query = SumoGroupTeam.objects.filter(group=group)
-                        elif rival_count == 2:
-                            print "Triple average occured in group {}".format(group)
-                        elif rival_count == 3:
-                            print "Play again for group {}".format(group)
+            teams = list(SumoGroupTeam.objects.filter(group=group))
+            for team in teams:
+                rivals = SumoGroupTeam.objects.filter(
+                                                    group=group,
+                                                    point=team.point,
+                                                    average=team.average
+                                                    ).exclude(id=team.id)
+                if team.order == 0:
+                    if rivals.count() == 1:
+
+                        result = calculate_double_average(team, rivals[0], order)
+                        order = result[0]
+                        try:
+                            teams[teams.index(team)] = result[1]
+                            teams[teams.index(rivals[0])] = result[2]
+                        except:
+                            pass
+                    elif rivals.count() == 2:
+                        #import pdb;pdb.set_trace()
+                        result = calculate_triple_average(team, rivals, order)
+                        order = result[0]
+                        try:
+                            teams[teams.index(team)] = result[1]
+                            teams[teams.index(rivals[0])] = result[2]
+                            teams[teams.index(rivals[1])] = result[3]
+                        except:
+                            pass
                     else:
                         order += 1
-                        robot = query[i]
-                        robot.order = order
-                        robot.save()
-                        query = SumoGroupTeam.objects.filter(group=group)
-        for group in SumoGroup.objects.all():
-            for robot in SumoGroupTeam.objects.filter(group=group):
-                print "{} {} {} {}".format(robot.order,robot.robot,robot.point,
-                                        robot.average)
+                        team.order = order
+                        team.save()
 
+def calculate_double_average(team, rival, order):
 
-def check_double_average(robot, rival, order):
-    home_check = SumoGroupMatch.objects.filter(home=robot.robot, away=rival.robot).exists()
-    away_check = SumoGroupMatch.objects.filter(home=rival.robot, away=robot.robot).exists()
-    robot_average = 0
-    rival_average = 0
-    context = dict()
-    if home_check:
-        matches = SumoGroupMatch.objects.filter(home=robot.robot, away=rival.robot)
-        for match in matches:
-            robot_average += match.home_score
-            rival_average += match.away_score
-    elif away_check:
-        matches = SumoGroupMatch.objects.filter(home=rival.robot, away=robot.robot)
-        for match in matches:
-            robot_average += match.away_score
-            rival_average += match.home_score
-    if robot_average > rival_average:
+    team_point, rival_point = calculate_point(team, rival)
+
+    order, team, rival = compare_and_assing(
+                            team, team_point, rival, rival_point, order)
+    team.save()
+    rival.save()
+    return (order, team, rival)
+
+def calculate_triple_average(team, rivals, order):
+    team_point = 0
+    rival1_point = 0
+    rival2_point = 0
+    rival1 = rivals[0]
+    rival2 = rivals[1]
+
+    first_calculation = calculate_point(team, rivals[0])
+    second_calculation = calculate_point(team, rivals[1])
+    third_calculation = calculate_point(rivals[0], rivals[1])
+
+    team_point += first_calculation[0] + second_calculation[0]
+    rival1_point += first_calculation[1] + third_calculation[0]
+    rival2_point += second_calculation[1] + third_calculation[1]
+
+    if team_point > rival1_point and team_point > rival2_point:
         order += 1
-        robot.order = order
-        robot.save()
+        team.order = order
+        order, rival1, rival2 = compare_and_assing(
+                        rival1, rival1_point, rival2, rival2_point, order)
+    elif rival1_point > team_point and rival1_point > rival2_point:
+        order += 1
+        rival1.order = order
+        order, team, rival2 = compare_and_assing(
+                     team, team_point, rival2, rival2_point, order)
+    elif rival2_point > team_point and rival2_point > rival1_point:
+        order += 1
+        rival2.order = order
+        order, team, rival1 = compare_and_assing(
+                        team, team_point, rival1, rival1_point, order)
+    team.save()
+    rival1.save()
+    rival2.save()
+
+    return (order, team, rival1, rival2)
+
+def calculate_point(team, rival):
+    team_point = 0
+    rival_point = 0
+
+    home_match = SumoGroupMatch.objects.filter(home=team.robot, away=rival.robot)
+    away_match = SumoGroupMatch.objects.filter(home=rival.robot, away=team.robot)
+
+    if home_match.exists():
+        team_point += home_match[0].home_score
+        rival_point += home_match[0].away_score
+    if away_match.exists():
+        team_point += away_match[0].away_score
+        rival_point += away_match[0].home_score
+
+    return (team_point, rival_point)
+
+def compare_and_assing(team, team_point, rival, rival_point, order):
+    if team_point > rival_point:
+        order += 1
+        team.order = order
         order += 1
         rival.order = order
-        rival.save()
-        context["order"] = order
-        return context
-    elif rival_average > robot_average:
+    elif rival_point > team_point:
         order += 1
         rival.order = order
-        rival.save()
         order += 1
-        robot.order = order
-        robot.save()
-        context["order"] = order
-        return context
+        team.order = order
+    return (order, team, rival)
