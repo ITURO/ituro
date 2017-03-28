@@ -75,7 +75,8 @@ class LineFollowerJuniorResult(BaseResult):
 
 
 @receiver(models.signals.pre_save, sender=LineFollowerJuniorResult)
-def line_follower_junior_result_calculate_score(sender, instance, *args, **kwargs):
+def line_follower_junior_result_calculate_score(sender, instance, *args,
+                                                **kwargs):
     instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
 
 
@@ -101,8 +102,10 @@ class BasketballResult(BaseResult):
     basket1 = models.PositiveSmallIntegerField(verbose_name=_("Basket 1"))
     basket2 = models.PositiveSmallIntegerField(verbose_name=_("Basket 2"))
     basket3 = models.PositiveSmallIntegerField(verbose_name=_("Basket 3"))
-    basket4 = models.PositiveSmallIntegerField(verbose_name=_("Basket 4"))
-    basket5 = models.PositiveSmallIntegerField(verbose_name=_("Basket 5"))
+    basket4 = models.PositiveSmallIntegerField(
+        verbose_name=_("Moving Basket 1"))
+    basket5 = models.PositiveSmallIntegerField(
+        verbose_name=_("Moving Basket 2"))
 
     class Meta:
         verbose_name = _("Basketball Result")
@@ -141,6 +144,8 @@ class StairClimbingResult(BaseResult):
     down3 = models.BooleanField(verbose_name=_("Down #3"), default=False)
     down2 = models.BooleanField(verbose_name=_("Down #2"), default=False)
     down1 = models.BooleanField(verbose_name=_("Down #1"), default=False)
+    plexi_touch = models.PositiveSmallIntegerField(
+        verbose_name=_("Plexi Touch Count"), default=0)
     is_complete = models.BooleanField(
         verbose_name=_("Is finish?"), default=False)
 
@@ -157,15 +162,16 @@ class StairClimbingResult(BaseResult):
 @receiver(models.signals.pre_save, sender=StairClimbingResult)
 def stair_climbing_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        (int(instance.stair1) + int(instance.stair2) + int(instance.stair3)) * 10,
+        (int(instance.stair1) + int(instance.stair2) +
+         int(instance.stair3)) * 10,
         (int(instance.stair4)) * 40,
-        (int(instance.stair5))* 80,
-        (int(instance.stair6))* 100,
-        (int(instance.stair7))* 120,
-        (int(instance.down6) + int(instance.down5) + int(instance.down4)) * 20,
-        (int(instance.down1) + int(instance.down2) + int(instance.down3)) * 10,
+        (int(instance.stair5) + int(instance.stair6) +
+         int(instance.stair7)) * 80,
+        (int(instance.down6) + int(instance.down5) + int(instance.down4)) * 30,
+        (int(instance.down3)) * 50,
+        (int(instance.down1) + int(instance.down2)) * 20,
         (int(instance.is_complete)) * 40,
-        instance.duration * (-5)
+        instance.plexi_touch * (-10)
         ))
 
 
@@ -225,21 +231,13 @@ class SelfBalancingResult(BaseResult):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "self_balancing"})
     headway_amount = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Amount (cm)"))
-    stage3_minutes = models.PositiveSmallIntegerField(
-        verbose_name=_("Stage3 Minutes"))
-    stage3_seconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Stage3 Seconds"))
-    stage3_milliseconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Stage3 Milliseconds"))
+        verbose_name=_("Headway Amount (mm)"))
 
     class Meta:
         verbose_name = _("Self Balancing Result")
         verbose_name_plural = _("Self Balancing Results")
         ordering = [
-            "disqualification", "-score", "-seconds", "-milliseconds",
-            "-headway_amount", "stage3_minutes", "stage3_seconds",
-            "stage3_milliseconds"]
+            "disqualification", "-score", "-headway_amount"]
 
     def __str__(self):
         return self.project.name
@@ -248,28 +246,25 @@ class SelfBalancingResult(BaseResult):
 @receiver(models.signals.pre_save, sender=SelfBalancingResult)
 def self_balancing_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        instance.duration, instance.headway_amount * 0.25,
-        (instance.stage3_minutes * 60 + instance.stage3_seconds +
-        instance.stage3_milliseconds * 0.01) * 2))
+        instance.headway_amount * 0.1, instance.duration * 3))
 
 
 @python_2_unicode_compatible
 class ScenarioResult(BaseResult):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "scenario"})
-    is_finished = models.BooleanField(
-        verbose_name=_("Is finish?"), default=False)
+    is_stopped = models.BooleanField(
+        verbose_name=_("Is stopped?"), default=False)
     is_parked = models.BooleanField(
-        verbose_name=_("Is Parked?"), default=False)
+        verbose_name=_("Is parked?"), default=False)
     sign_succeed = models.PositiveSmallIntegerField(
         verbose_name=_("Succeed Signs"), default=0)
-    sign_failed = models.PositiveSmallIntegerField(
-        verbose_name=_("Failed Signs"), default=0)
 
     class Meta:
         verbose_name = _("Scenario Result")
         verbose_name_plural = _("Scenario Results")
-        ordering = ["disqualification", "-score"]
+        ordering = ["disqualification", "-score",
+                    "minutes", "seconds", "milliseconds"]
 
     def __str__(self):
         return self.project.name
@@ -278,9 +273,9 @@ class ScenarioResult(BaseResult):
 @receiver(models.signals.pre_save, sender=ScenarioResult)
 def scenario_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        instance.is_finished * 100,
-        instance.is_parked * 200, instance.sign_succeed * 20,
-        instance.sign_failed * -10))
+        int(instance.is_stopped) * 30,
+        int(instance.is_parked) * 100,
+        instance.sign_succeed * 10))
 
 
 @python_2_unicode_compatible
@@ -304,19 +299,19 @@ class InnovativeJuryResult(models.Model):
     jury_score = models.FloatField(
         verbose_name=_('Jury Score'), blank=True, default=0)
     design = models.FloatField(
-        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
+        validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Design"), default=0)
     innovative = models.FloatField(
-        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
+        validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Innovative"), default=0)
     technical = models.FloatField(
-        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
+        validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Technical"), default=0)
     presentation = models.FloatField(
-        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
+        validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Presentation"), default=0)
     opinion = models.FloatField(
-        validators=[MinValueValidator(0.0),MaxValueValidator(10.0)],
+        validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Opinion"), default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -324,7 +319,7 @@ class InnovativeJuryResult(models.Model):
         verbose_name = _("Innovative Result")
         verbose_name_plural = _("Innovative Results")
         ordering = ["project", "jury"]
-        unique_together = ('project','jury')
+        unique_together = ('project', 'jury')
 
     def __str__(self):
         return self.project.name
