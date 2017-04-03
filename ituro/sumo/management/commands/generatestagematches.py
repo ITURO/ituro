@@ -55,6 +55,7 @@ class Command(BaseCommand):
                     winners.append(robot1)
             shuffle(winners)
             if previous_matches.count() < 4:
+                SumoStage.objects.filter(order=stage_number).delete()
                 raise CommandError("Please generate final group")
             paired_robots = list()
             if len(winners) in [5,6,7]:

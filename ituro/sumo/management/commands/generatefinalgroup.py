@@ -9,36 +9,37 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         group_robots = list()
-        all_robots = list()
-        previous_all_robots = list()
-        final_stage_group = list(SumoStage.objects.all())[-1]
+        last_stage_participants = list()
+        previous_stage_winners = list()
+        last_stage = list(SumoStage.objects.all())[-1]
         final_group = SumoGroup.objects.get(is_final=True)
-        final_matches = SumoStageMatch.objects.filter(stage=final_stage_group)
-        for match in final_matches:
+        last_stage_matches = SumoStageMatch.objects.filter(stage=last_stage)
+        for match in last_stage_matches:
             if match.home_score > match.away_score:
                 group_robots.append(match.home)
             else:
                 group_robots.append(match.away)
-            all_robots.append(match.home)
-            all_robots.append(match.away)
-        if len(final_matches) < 4:
+            last_stage_participants.append(match.home)
+            last_stage_participants.append(match.away)
+        if len(last_stage_matches) < 4:
             previous_stage = list(SumoStage.objects.all())[-2]
             previous_matches = SumoStageMatch.objects.filter(stage=previous_stage)
             for match in previous_matches:
-                previous_all_robots.append(match.home)
-                previous_all_robots.append(match.away)
-            for robot in previous_all_robots:
+                if match.home_score > match.away_score:
+                    previous_stage_winners.append(match.home)
+                else:
+                    previous_stage_winners.append(match.away)
+            for robot in previous_stage_winners:
+
                 if len(group_robots) == 4:
                     break
-                if not robot in group_robots and not robot in all_robots:
+                if not robot in group_robots and not robot in last_stage_participants:
                     group_robots.append(robot)
 
         for robot in group_robots:
             SumoGroupTeam.objects.create(group=final_group, robot=robot)
 
         count = len(group_robots)
-        lst = group_robots[0:count]
-        lst_shift = []
         order = 1
         for i in range(0, count-1):
             hold = group_robots[count-1]

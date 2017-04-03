@@ -27,7 +27,6 @@ class Command(BaseCommand):
                         except:
                             pass
                     elif rivals.count() == 2:
-                        #import pdb;pdb.set_trace()
                         result = calculate_triple_average(team, rivals, order)
                         order = result[0]
                         try:
@@ -45,7 +44,7 @@ def calculate_double_average(team, rival, order):
 
     team_point, rival_point = calculate_point(team, rival)
 
-    order, team, rival = compare_and_assing(
+    order, team, rival = compare_and_assign(
                             team, team_point, rival, rival_point, order)
     team.save()
     rival.save()
@@ -69,17 +68,17 @@ def calculate_triple_average(team, rivals, order):
     if team_point > rival1_point and team_point > rival2_point:
         order += 1
         team.order = order
-        order, rival1, rival2 = compare_and_assing(
+        order, rival1, rival2 = compare_and_assign(
                         rival1, rival1_point, rival2, rival2_point, order)
     elif rival1_point > team_point and rival1_point > rival2_point:
         order += 1
         rival1.order = order
-        order, team, rival2 = compare_and_assing(
+        order, team, rival2 = compare_and_assign(
                      team, team_point, rival2, rival2_point, order)
     elif rival2_point > team_point and rival2_point > rival1_point:
         order += 1
         rival2.order = order
-        order, team, rival1 = compare_and_assing(
+        order, team, rival1 = compare_and_assign(
                         team, team_point, rival1, rival1_point, order)
     team.save()
     rival1.save()
@@ -103,7 +102,7 @@ def calculate_point(team, rival):
 
     return (team_point, rival_point)
 
-def compare_and_assing(team, team_point, rival, rival_point, order):
+def compare_and_assign(team, team_point, rival, rival_point, order):
     if team_point > rival_point:
         order += 1
         team.order = order
