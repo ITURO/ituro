@@ -14,55 +14,78 @@ class Command(BaseCommand):
             raise CommandError('Please specify a valid stage.')
         else:
             if stage_number < 1:
-                raise CommandError('Day interval is 1 <= day.')
-        matches = SumoStageMatch.objects.filter(stage__order=stage_number)
-        count = len(matches)
-        if count > 4:
-            raise CommandError("Finals")
+                raise CommandError('Stage interval is 0 < Stage.')
+        stage = SumoStage.objects.get(order=stage_number)
         if stage_number == 1:
-            stage = SumoStage.objects.create(order=stage_number)
-            robots = list()
-            orders = [1, 2]
+            all_robots = list()
+            paired_robots = list()
             for group in SumoGroup.objects.all():
-                for order in orders:
-                    robot = SumoGroupTeam.objects.get(group=group, order=order)
-                    robots.append(robot)
-            for i in range(0,len(robots)/2):
-                if len(robots) == 2:
-                    robot1 = robots.pop()
-                    robot2 = robots.pop()
-                if i%2 == 0:
-                    robot1 = robots.pop(i)
-                    robot2 = robots.pop(i+3)
-                SumoStageMatch.objects.create(home=robot1.robot,away=robot2.robot,
-                                            stage=stage)
+                teams = SumoGroupTeam.objects.filter(group=group).order_by("order")
+                for i in range(2):
+                    all_robots.append(teams[i])
+            for i in range(len(all_robots)):
+                if i==1 or i==len(all_robots)-2:
+                    continue
+                elif all_robots[i] in paired_robots:
+                    continue
+                else:
+                    SumoStageMatch.objects.create(
+                                                home=all_robots[i].robot,
+                                                away=all_robots[i+3].robot,
+                                                stage=stage)
+                    paired_robots.append(all_robots[i])
+                    paired_robots.append(all_robots[i+3])
+            SumoStageMatch.objects.create(
+                                        home=all_robots[1].robot,
+                                        away=all_robots[len(all_robots)-2].robot,
+                                        stage=stage)
         else:
-            stage = SumoStage.objects.create(order=stage_number)
             previous_stage = SumoStage.objects.get(order=stage_number-1)
-            robots = list()
-            order = 1
-            for match in SumoStageMatch.objects.filter(stage=previous_stage):
-                if match.home_score > match.away_score:
-                    robot = match.home
-                    robots.append(robot)
-                elif match.away_score > match.home_score:
-                    robot = match.away
-                    robots.append(robot)
-            if len(robot)%2 == 0:
-                for robot in robots:
-                    robot1 = robots.pop()
-                    shuffle(robots)
-                    robot2 = robots.pop()
-                    SumoStageMatch.objects.create(home=robot1,away=robot2,
-                                                    stage=stage)
-                    order += 1
+            previous_matches = SumoStageMatch.objects.filter(stage=previous_stage)
+            winners = list()
+            for match in previous_matches:
+                robot1 = match.home
+                robot2 = match.away
+                if robot2:
+                    if match.home_score > match.away_score:
+                        winners.append(robot1)
+                    else:
+                        winners.append(robot2)
+                else:
+                    winners.append(robot1)
+            shuffle(winners)
+            if previous_matches.count() < 4:
+                raise CommandError("Please generate final group")
+            paired_robots = list()
+            if len(winners) in [5,6,7]:
+                for i in range(len(winners)):
+                    if winners[i] in paired_robots:
+                        continue
+                    elif len(paired_robots) == (len(winners)-4)*2:
+                        break
+                    else:
+                        SumoStageMatch.objects.create(
+                                                home=winners[i],
+                                                away=winners[i+1],
+                                                stage=stage)
+                        paired_robots.append(winners[i])
+                        paired_robots.append(winners[i+1])
             else:
-                shuffle(robots)
-                hold = robots.pop(0)
-                for robot in robots:
-                    robot1 = robots.pop()
-                    shuffle(robots)
-                    robot2 = robots.pop()
-                    SumoStageMatch.objects.create(home=robot1,away=robot2,
-                                                    stage=stage)
-                    order += 1
+                if len(winners) %2 == 1:
+                    lucky_robot = winners.pop(randint(0, len(winners)-1))
+                    match = SumoStageMatch.objects.create(
+                                            home=lucky_robot,
+                                            stage=stage)
+                    match.home_score = 3
+                    match.away_score = 0
+                    match.save()
+                for i in range(len(winners)):
+                    if winners[i] in paired_robots:
+                        continue
+                    else:
+                        SumoStageMatch.objects.create(
+                                                home=winners[i],
+                                                away=winners[i+1],
+                                                stage=stage)
+                        paired_robots.append(winners[i])
+                        paired_robots.append(winners[i+1])

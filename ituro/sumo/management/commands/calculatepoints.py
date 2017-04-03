@@ -48,8 +48,10 @@ class Command(BaseCommand):
                         away.average += match.away_score - match.home_score
                         away.save()
         else:
-            group = SumoGroup.objects.filter(is_final=True).first()
+            group = SumoGroup.objects.get(is_final=True)
             matches = SumoGroupMatch.objects.filter(group=group)
+            teams = SumoGroupTeam.objects.filter(group=group)
+            teams.update(point=0, average=0)
             # calculate point and average
             for match in matches:
                 home = teams.get(robot=match.home)
