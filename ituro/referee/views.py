@@ -709,7 +709,9 @@ class ColorSelectingResultDeleteView(BaseResultDeleteView):
 class SelfBalancingResultCreateView(BaseResultCreateView):
     model = SelfBalancingResult
     category = "self_balancing"
-    fields = BaseResultCreateView.fields + ["headway_amount"]
+    fields = BaseResultCreateView.fields + [
+        "headway_amount", "stage2_minutes", "stage2_seconds",
+        "stage2_milliseconds"]
 
 
 class SelfBalancingResultUpdateView(BaseResultUpdateView):
