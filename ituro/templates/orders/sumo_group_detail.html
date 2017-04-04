@@ -6,7 +6,12 @@
 {% block content %}
 <div class="page-header">
   <h1>
-    {% trans "Micro Sumo" %} {{ object.order|ordinal }} {% trans "Group" %}
+    {% if group.is_final %}
+        {% trans "Micro Sumo Final Group" %}
+    {% else %}
+        {% trans "Micro Sumo" %} {{ object.order|ordinal }} {% trans "Group" %}
+    {% endif %}
+
   </h1>
 </div>
 

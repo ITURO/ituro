@@ -208,14 +208,14 @@ class SumoResultStageDetailView(ListView):
     def dispatch(self, *args, **kwargs):
         if not settings.SUMO_STAGE_RESULTS:
             raise PermissionDenied
-        return super(SumoResultStageDetailview, self).dispatch(*args, **kwargs)
+        return super(SumoResultStageDetailView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
         return SumoStageMatch.objects.filter(stage__pk=self.kwargs.get("pk"))
 
 
 class SumoResultFinalDetailView(TemplateView):
-    template_name = "results/sumo_final.html"
+    template_name = "results/sumo_group_detail.html"
 
     def dispatch(self, *args, **kwargs):
         if not settings.SUMO_FINAL_RESULTS:
@@ -223,11 +223,10 @@ class SumoResultFinalDetailView(TemplateView):
         return super(SumoResultFinalDetailView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(SumoResultFinalDetailView, self).dispatch(
-            *args, **kwargs)
-        group = SumoGroup.objects.filter(is_final=True).first()
+        context = super(SumoResultFinalDetailView, self).get_context_data(**kwargs)
+        group = SumoGroup.objects.get(is_final=True)
         context["group"] = group
-        context["matches"] = SumoGroupMatch.objects.filter(group=group)
+        context["teams"] = SumoGroupTeam.objects.filter(group=group)
         return context
 
 

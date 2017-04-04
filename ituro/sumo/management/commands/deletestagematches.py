@@ -14,5 +14,7 @@ class Command(BaseCommand):
             raise CommandError('Please specify a valid stage.')
         else:
             if stage_number < 1:
-                raise CommandError('Day interval is 1 <= day.')
-        SumoStage.objects.filter(order=stage_number).delete()
+                raise CommandError('Stage interval is 1 <= stage.')
+        stage = SumoStage.objects.filter(order=stage_number)
+        SumoStageMatch.objects.filter(stage=stage).delete()
+        stage.delete()
