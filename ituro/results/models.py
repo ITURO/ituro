@@ -231,13 +231,20 @@ class SelfBalancingResult(BaseResult):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "self_balancing"})
     headway_amount = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Amount (mm)"))
+        verbose_name=_("Headway Amount (mm)"), default=0)
+    stage2_minutes = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage2 Minutes"), default=0)
+    stage2_seconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage2 Seconds"), default=0)
+    stage2_milliseconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Stage2 Milliseconds"), default=0)
 
     class Meta:
         verbose_name = _("Self Balancing Result")
         verbose_name_plural = _("Self Balancing Results")
         ordering = [
-            "disqualification", "-score", "-headway_amount"]
+            "disqualification", "-score", "minutes",
+            "seconds", "milliseconds", "-headway_amount"]
 
     def __str__(self):
         return self.project.name
@@ -246,7 +253,9 @@ class SelfBalancingResult(BaseResult):
 @receiver(models.signals.pre_save, sender=SelfBalancingResult)
 def self_balancing_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        instance.headway_amount * 0.1, instance.duration * 3))
+        instance.headway_amount * 0.1,
+        (instance.stage2_minutes * 60 + instance.stage2_seconds +
+         instance.stage2_milliseconds * 0.01) * 3))
 
 
 @python_2_unicode_compatible
