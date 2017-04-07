@@ -40,7 +40,7 @@ class Command(BaseCommand):
             prev_stage = LineFollowerStage.objects.get(order=1)
             next_stage = LineFollowerStage.objects.get(order=2)
             prev_stage_results = LineFollowerResult.objects.filter(
-                stage=prev_stage)
+                stage=prev_stage, disqualification=False)
             next_stage_robot_count = ceil(prev_stage_results.count() * 0.4)
             next_stage_robot_ids = prev_stage_results.values_list(
                 'project_id', flat=True)[:next_stage_robot_count]
