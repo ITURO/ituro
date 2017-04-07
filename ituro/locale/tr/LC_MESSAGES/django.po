@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-06 01:08+0300\n"
+"POT-Creation-Date: 2017-04-07 00:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -171,7 +171,7 @@ msgstr "Kendini Dengeleyen"
 msgid "Scenario"
 msgstr "Senaryo"
 
-#: ituro/settings.py:147 results/models.py:315
+#: ituro/settings.py:147 results/models.py:318
 msgid "Innovative"
 msgstr "Serbest"
 
@@ -311,10 +311,8 @@ msgid "User does not exist."
 msgstr "Kullanıcı bulunmamaktadır."
 
 #: projects/forms.py:109
-#, fuzzy
-#| msgid "Project does not exist."
 msgid "Project does not belong to user."
-msgstr "Proje bulunmamaktadır."
+msgstr "Proje kullanıcıya ait değil."
 
 #: projects/forms.py:114
 msgid "Error! Please correct the errors below."
@@ -543,7 +541,7 @@ msgstr "Jüriler her bir proje için tek bir puan girebilir."
 msgid "Number of matches must be three."
 msgstr "Maç sayısı toplam üç olmalı."
 
-#: results/models.py:12 results/models.py:341
+#: results/models.py:12 results/models.py:344
 #: templates/lcd/junior_result_list.html:42 templates/lcd/result_list.html:50
 #: templates/results/innovative_result.html:29
 #: templates/results/junior_result_list.html:21
@@ -618,14 +616,10 @@ msgid "Basket 3"
 msgstr "Pota 3"
 
 #: results/models.py:106
-#, fuzzy
-#| msgid "Basket 1"
 msgid "Moving Basket 1"
 msgstr "Hareketli Pota 1"
 
 #: results/models.py:108
-#, fuzzy
-#| msgid "Basket 2"
 msgid "Moving Basket 2"
 msgstr "Hareketli Pota 2"
 
@@ -734,26 +728,18 @@ msgid "Color Selecting Results"
 msgstr "Renk Seçen Sonuçları"
 
 #: results/models.py:234
-#, fuzzy
-#| msgid "Headway Amount (cm)"
 msgid "Headway Amount (mm)"
-msgstr "İlerleme Miktarı (cm)"
+msgstr "İlerleme Miktarı (mm)"
 
 #: results/models.py:236
-#, fuzzy
-#| msgid "Stage3 Minutes"
 msgid "Stage2 Minutes"
 msgstr "2. Aşama Dakika"
 
 #: results/models.py:238
-#, fuzzy
-#| msgid "Stage3 Seconds"
 msgid "Stage2 Seconds"
 msgstr "2. Aşama Saniye"
 
 #: results/models.py:240
-#, fuzzy
-#| msgid "Stage3 Milliseconds"
 msgid "Stage2 Milliseconds"
 msgstr "2. Aşama Milisaniye"
 
@@ -770,8 +756,6 @@ msgid "Is stopped?"
 msgstr "Durdu mu?"
 
 #: results/models.py:268
-#, fuzzy
-#| msgid "Is Parked?"
 msgid "Is parked?"
 msgstr "Park etti mi?"
 
@@ -779,55 +763,59 @@ msgstr "Park etti mi?"
 msgid "Succeed Signs"
 msgstr "Başarılı Tabelalar"
 
-#: results/models.py:273
+#: results/models.py:272
+msgid "Failed Signs"
+msgstr "Başarısız Tabelalar"
+
+#: results/models.py:275
 msgid "Scenario Result"
 msgstr "Senaryo Sonucu"
 
-#: results/models.py:274
+#: results/models.py:276
 msgid "Scenario Results"
 msgstr "Senaryo Sonuçları"
 
-#: results/models.py:295
+#: results/models.py:298
 msgid "Innovative Jury"
 msgstr "Serbest Jürisi"
 
-#: results/models.py:296
+#: results/models.py:299
 msgid "Innovative Juries"
 msgstr "Serbest Jürileri"
 
-#: results/models.py:309
+#: results/models.py:312
 msgid "Jury Score"
 msgstr "Jüri Puanı"
 
-#: results/models.py:312
+#: results/models.py:315
 msgid "Design"
 msgstr "Tasarım"
 
-#: results/models.py:318
+#: results/models.py:321
 msgid "Technical"
 msgstr "Teknik"
 
-#: results/models.py:321 templates/projects/project_detail.html:23
+#: results/models.py:324 templates/projects/project_detail.html:23
 msgid "Presentation"
 msgstr "Sunum"
 
-#: results/models.py:324
+#: results/models.py:327
 msgid "Opinion"
 msgstr "Görüş"
 
-#: results/models.py:328
+#: results/models.py:331
 msgid "Innovative Result"
 msgstr "Serbest Sonucu"
 
-#: results/models.py:329
+#: results/models.py:332
 msgid "Innovative Results"
 msgstr "Serbest Sonuçları"
 
-#: results/models.py:344
+#: results/models.py:347
 msgid "Innovative Total Result"
 msgstr "Serbest Toplam Sonucu"
 
-#: results/models.py:345
+#: results/models.py:348
 msgid "Innovative Total Results"
 msgstr "Serbest Toplam Sonuçları"
 
@@ -1415,12 +1403,12 @@ msgstr "Hakem Yönetim Sayfası"
 
 #: templates/referee/micro_sumo_orders.html:9
 msgid "Final Group Exhibitions"
-msgstr ""
+msgstr "Final Grubu Sıraları"
 
 #: templates/referee/micro_sumo_orders.html:13
 #: templates/referee/micro_sumo_orders.html:18
 msgid "Exhibitions"
-msgstr ""
+msgstr "Sıralar"
 
 #: templates/referee/micro_sumo_type_list.html:22
 #, fuzzy
@@ -1461,9 +1449,6 @@ msgstr "Mikro Sumo Sonuçlar"
 
 #~ msgid "Basket 5"
 #~ msgstr "Pota 5"
-
-#~ msgid "Failed Signs"
-#~ msgstr "Başarısız Tabelalar"
 
 #~ msgid "Digital Design"
 #~ msgstr "Dijital Tasarım"

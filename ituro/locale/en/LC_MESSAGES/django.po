@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-06 01:08+0300\n"
+"POT-Creation-Date: 2017-04-07 00:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Scenario"
 msgstr ""
 
-#: ituro/settings.py:147 results/models.py:315
+#: ituro/settings.py:147 results/models.py:318
 msgid "Innovative"
 msgstr ""
 
@@ -500,7 +500,7 @@ msgstr ""
 msgid "Number of matches must be three."
 msgstr ""
 
-#: results/models.py:12 results/models.py:341
+#: results/models.py:12 results/models.py:344
 #: templates/lcd/junior_result_list.html:42 templates/lcd/result_list.html:50
 #: templates/results/innovative_result.html:29
 #: templates/results/junior_result_list.html:21
@@ -722,55 +722,59 @@ msgstr ""
 msgid "Succeed Signs"
 msgstr ""
 
-#: results/models.py:273
+#: results/models.py:272
+msgid "Failed Signs"
+msgstr ""
+
+#: results/models.py:275
 msgid "Scenario Result"
 msgstr ""
 
-#: results/models.py:274
+#: results/models.py:276
 msgid "Scenario Results"
 msgstr ""
 
-#: results/models.py:295
+#: results/models.py:298
 msgid "Innovative Jury"
 msgstr ""
 
-#: results/models.py:296
+#: results/models.py:299
 msgid "Innovative Juries"
 msgstr ""
 
-#: results/models.py:309
+#: results/models.py:312
 msgid "Jury Score"
 msgstr ""
 
-#: results/models.py:312
+#: results/models.py:315
 msgid "Design"
 msgstr ""
 
-#: results/models.py:318
+#: results/models.py:321
 msgid "Technical"
 msgstr ""
 
-#: results/models.py:321 templates/projects/project_detail.html:23
+#: results/models.py:324 templates/projects/project_detail.html:23
 msgid "Presentation"
 msgstr ""
 
-#: results/models.py:324
+#: results/models.py:327
 msgid "Opinion"
 msgstr ""
 
-#: results/models.py:328
+#: results/models.py:331
 msgid "Innovative Result"
 msgstr ""
 
-#: results/models.py:329
+#: results/models.py:332
 msgid "Innovative Results"
 msgstr ""
 
-#: results/models.py:344
+#: results/models.py:347
 msgid "Innovative Total Result"
 msgstr ""
 
-#: results/models.py:345
+#: results/models.py:348
 msgid "Innovative Total Results"
 msgstr ""
 
