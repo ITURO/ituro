@@ -729,7 +729,7 @@ class ScenarioResultCreateView(BaseResultCreateView):
     model = ScenarioResult
     category = "scenario"
     fields = BaseResultCreateView.fields + [
-        "sign_succeed", "is_parked", "is_stopped"]
+        "sign_succeed", "sign_failed", "is_parked", "is_stopped"]
 
 
 class ScenarioResultUpdateView(BaseResultUpdateView):
