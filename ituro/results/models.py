@@ -268,6 +268,8 @@ class ScenarioResult(BaseResult):
         verbose_name=_("Is parked?"), default=False)
     sign_succeed = models.PositiveSmallIntegerField(
         verbose_name=_("Succeed Signs"), default=0)
+    sign_failed = models.PositiveSmallIntegerField(
+        verbose_name=_("Failed Signs"), default=0)
 
     class Meta:
         verbose_name = _("Scenario Result")
@@ -284,7 +286,8 @@ def scenario_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
         int(instance.is_stopped) * 30,
         int(instance.is_parked) * 100,
-        instance.sign_succeed * 10))
+        instance.sign_succeed * 10,
+        instance.sign_failed * (-10)))
 
 
 @python_2_unicode_compatible
