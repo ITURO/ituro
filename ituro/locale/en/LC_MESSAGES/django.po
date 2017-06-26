@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-07 00:23+0000\n"
+"POT-Creation-Date: 2017-06-24 21:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,15 +91,29 @@ msgstr ""
 msgid "You have updated your profile successfully."
 msgstr ""
 
-#: ituro/settings.py:95
-msgid "Turkish"
-msgstr ""
-
-#: ituro/settings.py:96
+#: ituro/settings.py:104
 msgid "English"
 msgstr ""
 
-#: ituro/settings.py:137 templates/lcd/line_follower_stage_list.html:15
+#: ituro/settings.py:105
+msgid "Turkish"
+msgstr ""
+
+#: ituro/settings.py:109
+msgid "Hot!"
+msgstr ""
+
+#: ituro/settings.py:110 templates/content_management/homepage.html:48
+msgid "Information"
+msgstr ""
+
+#: ituro/settings.py:111 templates/content_management/homepage.html:45
+msgid "Important"
+msgstr ""
+
+#: ituro/settings.py:154 templates/content_management/categorypage.html:46
+#: templates/content_management/homepage.html:118
+#: templates/lcd/line_follower_stage_list.html:15
 #: templates/lcd/result_list.html:12 templates/lcd/result_list.html.py:22
 #: templates/orders/line_follower_stage_list.html:15
 #: templates/orders/race_order_list.html:8
@@ -112,7 +126,9 @@ msgstr ""
 msgid "Line Follower"
 msgstr ""
 
-#: ituro/settings.py:138 templates/lcd/junior_result_list.html:9
+#: ituro/settings.py:155 templates/content_management/categorypage.html:47
+#: templates/content_management/homepage.html:119
+#: templates/lcd/junior_result_list.html:9
 #: templates/lcd/junior_result_list.html:15
 #: templates/lcd/line_follower_junior_stage_list.html:15
 #: templates/orders/junior_race_order_list.html:5
@@ -125,7 +141,9 @@ msgstr ""
 msgid "Line Follower Junior"
 msgstr ""
 
-#: ituro/settings.py:139 templates/orders/sumo_group_detail.html:4
+#: ituro/settings.py:156 templates/content_management/categorypage.html:49
+#: templates/content_management/homepage.html:121
+#: templates/orders/sumo_group_detail.html:4
 #: templates/orders/sumo_group_detail.html:12
 #: templates/orders/sumo_group_list.html:15
 #: templates/orders/sumo_stage_detail.html:4
@@ -140,35 +158,44 @@ msgstr ""
 msgid "Micro Sumo"
 msgstr ""
 
-#: ituro/settings.py:140
+#: ituro/settings.py:157 templates/content_management/categorypage.html:50
+#: templates/content_management/homepage.html:122
 msgid "Construction"
 msgstr ""
 
-#: ituro/settings.py:141
+#: ituro/settings.py:158 templates/content_management/categorypage.html:48
+#: templates/content_management/homepage.html:120
 msgid "Basketball"
 msgstr ""
 
-#: ituro/settings.py:142
+#: ituro/settings.py:159 templates/content_management/categorypage.html:51
+#: templates/content_management/homepage.html:123
 msgid "Stair Climbing"
 msgstr ""
 
-#: ituro/settings.py:143
+#: ituro/settings.py:160 templates/content_management/categorypage.html:52
+#: templates/content_management/homepage.html:124
 msgid "Maze"
 msgstr ""
 
-#: ituro/settings.py:144
+#: ituro/settings.py:161 templates/content_management/categorypage.html:53
+#: templates/content_management/homepage.html:125
 msgid "Color Selecting"
 msgstr ""
 
-#: ituro/settings.py:145
+#: ituro/settings.py:162 templates/content_management/categorypage.html:54
+#: templates/content_management/homepage.html:126
 msgid "Self Balancing"
 msgstr ""
 
-#: ituro/settings.py:146
+#: ituro/settings.py:163 templates/content_management/categorypage.html:55
+#: templates/content_management/homepage.html:127
 msgid "Scenario"
 msgstr ""
 
-#: ituro/settings.py:147 results/models.py:318
+#: ituro/settings.py:164 results/models.py:318
+#: templates/content_management/categorypage.html:56
+#: templates/content_management/homepage.html:128
 msgid "Innovative"
 msgstr ""
 
@@ -895,7 +922,7 @@ msgid "You have signed up to ITU Robot Olympics."
 msgstr ""
 
 #: templates/accounts/login.html:5 templates/accounts/login.html.py:36
-#: templates/header.html:25
+#: templates/content_management/navbar.html:84 templates/header.html:25
 msgid "Login"
 msgstr ""
 
@@ -919,7 +946,8 @@ msgstr ""
 msgid "password"
 msgstr ""
 
-#: templates/accounts/login.html:37 templates/header.html:26
+#: templates/accounts/login.html:37 templates/content_management/navbar.html:83
+#: templates/header.html:26
 msgid "Register"
 msgstr ""
 
@@ -968,6 +996,72 @@ msgstr ""
 
 #: templates/base.html:25
 msgid "tr"
+msgstr ""
+
+#: templates/content_management/base.html:55
+msgid "IT Department"
+msgstr ""
+
+#: templates/content_management/categorypage.html:14
+msgid "The shape to be made"
+msgstr ""
+
+#: templates/content_management/categorypage.html:16
+msgid "Track Model"
+msgstr ""
+
+#: templates/content_management/categorypage.html:23
+msgid "Category Media"
+msgstr ""
+
+#: templates/content_management/categorypage.html:32
+msgid "Category Gallery"
+msgstr ""
+
+#: templates/content_management/categorypage.html:41
+#: templates/content_management/homepage.html:113
+msgid "Registered Number Of Robots per Category"
+msgstr ""
+
+#: templates/content_management/gallery_detail.html:4
+#: templates/content_management/navbar.html:66
+msgid "Gallery"
+msgstr ""
+
+#: templates/content_management/homepage.html:8
+msgid "News and Announcements"
+msgstr ""
+
+#: templates/content_management/homepage.html:15
+msgid "Previous Messages"
+msgstr ""
+
+#: templates/content_management/homepage.html:18
+msgid "Next Messages"
+msgstr ""
+
+#: templates/content_management/homepage.html:42
+msgid "Hot!!"
+msgstr ""
+
+#: templates/content_management/homepage.html:98
+msgid "Trailer"
+msgstr ""
+
+#: templates/content_management/homepage.html:107
+msgid "ITURO on Social Media"
+msgstr ""
+
+#: templates/content_management/navbar.html:18
+msgid "About Us"
+msgstr ""
+
+#: templates/content_management/navbar.html:34
+msgid "Categories"
+msgstr ""
+
+#: templates/content_management/navbar.html:50
+msgid "Sponsorship"
 msgstr ""
 
 #: templates/header.html:14
@@ -1037,8 +1131,8 @@ msgstr ""
 #: templates/referee/line_follower_result_create.html:4
 #: templates/referee/line_follower_result_create.html:7
 #: templates/referee/line_follower_result_create.html:16
-#: templates/referee/micro_sumo_orders.html:54
-#: templates/referee/micro_sumo_orders.html:61
+#: templates/referee/micro_sumo_orders.html:51
+#: templates/referee/micro_sumo_orders.html:58
 #: templates/referee/micro_sumo_result_create.html:7
 #: templates/referee/micro_sumo_result_create.html:16
 #: templates/referee/order_list.html:48 templates/referee/result_create.html:7
@@ -1340,8 +1434,7 @@ msgstr ""
 
 #: templates/referee/line_follower_junior_order_list.html:48
 #: templates/referee/line_follower_order_list.html:48
-#: templates/referee/micro_sumo_orders.html:51
-#: templates/referee/micro_sumo_orders.html:58
+#: templates/referee/micro_sumo_orders.html:55
 msgid "Check QRCode"
 msgstr ""
 

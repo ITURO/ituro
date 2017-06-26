@@ -10,14 +10,14 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="{% url 'homepage' %}">
           <img id="logo-image" alt="{% trans "ITU Robot Olympics" %}" src="{% static "project/img/logo-metin-kucuk.png" %}">
         </a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="http://www.ituro.org/{% trans 'en' %}">{% trans 'Site' %}</a></li>
+          <li><a href="{% url 'site-homepage' %}">{% trans 'Site' %}</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'project_list' %}">{% trans 'My Projects' %}</a></li>
           {% if PROJECT_CREATE %}<li><a href="{% url 'project_create' %}">{% trans 'New Project' %}</a></li>{% endif %}

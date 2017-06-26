@@ -1,3 +1,8 @@
 Django==1.7.5
 django-bootstrap3==5.1.1
+django-ckeditor==5.2.2
 django-simple-captcha==0.4.4
+olefile==0.44
+Pillow==4.1.1
+pkg-resources==0.0.0
+six==1.10.0

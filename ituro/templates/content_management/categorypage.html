@@ -1,0 +1,78 @@
+{% extends "content_management/base.html" %}
+{% load i18n robot_count %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-8">
+      <h3 class=""><b>{{ flatpage.categorypage.title }}</b></h3>
+      <hr>
+      <div>
+  	     <iframe src="http://docs.google.com/gview?url=http://{{ request.get_host }}{{ flatpage.categorypage.document.url }}&embedded=true" style="width:100%; height:500px;" frameborder="0"></iframe>
+      </div>
+      {% if flatpage.categorypage.content %}
+        <div>
+        {% if flatpage.categorypage.title == "İnşaat" or flatpage.categorypage.title == "Construction" %}
+          <h4 style="padding-top:50px;"><b>{% trans "The shape to be made" %}</b></h4>
+        {% else %}
+          <h4 stlye="padding-top:50px;"><b>{% trans "Track Model" %}</b></h4>
+        {% endif %}
+        {{ flatpage.categorypage.content|safe }}
+        </div>
+      {% endif %}
+    </div>
+    <div class="col-md-4 text-center">
+      <h3 class="text-left"><b>{% trans "Category Media" %}</b></h3>
+      <hr>
+      <p>
+        {% for photo in flatpage.categorypage.gallery.photos.all %}
+          {% if photo.is_important %}
+            <img width="100%" src="{{ photo.image.url }}">
+          {% endif %}
+        {% endfor %}
+      </p>
+      <p><button class="btn btn-primary btn-sm"><a href="{% url "gallery_detail" flatpage.categorypage.gallery.slug %}" style="color: white">{% trans "Category Gallery" %}</a></button></p>
+      <hr>
+      <div class="embed-responsive embed-responsive-16by9">
+       <iframe width="100%" src="{{ flatpage.categorypage.video_url }}" frameborder="0" allowfullscreen="" height="100"></iframe>
+      </div>
+    </div>
+    <div class="container text-center col-md-12">
+      <hr>
+	    {% robot_count as context %}
+      <p><strong>{% trans "Registered Number Of Robots per Category" %}</strong></p>
+      <div class="table-responsive" style="margin-bottom: -25px">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr class="">
+              <th class="col-md-1 text-center">{% trans "Line Follower" %}</th>
+              <th class="col-md-1 text-center">{% trans "Line Follower Junior" %}</th>
+			        <th class="col-md-1 text-center">{% trans "Basketball" %}</th>
+              <th class="col-md-1 text-center">{% trans "Micro Sumo" %}</th>
+              <th class="col-md-1 text-center">{% trans "Construction" %}</th>
+              <th class="col-md-1 text-center">{% trans "Stair Climbing" %}</th>
+              <th class="col-md-1 text-center">{% trans "Maze" %}</th>
+              <th class="col-md-1 text-center">{% trans "Color Selecting" %}</th>
+              <th class="col-md-1 text-center">{% trans "Self Balancing" %}</th>
+              <th class="col-md-1 text-center">{% trans "Scenario" %}</th>
+              <th class="col-md-1 text-center">{% trans "Innovative" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="active">
+              <td>{{ context.line_follower }}</td>
+			        <td>{{ context.line_follower_junior }}</td>
+              <td>{{ context.basketball }}</td>
+              <td>{{ context.micro_sumo }}</td>
+              <td>{{ context.construction }}</td>
+              <td>{{ context.stair_climbing }}</td>
+              <td>{{ context.maze }}</td>
+              <td>{{ context.color_selecting }}</td>
+              <td>{{ context.self_balancing }}</td>
+              <td>{{ context.scenario }}</td>
+              <td>{{ context.innovative }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

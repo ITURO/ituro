@@ -1,0 +1,12 @@
+{% extends 'content_management/base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    {{ flatpage.newspage.content|safe }}
+    <h6 class="text-right"><i class="fa fa-calendar pull-right"></i>{{ flatpage.newspage.created_at }}</h6>
+  </div>
+  <div class="col-md-4">
+    {{ flatpage.newspage.url_content|safe }}
+  </div>
+</div>
+{% endblock %}
