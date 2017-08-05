@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -7,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
 from content_management.models import Gallery, NewsPage, CommonPage, \
     AboutPage, SponsorshipPage, CategoryPage, HomePage
+from survey.models import Survey
 
 
 class GalleryDetailView(DetailView):
@@ -34,31 +37,31 @@ def set_language(request):
                                     sites__id__exact=settings.SITE_ID)
     else:
         category = necessary_url_args[1]
-        if category == 'about':
+        if category == 'about' or category == 'hakkımızda':
             obj = get_object_or_404(AboutPage, url__exact=necessary_url,
                                     sites__id__exact=settings.SITE_ID)
             ret_obj = get_object_or_404(AboutPage, language=language,
                                         uid=obj.uid,
                                         sites__id__exact=settings.SITE_ID)
-        elif category == 'news':
+        elif category == 'news' or category == 'haberler':
             obj = get_object_or_404(NewsPage, url__exact=necessary_url,
                                     sites__id__exact=settings.SITE_ID)
             ret_obj = get_object_or_404(NewsPage, language=language,
                                         uid=obj.uid,
                                         sites__id__exact=settings.SITE_ID)
-        elif category == 'sponsorship':
+        elif category == 'sponsorship' or category == 'sponsorluk':
             obj = get_object_or_404(SponsorshipPage, url__exact=necessary_url,
                                     sites__id__exact=settings.SITE_ID)
             ret_obj = get_object_or_404(SponsorshipPage, language=language,
                                         uid=obj.uid,
                                         sites__id__exact=settings.SITE_ID)
-        elif category == 'common':
+        elif category == 'common' or category == 'genel':
             obj = get_object_or_404(CommonPage, url__exact=necessary_url,
                                     sites__id__exact=settings.SITE_ID)
             ret_obj = get_object_or_404(CommonPage, language=language,
                                         uid=obj.uid,
                                         sites__id__exact=settings.SITE_ID)
-        elif category == 'gallery':
+        elif category == 'gallery' or category == 'galeri':
             obj = get_object_or_404(Gallery, slug=necessary_url_args[2])
             ret_obj = get_object_or_404(Gallery,
                                         language=language, uid=obj.uid)
@@ -69,6 +72,11 @@ def set_language(request):
             ret_obj = get_object_or_404(CategoryPage, language=language,
                                         uid=obj.uid,
                                         sites__id__exact=settings.SITE_ID)
+        elif category == 'survey' or category == 'anket':
+            obj = get_object_or_404(Survey, slug=necessary_url_args[2],
+                                    is_draft=True)
+            ret_obj = get_object_or_404(Survey, language=language,
+                                        uid=obj.uid)
         elif category == 'core':
             url = url.replace(necessary_url_args[0], language)
             return redirect(url)

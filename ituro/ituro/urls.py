@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic.base import RedirectView
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import get_language
+from django.utils.translation import ugettext_lazy as _
 
 urlpatterns = patterns(
 

@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'results',
     'sumo',
     'content_management',
+    'survey'
 )
 
 SITE_ID = 1
@@ -129,7 +130,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.abspath(
     os.path.join(BASE_DIR, os.pardir, "public", "media"))
 
-TEMPLATE_CONTEXT_PROCESSORS =(
+TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
@@ -181,17 +182,17 @@ PROJECT_RESULTS = True
 
 SUMO_GROUP_RESULTS = False
 SUMO_STAGE_RESULTS = False
-SUMO_FINAL_RESULTS= False
+SUMO_FINAL_RESULTS = False
 SUMO_GROUP_ORDERS = False
 SUMO_STAGE_ORDERS = False
-SUMO_FINAL_ORDERS= False
+SUMO_FINAL_ORDERS = False
 
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
-          'removePlugins' : 'stylesheetparser',
-          "extraPlugins" : "tliyoutube,accordion,ckeditor-gwf-plugin,btgrid",
-          "font_names" : "GoogleWebFonts",
+          'removePlugins': 'stylesheetparser',
+          "extraPlugins": "tliyoutube,accordion,ckeditor-gwf-plugin,btgrid",
+          "font_names": "GoogleWebFonts",
           "allowedContent": True,
 
     },

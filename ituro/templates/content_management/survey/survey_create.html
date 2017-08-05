@@ -1,0 +1,16 @@
+{% extends "content_management/base.html" %}
+{% load bootstrap3 i18n %}
+
+{% block content %}
+{% bootstrap_messages %}
+<h2 align="left">{{ object.title }}</h2>
+<h><br>
+<form class="form-horizontal" enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <br>
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+  {% endbuttons %}
+</form>
+{% endblock%}
