@@ -77,6 +77,7 @@ def set_language(request):
                                     is_draft=True)
             ret_obj = get_object_or_404(Survey, language=language,
                                         uid=obj.uid)
+            return redirect('survey:survey_create', ret_obj.slug)
         elif category == 'core':
             url = url.replace(necessary_url_args[0], language)
             return redirect(url)
