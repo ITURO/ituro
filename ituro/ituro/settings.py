@@ -38,10 +38,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
 
     # 3rd party apps
     'bootstrap3',
     'captcha',
+    'ckeditor',
+    'ckeditor_uploader',
 
     # ITURO apps
     'accounts',
@@ -52,17 +56,25 @@ INSTALLED_APPS = (
     'referee',
     'results',
     'sumo',
+    'content_management',
 )
+
+SITE_ID = 1
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'ituro.urls'
@@ -90,8 +102,14 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = (
-    ('tr', _('Turkish')),
     ('en', _('English')),
+    ('tr', _('Turkish')),
+)
+
+NEWS_TYPES = (
+    ("danger", _("Hot!")),
+    ("info", _("Information")),
+    ("primary", _("Important")),
 )
 
 LOCALE_PATHS = (
@@ -116,6 +134,7 @@ TEMPLATE_CONTEXT_PROCESSORS =(
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
+    "django.core.context_processors.request",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
@@ -127,7 +146,8 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 EMAIL_USE_TLS = True
 MAX_FILE_SIZE = 1000000
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/core/"
+LOGIN_URL = "/core/accounts/login"
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_null',)
 
@@ -165,6 +185,21 @@ SUMO_FINAL_RESULTS= False
 SUMO_GROUP_ORDERS = False
 SUMO_STAGE_ORDERS = False
 SUMO_FINAL_ORDERS= False
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+          'removePlugins' : 'stylesheetparser',
+          "extraPlugins" : "tliyoutube,accordion,ckeditor-gwf-plugin,btgrid",
+          "font_names" : "GoogleWebFonts",
+          "allowedContent": True,
+
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
 
 # Import local settings
 try:
