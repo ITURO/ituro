@@ -1,0 +1,63 @@
+{% load staticfiles i18n get_post_list %}
+{% get_current_language as language %}
+{% get_post_list language as context %}
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ITU Robot Olympics">
+    <meta name="keywords" content="ITU,robot,olympics,line_follower,SDKM,OTOKON,ITURO">
+    <meta name="copyright" content="ITURO website is made by OTOKON IT Department 2016">
+    <meta name="robots" content="index,follow">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="{% static "content_management/img/ituro.ico" %}">
+    <link href="{% static "content_management/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "content_management/css/navbar-fixed-top.css" %}" rel="stylesheet">
+    <link  href='{% static "content_management/unitegallery/css/unite-gallery.css" %}' rel='stylesheet' type='text/css' />
+    <link href="{% static "content_management/css/responsiveness.css" %}" rel="stylesheet" />
+    <link href="{% static "content_management/font-awesome-4.5.0/css/font-awesome.css" %}" rel="stylesheet">
+    <script type='text/javascript' src='{% static "content_management/js/jquery.min.js" %}'></script>
+  </head>
+  <body>
+    {% include "content_management/navbar.html" %}
+    <div class="container">
+      <form action="{% url 'set_language' %}" method="post" style="display:none;">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}" />
+        {% if language == "en" %}
+          <input name="language" type="hidden" value="tr">
+        {% elif language == "tr" %}
+          <input name="language" type="hidden" value="en">
+        {% endif %}
+        <input type="submit" value="Go" id="language-form-submit" />
+</form>
+      {% block content %}{% endblock %}
+    </div>
+    <footer class="container">
+      <hr>
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12 text-left">
+          <img width="88px" style="margin-top: 18px" src="{% static "content_management/img/ituro_text.png" %}"><span style="position: absolute; bottom: -2px; margin-left: 5px">{% trans "IT Department" %} | <i>2016</i></span>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 text-center">
+          <a href="http://www.itu.edu.tr" target="_blank"><img width="75px" style="margin-top: 5px; padding: 5px" src="{% static "content_management/img/itu.png" %}"></a>
+          <a href="http://www.otokon.itu.edu.tr" target="_blank"><img width="120px" style="margin-top: 12px; padding: 5px" src="{% static "content_management/img/otokon_wide.png" %}"></a>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 text-right" style="margin-bottom: 10px">
+          <div class="text-right">
+            <a href="https://www.facebook.com/ituro/" class="btn btn-social-icon btn-facebook" target="_blank" style="background-color: #3b5998; color: white"> <i class="fa fa-facebook"></i></a>
+            <a href="http://twitter.com/ituroorg" class="btn btn-social-icon btn-twitter" target="_blank" style="background-color: #55acee; color: white"><i class="fa fa-twitter"></i></a>
+            <a href="http://instagram.com/ituro2017" class="btn btn-social-icon btn-instagram" target="_blank" style="background-color: #125688; color: white"><i class="fa fa-instagram"></i></a>
+            <a href="https://www.youtube.com/user/ITURobotOlympics" class="btn btn-social-icon btn-youtube" target="_blank" style="background-color: #cd201f; color: white"><i class="fa fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+	  <script src="{% static "content_management/js/ie-emulation-modes-warning.js" %}"></script>
+    <script src="{% static "content_management/js/change_language.js" %}"></script>
+    <script src="{% static "content_management/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "content_management/js/ie10-viewport-bug-workaround.js" %}"></script>
+  </body>
+</html>

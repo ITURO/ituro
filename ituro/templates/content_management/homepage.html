@@ -1,0 +1,149 @@
+{% extends "content_management/base.html" %}
+{% load i18n static robot_count check_ios get_news %}
+{% block content %}
+{% get_current_language as language %}
+{% get_news language as context %}
+<div class="row">
+  <div class="col-md-8">
+    <h3 class=""><b>{% trans "News and Announcements" %}</b></h3>
+    <hr>
+    <ul class="media-list">
+      <div id="messages"></div>
+    </ul>
+    <ul class="pager" style="">
+      <li>
+        <a id="news_down" href="#"><i class="fa fa-arrow-circle-left" style="font-size: 15px;"></i>&nbsp;&nbsp;{% trans "Previous Messages" %}</a>
+      </li>
+      <li>
+        <a id="news_up" href="#">{% trans "Next Messages" %}&nbsp;&nbsp;<i class="fa fa-arrow-circle-right fa-sm" style="font-size: 15px;"></i></a>
+      </li>
+    </ul>
+    <script type="text/javascript">
+      jQuery(document).ready(function(){
+        jQuery.print = function(bottom,top){
+          var titles = [];
+          var types = [];
+          var urls = [];
+          var images = [];
+          var short_descriptions = [];
+          {% for news in context.news %}
+            titles.push('{{news.title}}');
+            types.push('{{news.types}}');
+            images.push('{{news.image.thumbnail.url}}');
+            urls.push('{{news.url }}');
+            short_descriptions.push('{{news.short_description}}');
+          {% endfor %}
+          for(i=bottom;i<=top;i++){
+            if (titles[i] !== undefined && images[i] !==undefined && types[i] !== undefined && urls[i] !== undefined && short_descriptions[i] !== undefined){
+              first_link = "<li class='media'><a class='pull-left' href='0'>".replace(0,urls[i]);
+              console.log(first_link);
+              image = "<img class='media-object' src='0' style='margin-top: 5px' width='80'></a>".replace(0,images[i]);
+              if (types[i] == "danger"){
+                type = "<span class='label label-danger' style='float: right;'>{% trans 'Hot!!' %}</span>";
+              }
+              else if (types[i] == "primary"){
+                type = "<span class='label label-primary' style='float: right;'>{% trans 'Important' %}</span>";
+              }
+              else if (types[i] == "info"){
+                type = "<span class='label label-info' style='float: right;'>{% trans 'Information' %}</span>";
+              }
+              second_link = "<a href='0'>".replace(0,urls[i]);
+              media_body = "<div class='media-body'><h4 class='media-heading'><b><a href='0'>".replace(0, urls[i]).concat(titles[i]).concat(type,"</a></b></h4>").concat(second_link, short_descriptions[i],"</a>");
+              message = first_link.concat(image,media_body,"</div></li><hr>");
+              jQuery("#messages").append(message);
+            }
+          }
+        }
+        jQuery.check_buttons = function(bottom, top, length){
+          if(bottom<=0){
+            jQuery("#news_down").hide();
+          }
+          else{
+            jQuery("#news_down").show();
+          }
+          if(length > top+1){
+            jQuery("#news_up").show();
+          }
+          else{
+            jQuery("#news_up").hide();
+          }
+        }
+        var length = {{flatpages.newspage.all|length}};
+        var bottom = 0;
+        var top = 3;
+        jQuery.check_buttons(bottom,top,length);
+        jQuery.print(bottom,top);
+        jQuery("#news_up").click(function(){
+          bottom = bottom +4;
+          top = top + 4;
+          jQuery("#messages").empty();
+          jQuery.check_buttons(bottom,top,length);
+          jQuery.print(bottom,top);
+        });
+        jQuery("#news_down").click(function(){
+          bottom = bottom-4;
+          top = top-4;
+          jQuery("#messages").empty();
+          jQuery.check_buttons(bottom,top,length);
+          jQuery.print(bottom,top);
+        });
+      });
+    </script>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      {{ flatpage.homepage.content|safe }}
+    </div>
+    <hr>
+    <h4 class="text-center"><b>{% trans "Trailer" %}</b></h4>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe src="{{flatpage.homepage.video_url}}"></iframe>
+    </div>
+  </div>
+</div>
+<div class="container text-center col-md-12" style="margin-top:5%">
+  {% check_ios request as check %}
+  {% if not check %}
+    <h4><strong>{% trans 'ITURO on Social Media'%}</strong></h4>
+    <div id="publing" data-key="4k0ey07voj8m" data-height-type='adaptive' data-environment="stage" data-secret="lNpmYgsDB6" style="width:100%;height:100%;margin-top:4%;"></div>
+    <script async src="https://front.publing.co/display/v1.js"></script>
+  {% endif %}
+  <hr />
+  {% robot_count as context %}
+  <p><strong>{% trans "Registered Number Of Robots per Category" %}</strong></p>
+  <div class="table-responsive" style="margin-bottom: -25px">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr class="">
+          <th class="col-md-1 text-center">{% trans "Line Follower" %}</th>
+          <th class="col-md-1 text-center">{% trans "Line Follower Junior" %}</th>
+          <th class="col-md-1 text-center">{% trans "Basketball" %}</th>
+          <th class="col-md-1 text-center">{% trans "Micro Sumo" %}</th>
+          <th class="col-md-1 text-center">{% trans "Construction" %}</th>
+          <th class="col-md-1 text-center">{% trans "Stair Climbing" %}</th>
+          <th class="col-md-1 text-center">{% trans "Maze" %}</th>
+          <th class="col-md-1 text-center">{% trans "Color Selecting" %}</th>
+          <th class="col-md-1 text-center">{% trans "Self Balancing" %}</th>
+          <th class="col-md-1 text-center">{% trans "Scenario" %}</th>
+          <th class="col-md-1 text-center">{% trans "Innovative" %}</th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr class="active">
+        <td>{{ context.line_follower }}</td>
+        <td>{{ context.line_follower_junior }}</td>
+        <td>{{ context.basketball }}</td>
+        <td>{{ context.micro_sumo }}</td>
+        <td>{{ context.construction }}</td>
+        <td>{{ context.stair_climbing }}</td>
+        <td>{{ context.maze }}</td>
+        <td>{{ context.color_selecting }}</td>
+        <td>{{ context.self_balancing }}</td>
+        <td>{{ context.scenario }}</td>
+        <td>{{ context.innovative }}</td>
+      </tr>
+    </tbody>
+  </table>
+ </div>
+</div>
+{% endblock %}

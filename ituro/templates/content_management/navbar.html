@@ -1,0 +1,96 @@
+{% load i18n get_post_list static %}
+{% get_current_language as language %}
+{% get_post_list language as context %}
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="{{ request.scheme }}://{{ request.get_host }}/{{language}}/" class="pull-left"><img width="60px" style= "margin-left:5px" src="{% static "content_management/img/ituro_bee.png" %}"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "About Us" %} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {% for about in context.about_list %}
+              {% if not about.is_divided %}
+                <li><a href="{{ about.url }}">{{ about.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+            <li role="separator" class="divider"></li>
+            {% for about in context.about_list %}
+              {% if about.is_divided %}
+                <li><a href="{{ about.url }}">{{ about.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Categories" %} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {% for category in context.category_list %}
+              {% if not category.is_divided %}
+                <li><a href="{{ category.url }}">{{ category.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+            <li role="separator" class="divider"></li>
+            {% for category in context.category_list %}
+              {% if category.is_divided %}
+                <li><a href="{{ category.url }}">{{ category.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Sponsorship" %} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {% for sponsorship in context.sponsorship_list %}
+              {% if not sponsorship.is_divided %}
+                <li><a href="{{ sponsorship.url }}">{{ sponsorship.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+            <li role="separator" class="divider"></li>
+            {% for sponsorship in context.sponsorship_list %}
+              {% if sponsorship.is_divided %}
+                <li><a href="{{ sponsorship.url }}">{{ sponsorship.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Gallery" %} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {% for gallery in context.gallery_list %}
+              {% if not gallery.is_divided %}
+                <li><a href="{% url "gallery_detail" gallery.slug %}">{{ gallery.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+            <li role="separator" class="divider"></li>
+            {% for gallery in list %}
+              {% if gallery.is_divided %}
+                <li><a href="{% url "gallery_detail" gallery.slug %}">{{ gallery.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'user-register' %}"><b>{% trans "Register" %}</b></a></li>
+        <li><a href="{% url 'project_list' %}">{% trans "Login" %}</a></li>
+          {% for common in context.common_list %}
+            <li><a href="{{ common.url }}">{{ common.title }}</a></li>
+          {% endfor %}
+          {% if language == 'en' %}
+            <li><button id="language-button" class="btn btn-link navbar-btn"><a href="" style="color:#18bc9c;"><b>Türkçe</b><span class="sr-only">(current)</span></a></button></li>
+          {% elif language == "tr" %}
+            <li><button id="language-button" class="btn btn-link navbar-btn"><a href="" style="color:#18bc9c;"><b>English</b><span class="sr-only">(current)</span></a></button></li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

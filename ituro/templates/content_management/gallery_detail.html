@@ -1,0 +1,41 @@
+{% extends "content_management/base.html" %}
+{% load i18n static %}
+{% block content %}
+  <h3 class="text-center"><b>{% trans "Gallery" %} | {{ object.title }}</b></h3>
+  <hr>
+  <div id="gallery" style="margin:0px auto; display:none;">
+    {% for photo in object.photos.all %}
+      <img alt="{{ photo.title }}"
+         src="{{ photo.thumbnail.url }}"
+         data-image="{{ photo.image.url }}"
+         data-description="{{ photo.title }}">
+      </img>
+    {% endfor %}
+  </div>
+  <div class="text-center" style="float: center;">
+    <script
+			  src="https://code.jquery.com/jquery-3.2.1.min.js"
+			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			  crossorigin="anonymous"></script>
+    <script type='text/javascript' src='{% static "content_management/unitegallery/js/unitegallery.min.js" %}'></script>
+    <script type='text/javascript' src='{% static "content_management/unitegallery/themes/compact/ug-theme-compact.js" %}'></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function(){
+          jQuery("#gallery").unitegallery({
+              gallery_theme: "compact",
+              gallery_carousel:false,
+              slider_loader_type: 7,
+              slider_enable_arrows: true,
+              slider_enable_play_button: false,
+              slider_enable_zoom_panel: false,
+              slider_videoplay_button_type: "round",
+              strippanel_enable_handle: false,
+              thumb_selected_border_width: 3,
+              thumb_selected_border_color: "#566472",
+              thumb_transition_easing: "linear",
+              slider_scale_mode: "down",
+          });
+      });
+    </script>
+  </div>
+{% endblock %}
