@@ -55,5 +55,6 @@ target/
 
 # ITURO
 ituro/ituro/local_settings.py
+ituro/media
 ituro/db.sqlite3
 public/
