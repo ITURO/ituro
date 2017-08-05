@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-24 21:31+0300\n"
+"POT-Creation-Date: 2017-08-05 10:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -94,27 +94,35 @@ msgstr "Kullanıcı hesabınızı başarıyla oluşturdunuz."
 msgid "You have updated your profile successfully."
 msgstr "Profilinizi başarıyla güncellediniz."
 
-#: ituro/settings.py:104
+#: content_management/urls.py:8
+msgid "^gallery/(?P<slug>[-_\\w]+)/$"
+msgstr "^galeri/(?P<slug>[-_\\w]+)/$"
+
+#: content_management/urls.py:10
+msgid "^survey/"
+msgstr "^anket/"
+
+#: ituro/settings.py:106
 msgid "English"
 msgstr "İngilizce"
 
-#: ituro/settings.py:105
+#: ituro/settings.py:107
 msgid "Turkish"
 msgstr "Türkçe"
 
-#: ituro/settings.py:109
+#: ituro/settings.py:111
 msgid "Hot!"
 msgstr "Sıcak!"
 
-#: ituro/settings.py:110 templates/content_management/homepage.html:48
+#: ituro/settings.py:112 templates/content_management/homepage.html:48
 msgid "Information"
 msgstr "Bilgi"
 
-#: ituro/settings.py:111 templates/content_management/homepage.html:45
+#: ituro/settings.py:113 templates/content_management/homepage.html:45
 msgid "Important"
 msgstr "Önemli"
 
-#: ituro/settings.py:154 templates/content_management/categorypage.html:46
+#: ituro/settings.py:156 templates/content_management/categorypage.html:46
 #: templates/content_management/homepage.html:118
 #: templates/lcd/line_follower_stage_list.html:15
 #: templates/lcd/result_list.html:12 templates/lcd/result_list.html.py:22
@@ -129,7 +137,7 @@ msgstr "Önemli"
 msgid "Line Follower"
 msgstr "Çizgi İzleyen"
 
-#: ituro/settings.py:155 templates/content_management/categorypage.html:47
+#: ituro/settings.py:157 templates/content_management/categorypage.html:47
 #: templates/content_management/homepage.html:119
 #: templates/lcd/junior_result_list.html:9
 #: templates/lcd/junior_result_list.html:15
@@ -144,7 +152,7 @@ msgstr "Çizgi İzleyen"
 msgid "Line Follower Junior"
 msgstr "Çizgi İzleyen Minikler"
 
-#: ituro/settings.py:156 templates/content_management/categorypage.html:49
+#: ituro/settings.py:158 templates/content_management/categorypage.html:49
 #: templates/content_management/homepage.html:121
 #: templates/orders/sumo_group_detail.html:4
 #: templates/orders/sumo_group_detail.html:12
@@ -161,42 +169,42 @@ msgstr "Çizgi İzleyen Minikler"
 msgid "Micro Sumo"
 msgstr "Mikro Sumo"
 
-#: ituro/settings.py:157 templates/content_management/categorypage.html:50
+#: ituro/settings.py:159 templates/content_management/categorypage.html:50
 #: templates/content_management/homepage.html:122
 msgid "Construction"
 msgstr "İnşaat"
 
-#: ituro/settings.py:158 templates/content_management/categorypage.html:48
+#: ituro/settings.py:160 templates/content_management/categorypage.html:48
 #: templates/content_management/homepage.html:120
 msgid "Basketball"
 msgstr "Basketbol"
 
-#: ituro/settings.py:159 templates/content_management/categorypage.html:51
+#: ituro/settings.py:161 templates/content_management/categorypage.html:51
 #: templates/content_management/homepage.html:123
 msgid "Stair Climbing"
 msgstr "Merdiven Çıkan"
 
-#: ituro/settings.py:160 templates/content_management/categorypage.html:52
+#: ituro/settings.py:162 templates/content_management/categorypage.html:52
 #: templates/content_management/homepage.html:124
 msgid "Maze"
 msgstr "Labirent"
 
-#: ituro/settings.py:161 templates/content_management/categorypage.html:53
+#: ituro/settings.py:163 templates/content_management/categorypage.html:53
 #: templates/content_management/homepage.html:125
 msgid "Color Selecting"
 msgstr "Renk Seçen"
 
-#: ituro/settings.py:162 templates/content_management/categorypage.html:54
+#: ituro/settings.py:164 templates/content_management/categorypage.html:54
 #: templates/content_management/homepage.html:126
 msgid "Self Balancing"
 msgstr "Kendini Dengeleyen"
 
-#: ituro/settings.py:163 templates/content_management/categorypage.html:55
+#: ituro/settings.py:165 templates/content_management/categorypage.html:55
 #: templates/content_management/homepage.html:127
 msgid "Scenario"
 msgstr "Senaryo"
 
-#: ituro/settings.py:164 results/models.py:318
+#: ituro/settings.py:166 results/models.py:318
 #: templates/content_management/categorypage.html:56
 #: templates/content_management/homepage.html:128
 msgid "Innovative"
@@ -881,6 +889,14 @@ msgstr "Sumo Tur Maçı"
 msgid "Sumo Stage Matches"
 msgstr "Sumo Tur Maçları"
 
+#: survey/models.py:14 templates/projects/project_detail.html:12
+msgid "Name"
+msgstr "İsim"
+
+#: survey/views.py:66
+msgid "Saved successfully!"
+msgstr "Başarıyla kaydedildi!"
+
 #: templates/403.html:6
 msgid "Forbidden"
 msgstr "İzin Yok"
@@ -913,6 +929,7 @@ msgstr "Kullanıcı Kayıt"
 
 #: templates/accounts/customuser_form.html:16
 #: templates/accounts/register.html:17 templates/accounts/update.html:16
+#: templates/content_management/survey/survey_create.html:13
 msgid "Submit"
 msgstr "Gönder"
 
@@ -1003,7 +1020,7 @@ msgstr "İTÜ Robot Olimpiyatları 2016"
 msgid "tr"
 msgstr "en"
 
-#: templates/content_management/base.html:55
+#: templates/content_management/base.html:42
 msgid "IT Department"
 msgstr "Bilişim Ekibi"
 
@@ -1072,10 +1089,6 @@ msgstr "Sponsorluk"
 #: templates/header.html:14
 msgid "ITU Robot Olympics"
 msgstr "İTÜ Robot Olimpiyatları"
-
-#: templates/header.html:20
-msgid "en"
-msgstr "tr"
 
 #: templates/header.html:20
 msgid "Site"
@@ -1326,10 +1339,6 @@ msgstr "%(object)s adlı projeyi silmek üzeresiniz. Emin misiniz?"
 msgid "Project Detail"
 msgstr "Proje Detayı"
 
-#: templates/projects/project_detail.html:12
-msgid "Name"
-msgstr "İsim"
-
 #: templates/projects/project_detail.html:31
 #: templates/projects/project_update.html:4
 #: templates/projects/project_update.html:7
@@ -1492,3 +1501,4 @@ msgstr "Mikro Sumo Sonuçlar"
 #: templates/results/sumo_stage_list.html:8
 msgid "Micro Sumo Stage Results"
 msgstr "Mikro Sumo Eleme Etabı Sonuçlar"
+
