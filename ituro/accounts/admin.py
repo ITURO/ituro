@@ -24,7 +24,7 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
     list_display = (
-        'email', 'name', 'phone', 'school', 'is_staff', 'is_active','qrcode',
+        'email', 'name', 'phone', 'school', 'is_staff', 'is_active', 'qrcode',
         'projects')
     search_fields = ('name', 'email', 'phone', 'school')
     ordering = ('id',)
