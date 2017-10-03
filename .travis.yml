@@ -5,4 +5,4 @@ install:
   - pip install -r requirements/common.txt
   - python ituro/manage.py migrate
 script:
-  - python ituro/manage.py test
+  - python ituro/manage.py test ituro
