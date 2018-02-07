@@ -136,11 +136,9 @@ ALL_CATEGORIES = (
     ('line_follower_junior', _('Line Follower Junior')),
     ('micro_sumo', _('Micro Sumo')),
     ('construction', _('Construction')),
-    ('basketball', _('Basketball')),
+    ('drone', _('Drone')),
     ('stair_climbing', _('Stair Climbing')),
-    ('maze', _('Maze')),
     ('color_selecting', _('Color Selecting')),
-    ('self_balancing', _('Self Balancing')),
     ('scenario', _('Scenario')),
     ('innovative', _('Innovative')),
 )

@@ -10,20 +10,17 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from orders.models import *
 from results.models import LineFollowerResult, LineFollowerJuniorResult, \
-    ConstructionResult, BasketballResult, StairClimbingResult, MazeResult, \
-    ColorSelectingResult, SelfBalancingResult, ScenarioResult, \
-    InnovativeJuryResult
+    ConstructionResult, DroneResult, StairClimbingResult, \
+    ColorSelectingResult, ScenarioResult, InnovativeJuryResult
 
 
 RESULTS_DICT = {
     "line_follower": LineFollowerResult,
     "line_follower_junior": LineFollowerJuniorResult,
     "construction": ConstructionResult,
-    "basketball": BasketballResult,
+    "drone": DroneResult,
     "stair_climbing": StairClimbingResult,
-    "maze": MazeResult,
     "color_selecting": ColorSelectingResult,
-    "self_balancing": SelfBalancingResult,
     "scenario": ScenarioResult,
     "innovative": InnovativeJuryResult,
 }
