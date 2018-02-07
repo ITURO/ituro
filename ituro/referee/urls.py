@@ -103,16 +103,16 @@ urlpatterns = patterns(
         ConstructionResultDeleteView.as_view(),
         name='construction_result_delete'),
 
-    # Basketball
-    url(r'^basketball/(?P<pid>\d+)/create/$',
-        BasketballResultCreateView.as_view(),
-        name='basketball_result_create'),
-    url(r'^basketball/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        BasketballResultUpdateView.as_view(),
-        name='basketball_result_update'),
-    url(r'^basketball/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        BasketballResultDeleteView.as_view(),
-        name='basketball_result_delete'),
+    # Drone
+    url(r'^drone/(?P<pid>\d+)/create/$',
+        DroneResultCreateView.as_view(),
+        name='drone_result_create'),
+    url(r'^drone/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+        DroneResultUpdateView.as_view(),
+        name='drone_result_update'),
+    url(r'^drone/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+        DroneResultDeleteView.as_view(),
+        name='drone_result_delete'),
 
     # Stair Climbing
     url(r'^stair_climbing/(?P<pid>\d+)/create/$',
@@ -125,17 +125,6 @@ urlpatterns = patterns(
         StairClimbingResultDeleteView.as_view(),
         name='stair_climbing_result_delete'),
 
-    # Maze
-    url(r'^maze/(?P<pid>\d+)/create/$',
-        MazeResultCreateView.as_view(),
-        name='maze_result_create'),
-    url(r'^maze/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        MazeResultUpdateView.as_view(),
-        name='maze_result_update'),
-    url(r'^maze/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        MazeResultDeleteView.as_view(),
-        name='maze_result_delete'),
-
     # Color Selecting
     url(r'^color_selecting/(?P<pid>\d+)/create/$',
         ColorSelectingResultCreateView.as_view(),
@@ -146,17 +135,6 @@ urlpatterns = patterns(
     url(r'^color_selecting/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
         ColorSelectingResultDeleteView.as_view(),
         name='color_selecting_result_delete'),
-
-    # Self Balancing
-    url(r'^self_balancing/(?P<pid>\d+)/create/$',
-        SelfBalancingResultCreateView.as_view(),
-        name='self_balancing_result_create'),
-    url(r'^self_balancing/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        SelfBalancingResultUpdateView.as_view(),
-        name='self_balancing_result_update'),
-    url(r'^self_balancing/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        SelfBalancingResultDeleteView.as_view(),
-        name='self_balancing_result_delete'),
 
     # Scenario
     url(r'^scenario/(?P<pid>\d+)/create/$',

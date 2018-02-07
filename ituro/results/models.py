@@ -96,35 +96,32 @@ class ConstructionResult(BaseResult):
 
 
 @python_2_unicode_compatible
-class BasketballResult(BaseResult):
+class DroneResult(models.Model):
     project = models.ForeignKey(
-        Project, limit_choices_to={"category": "basketball"})
-    basket1 = models.PositiveSmallIntegerField(verbose_name=_("Basket 1"))
-    basket2 = models.PositiveSmallIntegerField(verbose_name=_("Basket 2"))
-    basket3 = models.PositiveSmallIntegerField(verbose_name=_("Basket 3"))
-    basket4 = models.PositiveSmallIntegerField(
-        verbose_name=_("Moving Basket 1"))
-    basket5 = models.PositiveSmallIntegerField(
-        verbose_name=_("Moving Basket 2"))
+        Project, limit_choices_to={"category": "drone"})
+    score = models.FloatField(verbose_name=_('Score'), blank=True)
+    disqualification = models.BooleanField(
+        verbose_name=_('Disqualification'), default=False)
+    is_best = models.BooleanField(
+        verbose_name=_("Is best result?"), default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    laps = models.FloatField(verbose_name=_("Laps"), default=0)
+    shortcuts = models.PositiveSmallIntegerField(
+        verbose_name=_("Shortcuts"), default=0)
 
     class Meta:
-        verbose_name = _("Basketball Result")
-        verbose_name_plural = _("Basketball Results")
+        verbose_name = _("Drone Result")
+        verbose_name_plural = _("Drone Results")
         ordering = [
-            "disqualification", "-score", "minutes", "seconds", "milliseconds"]
+            "disqualification", "-score"]
 
     def __str__(self):
         return self.project.name
 
 
-@receiver(models.signals.pre_save, sender=BasketballResult)
-def basketball_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum((
-        sum(range(6, 6 - instance.basket1, -1)),
-        sum(range(6, 6 - instance.basket2, -1)),
-        sum(range(6, 6 - instance.basket3, -1)),
-        sum(range(6, 6 - instance.basket4, -1)) * 2,
-        sum(range(6, 6 - instance.basket5, -1)) * 2)) * 10
+@receiver(models.signals.pre_save, sender=DroneResult)
+def drone_result_calculate_score(sender, instance, *args, **kwargs):
+    instance.score = instance.laps * 100 - instance.shortcuts * 50
 
 
 @python_2_unicode_compatible
@@ -176,28 +173,6 @@ def stair_climbing_result_calculate_score(sender, instance, *args, **kwargs):
 
 
 @python_2_unicode_compatible
-class MazeResult(BaseResult):
-    project = models.ForeignKey(
-        Project, limit_choices_to={"category": "maze"})
-
-    class Meta:
-        verbose_name = _("Maze Result")
-        verbose_name_plural = _("Maze Results")
-        ordering = ["disqualification", "score"]
-
-    def __str__(self):
-        return self.project.name
-
-
-@receiver(models.signals.pre_save, sender=MazeResult)
-def maze_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum((
-        instance.minutes * 60,
-        instance.seconds,
-        instance.milliseconds * 0.01))
-
-
-@python_2_unicode_compatible
 class ColorSelectingResult(BaseResult):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "color_selecting"})
@@ -224,38 +199,6 @@ def color_selecting_result_calculate_score(sender, instance, *args, **kwargs):
         instance.obtain * 100,
         instance.place_success * 200,
         instance.place_failure * (-50)))
-
-
-@python_2_unicode_compatible
-class SelfBalancingResult(BaseResult):
-    project = models.ForeignKey(
-        Project, limit_choices_to={"category": "self_balancing"})
-    headway_amount = models.PositiveSmallIntegerField(
-        verbose_name=_("Headway Amount (mm)"), default=0)
-    stage2_minutes = models.PositiveSmallIntegerField(
-        verbose_name=_("Stage2 Minutes"), default=0)
-    stage2_seconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Stage2 Seconds"), default=0)
-    stage2_milliseconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Stage2 Milliseconds"), default=0)
-
-    class Meta:
-        verbose_name = _("Self Balancing Result")
-        verbose_name_plural = _("Self Balancing Results")
-        ordering = [
-            "disqualification", "-score", "minutes",
-            "seconds", "milliseconds", "-headway_amount"]
-
-    def __str__(self):
-        return self.project.name
-
-
-@receiver(models.signals.pre_save, sender=SelfBalancingResult)
-def self_balancing_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum((
-        instance.headway_amount * 0.1,
-        (instance.stage2_minutes * 60 + instance.stage2_seconds +
-         instance.stage2_milliseconds * 0.01) * 3))
 
 
 @python_2_unicode_compatible

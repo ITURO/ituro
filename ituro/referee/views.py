@@ -19,9 +19,9 @@ from orders.models import LineFollowerStage, LineFollowerRaceOrder, \
     LineFollowerJuniorStage, LineFollowerJuniorRaceOrder, RaceOrder
 from referee.forms import QRCodeCheckForm, MicroSumoQRCodeCheckForm
 from results.models import LineFollowerResult, LineFollowerJuniorResult, \
-    ConstructionResult, BasketballResult, StairClimbingResult, MazeResult, \
-    ColorSelectingResult, SelfBalancingResult, ScenarioResult, \
-    InnovativeJuryResult, InnovativeJury, InnovativeTotalResult
+    ConstructionResult, DroneResult, StairClimbingResult, \
+    ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
+    InnovativeJury, InnovativeTotalResult
 
 
 __all__ = [
@@ -43,21 +43,15 @@ __all__ = [
     "ConstructionResultCreateView",
     "ConstructionResultUpdateView",
     "ConstructionResultDeleteView",
-    "BasketballResultCreateView",
-    "BasketballResultUpdateView",
-    "BasketballResultDeleteView",
+    "DroneResultCreateView",
+    "DroneResultUpdateView",
+    "DroneResultDeleteView",
     "StairClimbingResultCreateView",
     "StairClimbingResultUpdateView",
     "StairClimbingResultDeleteView",
-    "MazeResultCreateView",
-    "MazeResultUpdateView",
-    "MazeResultDeleteView",
     "ColorSelectingResultCreateView",
     "ColorSelectingResultUpdateView",
     "ColorSelectingResultDeleteView",
-    "SelfBalancingResultCreateView",
-    "SelfBalancingResultUpdateView",
-    "SelfBalancingResultDeleteView",
     "ScenarioResultCreateView",
     "ScenarioResultUpdateView",
     "ScenarioResultDeleteView",
@@ -635,22 +629,21 @@ class ConstructionResultDeleteView(BaseResultDeleteView):
     category = "construction"
 
 
-class BasketballResultCreateView(BaseResultCreateView):
-    model = BasketballResult
-    category = "basketball"
-    fields = BaseResultCreateView.fields + [
-        "basket1", "basket2", "basket3", "basket4", "basket5"]
+class DroneResultCreateView(BaseResultCreateView):
+    model = DroneResult
+    category = "drone"
+    fields = ["laps", "shortcuts", "disqualification", "is_best"]
 
 
-class BasketballResultUpdateView(BaseResultUpdateView):
-    model = BasketballResult
-    category = "basketball"
-    fields = BasketballResultCreateView.fields
+class DroneResultUpdateView(BaseResultUpdateView):
+    model = DroneResult
+    category = "drone"
+    fields = DroneResultCreateView.fields
 
 
-class BasketballResultDeleteView(BaseResultDeleteView):
-    model = BasketballResult
-    category = "basketball"
+class DroneResultDeleteView(BaseResultDeleteView):
+    model = DroneResult
+    category = "drone"
 
 
 class StairClimbingResultCreateView(BaseResultCreateView):
@@ -673,21 +666,6 @@ class StairClimbingResultDeleteView(BaseResultDeleteView):
     category = "stair_climbing"
 
 
-class MazeResultCreateView(BaseResultCreateView):
-    model = MazeResult
-    category = "maze"
-
-
-class MazeResultUpdateView(BaseResultUpdateView):
-    model = MazeResult
-    category = "maze"
-
-
-class MazeResultDeleteView(BaseResultDeleteView):
-    model = MazeResult
-    category = "maze"
-
-
 class ColorSelectingResultCreateView(BaseResultCreateView):
     model = ColorSelectingResult
     category = "color_selecting"
@@ -704,25 +682,6 @@ class ColorSelectingResultUpdateView(BaseResultUpdateView):
 class ColorSelectingResultDeleteView(BaseResultDeleteView):
     model = ColorSelectingResult
     category = "color_selecting"
-
-
-class SelfBalancingResultCreateView(BaseResultCreateView):
-    model = SelfBalancingResult
-    category = "self_balancing"
-    fields = BaseResultCreateView.fields + [
-        "headway_amount", "stage2_minutes", "stage2_seconds",
-        "stage2_milliseconds"]
-
-
-class SelfBalancingResultUpdateView(BaseResultUpdateView):
-    model = SelfBalancingResult
-    category = "self_balancing"
-    fields = SelfBalancingResultCreateView.fields
-
-
-class SelfBalancingResultDeleteView(BaseResultDeleteView):
-    model = SelfBalancingResult
-    category = "self_balancing"
 
 
 class ScenarioResultCreateView(BaseResultCreateView):

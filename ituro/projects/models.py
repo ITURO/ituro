@@ -43,11 +43,9 @@ class Project(models.Model):
             "line_follower": self.linefollowerresult_set,
             "line_follower_junior": self.linefollowerjuniorresult_set,
             "construction": self.constructionresult_set,
-            "basketball": self.basketballresult_set,
+            "drone": self.droneresult_set,
             "stair_climbing": self.stairclimbingresult_set,
-            "maze": self.mazeresult_set,
             "color_selecting": self.colorselectingresult_set,
-            "self_balancing": self.selfbalancingresult_set,
             "scenario": self.scenarioresult_set,
             "innovative": self.innovativejuryresult_set,
         }
@@ -56,11 +54,10 @@ class Project(models.Model):
     @property
     def qrcode(self):
         return "{}-{}-{}-{}".format(
-                self.manager.id,self.created_at.year,self.category,self.id)
+                self.manager.id, self.created_at.year, self.category, self.id)
 
     def get_results_count(self):
         return self.results.count()
-
 
 
 @receiver(models.signals.pre_delete, sender=Project)
