@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'referee',
     'results',
     'sumo',
+    'simulation'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -141,6 +142,7 @@ ALL_CATEGORIES = (
     ('color_selecting', _('Color Selecting')),
     ('scenario', _('Scenario')),
     ('innovative', _('Innovative')),
+    ('simulation', _('Simulation')),
 )
 
 CREATE_CATEGORIES = tuple(ALL_CATEGORIES)
