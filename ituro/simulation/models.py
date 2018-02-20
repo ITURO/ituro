@@ -59,7 +59,8 @@ class SimulationStageMatchResult(models.Model):
         ordering = ["is_cancelled", "is_caught", "distance"]
 
     def __str__(self):
-        return self.match
+        return "Stage: " + str(self.match.stage.number) + " Order: " + str(self.match.order) + " Raund: " + str(self.match.raund)
+
 
     def calculate_duration(self):
         return 6000*self.minutes + 100*self.seconds + self.milliseconds

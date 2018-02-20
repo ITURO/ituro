@@ -14,6 +14,7 @@ from results.models import LineFollowerResult, LineFollowerJuniorResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
     InnovativeJury, InnovativeTotalResult
 from sumo.models import *
+from simulation.models import SimulationStageMatchResult, SimulationStage
 
 
 RESULTS_DICT = {
@@ -78,6 +79,20 @@ class LineFollowerStageResultListView(ListView):
         return LineFollowerStage.objects.filter(results_available=True)
 
 
+class SimulationStageResultListView(ListView):
+    model = LineFollowerStage
+    template_name = 'results/simulation_stage_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.PROJECT_ORDERS or \
+           not "simulation" in dict(settings.RESULT_CATEGORIES).keys():
+            raise PermissionDenied
+        return super(SimulationStageResultListView, self).dispatch(
+            *args, **kwargs)
+
+    def get_queryset(self):
+        return SimulationStage.objects.all()
+
 class LineFollowerResultListView(ListView):
     model = LineFollowerResult
     template_name = 'results/result_list.html'
@@ -100,6 +115,29 @@ class LineFollowerResultListView(ListView):
     def get_queryset(self):
         return LineFollowerResult.objects.filter(
             stage__order=self.kwargs.get("order"), is_best=True)
+
+
+class SimulationResultListView(ListView):
+    model = SimulationStageMatchResult
+    template_name = 'results/simulation_result_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        number = self.kwargs.get("number")
+        if not SimulationStage.objects.filter(number=number).exists():
+            return PermissionDenied
+        return super(SimulationResultListView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SimulationResultListView, self).get_context_data(
+            **kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["simulation"]
+        context['stage'] = SimulationStage.objects.filter(
+            number=self.kwargs.get("number"))[0]
+        return context
+
+    def get_queryset(self):
+        return SimulationStageMatchResult.objects.filter(
+            match__stage__number=self.kwargs.get("number"), match__raund=1)
 
 
 class LineFollowerJuniorStageResultListView(ListView):
@@ -242,3 +280,4 @@ class InnovativeResultView(ListView):
         context = super(InnovativeResultView, self).get_context_data(**kwargs)
         context['category'] = dict(settings.ALL_CATEGORIES)["innovative"]
         return context
+

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}
+{% if not stage %}
+{{ category }}
+{% else %}
+{% trans "Simulation" %} {{ stage.number|ordinal }} {% trans "Stage" %}
+{% endif %}
+{% trans "Results" %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>
+    {% if not stage %}
+    {{ category }}
+    {% else %}
+    {% trans "Simulation" %} {{ stage.number|ordinal }} {% trans "Stage" %}
+    {% endif %}
+    {% trans "Results" %}
+  </h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>{% trans "Order" %}</td>
+      <td>{% trans "Match" %}</td>
+      <td>{% trans "Winner" %}</td>
+    </tr>
+  </thead>
+  {% for result in object_list %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ result.match.cat.name }} vs {{ result.match.rat.name }}</td>  
+    <td>{{ result.match.won.name }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
