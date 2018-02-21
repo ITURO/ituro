@@ -84,6 +84,23 @@ urlpatterns = patterns(
         LineFollowerJuniorResultDeleteView.as_view(),
         name='line_follower_junior_result_delete'),
 
+    # Simulation
+    url(r'^simulation/$',
+        RefereeSimulationStageListView.as_view(),
+        name='referee_simulation_stage_list_view'),
+    url(r'^simulation/(?P<stage>\d+)/$',
+        SimulationRobotListView.as_view(),
+        name='simulation_robot_list'),
+    url(r'^simulation/(?P<stage>\d+)/create/(?P<order>\d+)/$',
+        SimulationResultCreateView.as_view(),
+        name='simulation_result_create'),
+    url(r'^simulation/(?P<stage>\d+)/update/(?P<order>\d+)/(?P<rid>\d+)/$',
+        SimulationResultUpdateView.as_view(),
+        name='simulation_result_update'),
+    url(r'^simulation/(?P<stage>\d+)/delete/(?P<order>\d+)/(?P<rid>\d+)/$',
+        SimulationResultDeleteView.as_view(),
+        name='simulation_result_delete'),
+
     # Generic Robot List View
     url(r'^(?P<category>[-_\w]+)/$',
         CategoryRobotListView.as_view(),

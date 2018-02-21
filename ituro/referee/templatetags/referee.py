@@ -1,6 +1,7 @@
 from django import template
 from orders.models import LineFollowerStage, LineFollowerJuniorStage
 from results.models import LineFollowerResult, LineFollowerJuniorResult
+from simulation.models import SimulationStageMatchResult
 
 register = template.Library()
 
@@ -17,6 +18,15 @@ def line_follower_result_count(stage_order, project_id):
     return LineFollowerResult.objects.filter(
         stage__order=stage_order, project__id=project_id).count()
 
+@register.inclusion_tag("referee/simulation_actions.html")
+def simulation_actions(match_id):
+    results = SimulationStageMatchResult.objects.filter(match__id=match_id)
+    return {"results": results}
+
+
+@register.simple_tag
+def simulation_result_count(match_id):
+    return SimulationStageMatchResult.objects.filter(match__id=match_id).count()
 
 @register.inclusion_tag("referee/line_follower_junior_actions.html")
 def line_follower_junior_actions(stage_order, project_id):

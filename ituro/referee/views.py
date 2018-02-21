@@ -22,6 +22,9 @@ from results.models import LineFollowerResult, LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
     InnovativeJury, InnovativeTotalResult
+from simulation.models import SimulationStage, SimulationStageMatch, \
+    SimulationStageMatchResult
+from simulation.forms import *
 
 
 __all__ = [
@@ -66,6 +69,11 @@ __all__ = [
     "MicroSumoStageResultUpdateView",
     "MicroSumoGroupQRCodeCheckView",
     "MicroSumoStageQRCodeCheckView",
+    "RefereeSimulationStageListView",
+    "SimulationRobotListView",
+    "SimulationResultCreateView",
+    "SimulationResultUpdateView",
+    "SimulationResultDeleteView",
 ]
 
 
@@ -610,6 +618,145 @@ class CategoryQRCodeCheckView(BaseQRCodeCheckView):
     def get_failure_url(self):
         category = str(self.kwargs.get("category"))
         return reverse("category_robot_list", args=(category,))
+
+
+class SimulationRobotListView(ListView):
+    model = SimulationStageMatch
+    template_name = "referee/simulation_order_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        stage = self.kwargs.get("stage")
+        if not SimulationStage.objects.filter(number=stage).exists():
+            raise Http404
+
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(SimulationRobotListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return SimulationStageMatch.objects.filter(
+            stage__number=self.kwargs.get("stage"))
+
+
+class RefereeSimulationStageListView(ListView):
+    model = SimulationStage
+    template_name = "referee/simulation_stage_list.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(RefereeSimulationStageListView, self).dispatch(
+            *args, **kwargs)
+
+
+class SimulationResultCreateView(CreateView):
+    model = SimulationStageMatchResult
+    fields = ["minutes", "seconds", "milliseconds", "distance",
+        "is_caught", "is_cancelled"]
+    template_name = "referee/simulation_result_create.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(SimulationResultCreateView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SimulationResultCreateView, self).get_context_data(**kwargs)
+        context["match"] = SimulationStageMatch.objects.get(stage__number=self.kwargs.get("stage"), order=self.kwargs.get("order"))
+        return context
+
+    def form_valid(self, form):
+        result = form.save(commit=False)
+        result.match = SimulationStageMatch.objects.get(stage__number=self.kwargs.get("stage"), order=self.kwargs.get("order"))
+        result.save()
+        messages.success(self.request, _("Result entry created."))
+
+        return super(SimulationResultCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("simulation_robot_list", args=[self.kwargs.get("stage")])
+
+
+class SimulationResultUpdateView(UpdateView):
+    model = SimulationStageMatchResult
+    fields = SimulationResultCreateView.fields
+    template_name = "referee/simulation_result_update.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(SimulationResultUpdateView, self).dispatch(*args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        stage = self.kwargs.get("stage")
+        order = self.kwargs.get("order")
+        rid = self.kwargs.get("rid")
+        queryset = queryset.filter(match__stage=stage, match__order=order, id=rid)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def form_valid(self, form):
+        result = form.save(commit=False)
+        result.match = SimulationStageMatch.objects.get(id=self.kwargs.get("order"))
+        result.save()
+        messages.success(self.request, _("Result updated."))
+
+        return super(SimulationResultUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("simulation_robot_list", args=[self.kwargs.get("stage")])
+
+
+class SimulationResultDeleteView(DeleteView):
+    model = SimulationStageMatchResult
+    template_name = "referee/simulation_result_delete.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+
+        return super(SimulationResultDeleteView, self).dispatch(*args, **kwargs)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        stage = self.kwargs.get("stage")
+        order = self.kwargs.get("order")
+        match_id = self.kwargs.get("rid")
+        queryset = queryset.filter(match__stage=stage, match__order=order, id=match_id)
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404
+
+        return obj
+
+    def delete(self, request, *args, **kwargs):
+        messages.info(request, _("Result entry deleted."))
+        return super(
+            SimulationResultDeleteView, self).delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("simulation_robot_list", args=[self.kwargs.get("stage")])
 
 
 class ConstructionResultCreateView(BaseResultCreateView):
