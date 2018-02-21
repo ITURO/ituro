@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+{% load url from future %}
+{% load referee %}
+
+{% block title %}
+{% if not stage %}
+{{ category_display }}
+{% else %}
+{% blocktrans with order=stage.order|ordinal %}Line Follower Junior {{ order }} Stage{% endblocktrans %}
+{% endif %}
+{% trans "Race Orders" %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>
+    {% if not stage %}
+    {{ category_display }}
+    {% else %}
+    {% blocktrans with order=stage.order|ordinal %}Line Follower Junior {{ order }} Stage{% endblocktrans %}
+    {% endif %}
+    {% trans "Race Orders" %}
+  </h1>
+</div>
+
+{% bootstrap_messages %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td class="col-lg-1"><strong>{% trans "Race Order" %}</strong></td>
+      <td class="col-lg-1"><strong>{% trans "Raund" %}</strong></td>
+      <td class="col-lg-4"><strong>{% trans "Cat Robot Name" %}</strong></td>
+      <td class="col-lg-4"><strong>{% trans "Rat Robot Name" %}</strong></td>
+      <td class="col-lg-2"><strong>{% trans "Actions" %}</strong></td>
+      <td class="col-lg-2"><strong>{% trans "Result Count" %}</strong></td>
+    </tr>
+  </thead>
+  {% for match in object_list %}
+  <tr>
+    <td class="col-lg-1">{{ match.order }}</td>
+    <td class="col-lg-1">{{ match.raund }}</td>
+    {% if match.cat.name == None %}
+    <td class="col-lg-4">---</td>
+    {% else %}
+    <td class="col-lg-4">{{ match.cat.name }}</td>
+    {% endif %}
+    {% if match.rat.name == None %}
+    <td class="col-lg-4">---</td>
+    {% else %}
+    <td class="col-lg-4">{{ match.rat.name }}</td>
+    {% endif %}
+    <td class="col-lg-2">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+          <span class="glyphicon glyphicon-wrench"></span> {% trans "Actions" %}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+          {% if match.simulationstagematchresult_set.all.count == 0 %}
+          {% with "simulation_result_create" as create_url %}
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url create_url match.stage.id match.order %}"><span class="glyphicon glyphicon-plus"></span> {% trans "Create Result" %}</a>
+          </li>
+          {% endwith %}
+          {% endif %}
+          {% simulation_actions match.id %}
+        </ul>
+      </div>
+    </td>
+    <td class="col-lg-2">{% simulation_result_count match.id %}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
