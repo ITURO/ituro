@@ -166,6 +166,9 @@ SUMO_GROUP_ORDERS = False
 SUMO_STAGE_ORDERS = False
 SUMO_FINAL_ORDERS= False
 
+SIMULATION_GAME_ENABLED = True
+SIMULATION_GAME_URL = "http://localhost:8001/api/"
+
 # Import local settings
 try:
     from local_settings import *

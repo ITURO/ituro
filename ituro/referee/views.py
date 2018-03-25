@@ -24,7 +24,6 @@ from results.models import LineFollowerResult, LineFollowerJuniorResult, \
     InnovativeJury, InnovativeTotalResult
 from simulation.models import SimulationStage, SimulationStageMatch, \
     SimulationStageMatchResult
-from simulation.forms import *
 
 
 __all__ = [

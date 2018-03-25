@@ -32,7 +32,13 @@
   {% for result in object_list %}
   <tr>
     <td>{{ forloop.counter }}</td>
-    <td>{{ result.match.cat.name }} vs {{ result.match.rat.name }}</td>  
+    {% if not result.match.cat %}
+    <td>--- vs {{ result.match.rat.name }}</td> 
+    {% elif not result.match.rat %}
+    <td>{{ result.match.cat.name }} vs ---</td> 
+    {% else %}
+    <td>{{ result.match.cat.name }} vs {{ result.match.rat.name }}</td> 
+    {% endif %} 
     <td>{{ result.match.won.name }}</td>
   </tr>
   {% endfor %}

@@ -12,7 +12,7 @@ class SimulationStageMatchAdmin(admin.ModelAdmin):
         "cat", "rat", "won", "is_played", "created_at"]
     list_filter = ["stage", "created_at"]
     search_fields = ["cat", "rat"]
-    #readonly_fields = ["won"]
+    readonly_fields = ["won", "cat_password", "rat_password", "system_password"]
 
 
 class SimulationStageMatchResultAdmin(admin.ModelAdmin):
