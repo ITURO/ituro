@@ -33,7 +33,6 @@ def create_orders(stage_number):
         winners = list(Project.objects.filter(id__in=query))
         if len(winners) %2 == 1:
             winners.insert(0, None)
-        print(winners)
         for i in range(len(query)/2):
                 secure_random = random.SystemRandom()
                 cat = secure_random.choice(winners)
@@ -52,11 +51,7 @@ def create_orders(stage_number):
                     raund=2,
                     cat=rat,
                     rat=cat)
-    stage.create_orders = False
-    stage.save()
 
 def remove_orders(stage_number):
     stage = SimulationStage.objects.get(number=stage_number)
     SimulationStageMatch.objects.filter(stage__number=stage_number).delete()
-    stage.remove_orders = False
-    stage.save()

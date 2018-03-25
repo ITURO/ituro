@@ -713,7 +713,7 @@ class SimulationResultUpdateView(UpdateView):
 
     def form_valid(self, form):
         result = form.save(commit=False)
-        result.match = SimulationStageMatch.objects.get(id=self.kwargs.get("order"))
+        result.match = SimulationStageMatch.objects.get(stage=self.kwargs.get("stage"), order=self.kwargs.get("order"))
         result.save()
         messages.success(self.request, _("Result updated."))
 

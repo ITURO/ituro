@@ -7,7 +7,7 @@
 {% if not stage %}
 {{ category_display }}
 {% else %}
-{% blocktrans with order=stage.order|ordinal %}Line Follower Junior {{ order }} Stage{% endblocktrans %}
+{% blocktrans with order=stage.order|ordinal %}Simulation {{ order }} Stage{% endblocktrans %}
 {% endif %}
 {% trans "Race Orders" %} - {% endblock %}
 
@@ -17,7 +17,7 @@
     {% if not stage %}
     {{ category_display }}
     {% else %}
-    {% blocktrans with order=stage.order|ordinal %}Line Follower Junior {{ order }} Stage{% endblocktrans %}
+    {% blocktrans with order=stage.order|ordinal %}Simulation {{ order }} Stage{% endblocktrans %}
     {% endif %}
     {% trans "Race Orders" %}
   </h1>

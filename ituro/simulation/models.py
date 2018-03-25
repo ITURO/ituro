@@ -37,7 +37,6 @@ class SimulationStageMatch(models.Model):
     system_password = models.CharField(max_length=100, verbose_name=_("System Password"), default=str(uuid.uuid4())[:8])    
     rat = models.ForeignKey(Project, verbose_name=_("Rat"), null=True, blank=True, related_name="rat")
     won = models.ForeignKey(Project, verbose_name=_("Winner"), null=True, blank=True, related_name="won")
-    is_played = models.BooleanField(default=False, verbose_name=_("Is played?"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created"))
 
     class Meta:
