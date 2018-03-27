@@ -3,7 +3,7 @@
 {% for result in results %}
 {% with "simulation_result_update" as update_url %}
 <li role="presentation">
-  <a role="menuitem" tabindex="-1" href="{% url update_url result.match.stage.id result.match.order result.id %}"><span class="glyphicon glyphicon-pencil"></span> {% trans "Update Result" %} <i>#{{ result.id }}</i></a>
+  <a role="menuitem" tabindex="-1" href="{% url update_url result.match.stage.number result.match.order result.id %}"><span class="glyphicon glyphicon-pencil"></span> {% trans "Update Result" %} <i>#{{ result.id }}</i></a>
 </li>
 {% endwith %}
 {% endfor %}
@@ -11,7 +11,7 @@
 {% for result in results %}
 {% with "simulation_result_delete" as delete_url %}
 <li role="presentation">
-  <a role="menuitem" tabindex="-1" href="{% url delete_url result.match.stage.id result.match.order result.id %}"><span class="glyphicon glyphicon-minus"></span> {% trans "Delete Result" %} <i>#{{ result.id }}</i></a>
+  <a role="menuitem" tabindex="-1" href="{% url delete_url result.match.stage.number result.match.order result.id %}"><span class="glyphicon glyphicon-minus"></span> {% trans "Delete Result" %} <i>#{{ result.id }}</i></a>
 </li>
 {% endwith %}
 {% endfor %}

@@ -60,7 +60,7 @@
           {% if match.simulationstagematchresult_set.all.count == 0 %}
           {% with "simulation_result_create" as create_url %}
           <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="{% url create_url match.stage.id match.order %}"><span class="glyphicon glyphicon-plus"></span> {% trans "Create Result" %}</a>
+            <a role="menuitem" tabindex="-1" href="{% url create_url match.stage.number match.order %}"><span class="glyphicon glyphicon-plus"></span> {% trans "Create Result" %}</a>
           </li>
           {% endwith %}
           {% endif %}
