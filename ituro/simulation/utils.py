@@ -33,7 +33,7 @@ def create_orders(stage_number):
         winners = list(Project.objects.filter(id__in=query))
         if len(winners) %2 == 1:
             winners.insert(0, None)
-        for i in range(len(query)/2):
+        for i in range(len(winners)/2):
                 secure_random = random.SystemRandom()
                 cat = secure_random.choice(winners)
                 winners.remove(cat)

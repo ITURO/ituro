@@ -1,8 +1,8 @@
-from django.db import models
+from django.db import models, Error
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_save
 from projects.models import Project
 import random
 import requests
@@ -83,7 +83,11 @@ def simulation_stage_match_winner_handler(sender, instance, created, **kwargs):
             matches.update(won=instance.match.cat)
         elif results.filter(is_cancelled=True).count() == 2:
             matches.update(won=None)
-        elif results.filter(is_caught=True).count() == 2:
+        elif results.filter(is_cancelled=True).count() == 1 and results.filter(is_caught=False).count() == 2:
+            matches.update(won=results.get(is_cancelled=False, is_caught=False).match.rat)
+        elif results.filter(is_cancelled=True).count() == 1 and results.filter(is_caught=True).count() == 1:
+            matches.update(won=results.get(is_caught=True).match.cat)
+        elif results.filter(is_caught=True, is_cancelled=False).count() == 2:
             query = results.filter(is_caught=True)
             duration1 = query[0].calculate_duration()
             duration2 = query[1].calculate_duration()
@@ -95,21 +99,25 @@ def simulation_stage_match_winner_handler(sender, instance, created, **kwargs):
                 secure_random = random.SystemRandom()
                 won = secure_random.choice(list(query)).match.cat
                 matches.update(won=won)
-        elif results.filter(is_caught=True).count() == 1:
-            won = results.get(is_caught=True).match.cat
-            matches.update(won=won)
         elif results.filter(is_cancelled=False, is_caught=False).count() == 2:
             query = results.filter(is_cancelled=False, is_caught=False)
             distance1 = query[0].distance
             distance2 = query[1].distance
             if distance1 > distance2:
-                matches.update(won=query[1].match.rat)                
+                matches.update(won=query[1].match.cat)                
             elif distance2 > distance1:
-                matches.update(won=query[0].match.rat)                                
+                matches.update(won=query[0].match.cat)                                
             else:
                 secure_random = random.SystemRandom()
-                won = secure_random.choice(list(query)).match.rat
+                won = secure_random.choice(list(query)).match.cat
                 matches.update(won=won)
+
+@receiver(pre_save, sender=SimulationStage)
+def simulation_stage_checker(sender, instance, *args, **kwargs):
+    ids = SimulationStageMatch.objects.filter(stage__number=instance.number-1).exclude(won=None).values_list("won", flat=True)
+    projects = Project.objects.filter(id__in=ids)
+    if projects.count() == 1:
+        raise Error("Competition is over. Winner is chosen.")
                 
 @receiver(post_save, sender=SimulationStage, dispatch_uid="simulation_stage")
 def simulation_stage_handler(sender, instance, created, **kwargs):
