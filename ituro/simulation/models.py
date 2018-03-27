@@ -77,41 +77,45 @@ def simulation_stage_match_winner_handler(sender, instance, created, **kwargs):
     results = stage_matches.filter(match__cat=instance.match.cat) | stage_matches.filter(match__rat=instance.match.cat)
     matches = SimulationStageMatch.objects.filter(id__in=results.values_list("match__id", flat=True))
     if results.count() == 2:
-        if instance.match.cat is None:
-            matches.update(won=instance.match.rat)
-        elif instance.match.rat is None:
-            matches.update(won=instance.match.cat)
-        elif results.filter(is_cancelled=True).count() == 2:
+        match1 = results[0]
+        match2 = results[1]
+        if match1.is_cancelled and match2.is_cancelled:
             matches.update(won=None)
-        elif results.filter(is_cancelled=True).count() == 1 and results.filter(is_caught=False).count() == 2:
-            matches.update(won=results.get(is_cancelled=False, is_caught=False).match.rat)
-        elif results.filter(is_cancelled=True).count() == 1 and results.filter(is_caught=True).count() == 1:
-            matches.update(won=results.get(is_caught=True).match.cat)
-        elif results.filter(is_caught=True, is_cancelled=False).count() == 2:
-            query = results.filter(is_caught=True)
-            duration1 = query[0].calculate_duration()
-            duration2 = query[1].calculate_duration()
-            if duration1 > duration2:
-                matches.update(won=query[0].match.cat)
-            elif duration2 > duration1:
-                matches.update(won=query[1].match.cat)
+        elif match1.is_cancelled and match2.is_caught:
+            matches.update(won=match2.match.cat)
+        elif match1.is_cancelled and not match2.is_caught:
+            matches.update(won=match2.match.rat)
+        elif match2.is_cancelled and match1.is_caught:
+            matches.update(won=match1.match.cat)
+        elif match2.is_cancelled and not match1.is_caught:
+            matches.update(won=match1.match.rat)
+        elif match1.is_caught and not match2.is_caught:
+            matches.update(won=match1.match.cat)
+        elif not match1.is_caught and match2.is_caught:
+            matches.update(won=match2.match.cat)
+        elif match1.is_caught and match2.is_caught:
+            match1_time = match1.calculate_duration()
+            match2_time = match2.calculate_duration()
+            if match1_time > match2_time:
+                matches.update(won=match1.match.cat)
+            elif match2_time > match1_time:
+                matches.update(won=match2.match.cat)
             else:
                 secure_random = random.SystemRandom()
-                won = secure_random.choice(list(query)).match.cat
+                won = secure_random.choice([match1.match.cat, match2.match.cat])
                 matches.update(won=won)
-        elif results.filter(is_cancelled=False, is_caught=False).count() == 2:
-            query = results.filter(is_cancelled=False, is_caught=False)
-            distance1 = query[0].distance
-            distance2 = query[1].distance
-            if distance1 > distance2:
-                matches.update(won=query[1].match.cat)                
-            elif distance2 > distance1:
-                matches.update(won=query[0].match.cat)                                
+        elif not match1.is_caught and not match2.is_caught:
+            match1_dist = match1.distance
+            match2_dist = match2.distance
+            if match1_dist > match2_dist:
+                matches.update(won=match2.match.cat)
+            elif match2_dist > match1_dist:
+                matches.update(won=match1.match.cat)
             else:
                 secure_random = random.SystemRandom()
-                won = secure_random.choice(list(query)).match.cat
+                won = secure_random.choice([match1.match.cat, match2.match.cat])
                 matches.update(won=won)
-
+        
 @receiver(pre_save, sender=SimulationStage)
 def simulation_stage_checker(sender, instance, *args, **kwargs):
     ids = SimulationStageMatch.objects.filter(stage__number=instance.number-1).exclude(won=None).values_list("won", flat=True)

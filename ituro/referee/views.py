@@ -702,7 +702,7 @@ class SimulationResultUpdateView(UpdateView):
         stage = self.kwargs.get("stage")
         order = self.kwargs.get("order")
         rid = self.kwargs.get("rid")
-        queryset = queryset.filter(match__stage=stage, match__order=order, id=rid)
+        queryset = queryset.filter(match__stage__number=stage, match__order=order, id=rid)
 
         try:
             obj = queryset.get()
@@ -713,7 +713,7 @@ class SimulationResultUpdateView(UpdateView):
 
     def form_valid(self, form):
         result = form.save(commit=False)
-        result.match = SimulationStageMatch.objects.get(stage=self.kwargs.get("stage"), order=self.kwargs.get("order"))
+        result.match = SimulationStageMatch.objects.get(stage__number=self.kwargs.get("stage"), order=self.kwargs.get("order"))
         result.save()
         messages.success(self.request, _("Result updated."))
 
@@ -740,7 +740,7 @@ class SimulationResultDeleteView(DeleteView):
         stage = self.kwargs.get("stage")
         order = self.kwargs.get("order")
         match_id = self.kwargs.get("rid")
-        queryset = queryset.filter(match__stage=stage, match__order=order, id=match_id)
+        queryset = queryset.filter(match__stage_number=stage, match__order=order, id=match_id)
 
         try:
             obj = queryset.get()
