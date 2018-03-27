@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}
+{% if not stage %}
+{{ category }}
+{% else %}
+{% trans "Simulation" %} {{ stage.order|ordinal }} {% trans "Stage" %}
+{% endif %}
+{% trans "Race Orders" %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>
+    {% if not stage %}
+    {{ category }}
+    {% else %}
+    {% trans "Simulation" %} {{ stage.number|ordinal }} {% trans "Stage" %}
+    {% endif %}
+    {% trans "Race Orders" %}
+  </h1>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td class="col-lg-2"><strong>{% trans "Race Order" %}</strong></td>
+      <td class="col-lg-5"><strong>{% trans "Cat Robot Name" %}</strong></td>
+      <td class="col-lg-5"><strong>{% trans "Rat Robot Name" %}</strong></td>    
+    </tr>
+  </thead>
+  {% for order in object_list %}
+
+  <tr>
+    <td class="col-lg-2">{{ order.order }}</td>
+    {% if order.cat == None %}
+    <td class="col-lg-5">---</td>      
+    {% else %}
+    <td class="col-lg-5">{{ order.cat }}</td>
+    {% endif %}
+    {% if order.rat == None %}
+    <td class="col-lg-5">---</td>      
+    {% else %}
+    <td class="col-lg-5">{{ order.rat }}</td>      
+    {% endif %}
+    
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -48,6 +48,7 @@ class Project(models.Model):
             "color_selecting": self.colorselectingresult_set,
             "scenario": self.scenarioresult_set,
             "innovative": self.innovativejuryresult_set,
+            "simulation": self.simulationresult_set,
         }
         return RESULTS_DICT[self.category]
 
@@ -55,6 +56,10 @@ class Project(models.Model):
     def qrcode(self):
         return "{}-{}-{}-{}".format(
                 self.manager.id, self.created_at.year, self.category, self.id)
+
+    @property
+    def organization(self):
+        return "ituro{}".format(self.created_at.year)
 
     def get_results_count(self):
         return self.results.count()

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}{% trans "Simulation Race Orders" %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Simulation Race Orders" %}</h1>
+</div>
+
+{% bootstrap_messages %}
+{% for stage in object_list %}
+<h2>
+  <a href="{% url "simulation_robot_list" stage.number %}">
+    {% trans "Simulation" %}
+    {% trans "Race Orders" %}
+  </a>
+</h2>
+{% endfor %}
+{% endblock %}

@@ -21,6 +21,14 @@ urlpatterns = patterns(
         LineFollowerJuniorResultListView.as_view(),
         name='line_follower_junior_result_list'),
 
+    # Simulation
+    url(r'^simulation/$',
+        SimulationStageResultListView.as_view(),
+        name='simulation_stage_result_list'),
+    url(r'^simulation/(?P<number>\d+)/$',
+        SimulationResultListView.as_view(),
+        name='simulation_result_list'),
+
     # Micro Sumo
     url(r'^micro_sumo/$',
         SumoResultHomeView.as_view(),

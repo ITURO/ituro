@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from orders.models import RaceOrder, LineFollowerStage, LineFollowerRaceOrder, \
     LineFollowerJuniorStage, LineFollowerJuniorRaceOrder
 from sumo.models import *
+from simulation.models import SimulationStage, SimulationStageMatch
 
 
 class LineFollowerStageOrderListView(ListView):
@@ -27,6 +28,21 @@ class LineFollowerStageOrderListView(ListView):
 
     def get_queryset(self):
         return LineFollowerStage.objects.filter(orders_available=True)
+
+
+class SimulationStageOrderListView(ListView):
+    model = SimulationStage
+    template_name = 'orders/simulation_stage_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.PROJECT_ORDERS or \
+           not "simulation" in dict(settings.ORDER_CATEGORIES).keys():
+            raise PermissionDenied
+        return super(SimulationStageOrderListView, self).dispatch(
+            *args, **kwargs)
+
+    def get_queryset(self):
+        return SimulationStage.objects.all()
 
 
 class LineFollowerRaceOrderListView(ListView):
@@ -54,6 +70,30 @@ class LineFollowerRaceOrderListView(ListView):
             stage__order=self.kwargs.get("order"))
 
 
+class SimulationOrderListView(ListView):
+    model = SimulationStageMatch
+    template_name = 'orders/simulation_order_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        number = self.kwargs.get("number")
+        if not SimulationStage.objects.filter(number=number).exists():
+            return PermissionDenied
+        return super(SimulationOrderListView, self).dispatch(
+            *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SimulationOrderListView, self).get_context_data(
+            **kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["simulation"]
+        context['stage'] = SimulationStage.objects.filter(
+            number=self.kwargs.get("number"))[0]
+        return context
+
+    def get_queryset(self):
+        return SimulationStageMatch.objects.filter(
+            stage__number=self.kwargs.get("number"))
+
+
 class LineFollowerJuniorStageOrderListView(ListView):
     model = LineFollowerJuniorStage
     template_name = 'orders/line_follower_junior_stage_list.html'
@@ -62,7 +102,7 @@ class LineFollowerJuniorStageOrderListView(ListView):
         if not settings.PROJECT_ORDERS or \
            not "line_follower_junior" in dict(settings.ORDER_CATEGORIES).keys() or \
            not LineFollowerJuniorStage.objects.filter(orders_available=True).exists():
-            raise PermissionDenied
+            raise PermissionDeniedl
         return super(LineFollowerJuniorStageOrderListView, self).dispatch(
             *args, **kwargs)
 

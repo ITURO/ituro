@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 %}
+
+{% block title %}{% trans "Delete Result" %} {{ object.match }} {% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Delete Result" %} <small>{{ object.match }}</small></h1>
+</div>
+
+{% bootstrap_messages %}
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  <div class="alert alert-info">
+    {% trans "You are about to delete the result entry. Are you sure?" %}
+  </div>
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">
+    {% trans "Delete Result" %}
+  </button>
+  {% endbuttons %}
+</form>
+{% endblock %}
+

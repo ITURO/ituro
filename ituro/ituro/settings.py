@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'referee',
     'results',
     'sumo',
+    'simulation'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -141,6 +142,7 @@ ALL_CATEGORIES = (
     ('color_selecting', _('Color Selecting')),
     ('scenario', _('Scenario')),
     ('innovative', _('Innovative')),
+    ('simulation', _('Simulation')),
 )
 
 CREATE_CATEGORIES = tuple(ALL_CATEGORIES)
@@ -163,6 +165,9 @@ SUMO_FINAL_RESULTS= False
 SUMO_GROUP_ORDERS = False
 SUMO_STAGE_ORDERS = False
 SUMO_FINAL_ORDERS= False
+
+SIMULATION_GAME_ENABLED = False
+SIMULATION_GAME_URL = "http://localhost:8001/api/"
 
 # Import local settings
 try:
