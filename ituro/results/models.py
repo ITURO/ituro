@@ -161,9 +161,10 @@ def stair_climbing_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
         (int(instance.stair1) + int(instance.stair2) +
          int(instance.stair3)) * 10,
-        (int(instance.stair4)) * 40,
-        (int(instance.stair5) + int(instance.stair6) +
-         int(instance.stair7)) * 80,
+         int(instance.stair4) * 40,
+         int(instance.stair5) * 80, 
+         int(instance.stair6) * 40,
+         int(instance.stair7) * 50,
         (int(instance.down6) + int(instance.down5) + int(instance.down4)) * 30,
         (int(instance.down3)) * 50,
         (int(instance.down1) + int(instance.down2)) * 20,
@@ -206,7 +207,7 @@ class ScenarioResult(BaseResult):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "scenario"})
     is_stopped = models.BooleanField(
-        verbose_name=_("Is stopped?"), default=False)
+        verbose_name=_("Is parked wrongly?"), default=False)
     is_parked = models.BooleanField(
         verbose_name=_("Is parked?"), default=False)
     sign_succeed = models.PositiveSmallIntegerField(
@@ -227,8 +228,8 @@ class ScenarioResult(BaseResult):
 @receiver(models.signals.pre_save, sender=ScenarioResult)
 def scenario_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        int(instance.is_stopped) * 30,
-        int(instance.is_parked) * 100,
+        int(instance.is_stopped) * (-20),
+        int(instance.is_parked) * 60,
         instance.sign_succeed * 10,
         instance.sign_failed * (-10)))
 
