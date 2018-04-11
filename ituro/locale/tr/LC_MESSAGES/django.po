@@ -678,8 +678,8 @@ msgid "Color Selecting Results"
 msgstr "Renk Seçen Sonuçları"
 
 #: results/models.py:209
-msgid "Is stopped?"
-msgstr "Durdu mu?"
+msgid "Is parked wrongly?"
+msgstr "Yanlış park etti mi?"
 
 #: results/models.py:211
 msgid "Is parked?"
