@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from sumo.models import SumoStageMatch, SumoGroupTeam, SumoGroup, SumoStage
-from random import shuffle, randint
+import random
 
 
 class Command(BaseCommand):
@@ -41,52 +41,29 @@ class Command(BaseCommand):
                                         stage=stage)
         else:
             previous_stage = SumoStage.objects.get(order=stage_number-1)
-            previous_matches = SumoStageMatch.objects.filter(stage=previous_stage)
-            winners = list()
-            for match in previous_matches:
-                robot1 = match.home
-                robot2 = match.away
-                if robot2:
-                    if match.home_score > match.away_score:
-                        winners.append(robot1)
-                    else:
-                        winners.append(robot2)
+            previous_stage_winners = list()
+            for match in SumoStageMatch.objects.filter(stage=previous_stage):
+                if match.away > match.home:
+                    previous_stage_winners.append(match.away.robot)
                 else:
-                    winners.append(robot1)
-            shuffle(winners)
-            if previous_matches.count() < 4:
-                SumoStage.objects.filter(order=stage_number).delete()
-                raise CommandError("Please generate final group")
-            paired_robots = list()
-            if len(winners) in [5,6,7]:
-                for i in range(len(winners)):
-                    if winners[i] in paired_robots:
-                        continue
-                    elif len(paired_robots) == (len(winners)-4)*2:
-                        break
-                    else:
-                        SumoStageMatch.objects.create(
-                                                home=winners[i],
-                                                away=winners[i+1],
-                                                stage=stage)
-                        paired_robots.append(winners[i])
-                        paired_robots.append(winners[i+1])
-            else:
-                if len(winners) %2 == 1:
-                    lucky_robot = winners.pop(randint(0, len(winners)-1))
-                    match = SumoStageMatch.objects.create(
-                                            home=lucky_robot,
-                                            stage=stage)
-                    match.home_score = 3
-                    match.away_score = 0
-                    match.save()
-                for i in range(len(winners)):
-                    if winners[i] in paired_robots:
-                        continue
-                    else:
-                        SumoStageMatch.objects.create(
-                                                home=winners[i],
-                                                away=winners[i+1],
-                                                stage=stage)
-                        paired_robots.append(winners[i])
-                        paired_robots.append(winners[i+1])
+                    previous_stage_winners.append(match.home.robot)
+            previous_bye = previous_stage.bye_robot
+            if previous_bye:
+                previous_stage_winners.append(previous_bye)
+            stage_participants = previous_stage_winners
+            if len(previous_stage_winners)%2 == 1:
+                bye_list = [x.bye_robot for x in SumoStage.objects.all() if x.bye_robot]
+                can_bye = list(set(previous_stage_winners) - set(bye_list))
+                if len(can_bye) == 0:
+                    can_bye = previous_stage_winners
+                secure_random = random.SystemRandom()
+                current_bye = secure_random.choice(can_bye)
+                stage.bye_robot = current_bye
+                stage.save()
+                stage_participants = previous_stage_winners.remove(current_bye)
+            for i in range(len(stage_participants)/2):
+                SumoStageMatch.objects.create(home=stage_participants[2*i], away=stage_participants[2*i+1], stage=stage)
+            
+
+
+            

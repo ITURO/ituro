@@ -9,32 +9,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         group_robots = list()
-        last_stage_participants = list()
-        previous_stage_winners = list()
-        last_stage = list(SumoStage.objects.all())[-1]
-        final_group = SumoGroup.objects.get(is_final=True)
-        last_stage_matches = SumoStageMatch.objects.filter(stage=last_stage)
-        for match in last_stage_matches:
-            if match.home_score > match.away_score:
-                group_robots.append(match.home)
+        last_stage = SumoStage.objects.all()[-1]
+        for match in SumoStageMatch.objects.filter(stage=last_stage):
+            if match.home > match.away:
+                group_robots.append(match.home.robot)
             else:
-                group_robots.append(match.away)
-            last_stage_participants.append(match.home)
-            last_stage_participants.append(match.away)
-        if len(last_stage_matches) < 4:
-            previous_stage = list(SumoStage.objects.all())[-2]
-            previous_matches = SumoStageMatch.objects.filter(stage=previous_stage)
-            for match in previous_matches:
-                if match.home_score > match.away_score:
-                    previous_stage_winners.append(match.home)
-                else:
-                    previous_stage_winners.append(match.away)
-            for robot in previous_stage_winners:
-
-                if len(group_robots) == 4:
-                    break
-                if not robot in group_robots and not robot in last_stage_participants:
-                    group_robots.append(robot)
+                group_robots.append(match.away.robot)
+        current_bye = last_stage.bye_robot
+        group_robots.append(current_bye)
 
         for robot in group_robots:
             SumoGroupTeam.objects.create(group=final_group, robot=robot)

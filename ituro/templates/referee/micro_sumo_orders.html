@@ -52,9 +52,6 @@
           </li>
           {% elif keyword == "stages" %}
           <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="{% url "micro_sumo_stage_qrcode_check" match.stage.id match.id %}"><span class="glyphicon glyphicon-check"></span>{% trans "Check QRCode" %}</a>
-          </li>
-          <li role="presentation">
             <a role="menuitem" tabindex="-1" href="{% url "micro_sumo_stage_result_update" match.stage.id match.id %}"><span class="glyphicon glyphicon-plus"></span>{% trans "Create Result" %}</a>
           </li>
           {% endif %}

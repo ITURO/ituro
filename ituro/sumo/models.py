@@ -71,6 +71,7 @@ class SumoGroupMatch(SumoMatch):
 @python_2_unicode_compatible
 class SumoStage(models.Model):
     order = models.PositiveSmallIntegerField(verbose_name=_("Order"))
+    bye_robot = models.ForeignKey(Project, related_name="bye_robot", null=True)
 
     class Meta:
         verbose_name = _("Sumo Stage")
