@@ -740,7 +740,7 @@ class SimulationResultDeleteView(DeleteView):
         stage = self.kwargs.get("stage")
         order = self.kwargs.get("order")
         match_id = self.kwargs.get("rid")
-        queryset = queryset.filter(match__stage_number=stage, match__order=order, id=match_id)
+        queryset = queryset.filter(match__stage__number=stage, match__order=order, id=match_id)
 
         try:
             obj = queryset.get()

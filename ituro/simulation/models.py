@@ -73,6 +73,33 @@ class SimulationStageMatchResult(models.Model):
     
 @receiver(post_save, sender=SimulationStageMatchResult, dispatch_uid="simulation_winner")
 def simulation_stage_match_winner_handler(sender, instance, created, **kwargs):
+    if settings.SIMULATION_GAME_ENABLED:
+        headers = {"Authorization": "Token " + settings.SIMULATION_TOKEN}
+        winner = None
+        if instance.match.cat is None and instance.match.rat is not None:
+            organization = instance.match.rat.organization
+            cat_name = "---"
+            rat_name = instance.match.rat.name
+            winner = rat_name
+        elif instance.match.rat is None and instance.match.cat is not None:
+            organization = instance.match.cat.organization
+            cat_name = instance.match.cat.name
+            rat_name = "---"
+            winner = cat_name
+        elif instance.match.rat is not None and instance.match.cat is not None:
+            organization = instance.match.cat.organization
+            cat_name = instance.match.cat.name
+            rat_name = instance.match.rat.name
+            if instance.is_caught:
+                winner = cat_name
+            else:
+                winner = rat_name
+        data = {
+            "winner": winner,
+            "is_played": True
+        }
+        url = settings.SIMULATION_GAME_URL + organization + "/match/" + str(instance.match.pk) + "/"
+        r = requests.patch(url, headers=headers, data=data)
     stage_matches = SimulationStageMatchResult.objects.filter(match__stage=instance.match.stage)
     results = stage_matches.filter(match__cat=instance.match.cat) | stage_matches.filter(match__rat=instance.match.cat)
     matches = SimulationStageMatch.objects.filter(id__in=results.values_list("match__id", flat=True))
@@ -161,7 +188,7 @@ def simulation_match_handler(sender, instance, created, **kwargs):
             url = settings.SIMULATION_GAME_URL + "match/create/"
             r = requests.post(url, headers=headers, data=data)
         else:
-            url = settings.SIMULATION_GAME_URL + instance.cat.organization + "/match/" + str(instance.pk) + "/"
+            url = settings.SIMULATION_GAME_URL + organization + "/match/" + str(instance.pk) + "/"
             r = requests.patch(url, headers=headers, data=data)
 
 @receiver(post_delete, sender=SimulationStageMatch, dispatch_uid="simulation_match")
