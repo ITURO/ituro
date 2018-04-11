@@ -166,7 +166,9 @@ SUMO_GROUP_ORDERS = False
 SUMO_STAGE_ORDERS = False
 SUMO_FINAL_ORDERS= False
 
-
+SIMULATION_TOKEN = "5qwweqweqweqw"
+SIMULATION_GAME_URL = "http://abcdefgh.ituro.org/api/"
+SIMULATION_GAME_ENABLED = False
 # Import local settings
 try:
     from local_settings import *
