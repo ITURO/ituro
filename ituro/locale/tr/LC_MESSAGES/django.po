@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-10 02:28+0000\n"
+"POT-Creation-Date: 2018-02-07 12:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CELALEDDIN HIDAYETOGLU <HIDAYETOGLU@ITU.EDU.TR>\n"
 "Language-Team: TEAM OTOKON <LL@li.org>\n"
@@ -30,35 +30,35 @@ msgstr "İzinler"
 msgid "Important dates"
 msgstr "Önemli tarihler"
 
-#: accounts/models.py:35
+#: accounts/models.py:36
 msgid "email address"
 msgstr "eposta adresi"
 
-#: accounts/models.py:36
+#: accounts/models.py:37
 msgid "full name"
 msgstr "tam isim"
 
-#: accounts/models.py:37
+#: accounts/models.py:38
 msgid "phone"
 msgstr "telefon"
 
-#: accounts/models.py:38
+#: accounts/models.py:39
 msgid "school"
 msgstr "okul"
 
-#: accounts/models.py:39
+#: accounts/models.py:40
 msgid "staff status"
 msgstr "personel durumu"
 
-#: accounts/models.py:40
+#: accounts/models.py:41
 msgid "Designates whether the user can log into this admin site."
 msgstr "Kullanıcının bu admin sitesine giriş yapıp yapamayacağını belirler."
 
-#: accounts/models.py:42
+#: accounts/models.py:43
 msgid "active"
 msgstr "aktif"
 
-#: accounts/models.py:43
+#: accounts/models.py:44
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -66,15 +66,15 @@ msgstr ""
 "Kullanıcının aktif olup olmadığını belirler. Hesapları silmek yerine bunun "
 "seçimini kaldırın."
 
-#: accounts/models.py:45
+#: accounts/models.py:46
 msgid "date joined"
 msgstr "katılım tarihi"
 
-#: accounts/models.py:53
+#: accounts/models.py:54
 msgid "user"
 msgstr "kullanıcı"
 
-#: accounts/models.py:54
+#: accounts/models.py:55
 msgid "users"
 msgstr "kullanıcılar"
 
@@ -82,74 +82,17 @@ msgstr "kullanıcılar"
 msgid "You have logged out successfully."
 msgstr "Başarıyla çıkış yaptınız."
 
-#: accounts/views.py:43
+#: accounts/views.py:47
 msgid "ITURO Registration"
 msgstr "İTÜRO Kayıt"
 
-#: accounts/views.py:49
+#: accounts/views.py:53
 msgid "You have created your user account successfully."
 msgstr "Kullanıcı hesabınızı başarıyla oluşturdunuz."
 
-#: accounts/views.py:68
+#: accounts/views.py:72
 msgid "You have updated your profile successfully."
 msgstr "Profilinizi başarıyla güncellediniz."
-
-#: ituro/local_settings.py:23 ituro/settings.py:135
-#: templates/lcd/line_follower_stage_list.html:15
-#: templates/lcd/result_list.html:12 templates/lcd/result_list.html.py:22
-#: templates/orders/line_follower_stage_list.html:15
-#: templates/orders/race_order_list.html:8
-#: templates/orders/race_order_list.html:18
-#: templates/referee/line_follower_stage_list.html:15
-#: templates/results/line_follower_stage_list.html:15
-#: templates/results/result_list.html:8 templates/results/result_list.html:18
-msgid "Line Follower"
-msgstr "Çizgi İzleyen"
-
-#: ituro/local_settings.py:24 ituro/settings.py:136
-#: templates/orders/sumo_group_detail.html:4
-#: templates/orders/sumo_group_detail.html:9
-#: templates/orders/sumo_group_list.html:15
-#: templates/orders/sumo_stage_detail.html:4
-#: templates/orders/sumo_stage_detail.html:9
-#: templates/orders/sumo_stage_list.html:15
-#: templates/results/sumo_group_detail.html:4
-#: templates/results/sumo_group_detail.html:9
-#: templates/results/sumo_group_list.html:15
-msgid "Micro Sumo"
-msgstr "Mikro Sumo"
-
-#: ituro/local_settings.py:25 ituro/settings.py:137
-msgid "Fire Fighter"
-msgstr "Yangın Söndüren"
-
-#: ituro/local_settings.py:26 ituro/settings.py:138
-msgid "Basketball"
-msgstr "Basketbol"
-
-#: ituro/local_settings.py:27 ituro/settings.py:139
-msgid "Stair Climbing"
-msgstr "Merdiven Çıkan"
-
-#: ituro/local_settings.py:28 ituro/settings.py:140
-msgid "Maze"
-msgstr "Labirent"
-
-#: ituro/local_settings.py:29 ituro/settings.py:141
-msgid "Color Selecting"
-msgstr "Renk Seçen"
-
-#: ituro/local_settings.py:30 ituro/settings.py:142
-msgid "Self Balancing"
-msgstr "Kendini Dengeleyen"
-
-#: ituro/local_settings.py:31 ituro/settings.py:143
-msgid "Scenario"
-msgstr "Senaryo"
-
-#: ituro/local_settings.py:32 ituro/settings.py:144
-msgid "Innovative"
-msgstr "Serbest"
 
 #: ituro/settings.py:93
 msgid "Turkish"
@@ -159,59 +102,151 @@ msgstr "Türkçe"
 msgid "English"
 msgstr "İngilizce"
 
-#: orders/models.py:9
+#: ituro/settings.py:135 templates/lcd/line_follower_stage_list.html:15
+#: templates/lcd/result_list.html:12 templates/lcd/result_list.html.py:22
+#: templates/orders/line_follower_stage_list.html:15
+#: templates/orders/race_order_list.html:8
+#: templates/orders/race_order_list.html:18
+#: templates/referee/line_follower_stage_list.html:15
+#: templates/results/innovative_result.html:8
+#: templates/results/innovative_result.html:18
+#: templates/results/line_follower_stage_list.html:15
+#: templates/results/result_list.html:8 templates/results/result_list.html:18
+msgid "Line Follower"
+msgstr "Çizgi İzleyen"
+
+#: ituro/settings.py:136 templates/lcd/junior_result_list.html:9
+#: templates/lcd/junior_result_list.html:15
+#: templates/lcd/line_follower_junior_stage_list.html:15
+#: templates/orders/junior_race_order_list.html:5
+#: templates/orders/junior_race_order_list.html:11
+#: templates/orders/line_follower_junior_stage_list.html:15
+#: templates/referee/line_follower_junior_stage_list.html:15
+#: templates/results/junior_result_list.html:5
+#: templates/results/junior_result_list.html:11
+#: templates/results/line_follower_junior_stage_list.html:15
+msgid "Line Follower Junior"
+msgstr "Çizgi İzleyen Minikler"
+
+#: ituro/settings.py:137 templates/orders/sumo_group_detail.html:4
+#: templates/orders/sumo_group_detail.html:12
+#: templates/orders/sumo_group_list.html:15
+#: templates/orders/sumo_stage_detail.html:4
+#: templates/orders/sumo_stage_detail.html:9
+#: templates/orders/sumo_stage_list.html:15
+#: templates/results/sumo_group_detail.html:4
+#: templates/results/sumo_group_detail.html:12
+#: templates/results/sumo_group_list.html:15
+#: templates/results/sumo_stage_detail.html:4
+#: templates/results/sumo_stage_detail.html:9
+#: templates/results/sumo_stage_list.html:15
+msgid "Micro Sumo"
+msgstr "Mikro Sumo"
+
+#: ituro/settings.py:138
+msgid "Construction"
+msgstr "İnşaat"
+
+#: ituro/settings.py:139
+msgid "Drone"
+msgstr ""
+
+#: ituro/settings.py:140
+msgid "Stair Climbing"
+msgstr "Merdiven Çıkan"
+
+#: ituro/settings.py:141
+msgid "Color Selecting"
+msgstr "Renk Seçen"
+
+#: ituro/settings.py:142
+msgid "Scenario"
+msgstr "Senaryo"
+
+#: ituro/settings.py:143 results/models.py:255
+msgid "Innovative"
+msgstr "Serbest"
+
+#: orders/models.py:9 orders/models.py:30
 msgid "Stage Order"
 msgstr "Etap Sırası"
 
-#: orders/models.py:11
+#: orders/models.py:11 orders/models.py:32
 msgid "Is current stage?"
 msgstr "Şimdiki etap mı?"
 
-#: orders/models.py:13
+#: orders/models.py:13 orders/models.py:34
 msgid "Is final stage?"
 msgstr "Final etabı mı?"
 
-#: orders/models.py:15
+#: orders/models.py:15 orders/models.py:36
 msgid "Race Orders Availability"
-msgstr "Yarışma Sıraları Uygunluğu"
+msgstr "Yarışma Sıraları Mevcut"
 
-#: orders/models.py:17
+#: orders/models.py:17 orders/models.py:38
 msgid "Race Results Availability"
-msgstr "Yarışma Sonuçları Uygunluğu"
+msgstr "Yarışma Sonuçları Mevcut"
 
-#: orders/models.py:20 orders/models.py:41 results/models.py:40
+#: orders/models.py:20 orders/models.py:62 results/models.py:41
 msgid "Line Follower Stage"
-msgstr "Çizgi İzleyen"
+msgstr "Çizgi İzleyen Etabı"
 
 #: orders/models.py:21 templates/orders/line_follower_stage_list.html:4
 #: templates/orders/line_follower_stage_list.html:8
 msgid "Line Follower Stages"
 msgstr "Çizgi İzleyen Etapları"
 
-#: orders/models.py:30 orders/models.py:55
+#: orders/models.py:41 orders/models.py:74 results/models.py:64
+msgid "Line Follower Junior Stage"
+msgstr "Çizgi İzleyen Minikler Etabı"
+
+#: orders/models.py:42 templates/orders/line_follower_junior_stage_list.html:4
+#: templates/orders/line_follower_junior_stage_list.html:8
+msgid "Line Follower Junior Stages"
+msgstr "Çizgi İzleyen Minikler Etapları"
+
+#: orders/models.py:51 orders/models.py:88
+#: templates/orders/junior_race_order_list.html:19
 #: templates/orders/race_order_list.html:27
+#: templates/referee/line_follower_junior_order_list.html:30
 #: templates/referee/line_follower_order_list.html:30
+#: templates/referee/micro_sumo_orders.html:26
 #: templates/referee/order_list.html:29
 msgid "Race Order"
 msgstr "Yarışma Sırası"
 
-#: orders/models.py:42 orders/models.py:52 projects/models.py:29
-#: projects/models.py:64
+#: orders/models.py:63 orders/models.py:75 orders/models.py:85
+#: projects/models.py:27
 msgid "Project"
 msgstr "Proje"
 
-#: orders/models.py:45
+#: orders/models.py:66
 msgid "Line Follower Race Order"
-msgstr "Çizgi İzleyen"
+msgstr "Çizgi İzleyen Yarışma Sırası"
 
-#: orders/models.py:46 templates/referee/line_follower_stage_list.html:4
+#: orders/models.py:67 templates/referee/line_follower_stage_list.html:4
 #: templates/referee/line_follower_stage_list.html:8
 msgid "Line Follower Race Orders"
 msgstr "Çizgi İzleyen Yarışma Sıraları"
 
-#: orders/models.py:56 templates/orders/line_follower_stage_list.html:21
+#: orders/models.py:78
+msgid "Line Follower Junior Race Order"
+msgstr "Çizgi İzleyen Minikler Yarışma Sırası"
+
+#: orders/models.py:79 templates/referee/line_follower_junior_stage_list.html:4
+#: templates/referee/line_follower_junior_stage_list.html:8
+msgid "Line Follower Junior Race Orders"
+msgstr "Çizgi İzleyen Minikler Yarışma Sıraları"
+
+#: orders/models.py:89 templates/orders/junior_race_order_list.html:6
+#: templates/orders/junior_race_order_list.html:12
+#: templates/orders/line_follower_junior_stage_list.html:21
+#: templates/orders/line_follower_stage_list.html:21
 #: templates/orders/race_order_list.html:10
 #: templates/orders/race_order_list.html:20
+#: templates/referee/line_follower_junior_order_list.html:12
+#: templates/referee/line_follower_junior_order_list.html:22
+#: templates/referee/line_follower_junior_stage_list.html:21
 #: templates/referee/line_follower_order_list.html:12
 #: templates/referee/line_follower_order_list.html:22
 #: templates/referee/line_follower_stage_list.html:21
@@ -219,344 +254,537 @@ msgstr "Çizgi İzleyen Yarışma Sıraları"
 msgid "Race Orders"
 msgstr "Yarışma Sıraları"
 
-#: projects/forms.py:15
+#: projects/forms.py:16
 msgid "I agree terms of service."
 msgstr "Kullanım koşullarını kabul ediyorum."
 
-#: projects/forms.py:28
+#: projects/forms.py:29
 msgid "Presentation file is required for innovative projects."
 msgstr "Serbest Kategori projeleri için sunum dosyası gereklidir."
 
-#: projects/forms.py:32 projects/forms.py:68
+#: projects/forms.py:34 projects/forms.py:74
 msgid "Only PDF files will be accepted."
 msgstr "Sadece PDF dosyaları kabul edilir."
 
-#: projects/forms.py:35 projects/forms.py:71
+#: projects/forms.py:38 projects/forms.py:78
+msgid "Max character number of the filename is 50."
+msgstr "Dosya adı için maksimum karakter sayısı 50'dir."
+
+#: projects/forms.py:41 projects/forms.py:81
 msgid "Max file size is 1MB."
 msgstr "Maksimum dosya boyutu 1MB'tır."
 
-#: projects/forms.py:38
+#: projects/forms.py:44
 msgid "Presentation can only be uploaded for innovative projects."
 msgstr "Sunum dosyası sadece Serbest Kategori projeleri için yüklenebilir."
 
-#: projects/forms.py:60
+#: projects/forms.py:66
 msgid "Project name is being used."
 msgstr "Proje adı kullanımdadır."
 
-#: projects/forms.py:77 projects/models.py:17
+#: projects/forms.py:87 projects/models.py:18
 msgid "Project Name"
-msgstr "İsim"
+msgstr "Proje Adı"
 
-#: projects/forms.py:79
+#: projects/forms.py:89
 msgid "Project Category"
-msgstr "İsim"
+msgstr "Proje Kategorisi"
 
-#: projects/forms.py:81
+#: projects/forms.py:91
 msgid "Project Manager Email"
 msgstr "Proje Yöneticisi E-Posta Adresi"
 
-#: projects/forms.py:91
+#: projects/forms.py:101 referee/views.py:560
 msgid "Project does not exist."
-msgstr "Kullanıcı bulunmamaktadır."
+msgstr "Proje bulunmamaktadır."
 
-#: projects/forms.py:95 projects/forms.py:120
+#: projects/forms.py:105 referee/views.py:556
 msgid "User does not exist."
 msgstr "Kullanıcı bulunmamaktadır."
 
-#: projects/forms.py:100
+#: projects/forms.py:109
+msgid "Project does not belong to user."
+msgstr "Proje kullanıcıya ait değil."
+
+#: projects/forms.py:114
 msgid "Error! Please correct the errors below."
 msgstr "Hata! Lütfen aşağıdaki hataları düzeltin."
 
-#: projects/forms.py:105
-msgid "Error! User is not the manager of the project."
-msgstr "Hata! Kullanıcı proje yöneticisi değil."
-
-#: projects/forms.py:123
-msgid "You cannot add a member twice."
-msgstr "Bir üyeyi iki kere ekleyemezsiniz."
-
-#: projects/models.py:15 templates/projects/project_detail.html:17
+#: projects/models.py:16 templates/projects/project_detail.html:17
 msgid "Category"
 msgstr "Kategori"
 
-#: projects/models.py:19
+#: projects/models.py:20
 msgid "Project Presentation File"
 msgstr "Proje Sunum Dosyası"
 
-#: projects/models.py:22
-msgid "I want to join Autodesk Digital Design Contest."
-msgstr "Autodesk Dijital Tasarım Yarışması'na katılmak istiyorum."
-
-#: projects/models.py:25
+#: projects/models.py:23
 msgid "Is project confirmed?"
-msgstr "Proje geçerli mi?"
+msgstr "Proje onaylı mı?"
 
-#: projects/models.py:30
+#: projects/models.py:28
 msgid "Projects"
 msgstr "Projeler"
 
-#: projects/models.py:63
-msgid "User"
-msgstr "Kullanıcı"
-
-#: projects/models.py:66
-msgid "Is project manager?"
-msgstr "Proje yöneticisi mi?"
+#: projects/views.py:56
+msgid "You can not have more than 1 project in Line Follower categories."
+msgstr "Çizgi İzleyen kategorilerinde birden fazla projeniz bulunamaz."
 
 #: projects/views.py:61
 msgid "You have created a project successfully."
 msgstr "Başarıyla bir proje oluşturdunuz."
 
-#: projects/views.py:82
+#: projects/views.py:81
 msgid "You have updated the project successfully."
 msgstr "Projeyi başarıyla güncellediniz."
 
-#: projects/views.py:101
+#: projects/views.py:102
 msgid "Project deleted."
 msgstr "Proje silindi."
 
-#: projects/views.py:145
+#: projects/views.py:141
 msgid "Project confirmation process completed successfully."
 msgstr "Başarıyla bir proje oluşturdunuz."
 
-#: projects/views.py:150
-msgid "Project will attend to Autodesk Design Contest."
-msgstr "Autodesk Dijital Tasarım Yarışması'na katılmak istiyorum."
+#: referee/forms.py:10
+msgid "User QRCode"
+msgstr "Kullanıcı QR Kodu"
 
-#: projects/views.py:185
-msgid "New member added to project."
-msgstr "Projeye yeni üye eklendi."
+#: referee/forms.py:12
+msgid "Project QRCode"
+msgstr "Proje QR Kodu"
 
-#: projects/views.py:212
-msgid "Member deleted successfully."
-msgstr "Üye başarıyla silindi."
+#: referee/forms.py:18
+msgid "User Qrcode format is wrong."
+msgstr "QR kod formatı yanlış."
 
-#: referee/views.py:83
+#: referee/forms.py:24
+msgid "User Qrcode must contain 2 integer."
+msgstr "Kullanıcı QR kodu iki tamsayı içermeli."
+
+#: referee/forms.py:31
+msgid "Project Qrcode format is wrong."
+msgstr "Proje QR kod formatı yanlış."
+
+#: referee/forms.py:35
+msgid ""
+"There is no category for                                                 "
+"given project qrcode"
+msgstr "Proje QR kodunda kategori bilgisi bulunmamakta."
+
+#: referee/forms.py:41
+#, fuzzy
+#| msgid "Project Qrcode must contain 3 integer"
+msgid ""
+"Project Qrcode must contain 3                                         integer"
+msgstr "Proje QR kodu 3 tamsayı içermeli."
+
+#: referee/forms.py:48
+#, fuzzy
+#| msgid "User QRCode"
+msgid "Home User QRCode"
+msgstr "Kullanıcı QR Kodu"
+
+#: referee/forms.py:50
+#, fuzzy
+#| msgid "Project QRCode"
+msgid "Home Project QRCode"
+msgstr "Proje QR Kodu"
+
+#: referee/forms.py:52
+#, fuzzy
+#| msgid "User QRCode"
+msgid "Away User QRCode"
+msgstr "Kullanıcı QR Kodu"
+
+#: referee/forms.py:54
+#, fuzzy
+#| msgid "Project QRCode"
+msgid "Away Project QRCode"
+msgstr "Proje QR Kodu"
+
+#: referee/forms.py:64
+#, fuzzy
+#| msgid "User Qrcode format is wrong."
+msgid "Home User QRCode format is wrong"
+msgstr "QR kod formatı yanlış."
+
+#: referee/forms.py:66
+#, fuzzy
+#| msgid "User Qrcode format is wrong."
+msgid "Away User QRCode format is wrong"
+msgstr "QR kod formatı yanlış."
+
+#: referee/forms.py:68
+#, fuzzy
+#| msgid "Project Qrcode format is wrong."
+msgid "Home Project QRCode format is wrong"
+msgstr "Proje QR kod formatı yanlış."
+
+#: referee/forms.py:70
+#, fuzzy
+#| msgid "Project Qrcode format is wrong."
+msgid "Away Project QRCode format is wrong"
+msgstr "Proje QR kod formatı yanlış."
+
+#: referee/forms.py:72
+#, fuzzy
+#| msgid "User does not exist."
+msgid "Home User does not exists"
+msgstr "Kullanıcı bulunmamaktadır."
+
+#: referee/forms.py:74
+#, fuzzy
+#| msgid "User does not exist."
+msgid "Away User does not exists"
+msgstr "Kullanıcı bulunmamaktadır."
+
+#: referee/forms.py:76
+#, fuzzy
+#| msgid "Project does not exist."
+msgid "Home Project does not exists"
+msgstr "Proje bulunmamaktadır."
+
+#: referee/forms.py:78
+#, fuzzy
+#| msgid "Project does not exist."
+msgid "Away Project does not exists"
+msgstr "Proje bulunmamaktadır."
+
+#: referee/forms.py:80
+#, fuzzy
+#| msgid "Codes are mismatched"
+msgid "Home years mismatched"
+msgstr "Kodlar eşleşmedi"
+
+#: referee/forms.py:82
+#, fuzzy
+#| msgid "Codes are mismatched"
+msgid "Away years mismatched"
+msgstr "Kodlar eşleşmedi"
+
+#: referee/forms.py:84
+#, fuzzy
+#| msgid "Codes are mismatched"
+msgid "Home users mismatched"
+msgstr "Kodlar eşleşmedi"
+
+#: referee/forms.py:86
+#, fuzzy
+#| msgid "Codes are mismatched"
+msgid "Away users mismatched"
+msgstr "Kodlar eşleşmedi"
+
+#: referee/forms.py:88
+#, fuzzy
+#| msgid "Wrong Category"
+msgid "Home: Wrong Category"
+msgstr "Yanlış Kategori"
+
+#: referee/forms.py:90
+#, fuzzy
+#| msgid "Wrong Category"
+msgid "Away: Wrong Category"
+msgstr "Yanlış Kategori"
+
+#: referee/views.py:100 referee/views.py:756
 msgid "Result entry created."
-msgstr "Sonuç girdisi silindi."
+msgstr "Sonuç girdisi oluşturuldu."
 
-#: referee/views.py:121
-msgid "{} #{} result updated."
-msgstr "{} #{} sonucu güncellendi."
+#: referee/views.py:137 referee/views.py:800 referee/views.py:965
+#: referee/views.py:1010
+msgid "Result updated."
+msgstr "Sonuç güncellendi."
 
-#: referee/views.py:154 referee/views.py:320
+#: referee/views.py:171 referee/views.py:338 referee/views.py:493
+#: referee/views.py:840
 msgid "Result entry deleted."
 msgstr "Sonuç girdisi silindi."
 
-#: referee/views.py:244
+#: referee/views.py:262 referee/views.py:417
 msgid "Result entry generated."
-msgstr "Sonuç girdisi silindi."
+msgstr "Sonuç girdisi oluşturuldu."
 
-#: referee/views.py:283
+#: referee/views.py:301 referee/views.py:456
 msgid "Result entry for {} #{} updated."
 msgstr "{} #{} için sonuç girdisi güncellendi."
 
-#: results/models.py:11 templates/lcd/result_list.html:50
+#: referee/views.py:562
+msgid "Wrong Robot"
+msgstr "Yanlış Robot"
+
+#: referee/views.py:564
+msgid "Wrong Category"
+msgstr "Yanlış Kategori"
+
+#: referee/views.py:567
+msgid "Codes are mismatched"
+msgstr "Kodlar eşleşmedi"
+
+#: referee/views.py:569
+msgid "Codes are matched"
+msgstr "Kodlar eşleşti"
+
+#: referee/views.py:759 referee/views.py:803
+msgid "Juries can give only one score for each project."
+msgstr "Jüriler her bir proje için tek bir puan girebilir."
+
+#: referee/views.py:960 referee/views.py:1005
+msgid "Number of matches must be three."
+msgstr "Maç sayısı toplam üç olmalı."
+
+#: results/models.py:12 results/models.py:281
+#: templates/lcd/junior_result_list.html:42 templates/lcd/result_list.html:50
+#: templates/results/innovative_result.html:29
+#: templates/results/junior_result_list.html:21
 #: templates/results/result_list.html:29
 msgid "Score"
 msgstr "Puan"
 
-#: results/models.py:12
+#: results/models.py:13
 msgid "Minutes"
 msgstr "Dakika"
 
-#: results/models.py:13
+#: results/models.py:14
 msgid "Seconds"
 msgstr "Saniye"
 
-#: results/models.py:15
+#: results/models.py:16
 msgid "Milliseconds"
-msgstr "Salise"
+msgstr "Milisaniye"
 
-#: results/models.py:17
+#: results/models.py:18
 msgid "Disqualification"
 msgstr "Diskalifiye"
 
-#: results/models.py:19
+#: results/models.py:20
 msgid "Is best result?"
 msgstr "En iyi sonuç mu?"
 
-#: results/models.py:42
+#: results/models.py:43 results/models.py:66
 msgid "Runway Out Count"
 msgstr "Dışarı Çıkma Sayısı"
 
-#: results/models.py:45
+#: results/models.py:46
 msgid "Line Follower Result"
 msgstr "Çizgi İzleyen Sonucu"
 
-#: results/models.py:46 templates/lcd/line_follower_stage_list.html:4
+#: results/models.py:47 templates/lcd/line_follower_stage_list.html:4
 #: templates/lcd/line_follower_stage_list.html:8
 #: templates/results/line_follower_stage_list.html:4
 #: templates/results/line_follower_stage_list.html:8
 msgid "Line Follower Results"
 msgstr "Çizgi İzleyen Sonuçları"
 
-#: results/models.py:73
-msgid "Succesful Extinguish Count"
-msgstr "Başarılı Söndürme Sayısı"
+#: results/models.py:69
+msgid "Line Follower Junior Result"
+msgstr "Çizgi İzleyen Minikler Sonucu"
 
-#: results/models.py:75
-msgid "Unsuccessful Extinguish Count"
-msgstr "Başarısız Söndürme Sayısı"
+#: results/models.py:70 templates/lcd/line_follower_junior_stage_list.html:4
+#: templates/lcd/line_follower_junior_stage_list.html:8
+#: templates/results/line_follower_junior_stage_list.html:4
+#: templates/results/line_follower_junior_stage_list.html:8
+msgid "Line Follower Junior Results"
+msgstr "Çizgi İzleyen Minikler Sonuçları"
 
-#: results/models.py:77
-msgid "Wall Hit Count"
-msgstr "Duvara Çarpma Sayısı"
+#: results/models.py:89
+msgid "Construction Result"
+msgstr "İnşaat Sonucu"
 
-#: results/models.py:80
-msgid "Fire Fighter Result"
-msgstr "Yangın Söndüren Sonucu"
+#: results/models.py:90
+msgid "Construction Results"
+msgstr "İnşaat Sonuçları"
 
-#: results/models.py:81
-msgid "Fire Fighter Results"
-msgstr "Yangın Söndüren Sonuçları"
+#: results/models.py:102
+msgid "Laps"
+msgstr ""
 
-#: results/models.py:110
-msgid "Basket 1"
-msgstr "Pota 1"
+#: results/models.py:104
+msgid "Shortcuts"
+msgstr ""
 
-#: results/models.py:111
-msgid "Basket 2"
-msgstr "Pota 2"
+#: results/models.py:107
+#, fuzzy
+#| msgid "Create Result"
+msgid "Drone Result"
+msgstr "Sonuç Ekle"
 
-#: results/models.py:112
-msgid "Basket 3"
-msgstr "Pota 3"
+#: results/models.py:108
+#, fuzzy
+#| msgid "Maze Results"
+msgid "Drone Results"
+msgstr "Labirent Sonuçları"
 
-#: results/models.py:113
-msgid "Basket 4"
-msgstr "Pota 4"
-
-#: results/models.py:115
-msgid "Total Basket"
-msgstr "Toplam Basket Sayısı"
-
-#: results/models.py:118
-msgid "Basketball Result"
-msgstr "Basketbol Sonucu"
-
-#: results/models.py:119
-msgid "Basketball Results"
-msgstr "Basketbol Sonuçları"
-
-#: results/models.py:151
+#: results/models.py:125
 msgid "Stair #1"
-msgstr "Basamak 1"
+msgstr "Basamak #1"
 
-#: results/models.py:152
+#: results/models.py:126
 msgid "Stair #2"
-msgstr "Basamak 2"
+msgstr "Basamak #2"
 
-#: results/models.py:153
+#: results/models.py:127
 msgid "Stair #3"
-msgstr "Basamak 3"
+msgstr "Basamak #3"
 
-#: results/models.py:154
+#: results/models.py:128
 msgid "Stair #4"
-msgstr "Basamak 4"
+msgstr "Basamak #4"
 
-#: results/models.py:156
-msgid "Downstairs Count"
-msgstr "Aşağı İnme Sayısı"
+#: results/models.py:129
+msgid "Stair #5"
+msgstr "Basamak #5"
 
-#: results/models.py:159
+#: results/models.py:130
+msgid "Stair #6"
+msgstr "Basamak #6"
+
+#: results/models.py:131
+msgid "Stair #7"
+msgstr "Basamak #7"
+
+#: results/models.py:132
+msgid "Down #6"
+msgstr "İniş #6"
+
+#: results/models.py:133
+msgid "Down #5"
+msgstr "İniş #5"
+
+#: results/models.py:134
+msgid "Down #4"
+msgstr "İniş #4"
+
+#: results/models.py:135
+msgid "Down #3"
+msgstr "İniş #3"
+
+#: results/models.py:136
+msgid "Down #2"
+msgstr "İniş #2"
+
+#: results/models.py:137
+msgid "Down #1"
+msgstr "İniş #1"
+
+#: results/models.py:139
+msgid "Plexi Touch Count"
+msgstr "Pleksiye Dokunma Sayısı"
+
+#: results/models.py:141
+msgid "Is finish?"
+msgstr "Bitirildi mi?"
+
+#: results/models.py:144
 msgid "Stair Climbing Result"
 msgstr "Merdiven Çıkan Sonucu"
 
-#: results/models.py:160
+#: results/models.py:145
 msgid "Stair Climbing Results"
 msgstr "Merdiven Çıkan Sonuçları"
 
-#: results/models.py:191
-msgid "Maze Result"
-msgstr "Labirent Sonucu"
-
-#: results/models.py:192
-msgid "Maze Results"
-msgstr "Labirent Sonuçları"
-
-#: results/models.py:221
+#: results/models.py:174
 msgid "Cylinder Obtain Count"
 msgstr "Silindir Alma Sayısı"
 
-#: results/models.py:223
+#: results/models.py:176
 msgid "Cylinder Successful Placement Count"
 msgstr "Silindiri Başarılı Bir Şekilde Bırakma Sayısı"
 
-#: results/models.py:225
+#: results/models.py:178
 msgid "Cylinder Unsuccessful Placement Count"
 msgstr "Silindiri Başarısız Bir Şekilde Bırakma Sayısı"
 
-#: results/models.py:227
-msgid "Cylinder Partial Placement Count"
-msgstr "Silindir Kısmi Bırakılma Sayısı"
-
-#: results/models.py:230
+#: results/models.py:181
 msgid "Color Selecting Result"
 msgstr "Renk Seçen Sonucu"
 
-#: results/models.py:231
+#: results/models.py:182
 msgid "Color Selecting Results"
 msgstr "Renk Seçen Sonuçları"
 
-#: results/models.py:262
-msgid "Headway Amount (cm)"
-msgstr "İlerleme Miktarı (cm)"
+#: results/models.py:203
+msgid "Is stopped?"
+msgstr "Durdu mu?"
 
-#: results/models.py:263
-msgid "Impact Test"
-msgstr "Etki Testi"
+#: results/models.py:205
+msgid "Is parked?"
+msgstr "Park etti mi?"
 
-#: results/models.py:265
-msgid "Headway Minutes"
-msgstr "İlerleme Dakika"
+#: results/models.py:207
+msgid "Succeed Signs"
+msgstr "Başarılı Tabelalar"
 
-#: results/models.py:267
-msgid "Headway Seconds"
-msgstr "İlerleme Saniye"
+#: results/models.py:209
+msgid "Failed Signs"
+msgstr "Başarısız Tabelalar"
 
-#: results/models.py:269
-msgid "Headway Milliseconds"
-msgstr "İlerleme Salise"
-
-#: results/models.py:272
-msgid "Self Balancing Result"
-msgstr "Kendini Dengeleyen Sonucu"
-
-#: results/models.py:273
-msgid "Self Balancing Results"
-msgstr "Kendini Dengeleyen Sonuçları"
-
-#: results/models.py:304
+#: results/models.py:212
 msgid "Scenario Result"
 msgstr "Senaryo Sonucu"
 
-#: results/models.py:305
+#: results/models.py:213
 msgid "Scenario Results"
 msgstr "Senaryo Sonuçları"
 
-#: results/models.py:327
+#: results/models.py:235
+msgid "Innovative Jury"
+msgstr "Serbest Jürisi"
+
+#: results/models.py:236
+msgid "Innovative Juries"
+msgstr "Serbest Jürileri"
+
+#: results/models.py:249
+msgid "Jury Score"
+msgstr "Jüri Puanı"
+
+#: results/models.py:252
+msgid "Design"
+msgstr "Tasarım"
+
+#: results/models.py:258
+msgid "Technical"
+msgstr "Teknik"
+
+#: results/models.py:261 templates/projects/project_detail.html:23
+msgid "Presentation"
+msgstr "Sunum"
+
+#: results/models.py:264
+msgid "Opinion"
+msgstr "Görüş"
+
+#: results/models.py:268
 msgid "Innovative Result"
 msgstr "Serbest Sonucu"
 
-#: results/models.py:328
+#: results/models.py:269
 msgid "Innovative Results"
 msgstr "Serbest Sonuçları"
+
+#: results/models.py:284
+msgid "Innovative Total Result"
+msgstr "Serbest Toplam Sonucu"
+
+#: results/models.py:285
+msgid "Innovative Total Results"
+msgstr "Serbest Toplam Sonuçları"
 
 #: sumo/models.py:12
 msgid "Game played?"
 msgstr "Maç oynandı mı?"
 
-#: sumo/models.py:14
+#: sumo/models.py:14 templates/results/sumo_stage_detail.html:22
 msgid "Home Score"
 msgstr "Ev Sahibi Skor"
 
-#: sumo/models.py:16
+#: sumo/models.py:16 templates/results/sumo_stage_detail.html:23
 msgid "Away Score"
 msgstr "Deplasman Skor"
 
 #: sumo/models.py:27 sumo/models.py:44 sumo/models.py:63 sumo/models.py:73
-#: templates/lcd/result_list.html:32
+#: templates/lcd/junior_result_list.html:24 templates/lcd/result_list.html:32
 msgid "Order"
 msgstr "Sıra"
 
@@ -572,11 +800,11 @@ msgstr "Sumo Grupları"
 msgid "Sumo Robot"
 msgstr "Sumo Robotu"
 
-#: sumo/models.py:43 templates/results/sumo_group_detail.html:20
+#: sumo/models.py:43 templates/results/sumo_group_detail.html:25
 msgid "Point"
 msgstr "Puan"
 
-#: sumo/models.py:45 templates/results/sumo_group_detail.html:21
+#: sumo/models.py:45 templates/results/sumo_group_detail.html:26
 msgid "Average"
 msgstr "Averaj"
 
@@ -641,8 +869,8 @@ msgid "An error occured on server."
 msgstr "Sunucuda bir hata meydana geldi."
 
 #: templates/accounts/customuser_form.html:4
-#: templates/accounts/customuser_form.html:7
-#: templates/accounts/register.html:5 templates/accounts/register.html.py:8
+#: templates/accounts/customuser_form.html:7 templates/accounts/register.html:5
+#: templates/accounts/register.html.py:8
 msgid "User Register"
 msgstr "Kullanıcı Kayıt"
 
@@ -711,7 +939,7 @@ msgstr ""
 
 #: templates/accounts/password_reset_done.html:11
 msgid "We have sent you an email. Please check your email address."
-msgstr "Size bir e-posta gönderdik. Lütfen e-posta adresini kontrol et."
+msgstr "Size bir e-posta gönderdik. Lütfen e-posta adresinizi kontrol ediniz."
 
 #: templates/accounts/password_reset_form.html:7
 msgid "Password reset"
@@ -729,9 +957,9 @@ msgstr "Kullanıcı Profili"
 msgid "Change Password"
 msgstr "Parolamı değiştir"
 
-#: templates/base.html:10 templates/lcd/base.html:10
-msgid "ITU Robot Olympics 2015"
-msgstr "İTÜ Robot Olimpiyatları 2015"
+#: templates/base.html:10
+msgid "ITU Robot Olympics 2016"
+msgstr "İTÜ Robot Olimpiyatları 2016"
 
 #: templates/base.html:25
 msgid "tr"
@@ -742,8 +970,12 @@ msgid "ITU Robot Olympics"
 msgstr "İTÜ Robot Olimpiyatları"
 
 #: templates/header.html:20
+msgid "en"
+msgstr "tr"
+
+#: templates/header.html:20
 msgid "Site"
-msgstr ""
+msgstr "Site"
 
 #: templates/header.html:22 templates/projects/project_list.html:4
 #: templates/projects/project_list.html:8
@@ -758,10 +990,21 @@ msgstr "Yeni Proje"
 msgid "Orders"
 msgstr "Sıralar"
 
-#: templates/header.html:40 templates/lcd/line_follower_stage_list.html:21
+#: templates/header.html:40 templates/lcd/junior_result_list.html:10
+#: templates/lcd/junior_result_list.html:16
+#: templates/lcd/line_follower_junior_stage_list.html:21
+#: templates/lcd/line_follower_stage_list.html:21
 #: templates/lcd/result_list.html:14 templates/lcd/result_list.html.py:24
+#: templates/referee/innovative_list.html:23
+#: templates/referee/line_follower_junior_order_list.html:33
 #: templates/referee/line_follower_order_list.html:33
+#: templates/referee/micro_sumo_orders.html:30
 #: templates/referee/order_list.html:32
+#: templates/results/innovative_result.html:10
+#: templates/results/innovative_result.html:20
+#: templates/results/junior_result_list.html:6
+#: templates/results/junior_result_list.html:12
+#: templates/results/line_follower_junior_stage_list.html:21
 #: templates/results/line_follower_stage_list.html:21
 #: templates/results/result_list.html:10 templates/results/result_list.html:20
 msgid "Results"
@@ -775,12 +1018,24 @@ msgstr "English"
 msgid "Logout"
 msgstr "Çıkış"
 
+#: templates/lcd/base.html:10
+msgid "ITU Robot Olympics 2017"
+msgstr "İTÜ Robot Olimpiyatları 2017"
+
 #: templates/lcd/firefighterresult_form.html:4
 #: templates/lcd/firefighterresult_form.html:16
-#: templates/referee/line_follower_order_list.html:49
+#: templates/referee/innovative_create.html:7
+#: templates/referee/innovative_create.html:16
+#: templates/referee/innovative_list.html:38
+#: templates/referee/line_follower_junior_order_list.html:52
+#: templates/referee/line_follower_order_list.html:52
 #: templates/referee/line_follower_result_create.html:4
 #: templates/referee/line_follower_result_create.html:7
 #: templates/referee/line_follower_result_create.html:16
+#: templates/referee/micro_sumo_orders.html:51
+#: templates/referee/micro_sumo_orders.html:58
+#: templates/referee/micro_sumo_result_create.html:7
+#: templates/referee/micro_sumo_result_create.html:16
 #: templates/referee/order_list.html:48 templates/referee/result_create.html:7
 #: templates/referee/result_create.html:16
 #: templates/results/firefighterresult_form.html:4
@@ -796,74 +1051,114 @@ msgstr "Sonuç Ekle"
 msgid "Create Project"
 msgstr "Proje Ekle"
 
+#: templates/lcd/junior_result_list.html:9
+#: templates/lcd/junior_result_list.html:15
+#: templates/lcd/line_follower_junior_stage_list.html:17
 #: templates/lcd/line_follower_stage_list.html:17
 #: templates/lcd/result_list.html:12 templates/lcd/result_list.html.py:22
+#: templates/orders/junior_race_order_list.html:5
+#: templates/orders/junior_race_order_list.html:11
+#: templates/orders/line_follower_junior_stage_list.html:17
 #: templates/orders/line_follower_stage_list.html:17
 #: templates/orders/race_order_list.html:8
 #: templates/orders/race_order_list.html:18
 #: templates/orders/sumo_stage_detail.html:4
 #: templates/orders/sumo_stage_detail.html:9
 #: templates/orders/sumo_stage_list.html:15
+#: templates/referee/line_follower_junior_stage_list.html:17
 #: templates/referee/line_follower_stage_list.html:17
+#: templates/results/innovative_result.html:8
+#: templates/results/innovative_result.html:18
+#: templates/results/junior_result_list.html:5
+#: templates/results/junior_result_list.html:11
+#: templates/results/line_follower_junior_stage_list.html:17
 #: templates/results/line_follower_stage_list.html:17
 #: templates/results/result_list.html:8 templates/results/result_list.html:18
+#: templates/results/sumo_stage_detail.html:4
+#: templates/results/sumo_stage_detail.html:9
+#: templates/results/sumo_stage_list.html:15
 msgid "Stage"
 msgstr "Etap"
 
+#: templates/lcd/junior_result_list.html:25
+#: templates/lcd/junior_result_list.html:41 templates/lcd/result_list.html:33
+#: templates/lcd/result_list.html.py:49
+#: templates/orders/junior_race_order_list.html:20
+#: templates/orders/race_order_list.html:28
+#: templates/referee/innovative_list.html:21
+#: templates/referee/line_follower_junior_order_list.html:31
+#: templates/referee/line_follower_order_list.html:31
+#: templates/referee/order_list.html:30
+#: templates/results/innovative_result.html:28
+#: templates/results/junior_result_list.html:20
+#: templates/results/result_list.html:28
+msgid "Robot Name"
+msgstr "Robot İsmi"
+
+#: templates/lcd/junior_result_list.html:40 templates/lcd/result_list.html:48
+#: templates/results/innovative_result.html:27
+#: templates/results/junior_result_list.html:19
+#: templates/results/result_list.html:27
+msgid "Ranking"
+msgstr "Derece"
+
+#: templates/lcd/line_follower_junior_stage_list.html:19
 #: templates/lcd/line_follower_stage_list.html:19
+#: templates/orders/line_follower_junior_stage_list.html:19
 #: templates/orders/line_follower_stage_list.html:19
+#: templates/referee/line_follower_junior_stage_list.html:19
 #: templates/referee/line_follower_stage_list.html:19
+#: templates/results/line_follower_junior_stage_list.html:19
 #: templates/results/line_follower_stage_list.html:19
 msgid "Final Stage"
 msgstr "Final Etabı"
 
-#: templates/lcd/result_list.html:33 templates/lcd/result_list.html.py:49
-#: templates/orders/race_order_list.html:28
-#: templates/referee/line_follower_order_list.html:31
-#: templates/referee/order_list.html:30 templates/results/result_list.html:28
-msgid "Robot Name"
-msgstr "Robot İsmi"
-
-#: templates/lcd/result_list.html:48 templates/results/result_list.html:27
-msgid "Ranking"
-msgstr "Derece"
-
 #: templates/orders/sumo_group_detail.html:4
-#: templates/orders/sumo_group_detail.html:9
+#: templates/orders/sumo_group_detail.html:12
 #: templates/orders/sumo_group_list.html:15
 #: templates/results/sumo_group_detail.html:4
-#: templates/results/sumo_group_detail.html:9
+#: templates/results/sumo_group_detail.html:12
 #: templates/results/sumo_group_list.html:15
 msgid "Group"
 msgstr "Grup"
 
-#: templates/orders/sumo_group_detail.html:15
+#: templates/orders/sumo_group_detail.html:10
+#: templates/orders/sumo_home.html:29
+#: templates/results/sumo_group_detail.html:10
+#: templates/results/sumo_home.html:29
+msgid "Micro Sumo Final Group"
+msgstr "Mikro Sumo Final Grubu"
+
+#: templates/orders/sumo_group_detail.html:20
 msgid "Group Teams"
 msgstr "Grup Takımları"
 
-#: templates/orders/sumo_group_detail.html:19
+#: templates/orders/sumo_group_detail.html:24
 #: templates/orders/sumo_stage_detail.html:19
+#: templates/results/sumo_stage_detail.html:19
 msgid "#"
 msgstr ""
 
-#: templates/orders/sumo_group_detail.html:20
-#: templates/results/sumo_group_detail.html:19
+#: templates/orders/sumo_group_detail.html:25
+#: templates/results/sumo_group_detail.html:24
 msgid "Robot"
 msgstr "Robot"
 
-#: templates/orders/sumo_group_detail.html:32
+#: templates/orders/sumo_group_detail.html:37
 msgid "Group Matches"
 msgstr "Grup Maçları"
 
-#: templates/orders/sumo_group_detail.html:36
+#: templates/orders/sumo_group_detail.html:41
 #: templates/orders/sumo_stage_detail.html:20
-#: templates/results/sumo_group_detail.html:38
+#: templates/referee/micro_sumo_orders.html:27
+#: templates/results/sumo_stage_detail.html:20
 msgid "Home"
 msgstr "Ev Sahibi"
 
-#: templates/orders/sumo_group_detail.html:37
+#: templates/orders/sumo_group_detail.html:42
 #: templates/orders/sumo_stage_detail.html:21
-#: templates/results/sumo_group_detail.html:40
+#: templates/referee/micro_sumo_orders.html:28
+#: templates/results/sumo_stage_detail.html:21
 msgid "Away"
 msgstr "Deplasman"
 
@@ -876,19 +1171,20 @@ msgstr "Mikro Sumo Grup Sıraları"
 msgid "Micro Sumo Orders"
 msgstr "Mikro Sumo Sıraları"
 
-#: templates/orders/sumo_home.html:15 templates/results/sumo_home.html:15
+#: templates/orders/sumo_home.html:15
+#: templates/referee/micro_sumo_type_list.html:7
+#: templates/results/sumo_home.html:15
 msgid "Micro Sumo Groups"
 msgstr "Mikro Sumo Grupları"
 
-#: templates/orders/sumo_home.html:22 templates/results/sumo_home.html:22
+#: templates/orders/sumo_home.html:22
+#: templates/referee/micro_sumo_type_list.html:11
+#: templates/results/sumo_home.html:22
 msgid "Micro Sumo Stages"
 msgstr "Mikro Sumo Etaplar"
 
-#: templates/orders/sumo_home.html:29 templates/results/sumo_home.html:29
-msgid "Micro Sumo Final Group"
-msgstr "Mikro Sumo Final Grubu"
-
 #: templates/orders/sumo_stage_detail.html:15
+#: templates/results/sumo_stage_detail.html:15
 msgid "Stage Matches"
 msgstr "Sumo Tur Maçları"
 
@@ -897,43 +1193,24 @@ msgstr "Sumo Tur Maçları"
 msgid "Micro Sumo Stage Orders"
 msgstr "Mikro Sumo Etap Sıraları"
 
-#: templates/projects/member_create.html:4
-#: templates/projects/member_create.html:7
-#: templates/projects/member_create.html:16
-msgid "Add Member"
-msgstr "Üye Ekle"
-
-#: templates/projects/member_delete.html:4
-#: templates/projects/member_delete.html:7
-msgid "Delete User"
-msgstr "Üye Sil"
-
-#: templates/projects/member_delete.html:14
-#, python-format
-msgid "You are about to remove %(member)s from %(project)s. Are you sure?"
-msgstr ""
-"%(project)s adlı projeden %(member)s kullanıcısını sileceksiniz. Emin "
-"misiniz?"
-
-#: templates/projects/member_delete.html:18
-#: templates/projects/project_confirm.html:16
-#: templates/projects/project_confirm_delete.html:18
-msgid "Confirm"
-msgstr "Onayla"
-
 #: templates/projects/project_confirm.html:4
 msgid "Project Confirmation"
 msgstr "Proje Onay"
 
 #: templates/projects/project_confirm.html:7
 msgid "Confirm Project"
-msgstr "Proje Ekle"
+msgstr "Projeyi Onayla"
+
+#: templates/projects/project_confirm.html:16
+#: templates/projects/project_confirm_delete.html:18
+msgid "Confirm"
+msgstr "Onayla"
 
 #: templates/projects/project_confirm_delete.html:4
 #: templates/projects/project_confirm_delete.html:7
-#: templates/projects/project_detail.html:49
+#: templates/projects/project_detail.html:34
 msgid "Delete Project"
-msgstr "Proje Sil"
+msgstr "Projeyi Sil"
 
 #: templates/projects/project_confirm_delete.html:14
 #, python-format
@@ -949,28 +1226,12 @@ msgstr "Proje Detayı"
 msgid "Name"
 msgstr "İsim"
 
-#: templates/projects/project_detail.html:23
-msgid "Presentation"
-msgstr "Sunum"
-
-#: templates/projects/project_detail.html:29
-msgid "Project Team"
-msgstr "Proje Takımı"
-
-#: templates/projects/project_detail.html:35
-msgid "delete"
-msgstr "sil"
-
-#: templates/projects/project_detail.html:46
+#: templates/projects/project_detail.html:31
 #: templates/projects/project_update.html:4
 #: templates/projects/project_update.html:7
 #: templates/projects/project_update.html:20
 msgid "Update Project"
 msgstr "Projeyi Güncelle"
-
-#: templates/projects/project_detail.html:52
-msgid "New Member"
-msgstr "Yeni Üye"
 
 #: templates/projects/project_list.html:18
 msgid "see project detail"
@@ -984,29 +1245,99 @@ msgstr "Dahil olduğunuz bir proje yok."
 msgid "Create a new project."
 msgstr "Yeni bir proje ekleyin."
 
+#: templates/projects/qrcode_detail.html:4
+msgid "Project QrCode"
+msgstr "Proje QR Kodu"
+
+#: templates/projects/qrcode_detail.html:21
+msgid "Back"
+msgstr "Geri"
+
 #: templates/referee/home.html:4 templates/referee/home.html.py:8
 msgid "Referee Dashboard"
 msgstr "Hakem Yönetim Sayfası"
 
+#: templates/referee/innovative_create.html:4
+#: templates/referee/micro_sumo_result_create.html:4
+#: templates/referee/result_create.html:4
+msgid "Update"
+msgstr "Güncelle"
+
+#: templates/referee/innovative_delete.html:4
+#: templates/referee/innovative_delete.html:7
+#: templates/referee/innovative_delete.html:18
+#: templates/referee/innovative_list.html:53
+#: templates/referee/line_follower_actions.html:14
+#: templates/referee/line_follower_junior_actions.html:14
+#: templates/referee/line_follower_result_delete.html:4
+#: templates/referee/line_follower_result_delete.html:7
+#: templates/referee/line_follower_result_delete.html:18
+#: templates/referee/micro_sumo_result_delete.html:4
+#: templates/referee/micro_sumo_result_delete.html:7
+#: templates/referee/micro_sumo_result_delete.html:18
+#: templates/referee/order_list.html:63 templates/referee/result_delete.html:4
+#: templates/referee/result_delete.html:7
+#: templates/referee/result_delete.html:18
+msgid "Delete Result"
+msgstr "Sonuç Sil"
+
+#: templates/referee/innovative_delete.html:14
+#: templates/referee/line_follower_result_delete.html:14
+#: templates/referee/micro_sumo_result_delete.html:14
+#: templates/referee/result_delete.html:14
+msgid "You are about to delete the result entry. Are you sure?"
+msgstr "Sonuç girdisini silmek üzeresiniz. Emin misiniz?"
+
+#: templates/referee/innovative_list.html:7
+#: templates/referee/innovative_list.html:13
+msgid "List"
+msgstr ""
+
+#: templates/referee/innovative_list.html:22
+#: templates/referee/line_follower_junior_order_list.html:32
+#: templates/referee/line_follower_order_list.html:32
+#: templates/referee/micro_sumo_orders.html:29
+#: templates/referee/order_list.html:31
+msgid "Referee"
+msgstr "Hakem"
+
+#: templates/referee/innovative_list.html:32
+#: templates/referee/line_follower_junior_order_list.html:43
+#: templates/referee/line_follower_order_list.html:43
+#: templates/referee/micro_sumo_orders.html:45
+#: templates/referee/order_list.html:42
+msgid "Actions"
+msgstr "Eylemler"
+
+#: templates/referee/innovative_list.html:45
+#: templates/referee/innovative_update.html:4
+#: templates/referee/innovative_update.html:7
+#: templates/referee/innovative_update.html:16
 #: templates/referee/line_follower_actions.html:6
+#: templates/referee/line_follower_junior_actions.html:6
 #: templates/referee/line_follower_result_update.html:4
 #: templates/referee/line_follower_result_update.html:7
 #: templates/referee/line_follower_result_update.html:16
+#: templates/referee/micro_sumo_result_update.html:4
+#: templates/referee/micro_sumo_result_update.html:7
+#: templates/referee/micro_sumo_result_update.html:16
 #: templates/referee/order_list.html:55 templates/referee/result_update.html:4
 #: templates/referee/result_update.html:7
 #: templates/referee/result_update.html:16
 msgid "Update Result"
 msgstr "Sonuç Güncelle"
 
-#: templates/referee/line_follower_actions.html:14
-#: templates/referee/line_follower_result_delete.html:4
-#: templates/referee/line_follower_result_delete.html:7
-#: templates/referee/line_follower_result_delete.html:18
-#: templates/referee/order_list.html:63 templates/referee/result_delete.html:4
-#: templates/referee/result_delete.html:7
-#: templates/referee/result_delete.html:18
-msgid "Delete Result"
-msgstr "Sonuç Sil"
+#: templates/referee/line_follower_junior_order_list.html:10
+#: templates/referee/line_follower_junior_order_list.html:20
+#, python-format
+msgid "Line Follower Junior %(order)s Stage"
+msgstr "Çizgi İzleyen Minikler %(order)s Etap"
+
+#: templates/referee/line_follower_junior_order_list.html:48
+#: templates/referee/line_follower_order_list.html:48
+#: templates/referee/micro_sumo_orders.html:55
+msgid "Check QRCode"
+msgstr "QR Kod'u Kontrol Et"
 
 #: templates/referee/line_follower_order_list.html:10
 #: templates/referee/line_follower_order_list.html:20
@@ -1015,32 +1346,38 @@ msgstr "Sonuç Sil"
 msgid "Line Follower %(order)s Stage"
 msgstr "Çizgi İzleyen %(order)s Etap"
 
-#: templates/referee/line_follower_order_list.html:32
-#: templates/referee/order_list.html:31
-msgid "Referee"
-msgstr "Hakem"
+#: templates/referee/micro_sumo_base.html:6
+#, fuzzy
+#| msgid "Referee Dashboard"
+msgid "Micro Sumo Referee Dashboard"
+msgstr "Hakem Yönetim Sayfası"
 
-#: templates/referee/line_follower_order_list.html:43
-#: templates/referee/order_list.html:42
-msgid "Actions"
-msgstr "Eylemler"
+#: templates/referee/micro_sumo_orders.html:9
+msgid "Final Group Exhibitions"
+msgstr "Final Grubu Sıraları"
 
-#: templates/referee/line_follower_result_delete.html:14
-#: templates/referee/result_delete.html:14
-msgid "You are about to delete the result entry. Are you sure?"
-msgstr "Sonuç girdisini silmek üzeresiniz. Emin misiniz?"
+#: templates/referee/micro_sumo_orders.html:13
+#: templates/referee/micro_sumo_orders.html:18
+msgid "Exhibitions"
+msgstr "Sıralar"
 
-#: templates/referee/result_create.html:4
-msgid "Update"
-msgstr "Güncelle"
+#: templates/referee/micro_sumo_type_list.html:22
+#, fuzzy
+#| msgid "Micro Sumo Final Group"
+msgid "Final Group"
+msgstr "Mikro Sumo Final Grubu"
 
-#: templates/results/sumo_group_detail.html:18
+#: templates/referee/qrcode_check.html:4 templates/referee/qrcode_check.html:7
+msgid "QRCode Check"
+msgstr "QR Kod Kontrol"
+
+#: templates/referee/qrcode_check.html:16
+msgid "Check"
+msgstr "Kontrol et"
+
+#: templates/results/sumo_group_detail.html:23
 msgid "Rank"
 msgstr "Derece"
-
-#: templates/results/sumo_group_detail.html:39
-msgid "Result"
-msgstr "Sonuç"
 
 #: templates/results/sumo_group_list.html:4
 #: templates/results/sumo_group_list.html:8
@@ -1050,6 +1387,143 @@ msgstr "Mikro Sumo Grup Sonuçları"
 #: templates/results/sumo_home.html:4 templates/results/sumo_home.html.py:8
 msgid "Micro Sumo Results"
 msgstr "Mikro Sumo Sonuçlar"
+
+#: templates/results/sumo_stage_list.html:4
+#: templates/results/sumo_stage_list.html:8
+#, fuzzy
+#| msgid "Micro Sumo Results"
+msgid "Micro Sumo Stage Results"
+msgstr "Mikro Sumo Sonuçlar"
+
+#~ msgid "Basketball"
+#~ msgstr "Basketbol"
+
+#~ msgid "Maze"
+#~ msgstr "Labirent"
+
+#~ msgid "Self Balancing"
+#~ msgstr "Kendini Dengeleyen"
+
+#~ msgid "Basket 1"
+#~ msgstr "Pota 1"
+
+#~ msgid "Basket 2"
+#~ msgstr "Pota 2"
+
+#~ msgid "Basket 3"
+#~ msgstr "Pota 3"
+
+#~ msgid "Moving Basket 1"
+#~ msgstr "Hareketli Pota 1"
+
+#~ msgid "Moving Basket 2"
+#~ msgstr "Hareketli Pota 2"
+
+#~ msgid "Basketball Result"
+#~ msgstr "Basketbol Sonucu"
+
+#~ msgid "Basketball Results"
+#~ msgstr "Basketbol Sonuçları"
+
+#~ msgid "Maze Result"
+#~ msgstr "Labirent Sonucu"
+
+#~ msgid "Headway Amount (mm)"
+#~ msgstr "İlerleme Miktarı (mm)"
+
+#~ msgid "Stage2 Minutes"
+#~ msgstr "2. Aşama Dakika"
+
+#~ msgid "Stage2 Seconds"
+#~ msgstr "2. Aşama Saniye"
+
+#~ msgid "Stage2 Milliseconds"
+#~ msgstr "2. Aşama Milisaniye"
+
+#~ msgid "Self Balancing Result"
+#~ msgstr "Kendini Dengeleyen Sonucu"
+
+#~ msgid "Self Balancing Results"
+#~ msgstr "Kendini Dengeleyen Sonuçları"
+
+#~ msgid "Basket 4"
+#~ msgstr "Pota 4"
+
+#~ msgid "Basket 5"
+#~ msgstr "Pota 5"
+
+#~ msgid "Digital Design"
+#~ msgstr "Dijital Tasarım"
+
+#~ msgid "Result"
+#~ msgstr "Sonuç"
+
+#~ msgid "Total Basket"
+#~ msgstr "Toplam Basket Sayısı"
+
+#~ msgid "Downstairs Count"
+#~ msgstr "Aşağı İnme Sayısı"
+
+#~ msgid "Cylinder Partial Placement Count"
+#~ msgstr "Silindir Kısmi Bırakılma Sayısı"
+
+#~ msgid "Impact Test"
+#~ msgstr "Etki Testi"
+
+#~ msgid "Headway Minutes"
+#~ msgstr "İlerleme Dakika"
+
+#~ msgid "Headway Seconds"
+#~ msgstr "İlerleme Saniye"
+
+#~ msgid "Headway Milliseconds"
+#~ msgstr "İlerleme Milisaniye"
+
+#, fuzzy
+#~| msgid "User"
+#~ msgid "User Name"
+#~ msgstr "Kullanıcı"
+
+#~ msgid "Error! User is not the manager of the project."
+#~ msgstr "Hata! Kullanıcı proje yöneticisi değil."
+
+#~ msgid "You cannot add a member twice."
+#~ msgstr "Bir üyeyi iki kere ekleyemezsiniz."
+
+#~ msgid "I want to join Autodesk Digital Design Contest."
+#~ msgstr "Autodesk Dijital Tasarım Yarışması'na katılmak istiyorum."
+
+#~ msgid "Is project manager?"
+#~ msgstr "Proje yöneticisi mi?"
+
+#~ msgid "Project will attend to Autodesk Design Contest."
+#~ msgstr "Autodesk Dijital Tasarım Yarışması'na katılmak istiyorum."
+
+#~ msgid "New member added to project."
+#~ msgstr "Projeye yeni üye eklendi."
+
+#~ msgid "Member deleted successfully."
+#~ msgstr "Üye başarıyla silindi."
+
+#~ msgid "Add Member"
+#~ msgstr "Üye Ekle"
+
+#~ msgid "Delete User"
+#~ msgstr "Üye Sil"
+
+#~ msgid "You are about to remove %(member)s from %(project)s. Are you sure?"
+#~ msgstr ""
+#~ "%(project)s adlı projeden %(member)s kullanıcısını sileceksiniz. Emin "
+#~ "misiniz?"
+
+#~ msgid "Project Team"
+#~ msgstr "Proje Takımı"
+
+#~ msgid "delete"
+#~ msgstr "sil"
+
+#~ msgid "New Member"
+#~ msgstr "Yeni Üye"
 
 #~ msgid "Result entry for {} robot created."
 #~ msgstr "{} robotu için sonuç girdisi oluşturuldu."

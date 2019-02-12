@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
         if not category in dict(settings.ALL_CATEGORIES).keys():
             raise CommandError('Category %s does not exist.' % category)
-        elif category in ('line_follower', 'micro_sumo'):
+        elif category in ('line_follower', 'line_follower_junior', 'micro_sumo'):
             raise CommandError('...')
 
         RaceOrder.objects.filter(project__category=category).delete()

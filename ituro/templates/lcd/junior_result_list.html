@@ -1,0 +1,55 @@
+{% extends "lcd/base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block extrahead %}
+<meta http-equiv="refresh" content="15;">
+{% endblock %}
+
+{% block title %}
+{% trans "Line Follower Junior" %} - {{ stage.order|ordinal }} {% trans "Stage" %}
+{% trans "Results" %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="text-center">
+    {% trans "Line Follower Junior" %} {{ stage.order|ordinal }} {% trans "Stage" %}
+    {% trans "Results" %}
+  </h1>
+</div>
+<div class="row">
+<div class="col-lg-6">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td><h4><strong>{% trans "Order" %}</strong></h4></td>
+        <td><h4><strong>{% trans "Robot Name" %}</strong></h4></td>
+      </tr>
+    </thead>
+    {% for order in orders %}
+    <tr>
+      <td><h4>{{ order.order }}</h4></td>
+      <td><h4>{{ order.project.name }}</h4></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+<div class="col-lg-6">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td><h4><strong>{% trans "Ranking" %}</strong></h4></td>
+        <td><h4><strong>{% trans "Robot Name" %}</strong></h4></td>
+        <td><h4><strong>{% trans "Score" %}</strong></h4></td>
+      </tr>
+    </thead>
+    {% for result in results %}
+    <tr>
+      <td><h4>{{ forloop.counter }}</h4></td>
+      <td><h4>{{ result.project }}</h4></td>
+      <td><h4>{{ result.score }}</h4></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+</div>
+{% endblock %}

@@ -133,13 +133,12 @@ CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_null',)
 
 ALL_CATEGORIES = (
     ('line_follower', _('Line Follower')),
+    ('line_follower_junior', _('Line Follower Junior')),
     ('micro_sumo', _('Micro Sumo')),
-    ('fire_fighter', _('Fire Fighter')),
-    ('basketball', _('Basketball')),
+    ('construction', _('Construction')),
+    ('drone', _('Drone')),
     ('stair_climbing', _('Stair Climbing')),
-    ('maze', _('Maze')),
     ('color_selecting', _('Color Selecting')),
-    ('self_balancing', _('Self Balancing')),
     ('scenario', _('Scenario')),
     ('innovative', _('Innovative')),
 )

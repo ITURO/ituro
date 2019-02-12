@@ -7,6 +7,43 @@ urlpatterns = patterns(
     # Referee Home View
     url(r'^$', RefereeHomeView.as_view(), name="referee_home"),
 
+    #Micro Sumo
+    url(r'^micro_sumo/$',
+        MicroSumoRefereeBaseListView.as_view(),
+        name="micro_sumo_base_referee"),
+    url(r'^micro_sumo/(?P<type>[\w-]+)/$',
+        MicroSumoTypeRefereeListView.as_view(),
+        name="micro_sumo_type_list"),
+    url(r'^micro_sumo/(?P<type>[\w-]+)/(?P<order>\d+)/$',
+        MicroSumoOrdersRefereeListView.as_view(),
+        name="micro_sumo_orders"),
+    url(r'^micro_sumo/groups/(?P<order>\d+)/(?P<pid>\d+)/update/$',
+        MicroSumoGroupResultUpdateView.as_view(),
+        name="micro_sumo_group_result_update"),
+    url(r'^micro_sumo/stages/(?P<order>\d+)/(?P<pid>\d+)/update/$',
+        MicroSumoStageResultUpdateView.as_view(),
+        name="micro_sumo_stage_result_update"),
+    url(r'^micro_sumo/groups/(?P<order>\d+)/(?P<pid>\d+)/$',
+        MicroSumoGroupQRCodeCheckView.as_view(),
+        name="micro_sumo_group_qrcode_check"),
+    url(r'^micro_sumo/stages/(?P<order>\d+)/(?P<pid>\d+)/$',
+        MicroSumoStageQRCodeCheckView.as_view(),
+        name="micro_sumo_stage_qrcode_check"),
+
+    # Innovative
+    url(r'^innovative/$',
+        InnovativeResultListView.as_view(),
+        name='innovative_referee'),
+    url(r'^innovative/(?P<pid>\d+)/create/$',
+        InnovativeResultCreateView.as_view(),
+        name='innovative_result_create'),
+    url(r'^innovative/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+        InnovativeResultUpdateView.as_view(),
+        name='innovative_result_update'),
+    url(r'^innovative/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+        InnovativeResultDeleteView.as_view(),
+        name='innovative_result_delete'),
+
     # Line Follower
     url(r'^line_follower/$',
         RefereeLineFollowerStageListView.as_view(),
@@ -27,6 +64,26 @@ urlpatterns = patterns(
         LineFollowerResultDeleteView.as_view(),
         name='line_follower_result_delete'),
 
+    # Line Follower Junior
+    url(r'^line_follower_junior/$',
+        RefereeLineFollowerJuniorStageListView.as_view(),
+        name='referee_line_follower_junior_stage_list_view'),
+    url(r'^line_follower_junior/(?P<order>\d+)/$',
+        LineFollowerJuniorRobotListView.as_view(),
+        name='line_follower_junior_robot_list'),
+    url(r'^line_follower_junior/(?P<order>\d+)/(?P<pid>\d+)/create/$',
+        LineFollowerJuniorResultCreateView.as_view(),
+        name='line_follower_junior_result_create'),
+    url(r'^line_follower_junior/(?P<order>\d+)/(?P<pid>\d+)/check/$',
+        LineFollowerJuniorQRCodeCheckView.as_view(),
+        name='line_follower_junior_qrcode_check'),
+    url(r'^line_follower_junior/(?P<order>\d+)/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+        LineFollowerJuniorResultUpdateView.as_view(),
+        name='line_follower_junior_result_update'),
+    url(r'^line_follower_junior/(?P<order>\d+)/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+        LineFollowerJuniorResultDeleteView.as_view(),
+        name='line_follower_junior_result_delete'),
+
     # Generic Robot List View
     url(r'^(?P<category>[-_\w]+)/$',
         CategoryRobotListView.as_view(),
@@ -35,27 +92,27 @@ urlpatterns = patterns(
         CategoryQRCodeCheckView.as_view(),
         name="category_qrcode_check"),
 
-    # Fire Fighter
-    url(r'^fire_fighter/(?P<pid>\d+)/create/$',
-        FireFighterResultCreateView.as_view(),
-        name='fire_fighter_result_create'),
-    url(r'^fire_fighter/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        FireFighterResultUpdateView.as_view(),
-        name='fire_fighter_result_update'),
-    url(r'^fire_fighter/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        FireFighterResultDeleteView.as_view(),
-        name='fire_fighter_result_delete'),
+    # Construction
+    url(r'^construction/(?P<pid>\d+)/create/$',
+        ConstructionResultCreateView.as_view(),
+        name='construction_result_create'),
+    url(r'^construction/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+        ConstructionResultUpdateView.as_view(),
+        name='construction_result_update'),
+    url(r'^consruction/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+        ConstructionResultDeleteView.as_view(),
+        name='construction_result_delete'),
 
-    # Basketball
-    url(r'^basketball/(?P<pid>\d+)/create/$',
-        BasketballResultCreateView.as_view(),
-        name='basketball_result_create'),
-    url(r'^basketball/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        BasketballResultUpdateView.as_view(),
-        name='basketball_result_update'),
-    url(r'^basketball/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        BasketballResultDeleteView.as_view(),
-        name='basketball_result_delete'),
+    # Drone
+    url(r'^drone/(?P<pid>\d+)/create/$',
+        DroneResultCreateView.as_view(),
+        name='drone_result_create'),
+    url(r'^drone/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+        DroneResultUpdateView.as_view(),
+        name='drone_result_update'),
+    url(r'^drone/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+        DroneResultDeleteView.as_view(),
+        name='drone_result_delete'),
 
     # Stair Climbing
     url(r'^stair_climbing/(?P<pid>\d+)/create/$',
@@ -68,17 +125,6 @@ urlpatterns = patterns(
         StairClimbingResultDeleteView.as_view(),
         name='stair_climbing_result_delete'),
 
-    # Maze
-    url(r'^maze/(?P<pid>\d+)/create/$',
-        MazeResultCreateView.as_view(),
-        name='maze_result_create'),
-    url(r'^maze/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        MazeResultUpdateView.as_view(),
-        name='maze_result_update'),
-    url(r'^maze/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        MazeResultDeleteView.as_view(),
-        name='maze_result_delete'),
-
     # Color Selecting
     url(r'^color_selecting/(?P<pid>\d+)/create/$',
         ColorSelectingResultCreateView.as_view(),
@@ -89,17 +135,6 @@ urlpatterns = patterns(
     url(r'^color_selecting/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
         ColorSelectingResultDeleteView.as_view(),
         name='color_selecting_result_delete'),
-
-    # Self Balancing
-    url(r'^self_balancing/(?P<pid>\d+)/create/$',
-        SelfBalancingResultCreateView.as_view(),
-        name='self_balancing_result_create'),
-    url(r'^self_balancing/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        SelfBalancingResultUpdateView.as_view(),
-        name='self_balancing_result_update'),
-    url(r'^self_balancing/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        SelfBalancingResultDeleteView.as_view(),
-        name='self_balancing_result_delete'),
 
     # Scenario
     url(r'^scenario/(?P<pid>\d+)/create/$',
@@ -112,14 +147,5 @@ urlpatterns = patterns(
         ScenarioResultDeleteView.as_view(),
         name='scenario_result_delete'),
 
-    # Innovative
-    url(r'^innovative/(?P<pid>\d+)/create/$',
-        InnovativeResultCreateView.as_view(),
-        name='innovative_result_create'),
-    url(r'^innovative/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        InnovativeResultUpdateView.as_view(),
-        name='innovative_result_update'),
-    url(r'^innovative/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        InnovativeResultDeleteView.as_view(),
-        name='innovative_result_delete'),
+
 )

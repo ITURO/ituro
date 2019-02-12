@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+{% load url from future %}
+
+{% block title %}
+{{ category_display }}
+{% trans "List" %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>
+    {{ category_display }}
+    {% trans "List" %}
+  </h1>
+</div>
+
+{% bootstrap_messages %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td class="col-lg-6"><strong>{% trans "Robot Name" %}</strong></td>
+      <td class="col-lg-2"><strong>{% trans "Referee" %}</strong></td>
+      <td class="col-lg-2"><strong>{% trans "Results" %}</strong></td>
+    </tr>
+  </thead>
+  {% for project in object_list %}
+  <tr>
+    <td class="col-lg-6">{{ project }}</td>
+    <td class="col-lg-2">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+          <span class="glyphicon glyphicon-wrench"></span> {% trans "Actions" %}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          {% with project.category|add:"_result_create" as create_url %}
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url create_url project.pk %}"><span class="glyphicon glyphicon-plus"></span> {% trans "Create Result" %}</a>
+          </li>
+          {% endwith %}
+
+          {% for result in project.results.all %}
+          {% with project.category|add:"_result_update" as update_url %}
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url update_url project.pk result.pk %}"><span class="glyphicon glyphicon-pencil"></span> {% trans "Update Result" %} <i>({{ result.jury }})</i></a>
+          </li>
+          {% endwith %}
+          {% endfor %}
+
+          {% for result in project.results.all %}
+          {% with project.category|add:"_result_delete" as delete_url %}
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url delete_url project.pk result.pk %}"><span class="glyphicon glyphicon-minus"></span> {% trans "Delete Result" %} <i>({{ result.jury }})</i></a>
+          </li>
+          {% endwith %}
+          {% endfor %}
+        </ul>
+      </div>
+    </td>
+    <td class="col-lg-2">{{ project.get_results_count }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n bootstrap3 humanize %}
 
-{% block title %}{% trans "Line Follower Results" %}{% endblock %}
+{% block title %}{% trans "Line Follower Results" %} - {% endblock %}
 
 {% block content %}
 <div class="page-header">
@@ -9,7 +9,7 @@
 </div>
 
 {% bootstrap_messages %}
-{% for stage in object_list %}
+{% for stage in stages %}
 <h2>
   <a href="{% url "lcd_line_follower_result_list" stage.order %}">
     {% trans "Line Follower" %}

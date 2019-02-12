@@ -8,23 +8,23 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from orders.models import LineFollowerStage
-from results.models import LineFollowerResult, FireFighterResult, \
-    BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
-    SelfBalancingResult, ScenarioResult, InnovativeResult
+from orders.models import LineFollowerStage, LineFollowerJuniorStage
+from results.models import LineFollowerResult, LineFollowerJuniorResult, \
+    ConstructionResult, DroneResult, StairClimbingResult, \
+    ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
+    InnovativeJury, InnovativeTotalResult
 from sumo.models import *
 
 
 RESULTS_DICT = {
     "line_follower": LineFollowerResult,
-    "fire_fighter": FireFighterResult,
-    "basketball": BasketballResult,
+    "line_follower_junior": LineFollowerJuniorResult,
+    "construction": ConstructionResult,
+    "drone": DroneResult,
     "stair_climbing": StairClimbingResult,
-    "maze": MazeResult,
     "color_selecting": ColorSelectingResult,
-    "self_balancing": SelfBalancingResult,
     "scenario": ScenarioResult,
-    "innovative": InnovativeResult,
+    "innovative": InnovativeJuryResult,
 }
 
 
@@ -38,12 +38,15 @@ class ResultListView(ListView):
         if not settings.PROJECT_RESULTS or \
            not category in dict(settings.RESULT_CATEGORIES).keys():
             raise PermissionDenied
-
         if category == 'line_follower':
             return HttpResponseRedirect(
                 reverse('line_follower_stage_result_list'))
+        elif category == 'line_follower_junior':
+            return redirect(reverse('line_follower_junior_stage_result_list'))
         elif category == 'micro_sumo':
             return HttpResponseRedirect(reverse('sumo_result_home'))
+        elif category == 'innovative':
+            return HttpResponseRedirect(reverse('innovative_referee'))
 
         return super(ResultListView, self).dispatch(*args, **kwargs)
 
@@ -55,6 +58,7 @@ class ResultListView(ListView):
         context = super(ResultListView, self).get_context_data(**kwargs)
         context['category'] = dict(
             settings.ALL_CATEGORIES)[self.kwargs.get('slug')]
+
         return context
 
 
@@ -95,7 +99,47 @@ class LineFollowerResultListView(ListView):
 
     def get_queryset(self):
         return LineFollowerResult.objects.filter(
-            stage__order=self.kwargs.get("order"))
+            stage__order=self.kwargs.get("order"), is_best=True)
+
+
+class LineFollowerJuniorStageResultListView(ListView):
+    model = LineFollowerJuniorStage
+    template_name = 'results/line_follower_junior_stage_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.PROJECT_ORDERS or \
+           not "line_follower_junior" in dict(settings.RESULT_CATEGORIES).keys() or \
+           not LineFollowerJuniorStage.objects.filter(results_available=True).exists():
+            raise PermissionDenied
+        return super(LineFollowerJuniorStageResultListView, self).dispatch(
+            *args, **kwargs)
+
+    def get_queryset(self):
+        return LineFollowerJuniorStage.objects.filter(results_available=True)
+
+
+class LineFollowerJuniorResultListView(ListView):
+    model = LineFollowerJuniorResult
+    template_name = 'results/junior_result_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        order = self.kwargs.get("order")
+        if not LineFollowerJuniorStage.objects.filter(
+                order=order, results_available=True).exists():
+            return PermissionDenied
+        return super(LineFollowerJuniorResultListView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(LineFollowerJuniorResultListView, self).get_context_data(
+            **kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower_junior"]
+        context['stage'] = LineFollowerJuniorStage.objects.filter(
+            order=self.kwargs.get("order"))[0]
+        return context
+
+    def get_queryset(self):
+        return LineFollowerJuniorResult.objects.filter(
+            stage__order=self.kwargs.get("order"), is_best=True)
 
 
 class SumoResultHomeView(TemplateView):
@@ -162,14 +206,14 @@ class SumoResultStageDetailView(ListView):
     def dispatch(self, *args, **kwargs):
         if not settings.SUMO_STAGE_RESULTS:
             raise PermissionDenied
-        return super(SumoResultStageDetailview, self).dispatch(*args, **kwargs)
+        return super(SumoResultStageDetailView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
         return SumoStageMatch.objects.filter(stage__pk=self.kwargs.get("pk"))
 
 
 class SumoResultFinalDetailView(TemplateView):
-    template_name = "results/sumo_final.html"
+    template_name = "results/sumo_group_detail.html"
 
     def dispatch(self, *args, **kwargs):
         if not settings.SUMO_FINAL_RESULTS:
@@ -177,9 +221,24 @@ class SumoResultFinalDetailView(TemplateView):
         return super(SumoResultFinalDetailView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(SumoResultFinalDetailView, self).dispatch(
-            *args, **kwargs)
-        group = SumoGroup.objects.filter(is_final=True).first()
+        context = super(SumoResultFinalDetailView, self).get_context_data(**kwargs)
+        group = SumoGroup.objects.get(is_final=True)
         context["group"] = group
-        context["matches"] = SumoGroupMatch.objects.filter(group=group)
+        context["teams"] = SumoGroupTeam.objects.filter(group=group)
+        return context
+
+
+class InnovativeResultView(ListView):
+    template_name = "results/innovative_result.html"
+
+    def dispatch(self, *args, **kwargs):
+        return super(InnovativeResultView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return InnovativeTotalResult.objects.filter(project__is_confirmed=True).order_by("-score")
+
+    def get_context_data(self, **kwargs):
+        category = self.kwargs.get('slug')
+        context = super(InnovativeResultView, self).get_context_data(**kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["innovative"]
         return context

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from orders.models import LineFollowerStage, LineFollowerRaceOrder, RaceOrder
+from orders.models import LineFollowerStage, LineFollowerRaceOrder, \
+    LineFollowerJuniorStage, LineFollowerJuniorRaceOrder, RaceOrder
 
 
 class RaceOrderAdmin(admin.ModelAdmin):
@@ -19,3 +20,5 @@ class LineFollowerRaceOrderAdmin(admin.ModelAdmin):
 admin.site.register(RaceOrder, RaceOrderAdmin)
 admin.site.register(LineFollowerStage, LineFollowerStageAdmin)
 admin.site.register(LineFollowerRaceOrder, LineFollowerRaceOrderAdmin)
+admin.site.register(LineFollowerJuniorStage, LineFollowerStageAdmin)
+admin.site.register(LineFollowerJuniorRaceOrder, LineFollowerRaceOrderAdmin)

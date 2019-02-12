@@ -6,12 +6,17 @@
 {% block content %}
 <div class="page-header">
   <h1>
+    {% if group.is_final %}
+    {% trans "Micro Sumo Final Group" %}
+    {% else %}
     {% trans "Micro Sumo" %} {{ object.order|ordinal }} {% trans "Group" %}
+    {% endif %}
+
   </h1>
 </div>
 
 {% bootstrap_messages %}
-<div class="col-md-6">
+<div class="col-md-offset-3 col-md-6">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -22,30 +27,21 @@
       </tr>
     </thead>
     {% for team in teams %}
+    {% if group.is_final %}
+    <tr>
+      <td>#{{ forloop.counter }}</td>
+      <td>{{ team.robot }}</td>
+      <td>{{ team.point }}</td>
+      <td>{{ team.average }}</td>
+    </tr>
+    {% else %}
     <tr class="{% if forloop.counter < 3 and team.is_attended %}success{% else %}danger{% endif %}">
       <td>#{{ forloop.counter }}</td>
       <td>{{ team.robot }}</td>
       <td>{{ team.point }}</td>
       <td>{{ team.average }}</td>
     </tr>
-    {% endfor %}
-  </table>
-</div>
-<div class="col-md-6">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <td>{% trans "Home" %}</td>
-        <td>{% trans "Result" %}</td>
-        <td>{% trans "Away" %}</td>
-      </tr>
-    </thead>
-    {% for match in matches %}
-    <tr>
-      <td>{{ match.home }}</td>
-      <td>{{ match.home_score }} - {{ match.away_score }}</td>
-      <td>{{ match.away }}</td>
-    </tr>
+    {% endif %}
     {% endfor %}
   </table>
 </div>

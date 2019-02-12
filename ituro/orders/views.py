@@ -8,7 +8,8 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from orders.models import RaceOrder, LineFollowerStage, LineFollowerRaceOrder
+from orders.models import RaceOrder, LineFollowerStage, LineFollowerRaceOrder, \
+    LineFollowerJuniorStage, LineFollowerJuniorRaceOrder
 from sumo.models import *
 
 
@@ -53,6 +54,47 @@ class LineFollowerRaceOrderListView(ListView):
             stage__order=self.kwargs.get("order"))
 
 
+class LineFollowerJuniorStageOrderListView(ListView):
+    model = LineFollowerJuniorStage
+    template_name = 'orders/line_follower_junior_stage_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        if not settings.PROJECT_ORDERS or \
+           not "line_follower_junior" in dict(settings.ORDER_CATEGORIES).keys() or \
+           not LineFollowerJuniorStage.objects.filter(orders_available=True).exists():
+            raise PermissionDenied
+        return super(LineFollowerJuniorStageOrderListView, self).dispatch(
+            *args, **kwargs)
+
+    def get_queryset(self):
+        return LineFollowerJuniorStage.objects.filter(orders_available=True)
+
+
+class LineFollowerJuniorRaceOrderListView(ListView):
+    model = LineFollowerJuniorRaceOrder
+    template_name = 'orders/junior_race_order_list.html'
+
+    def dispatch(self, *args, **kwargs):
+        order = self.kwargs.get("order")
+        if not LineFollowerJuniorStage.objects.filter(
+                order=order, orders_available=True).exists():
+            return PermissionDenied
+        return super(LineFollowerJuniorRaceOrderListView, self).dispatch(
+            *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(LineFollowerJuniorRaceOrderListView, self).get_context_data(
+            **kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower_junior"]
+        context['stage'] = LineFollowerJuniorStage.objects.filter(
+            order=self.kwargs.get("order"))[0]
+        return context
+
+    def get_queryset(self):
+        return LineFollowerJuniorRaceOrder.objects.filter(
+            stage__order=self.kwargs.get("order"))
+
+
 class RaceOrderListView(ListView):
     model = RaceOrder
     template_name = 'orders/race_order_list.html'
@@ -68,6 +110,8 @@ class RaceOrderListView(ListView):
         if category == 'line_follower':
             return HttpResponseRedirect(
                 reverse('line_follower_stage_order_list'))
+        elif category == 'line_follower_junior':
+            return redirect(reverse('line_follower_junior_stage_order_list'))
         elif category == 'micro_sumo':
             return Http404
 
@@ -160,7 +204,8 @@ class SumoOrderStageDetailView(ListView):
 
 
 class SumoOrderFinalDetailView(TemplateView):
-    template_name = "orders/sumo_final.html"
+    model = SumoGroup
+    template_name = "orders/sumo_group_detail.html"
 
     def dispatch(self, *args, **kwargs):
         if not settings.SUMO_FINAL_ORDERS:
@@ -168,9 +213,9 @@ class SumoOrderFinalDetailView(TemplateView):
         return super(SumoOrderFinalDetailView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(SumoOrderFinalDetailView, self).dispatch(
-            *args, **kwargs)
-        group = SumoGroup.objects.filter(is_final=True).first()
+        context = super(SumoOrderFinalDetailView, self).get_context_data(**kwargs)
+        group = SumoGroup.objects.get(is_final=True)
         context["group"] = group
+        context["teams"] = SumoGroupTeam.objects.filter(group=group)
         context["matches"] = SumoGroupMatch.objects.filter(group=group)
         return context

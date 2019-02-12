@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 humanize %}
+
+{% block title %}{% trans "Line Follower Junior Results" %} - {% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Line Follower Junior Results" %}</h1>
+</div>
+
+{% bootstrap_messages %}
+{% for stage in stages %}
+<h2>
+  <a href="{% url "lcd_line_follower_junior_result_list" stage.order %}">
+    {% trans "Line Follower Junior" %}
+    {% if not stage.is_final %}
+    {{ stage.order|ordinal }} {% trans "Stage" %}
+    {% else %}
+    {% trans "Final Stage" %}
+    {% endif %}
+    {% trans "Results" %}
+  </a>
+</h2>
+{% endfor %}
+{% endblock %}

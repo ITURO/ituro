@@ -24,4 +24,4 @@ def user_qrcode(value, alt=None):
             urllib.urlencode({'chs':'500x500', 'cht':'qr', 'chl':value, 'choe':'UTF-8'}))
     alt = conditional_escape(alt or value)
 
-    return mark_safe(u"""<img class="qrcode" src="%s" width="240" height="240" alt="%s" />""" % (url, alt))
+    return mark_safe(u"""<img class="qrcode" src="%s" width="60px" height="60px" alt="%s" />""" % (url, alt))

@@ -7,22 +7,22 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import redirect
 from orders.models import *
-from results.models import LineFollowerResult, FireFighterResult, \
-    BasketballResult, StairClimbingResult, MazeResult, ColorSelectingResult, \
-    SelfBalancingResult, ScenarioResult, InnovativeResult
+from results.models import LineFollowerResult, LineFollowerJuniorResult, \
+    ConstructionResult, DroneResult, StairClimbingResult, \
+    ColorSelectingResult, ScenarioResult, InnovativeJuryResult
 
 
 RESULTS_DICT = {
     "line_follower": LineFollowerResult,
-    "fire_fighter": FireFighterResult,
-    "basketball": BasketballResult,
+    "line_follower_junior": LineFollowerJuniorResult,
+    "construction": ConstructionResult,
+    "drone": DroneResult,
     "stair_climbing": StairClimbingResult,
-    "maze": MazeResult,
     "color_selecting": ColorSelectingResult,
-    "self_balancing": SelfBalancingResult,
     "scenario": ScenarioResult,
-    "innovative": InnovativeResult,
+    "innovative": InnovativeJuryResult,
 }
 
 
@@ -35,6 +35,9 @@ class LCDResultListView(TemplateView):
         if category == 'line_follower':
             return HttpResponseRedirect(
                 reverse('lcd_line_follower_stage_result_list'))
+        elif category == 'line_follower_junior':
+            return redirect(
+                reverse('lcd_line_follower_junior_stage_result_list'))
         elif category == 'micro_sumo':
             raise Http404
 
@@ -68,8 +71,14 @@ class LCDLineFollowerStageResultListView(TemplateView):
         return super(LCDLineFollowerStageResultListView, self).dispatch(
             *args, **kwargs)
 
-    def get_queryset(self):
-        return LineFollowerStage.objects.filter(results_available=True)
+    def get_context_data(self, **kwargs):
+        context = super(LCDLineFollowerStageResultListView,
+                        self).get_context_data(**kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
+        stages = LineFollowerStage.objects.all()
+        context['stages'] = stages
+
+        return context
 
 
 class LCDLineFollowerResultListView(TemplateView):
@@ -94,6 +103,56 @@ class LCDLineFollowerResultListView(TemplateView):
         orders = []
         for order in LineFollowerRaceOrder.objects.filter(stage=stage):
             if not LineFollowerResult.objects.filter(
+                    project=order.project, stage=stage).exists():
+                orders.append(order)
+            if len(orders) == 5:
+                break
+
+        context["orders"] = orders
+        return context
+
+
+class LCDLineFollowerJuniorStageResultListView(TemplateView):
+    model = LineFollowerJuniorStage
+    template_name = 'lcd/line_follower_junior_stage_list.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LCDLineFollowerJuniorStageResultListView, self).dispatch(
+            *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(LCDLineFollowerJuniorStageResultListView,
+                        self).get_context_data(**kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower_junior"]
+        stages = LineFollowerJuniorStage.objects.all()
+        context['stages'] = stages
+
+        return context
+
+
+class LCDLineFollowerJuniorResultListView(TemplateView):
+    model = LineFollowerJuniorResult
+    template_name = 'lcd/junior_result_list.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LCDLineFollowerJuniorResultListView, self).dispatch(
+            *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(LCDLineFollowerJuniorResultListView,
+                        self).get_context_data(**kwargs)
+        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower_junior"]
+        stage = LineFollowerJuniorStage.objects.filter(
+            order=self.kwargs.get("order"))[0]
+        context['stage'] = stage
+        context['results'] = LineFollowerJuniorResult.objects.filter(
+            stage__order=self.kwargs.get("order"), is_best=True)[:5]
+
+        orders = []
+        for order in LineFollowerJuniorRaceOrder.objects.filter(stage=stage):
+            if not LineFollowerJuniorResult.objects.filter(
                     project=order.project, stage=stage).exists():
                 orders.append(order)
             if len(orders) == 5:
