@@ -40,7 +40,7 @@ class Project(models.Model):
     @property
     def results(self):
         RESULTS_DICT = {
-            "line_follower": self.linefollowerresult_set,
+            #"line_follower": self.linefollowerresult_set,
             "line_follower_junior": self.linefollowerjuniorresult_set,
             "construction": self.constructionresult_set,
             "drone": self.droneresult_set,
@@ -48,6 +48,8 @@ class Project(models.Model):
             "color_selecting": self.colorselectingresult_set,
             "scenario": self.scenarioresult_set,
             "innovative": self.innovativejuryresult_set,
+            "traffic": self.trafficresult_set,
+            "line_football": self.linefootballresult_set,
         }
         return RESULTS_DICT[self.category]
 
