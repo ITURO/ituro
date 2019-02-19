@@ -5,13 +5,13 @@ from results.views import *
 
 urlpatterns = patterns(
     '',
-    # Line Follower
-    url(r'^line_follower/$',
-        LineFollowerStageResultListView.as_view(),
-        name='line_follower_stage_result_list'),
-    url(r'^line_follower/(?P<order>\d+)/$',
-        LineFollowerResultListView.as_view(),
-        name='line_follower_result_list'),
+    # # Line Follower
+    # url(r'^line_follower/$',
+    #     LineFollowerStageResultListView.as_view(),
+    #     name='line_follower_stage_result_list'),
+    # url(r'^line_follower/(?P<order>\d+)/$',
+    #     LineFollowerResultListView.as_view(),
+    #     name='line_follower_result_list'),
 
     # Line Follower Junior
     url(r'^line_follower_junior/$',
