@@ -23,7 +23,7 @@ from results.models import LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
     InnovativeJury, InnovativeTotalResult, TrafficResult, \
-    LineFootballResult
+    LineFootballResult, MazeResult
     #LineFollowerResult,
 
 
@@ -75,6 +75,9 @@ __all__ = [
     "LineFootballResultCreateView",
     "LineFootballResultUpdateView",
     "LineFootballResultDeleteView",
+    "MazeResultCreateView",
+    "MazeResultUpdateView",
+    "MazeResultDeleteView",
 ]
 
 
@@ -709,6 +712,21 @@ class ScenarioResultUpdateView(BaseResultUpdateView):
 class ScenarioResultDeleteView(BaseResultDeleteView):
     model = ScenarioResult
     category = "scenario"
+
+
+class MazeResultCreateView(BaseResultCreateView):
+    model = MazeResult
+    category = "maze"
+
+
+class MazeResultUpdateView(BaseResultUpdateView):
+    model = MazeResult
+    category = "maze"
+
+
+class MazeResultDeleteView(BaseResultDeleteView):
+    model = MazeResult
+    category = "maze"
 
 
 class InnovativeResultListView(ListView):

@@ -8,12 +8,12 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from orders.models import LineFollowerJuniorStage #LineFollowerStage, 
+from orders.models import LineFollowerJuniorStage #LineFollowerStage,
 from results.models import LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
     InnovativeJury, InnovativeTotalResult, LineFootballResult, \
-    TrafficResult
+    TrafficResult, MazeResult
     #LineFollowerResult,
 from sumo.models import *
 
@@ -29,6 +29,7 @@ RESULTS_DICT = {
     "innovative": InnovativeJuryResult,
     "traffic": TrafficResult,
     "line_football": LineFootballResult,
+    "maze": MazeResult,
 }
 
 

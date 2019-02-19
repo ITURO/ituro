@@ -385,3 +385,25 @@ def innovative_jury_result_calculate_score(sender, instance, *args, **kwargs):
         instance.technical * 0.25,
         instance.presentation * 0.1,
         instance.opinion * 0.05))
+
+
+@python_2_unicode_compatible
+class MazeResult(BaseResult):
+    project = models.ForeignKey(
+        Project, limit_choices_to={"category": "maze"})
+
+    class Meta:
+        verbose_name = _("Maze Result")
+        verbose_name_plural = _("Maze Results")
+        ordering = ["disqualification", "score"]
+
+    def __str__(self):
+        return self.project.name
+
+
+@receiver(models.signals.pre_save, sender=MazeResult)
+def maze_result_calculate_score(sender, instance, *args, **kwargs):
+    instance.score = sum((
+        instance.minutes * 60,
+        instance.seconds,
+        instance.milliseconds * 0.01))

@@ -50,6 +50,7 @@ class Project(models.Model):
             "innovative": self.innovativejuryresult_set,
             "traffic": self.trafficresult_set,
             "line_football": self.linefootballresult_set,
+            "maze": self.mazeresult_set,
         }
         return RESULTS_DICT[self.category]
 

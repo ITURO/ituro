@@ -12,7 +12,7 @@ from orders.models import *
 from results.models import LineFootballResult, LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
-    TrafficResult
+    TrafficResult, MazeResult
     #LineFollowerResult
 
 
@@ -27,6 +27,7 @@ RESULTS_DICT = {
     "innovative": InnovativeJuryResult,
     "traffic": TrafficResult,
     "line_football": LineFootballResult,
+    "maze": MazeResult,
 }
 
 

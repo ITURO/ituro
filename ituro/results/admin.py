@@ -6,7 +6,7 @@ from results.models import LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
     InnovativeJury, InnovativeTotalResult, TrafficResult, \
-    LineFootballResult
+    LineFootballResult, MazeResult
     #LineFollowerResult,
 
 
@@ -39,3 +39,4 @@ admin.site.register(InnovativeJury)
 admin.site.register(InnovativeTotalResult)
 admin.site.register(TrafficResult, BaseResultAdmin)
 admin.site.register(LineFootballResult, BaseResultAdmin)
+admin.site.register(MazeResult, BaseResultAdmin)
