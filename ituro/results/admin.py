@@ -2,10 +2,12 @@
 
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from results.models import LineFollowerResult, LineFollowerJuniorResult, \
+from results.models import LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
-    InnovativeJury, InnovativeTotalResult
+    InnovativeJury, InnovativeTotalResult, TrafficResult, \
+    LineFootballResult
+    #LineFollowerResult,
 
 
 class BaseResultAdmin(admin.ModelAdmin):
@@ -21,11 +23,11 @@ class InnovativeJuryResultAdmin(admin.ModelAdmin):
     exclude = ('jury_score',)
 
 class DroneResultAdmin(admin.ModelAdmin):
-    list_display = ("project", "score", "disqualification", "laps", "shortcuts", 
+    list_display = ("project", "score", "disqualification", "laps", "shortcuts",
                     "is_best")
 
 
-admin.site.register(LineFollowerResult, BaseResultAdmin)
+#admin.site.register(LineFollowerResult, BaseResultAdmin)
 admin.site.register(LineFollowerJuniorResult, BaseResultAdmin)
 admin.site.register(ConstructionResult, BaseResultAdmin)
 admin.site.register(DroneResult, DroneResultAdmin)
@@ -35,3 +37,5 @@ admin.site.register(ScenarioResult, BaseResultAdmin)
 admin.site.register(InnovativeJuryResult, InnovativeJuryResultAdmin)
 admin.site.register(InnovativeJury)
 admin.site.register(InnovativeTotalResult)
+admin.site.register(TrafficResult, BaseResultAdmin)
+admin.site.register(LineFootballResult, BaseResultAdmin)
