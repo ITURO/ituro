@@ -15,24 +15,27 @@ from django.db import IntegrityError
 from projects.models import Project
 from accounts.models import CustomUser
 from sumo.models import SumoStage, SumoStageMatch, SumoGroup, SumoGroupMatch
-from orders.models import LineFollowerStage, LineFollowerRaceOrder, \
+from orders.models import \
     LineFollowerJuniorStage, LineFollowerJuniorRaceOrder, RaceOrder
+    #LineFollowerStage, LineFollowerRaceOrder,
 from referee.forms import QRCodeCheckForm, MicroSumoQRCodeCheckForm
-from results.models import LineFollowerResult, LineFollowerJuniorResult, \
+from results.models import LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
-    InnovativeJury, InnovativeTotalResult
+    InnovativeJury, InnovativeTotalResult, TrafficResult, \
+    LineFootballResult
+    #LineFollowerResult,
 
 
 __all__ = [
     "RefereeHomeView",
-    "RefereeLineFollowerStageListView",
+    # "RefereeLineFollowerStageListView",
     "RefereeLineFollowerJuniorStageListView",
-    "LineFollowerRobotListView",
-    "LineFollowerQRCodeCheckView",
-    "LineFollowerResultCreateView",
-    "LineFollowerResultUpdateView",
-    "LineFollowerResultDeleteView",
+    # "LineFollowerRobotListView",
+    # "LineFollowerQRCodeCheckView",
+    # "LineFollowerResultCreateView",
+    # "LineFollowerResultUpdateView",
+    # "LineFollowerResultDeleteView",
     "LineFollowerJuniorRobotListView",
     "LineFollowerJuniorQRCodeCheckView",
     "LineFollowerJuniorResultCreateView",
@@ -66,6 +69,12 @@ __all__ = [
     "MicroSumoStageResultUpdateView",
     "MicroSumoGroupQRCodeCheckView",
     "MicroSumoStageQRCodeCheckView",
+    "TrafficResultCreateView",
+    "TrafficResultUpdateView",
+    "TrafficResultDeleteView",
+    "LineFootballResultCreateView",
+    "LineFootballResultUpdateView",
+    "LineFootballResultDeleteView",
 ]
 
 
@@ -191,157 +200,157 @@ class RefereeHomeView(TemplateView):
         return context
 
 
-class RefereeLineFollowerStageListView(ListView):
-    model = LineFollowerStage
-    template_name = "referee/line_follower_stage_list.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_superuser and \
-           not self.request.user.has_group("referee"):
-            raise PermissionDenied
-        return super(RefereeLineFollowerStageListView, self).dispatch(
-            *args, **kwargs)
-
-
-class LineFollowerRobotListView(ListView):
-    model = LineFollowerRaceOrder
-    template_name = "referee/line_follower_order_list.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        order = self.kwargs.get("order")
-        if not LineFollowerStage.objects.filter(order=order).exists():
-            raise Http404
-
-        if not self.request.user.is_superuser and \
-           not self.request.user.has_group("referee"):
-            raise PermissionDenied
-
-        return super(LineFollowerRobotListView, self).dispatch(*args, **kwargs)
-
-    def get_queryset(self):
-        return LineFollowerRaceOrder.objects.filter(
-            stage__order=self.kwargs.get("order"))
+# class RefereeLineFollowerStageListView(ListView):
+#     model = LineFollowerStage
+#     template_name = "referee/line_follower_stage_list.html"
+#
+#     @method_decorator(login_required)
+#     def dispatch(self, *args, **kwargs):
+#         if not self.request.user.is_superuser and \
+#            not self.request.user.has_group("referee"):
+#             raise PermissionDenied
+#         return super(RefereeLineFollowerStageListView, self).dispatch(
+#             *args, **kwargs)
 
 
-class LineFollowerResultCreateView(CreateView):
-    model = LineFollowerResult
-    category = "line_follower"
-    template_name = "referee/line_follower_result_create.html"
-    fields = BaseResultCreateView.fields + ["runway_out"]
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_superuser and \
-           not self.request.user.has_group("referee"):
-            raise PermissionDenied
-
-        if not LineFollowerRaceOrder.objects.filter(
-                stage__order=self.kwargs.get("order"),
-                project__pk=self.kwargs.get("pid")).exists():
-            raise Http404
-
-        return super(LineFollowerResultCreateView, self).dispatch(
-            *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(LineFollowerResultCreateView, self).get_context_data(
-            **kwargs)
-        context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
-        context["stage"] = LineFollowerStage.objects.filter(
-            order=self.kwargs.get("order")).first()
-        return context
-
-    def form_valid(self, form):
-        result = form.save(commit=False)
-        result.project = Project.objects.get(pk=self.kwargs.get("pid"))
-        result.stage = LineFollowerStage.objects.get(order=self.kwargs["order"])
-        result.save()
-
-        messages.success(self.request, _("Result entry generated."))
-        return super(LineFollowerResultCreateView, self).form_valid(form)
-
-    def get_success_url(self):
-        return reverse(
-            "line_follower_robot_list", args=[self.kwargs.get("order")])
+# class LineFollowerRobotListView(ListView):
+#     model = LineFollowerRaceOrder
+#     template_name = "referee/line_follower_order_list.html"
+#
+#     @method_decorator(login_required)
+#     def dispatch(self, *args, **kwargs):
+#         order = self.kwargs.get("order")
+#         if not LineFollowerStage.objects.filter(order=order).exists():
+#             raise Http404
+#
+#         if not self.request.user.is_superuser and \
+#            not self.request.user.has_group("referee"):
+#             raise PermissionDenied
+#
+#         return super(LineFollowerRobotListView, self).dispatch(*args, **kwargs)
+#
+#     def get_queryset(self):
+#         return LineFollowerRaceOrder.objects.filter(
+#             stage__order=self.kwargs.get("order"))
 
 
-class LineFollowerResultUpdateView(UpdateView):
-    model = LineFollowerResult
-    category = "line_follower"
-    template_name = "referee/line_follower_result_update.html"
-    fields = LineFollowerResultCreateView.fields
+# class LineFollowerResultCreateView(CreateView):
+#     model = LineFollowerResult
+#     category = "line_follower"
+#     template_name = "referee/line_follower_result_create.html"
+#     fields = BaseResultCreateView.fields + ["runway_out"]
+#
+#     @method_decorator(login_required)
+#     def dispatch(self, *args, **kwargs):
+#         if not self.request.user.is_superuser and \
+#            not self.request.user.has_group("referee"):
+#             raise PermissionDenied
+#
+#         if not LineFollowerRaceOrder.objects.filter(
+#                 stage__order=self.kwargs.get("order"),
+#                 project__pk=self.kwargs.get("pid")).exists():
+#             raise Http404
+#
+#         return super(LineFollowerResultCreateView, self).dispatch(
+#             *args, **kwargs)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(LineFollowerResultCreateView, self).get_context_data(
+#             **kwargs)
+#         context["project"] = Project.objects.get(pk=self.kwargs.get("pid"))
+#         context["stage"] = LineFollowerStage.objects.filter(
+#             order=self.kwargs.get("order")).first()
+#         return context
+#
+#     def form_valid(self, form):
+#         result = form.save(commit=False)
+#         result.project = Project.objects.get(pk=self.kwargs.get("pid"))
+#         result.stage = LineFollowerStage.objects.get(order=self.kwargs["order"])
+#         result.save()
+#
+#         messages.success(self.request, _("Result entry generated."))
+#         return super(LineFollowerResultCreateView, self).form_valid(form)
+#
+#     def get_success_url(self):
+#         return reverse(
+#             "line_follower_robot_list", args=[self.kwargs.get("order")])
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_superuser and \
-           not self.request.user.has_group("referee"):
-            raise PermissionDenied
-        return super(LineFollowerResultUpdateView, self).dispatch(
-            *args, **kwargs)
 
-    def get_object(self):
-        queryset = self.get_queryset()
-        pid = self.kwargs.get("pid")
-        rid = self.kwargs.get("rid")
-        sid = self.kwargs.get("order")
-        queryset = queryset.filter(stage__order=sid, project__pk=pid, pk=rid)
+# class LineFollowerResultUpdateView(UpdateView):
+#     model = LineFollowerResult
+#     category = "line_follower"
+#     template_name = "referee/line_follower_result_update.html"
+#     fields = LineFollowerResultCreateView.fields
+#
+#     @method_decorator(login_required)
+#     def dispatch(self, *args, **kwargs):
+#         if not self.request.user.is_superuser and \
+#            not self.request.user.has_group("referee"):
+#             raise PermissionDenied
+#         return super(LineFollowerResultUpdateView, self).dispatch(
+#             *args, **kwargs)
+#
+#     def get_object(self):
+#         queryset = self.get_queryset()
+#         pid = self.kwargs.get("pid")
+#         rid = self.kwargs.get("rid")
+#         sid = self.kwargs.get("order")
+#         queryset = queryset.filter(stage__order=sid, project__pk=pid, pk=rid)
+#
+#         try:
+#             obj = queryset.get()
+#         except queryset.model.DoesNotExist:
+#             raise Http404
+#
+#         return obj
+#
+#     def form_valid(self, form):
+#         result = form.save(commit=True)
+#         messages.success(self.request, _(
+#             "Result entry for {} #{} updated.".format(
+#                 result.project.name, result.stage.order)))
+#         return super(LineFollowerResultUpdateView, self).form_valid(form)
+#
+#     def get_success_url(self):
+#         return reverse("line_follower_robot_list", args=[
+#             self.kwargs.get("order")])
 
-        try:
-            obj = queryset.get()
-        except queryset.model.DoesNotExist:
-            raise Http404
 
-        return obj
-
-    def form_valid(self, form):
-        result = form.save(commit=True)
-        messages.success(self.request, _(
-            "Result entry for {} #{} updated.".format(
-                result.project.name, result.stage.order)))
-        return super(LineFollowerResultUpdateView, self).form_valid(form)
-
-    def get_success_url(self):
-        return reverse("line_follower_robot_list", args=[
-            self.kwargs.get("order")])
-
-
-class LineFollowerResultDeleteView(DeleteView):
-    model = LineFollowerResult
-    template_name = "referee/line_follower_result_delete.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_superuser and \
-           not self.request.user.has_group("referee"):
-            raise PermissionDenied
-
-        return super(LineFollowerResultDeleteView, self).dispatch(
-            *args, **kwargs)
-
-    def get_object(self):
-        queryset = self.get_queryset()
-        pid = self.kwargs.get("pid")
-        rid = self.kwargs.get("rid")
-        sid = self.kwargs.get("order")
-        queryset = queryset.filter(stage__order=sid, project__pk=pid, pk=rid)
-
-        try:
-            obj = queryset.get()
-        except queryset.model.DoesNotExist:
-            raise Http404
-
-        return obj
-
-    def delete(self, request, *args, **kwargs):
-        messages.info(request, _("Result entry deleted."))
-        return super(LineFollowerResultDeleteView,
-                     self).delete(request, *args, **kwargs)
-
-    def get_success_url(self):
-        return reverse("line_follower_robot_list", args=[
-            self.kwargs.get("order")])
+# class LineFollowerResultDeleteView(DeleteView):
+#     model = LineFollowerResult
+#     template_name = "referee/line_follower_result_delete.html"
+#
+#     @method_decorator(login_required)
+#     def dispatch(self, *args, **kwargs):
+#         if not self.request.user.is_superuser and \
+#            not self.request.user.has_group("referee"):
+#             raise PermissionDenied
+#
+#         return super(LineFollowerResultDeleteView, self).dispatch(
+#             *args, **kwargs)
+#
+#     def get_object(self):
+#         queryset = self.get_queryset()
+#         pid = self.kwargs.get("pid")
+#         rid = self.kwargs.get("rid")
+#         sid = self.kwargs.get("order")
+#         queryset = queryset.filter(stage__order=sid, project__pk=pid, pk=rid)
+#
+#         try:
+#             obj = queryset.get()
+#         except queryset.model.DoesNotExist:
+#             raise Http404
+#
+#         return obj
+#
+#     def delete(self, request, *args, **kwargs):
+#         messages.info(request, _("Result entry deleted."))
+#         return super(LineFollowerResultDeleteView,
+#                      self).delete(request, *args, **kwargs)
+#
+#     def get_success_url(self):
+#         return reverse("line_follower_robot_list", args=[
+#             self.kwargs.get("order")])
 
 
 class RefereeLineFollowerJuniorStageListView(ListView):
@@ -688,7 +697,7 @@ class ScenarioResultCreateView(BaseResultCreateView):
     model = ScenarioResult
     category = "scenario"
     fields = BaseResultCreateView.fields + [
-        "sign_succeed", "sign_failed", "is_parked", "is_stopped"]
+        "place_success", "fails"]
 
 
 class ScenarioResultUpdateView(BaseResultUpdateView):
@@ -1014,6 +1023,43 @@ class MicroSumoStageResultUpdateView(UpdateView):
     def get_success_url(self):
         stage = self.kwargs.get("order")
         return reverse("micro_sumo_orders", args=["stages", stage])
+
+
+class TrafficResultCreateView(BaseResultCreateView):
+    model = TrafficResult
+    category = "traffic"
+    fields = BaseResultCreateView.fields + [
+        "sign_succeed", "sign_failed", "is_parked", "is_stopped"]
+
+
+class TrafficResultUpdateView(BaseResultUpdateView):
+    model = TrafficResult
+    category = "traffic"
+    fields = TrafficResultCreateView.fields
+
+
+class TrafficResultDeleteView(BaseResultDeleteView):
+    model = TrafficResult
+    category = "TrafficResultUpdateView"
+
+
+class LineFootballResultCreateView(BaseResultCreateView):
+    model = LineFootballResult
+    category = "line_football"
+    fields = BaseResultCreateView.fields + [
+        "dribble_minutes", "dribble_seconds", "dribble_milliseconds", \
+        "goals", "fails"]
+
+
+class LineFootballResultUpdateView(BaseResultUpdateView):
+    model = LineFootballResult
+    category = "line_football"
+    fields = LineFootballResultCreateView.fields
+
+
+class LineFootballResultDeleteView(BaseResultDeleteView):
+    model = LineFootballResult
+    category = "line_football"
 
 
 class BaseMicroSumoQRCodeCheckView(FormView):
