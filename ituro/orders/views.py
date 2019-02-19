@@ -8,50 +8,51 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from orders.models import RaceOrder, LineFollowerStage, LineFollowerRaceOrder, \
+from orders.models import RaceOrder, \
     LineFollowerJuniorStage, LineFollowerJuniorRaceOrder
+    # LineFollowerStage, LineFollowerRaceOrder,
 from sumo.models import *
 
 
-class LineFollowerStageOrderListView(ListView):
-    model = LineFollowerStage
-    template_name = 'orders/line_follower_stage_list.html'
+# class LineFollowerStageOrderListView(ListView):
+#     model = LineFollowerStage
+#     template_name = 'orders/line_follower_stage_list.html'
+#
+#     def dispatch(self, *args, **kwargs):
+#         if not settings.PROJECT_ORDERS or \
+#            not "line_follower" in dict(settings.ORDER_CATEGORIES).keys() or \
+#            not LineFollowerStage.objects.filter(orders_available=True).exists():
+#             raise PermissionDenied
+#         return super(LineFollowerStageOrderListView, self).dispatch(
+#             *args, **kwargs)
+#
+#     def get_queryset(self):
+#         return LineFollowerStage.objects.filter(orders_available=True)
 
-    def dispatch(self, *args, **kwargs):
-        if not settings.PROJECT_ORDERS or \
-           not "line_follower" in dict(settings.ORDER_CATEGORIES).keys() or \
-           not LineFollowerStage.objects.filter(orders_available=True).exists():
-            raise PermissionDenied
-        return super(LineFollowerStageOrderListView, self).dispatch(
-            *args, **kwargs)
 
-    def get_queryset(self):
-        return LineFollowerStage.objects.filter(orders_available=True)
-
-
-class LineFollowerRaceOrderListView(ListView):
-    model = LineFollowerRaceOrder
-    template_name = 'orders/race_order_list.html'
-
-    def dispatch(self, *args, **kwargs):
-        order = self.kwargs.get("order")
-        if not LineFollowerStage.objects.filter(
-                order=order, orders_available=True).exists():
-            return PermissionDenied
-        return super(LineFollowerRaceOrderListView, self).dispatch(
-            *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(LineFollowerRaceOrderListView, self).get_context_data(
-            **kwargs)
-        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
-        context['stage'] = LineFollowerStage.objects.filter(
-            order=self.kwargs.get("order"))[0]
-        return context
-
-    def get_queryset(self):
-        return LineFollowerRaceOrder.objects.filter(
-            stage__order=self.kwargs.get("order"))
+# class LineFollowerRaceOrderListView(ListView):
+#     model = LineFollowerRaceOrder
+#     template_name = 'orders/race_order_list.html'
+#
+#     def dispatch(self, *args, **kwargs):
+#         order = self.kwargs.get("order")
+#         if not LineFollowerStage.objects.filter(
+#                 order=order, orders_available=True).exists():
+#             return PermissionDenied
+#         return super(LineFollowerRaceOrderListView, self).dispatch(
+#             *args, **kwargs)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(LineFollowerRaceOrderListView, self).get_context_data(
+#             **kwargs)
+#         context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
+#         context['stage'] = LineFollowerStage.objects.filter(
+#             order=self.kwargs.get("order"))[0]
+#         return context
+#
+#     def get_queryset(self):
+#         return LineFollowerRaceOrder.objects.filter(
+#             stage__order=self.kwargs.get("order"))
 
 
 class LineFollowerJuniorStageOrderListView(ListView):
