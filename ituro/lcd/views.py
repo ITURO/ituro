@@ -9,13 +9,15 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from orders.models import *
-from results.models import LineFollowerResult, LineFollowerJuniorResult, \
+from results.models import LineFootballResult, LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
-    ColorSelectingResult, ScenarioResult, InnovativeJuryResult
+    ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
+    TrafficResult
+    #LineFollowerResult
 
 
 RESULTS_DICT = {
-    "line_follower": LineFollowerResult,
+    #"line_follower": LineFollowerResult,
     "line_follower_junior": LineFollowerJuniorResult,
     "construction": ConstructionResult,
     "drone": DroneResult,
@@ -23,6 +25,8 @@ RESULTS_DICT = {
     "color_selecting": ColorSelectingResult,
     "scenario": ScenarioResult,
     "innovative": InnovativeJuryResult,
+    "traffic": TrafficResult,
+    "line_football": LineFootballResult,
 }
 
 
@@ -62,54 +66,54 @@ class LCDResultListView(TemplateView):
         return context
 
 
-class LCDLineFollowerStageResultListView(TemplateView):
-    model = LineFollowerStage
-    template_name = 'lcd/line_follower_stage_list.html'
+# class LCDLineFollowerStageResultListView(TemplateView):
+#     model = LineFollowerStage
+#     template_name = 'lcd/line_follower_stage_list.html'
+#
+#     @method_decorator(login_required)
+#     def dispatch(self, *args, **kwargs):
+#         return super(LCDLineFollowerStageResultListView, self).dispatch(
+#             *args, **kwargs)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(LCDLineFollowerStageResultListView,
+#                         self).get_context_data(**kwargs)
+#         context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
+#         stages = LineFollowerStage.objects.all()
+#         context['stages'] = stages
+#
+#         return context
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(LCDLineFollowerStageResultListView, self).dispatch(
-            *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(LCDLineFollowerStageResultListView,
-                        self).get_context_data(**kwargs)
-        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
-        stages = LineFollowerStage.objects.all()
-        context['stages'] = stages
-
-        return context
-
-
-class LCDLineFollowerResultListView(TemplateView):
-    model = LineFollowerResult
-    template_name = 'lcd/result_list.html'
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(LCDLineFollowerResultListView, self).dispatch(
-            *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(LCDLineFollowerResultListView, self).get_context_data(
-            **kwargs)
-        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
-        stage = LineFollowerStage.objects.filter(
-            order=self.kwargs.get("order"))[0]
-        context['stage'] = stage
-        context['results'] = LineFollowerResult.objects.filter(
-            stage__order=self.kwargs.get("order"), is_best=True)[:5]
-
-        orders = []
-        for order in LineFollowerRaceOrder.objects.filter(stage=stage):
-            if not LineFollowerResult.objects.filter(
-                    project=order.project, stage=stage).exists():
-                orders.append(order)
-            if len(orders) == 5:
-                break
-
-        context["orders"] = orders
-        return context
+# class LCDLineFollowerResultListView(TemplateView):
+#     model = LineFollowerResult
+#     template_name = 'lcd/result_list.html'
+#
+#     @method_decorator(login_required)
+#     def dispatch(self, *args, **kwargs):
+#         return super(LCDLineFollowerResultListView, self).dispatch(
+#             *args, **kwargs)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(LCDLineFollowerResultListView, self).get_context_data(
+#             **kwargs)
+#         context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
+#         stage = LineFollowerStage.objects.filter(
+#             order=self.kwargs.get("order"))[0]
+#         context['stage'] = stage
+#         context['results'] = LineFollowerResult.objects.filter(
+#             stage__order=self.kwargs.get("order"), is_best=True)[:5]
+#
+#         orders = []
+#         for order in LineFollowerRaceOrder.objects.filter(stage=stage):
+#             if not LineFollowerResult.objects.filter(
+#                     project=order.project, stage=stage).exists():
+#                 orders.append(order)
+#             if len(orders) == 5:
+#                 break
+#
+#         context["orders"] = orders
+#         return context
 
 
 class LCDLineFollowerJuniorStageResultListView(TemplateView):
