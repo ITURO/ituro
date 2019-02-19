@@ -5,7 +5,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from projects.models import Project
-from orders.models import LineFollowerStage, LineFollowerJuniorStage
+from orders.models import LineFollowerJuniorStage #LineFollowerStage,
 
 
 class BaseResult(models.Model):
@@ -33,27 +33,27 @@ class BaseResult(models.Model):
             self.minutes, self.seconds, self.milliseconds)
 
 
-@python_2_unicode_compatible
-class LineFollowerResult(BaseResult):
-    project = models.ForeignKey(
-        Project, limit_choices_to={"category": "line_follower"})
-    stage = models.ForeignKey(
-        LineFollowerStage, verbose_name=_("Line Follower Stage"))
-    runway_out = models.PositiveSmallIntegerField(
-        verbose_name=_("Runway Out Count"), default=0)
-
-    class Meta:
-        verbose_name = _("Line Follower Result")
-        verbose_name_plural = _("Line Follower Results")
-        ordering = ['disqualification', 'score']
-
-    def __str__(self):
-        return self.project.name
-
-
-@receiver(models.signals.pre_save, sender=LineFollowerResult)
-def line_follower_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
+# @python_2_unicode_compatible
+# class LineFollowerResult(BaseResult):
+#     project = models.ForeignKey(
+#         Project, limit_choices_to={"category": "line_follower"})
+#     stage = models.ForeignKey(
+#         LineFollowerStage, verbose_name=_("Line Follower Stage"))
+#     runway_out = models.PositiveSmallIntegerField(
+#         verbose_name=_("Runway Out Count"), default=0)
+#
+#     class Meta:
+#         verbose_name = _("Line Follower Result")
+#         verbose_name_plural = _("Line Follower Results")
+#         ordering = ['disqualification', 'score']
+#
+#     def __str__(self):
+#         return self.project.name
+#
+#
+# @receiver(models.signals.pre_save, sender=LineFollowerResult)
+# def line_follower_result_calculate_score(sender, instance, *args, **kwargs):
+#     instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
 
 
 @python_2_unicode_compatible
@@ -205,14 +205,10 @@ def color_selecting_result_calculate_score(sender, instance, *args, **kwargs):
 class ScenarioResult(BaseResult):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "scenario"})
-    is_stopped = models.BooleanField(
-        verbose_name=_("Is stopped?"), default=False)
-    is_parked = models.BooleanField(
-        verbose_name=_("Is parked?"), default=False)
-    sign_succeed = models.PositiveSmallIntegerField(
-        verbose_name=_("Succeed Signs"), default=0)
-    sign_failed = models.PositiveSmallIntegerField(
-        verbose_name=_("Failed Signs"), default=0)
+    place_success = models.PositiveSmallIntegerField(
+    verbose_name=_("Successful Block Placements"), default = 0)
+    fails = models.PositiveSmallIntegerField(
+    verbose_name=_("Fails"), default = 0)
 
     class Meta:
         verbose_name = _("Scenario Result")
@@ -227,10 +223,96 @@ class ScenarioResult(BaseResult):
 @receiver(models.signals.pre_save, sender=ScenarioResult)
 def scenario_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
-        int(instance.is_stopped) * 30,
-        int(instance.is_parked) * 100,
+        instance.place_success * 50,
+        instance.fails * (-15)))
+
+
+@python_2_unicode_compatible
+class TrafficResult(BaseResult):
+    project = models.ForeignKey(
+        Project, limit_choices_to={"category": "traffic"})
+    is_stopped = models.BooleanField(
+        verbose_name=_("Is stopped?"), default=False)
+    is_parked = models.BooleanField(
+        verbose_name=_("Is parked?"), default=False)
+    sign_succeed = models.PositiveSmallIntegerField(
+        verbose_name=_("Succeed Signs"), default=0)
+    sign_failed = models.PositiveSmallIntegerField(
+        verbose_name=_("Failed Signs"), default=0)
+
+    class Meta:
+        verbose_name = _("Traffic Result")
+        verbose_name_plural = _("Traffic Results")
+        ordering = ["disqualification", "-score",
+                    "minutes", "seconds", "milliseconds"]
+
+    def __str__(self):
+        return self.project.name
+
+
+@receiver(models.signals.pre_save, sender=TrafficResult)
+def traffic_result_calculate_score(sender, instance, *args, **kwargs):
+    instance.score = sum((
+        int(instance.is_stopped) * (-20),
+        int(instance.is_parked) * 60,
         instance.sign_succeed * 10,
         instance.sign_failed * (-10)))
+
+
+@python_2_unicode_compatible
+class LineFootballResult(models.Model):
+    project = models.ForeignKey(
+        Project, limit_choices_to={"category": "line_football"})
+    score = models.FloatField(verbose_name=_('Score'), blank=True)
+    minutes = models.PositiveSmallIntegerField(verbose_name=_("Minutes"))
+    seconds = models.PositiveSmallIntegerField(verbose_name=_("Seconds"))
+    milliseconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Milliseconds"))
+    dribble_minutes = models.PositiveSmallIntegerField(
+        verbose_name=_("Dribble Minutes"))
+    dribble_seconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Dribble Seconds"))
+    dribble_milliseconds = models.PositiveSmallIntegerField(
+        verbose_name=_("Dribble Milliseconds"))
+    fails = models.PositiveSmallIntegerField(verbose_name=_("Fails"),
+        default = 0)
+    goals = models.PositiveSmallIntegerField(verbose_name = _("Goals"),
+        default = 0)
+    disqualification = models.BooleanField(
+        verbose_name=_('Disqualification'), default=False)
+    is_best = models.BooleanField(
+        verbose_name=_("Is best result?"), default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    class Meta:
+        verbose_name = _("Line Football Result")
+        verbose_name_plural = _("Line Football Results")
+        ordering = [
+            "disqualification", "score"]
+
+    def __str__(self):
+        return self.project.name
+
+    @property
+    def duration(self):
+        return self.minutes * 60 + self.seconds + self.milliseconds * 0.01
+
+    @property
+    def dribble_duration(self):
+        return self.dribble_minutes * 60 + self.dribble_seconds + \
+        self.dribble_milliseconds * 0.01
+
+
+@receiver(models.signals.pre_save, sender=LineFootballResult)
+def line_football_result_calculate_score(sender, instance, *args, **kwargs):
+    instance.score = sum((
+    instance.duration,
+    instance.duration * 0.5 * instance.fails,
+    instance.dribble_duration * (-1.5),
+    instance.goals * (-3)))
+
+
 
 
 @python_2_unicode_compatible
