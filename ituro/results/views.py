@@ -8,16 +8,18 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from orders.models import LineFollowerStage, LineFollowerJuniorStage
-from results.models import LineFollowerResult, LineFollowerJuniorResult, \
+from orders.models import LineFollowerJuniorStage #LineFollowerStage, 
+from results.models import LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
-    InnovativeJury, InnovativeTotalResult
+    InnovativeJury, InnovativeTotalResult, LineFootballResult, \
+    TrafficResult
+    #LineFollowerResult,
 from sumo.models import *
 
 
 RESULTS_DICT = {
-    "line_follower": LineFollowerResult,
+    # "line_follower": LineFollowerResult,
     "line_follower_junior": LineFollowerJuniorResult,
     "construction": ConstructionResult,
     "drone": DroneResult,
@@ -25,6 +27,8 @@ RESULTS_DICT = {
     "color_selecting": ColorSelectingResult,
     "scenario": ScenarioResult,
     "innovative": InnovativeJuryResult,
+    "traffic": TrafficResult,
+    "line_football": LineFootballResult,
 }
 
 
@@ -62,44 +66,44 @@ class ResultListView(ListView):
         return context
 
 
-class LineFollowerStageResultListView(ListView):
-    model = LineFollowerStage
-    template_name = 'results/line_follower_stage_list.html'
+# class LineFollowerStageResultListView(ListView):
+#     model = LineFollowerStage
+#     template_name = 'results/line_follower_stage_list.html'
+#
+#     def dispatch(self, *args, **kwargs):
+#         if not settings.PROJECT_ORDERS or \
+#            not "line_follower" in dict(settings.RESULT_CATEGORIES).keys() or \
+#            not LineFollowerStage.objects.filter(results_available=True).exists():
+#             raise PermissionDenied
+#         return super(LineFollowerStageResultListView, self).dispatch(
+#             *args, **kwargs)
+#
+#     def get_queryset(self):
+#         return LineFollowerStage.objects.filter(results_available=True)
 
-    def dispatch(self, *args, **kwargs):
-        if not settings.PROJECT_ORDERS or \
-           not "line_follower" in dict(settings.RESULT_CATEGORIES).keys() or \
-           not LineFollowerStage.objects.filter(results_available=True).exists():
-            raise PermissionDenied
-        return super(LineFollowerStageResultListView, self).dispatch(
-            *args, **kwargs)
 
-    def get_queryset(self):
-        return LineFollowerStage.objects.filter(results_available=True)
-
-
-class LineFollowerResultListView(ListView):
-    model = LineFollowerResult
-    template_name = 'results/result_list.html'
-
-    def dispatch(self, *args, **kwargs):
-        order = self.kwargs.get("order")
-        if not LineFollowerStage.objects.filter(
-                order=order, results_available=True).exists():
-            return PermissionDenied
-        return super(LineFollowerResultListView, self).dispatch(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(LineFollowerResultListView, self).get_context_data(
-            **kwargs)
-        context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
-        context['stage'] = LineFollowerStage.objects.filter(
-            order=self.kwargs.get("order"))[0]
-        return context
-
-    def get_queryset(self):
-        return LineFollowerResult.objects.filter(
-            stage__order=self.kwargs.get("order"), is_best=True)
+# class LineFollowerResultListView(ListView):
+#     model = LineFollowerResult
+#     template_name = 'results/result_list.html'
+#
+#     def dispatch(self, *args, **kwargs):
+#         order = self.kwargs.get("order")
+#         if not LineFollowerStage.objects.filter(
+#                 order=order, results_available=True).exists():
+#             return PermissionDenied
+#         return super(LineFollowerResultListView, self).dispatch(*args, **kwargs)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(LineFollowerResultListView, self).get_context_data(
+#             **kwargs)
+#         context['category'] = dict(settings.ALL_CATEGORIES)["line_follower"]
+#         context['stage'] = LineFollowerStage.objects.filter(
+#             order=self.kwargs.get("order"))[0]
+#         return context
+#
+#     def get_queryset(self):
+#         return LineFollowerResult.objects.filter(
+#             stage__order=self.kwargs.get("order"), is_best=True)
 
 
 class LineFollowerJuniorStageResultListView(ListView):
