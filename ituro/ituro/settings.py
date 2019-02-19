@@ -132,15 +132,17 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_null',)
 
 ALL_CATEGORIES = (
-    ('line_follower', _('Line Follower')),
+    #('line_follower', _('Line Follower')),
     ('line_follower_junior', _('Line Follower Junior')),
     ('micro_sumo', _('Micro Sumo')),
     ('construction', _('Construction')),
     ('drone', _('Drone')),
     ('stair_climbing', _('Stair Climbing')),
     ('color_selecting', _('Color Selecting')),
+    ('traffic', _('Traffic')),
     ('scenario', _('Scenario')),
     ('innovative', _('Innovative')),
+    ('line_football',_('Line_Football')),
 )
 
 CREATE_CATEGORIES = tuple(ALL_CATEGORIES)
