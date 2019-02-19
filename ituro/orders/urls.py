@@ -5,12 +5,12 @@ from orders.views import *
 
 urlpatterns = patterns(
     '',
-    url(r'^line_follower/$',
-        LineFollowerStageOrderListView.as_view(),
-        name='line_follower_stage_order_list'),
-    url(r'^line_follower/(?P<order>\d+)$',
-        LineFollowerRaceOrderListView.as_view(),
-        name='line_follower_race_order_list'),
+    # url(r'^line_follower/$',
+    #     LineFollowerStageOrderListView.as_view(),
+    #     name='line_follower_stage_order_list'),
+    # url(r'^line_follower/(?P<order>\d+)$',
+    #     LineFollowerRaceOrderListView.as_view(),
+    #     name='line_follower_race_order_list'),
     url(r'^line_follower_junior/$',
         LineFollowerJuniorStageOrderListView.as_view(),
         name='line_follower_junior_stage_order_list'),
