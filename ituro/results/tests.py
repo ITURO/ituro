@@ -6,11 +6,9 @@ from django.utils import timezone
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from results.models import InnovativeTotalResult, InnovativeJuryResult, \
-    InnovativeJury, LineFollowerResult, LineFollowerJuniorResult
+    InnovativeJury, 
 from accounts.models import CustomUser, CustomUserManager
 from projects.models import Project
-from orders.models import LineFollowerStage, LineFollowerJuniorStage
-
 
 
 # Create your tests here.
