@@ -1,3 +1,15 @@
+certifi==2018.1.18
+chardet==3.0.4
 Django==1.7.5
 django-bootstrap3==5.1.1
 django-simple-captcha==0.4.4
+gunicorn==19.3.0
+idna==2.6
+ipdb==0.8
+ipython==3.1.0
+Pillow==2.7.0
+psycopg2==2.6
+requests==2.18.4
+six==1.9.0
+urllib3==1.22
+
