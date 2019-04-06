@@ -143,7 +143,7 @@ ALL_CATEGORIES = (
     ('scenario', _('Scenario')),
     ('innovative', _('Innovative')),
     ('line_football', _('Line Football')),
-    ('Maze', _('Labirent')),
+    ('maze', _('Maze')),
 )
 
 CREATE_CATEGORIES = tuple(ALL_CATEGORIES)
