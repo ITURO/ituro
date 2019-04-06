@@ -4,8 +4,7 @@ from django.utils import timezone
 from django.core.management import call_command
 from accounts.models import CustomUser, CustomUserManager
 from projects.models import Project
-from orders.models import RaceOrder, LineFollowerRaceOrder, LineFollowerStage
-from results.models import LineFollowerResult
+from orders.models import RaceOrder
 from random import randint
 from math import ceil
 

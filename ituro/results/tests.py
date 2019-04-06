@@ -6,7 +6,8 @@ from django.utils import timezone
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from results.models import InnovativeTotalResult, InnovativeJuryResult, \
-    InnovativeJury, 
+    InnovativeJury, LineFollowerJuniorResult
+from orders.models import LineFollowerJuniorStage
 from accounts.models import CustomUser, CustomUserManager
 from projects.models import Project
 
