@@ -141,7 +141,7 @@ class ProjectConfirmView(FormView):
             "Project confirmation process completed successfully."))
 
         project = Project.objects.get(name=name, category=category)
-        if category in ("line_follower", "line_follower_junior"):
+        if category in ("line_follower", "line_follower_junior", "micro_sumo"):
             return HttpResponseRedirect(
                 reverse("qrcode_detail", args=(project.id,)))
         return redirect(reverse("project_confirm"))
