@@ -48,6 +48,9 @@
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
           {% if keyword == "groups" %}
           <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="{% url "micro_sumo_group_qrcode_check" match.group.id match.id %}"><span class="glyphicon glyphicon-check"></span>{% trans "Check QRCode" %}</a>
+          </li>
+          <li role="presentation">
             <a role="menuitem" tabindex="-1" href="{% url "micro_sumo_group_result_update" match.group.id match.id %}"><span class="glyphicon glyphicon-plus"></span>{% trans "Create Result" %}</a>
           </li>
           {% elif keyword == "stages" %}
