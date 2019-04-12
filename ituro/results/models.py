@@ -278,6 +278,8 @@ class LineFootballResult(models.Model):
         default = 0)
     goals = models.PositiveSmallIntegerField(verbose_name = _("Goals"),
         default = 0)
+    successful_ball_throws = models.PositiveSmallIntegerField(
+        verbose_name=_("Successful Ball Throws"), default = 0)
     disqualification = models.BooleanField(
         verbose_name=_('Disqualification'), default=False)
     is_best = models.BooleanField(
@@ -309,8 +311,9 @@ def line_football_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
     instance.duration,
     instance.duration * 0.5 * instance.fails,
-    instance.dribble_duration * (-1.5),
-    instance.goals * (-3)))
+    instance.dribble_duration * (0.25),
+    instance.goals * (-5),
+    instance.successful_ball_throws * (-20)))
 
 
 
