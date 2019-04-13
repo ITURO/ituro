@@ -350,9 +350,9 @@ class InnovativeJuryResult(models.Model):
     presentation = models.FloatField(
         validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Presentation"), default=0)
-    commercialization_potential = models.FloatField(
+    commercialization= models.FloatField(
         validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
-        verbose_name=_("Commercialization Potential"), default = 0)
+        verbose_name=_("Commercialization"), default = 0)
     opinion = models.FloatField(
         validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Opinion"), default=0)
@@ -391,7 +391,7 @@ def innovative_jury_result_calculate_score(sender, instance, *args, **kwargs):
         instance.technical * 0.25,
         instance.presentation * 0.1,
         instance.opinion * 0.05,
-        instance.commercialization_potential * 0.3))
+        instance.commercialization * 0.3))
 
 
 @python_2_unicode_compatible

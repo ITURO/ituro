@@ -19,7 +19,8 @@ class BaseResultAdmin(admin.ModelAdmin):
 
 class InnovativeJuryResultAdmin(admin.ModelAdmin):
     list_display = ("project", "jury", "design", "innovative", "technical",
-                    "presentation", "opinion", "jury_score")
+                    "commercialization", "presentation", "opinion",
+		    "jury_score")
     exclude = ('jury_score',)
 
 class DroneResultAdmin(admin.ModelAdmin):
