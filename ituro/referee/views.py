@@ -756,7 +756,7 @@ class InnovativeResultListView(ListView):
 class InnovativeResultCreateView(CreateView):
     model = InnovativeJuryResult
     category = "innovative"
-    fields = ["design", "innovative", "technical",
+    fields = ["design", "digital_design", "innovative", "technical",
               "presentation", "commercialization",
               "opinion", "jury"]
     template_name = "referee/innovative_create.html"
@@ -796,7 +796,7 @@ class InnovativeResultCreateView(CreateView):
 class InnovativeResultUpdateView(UpdateView):
     model = InnovativeJuryResult
     category = "innovative"
-    fields = ["design", "innovative", "technical",
+    fields = ["design", "digital_design", "innovative", "technical",
               "presentation", "commercialization",
               "opinion", "jury"]
     template_name = "referee/innovative_update.html"
