@@ -1066,7 +1066,7 @@ class LineFootballResultCreateView(BaseResultCreateView):
     category = "line_football"
     fields = BaseResultCreateView.fields + [
         "dribble_minutes", "dribble_seconds", "dribble_milliseconds", \
-        "goals", "successfull_ball_throws", "fails"]
+        "goals", "successful_ball_throws", "fails"]
 
 
 class LineFootballResultUpdateView(BaseResultUpdateView):
