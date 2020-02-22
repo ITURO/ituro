@@ -66,6 +66,21 @@ class ResultListView(ListView):
 
         return context
 
+class RefereeHomeView(TemplateView):
+    template_name = "referee/home.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and \
+           not self.request.user.has_group("referee"):
+            raise PermissionDenied
+        return super(RefereeHomeView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(RefereeHomeView, self).get_context_data(**kwargs)
+        context["categories"] = settings.ORDER_CATEGORIES
+        return context
+
+
 
 # class LineFollowerStageResultListView(ListView):
 #     model = LineFollowerStage
