@@ -13,7 +13,8 @@ from results.models import LineFollowerJuniorResult, \
     ConstructionResult, DroneResult, StairClimbingResult, \
     ColorSelectingResult, ScenarioResult, InnovativeJuryResult, \
     InnovativeJury, InnovativeTotalResult, LineFootballResult, \
-    TrafficResult, MazeResult
+    TrafficResult
+    #MazeResult
     #LineFollowerResult,
 from sumo.models import *
 
@@ -29,7 +30,7 @@ RESULTS_DICT = {
     "innovative": InnovativeJuryResult,
     "traffic": TrafficResult,
     "line_football": LineFootballResult,
-    "maze": MazeResult,
+    #"maze": MazeResult,
 }
 
 

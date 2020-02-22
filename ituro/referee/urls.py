@@ -170,13 +170,13 @@ urlpatterns = patterns(
         name='line_football_result_delete'),
 
     # Maze
-    url(r'^maze/(?P<pid>\d+)/create/$',
-        MazeResultCreateView.as_view(),
-        name='maze_result_create'),
-    url(r'^maze/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
-        MazeResultUpdateView.as_view(),
-        name='maze_result_update'),
-    url(r'^maze/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
-        MazeResultDeleteView.as_view(),
-        name='maze_result_delete'),
+    #url(r'^maze/(?P<pid>\d+)/create/$',
+    #    MazeResultCreateView.as_view(),
+    #    name='maze_result_create'),
+    #url(r'^maze/(?P<pid>\d+)/update/(?P<rid>\d+)/$',
+    #    MazeResultUpdateView.as_view(),
+    #    name='maze_result_update'),
+    #url(r'^maze/(?P<pid>\d+)/delete/(?P<rid>\d+)/$',
+    #    MazeResultDeleteView.as_view(),
+    #    name='maze_result_delete'),
 )
