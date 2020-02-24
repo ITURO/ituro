@@ -77,7 +77,7 @@ class LineFollowerJuniorResult(BaseResult):
 @receiver(models.signals.pre_save, sender=LineFollowerJuniorResult)
 def line_follower_junior_result_calculate_score(sender, instance, *args,
                                                 **kwargs):
-    instance.score = instance.duration * (1 + 0.2 * instance.runway_out)
+    instance.score = instance.duration + (instance.duration * 0.2 * instance.runway_out)
 
 
 @python_2_unicode_compatible
@@ -135,14 +135,9 @@ class StairClimbingResult(BaseResult):
     stair5 = models.BooleanField(verbose_name=_("Stair #5"), default=False)
     stair6 = models.BooleanField(verbose_name=_("Stair #6"), default=False)
     stair7 = models.BooleanField(verbose_name=_("Stair #7"), default=False)
-    down6 = models.BooleanField(verbose_name=_("Down #6"), default=False)
-    down5 = models.BooleanField(verbose_name=_("Down #5"), default=False)
-    down4 = models.BooleanField(verbose_name=_("Down #4"), default=False)
-    down3 = models.BooleanField(verbose_name=_("Down #3"), default=False)
-    down2 = models.BooleanField(verbose_name=_("Down #2"), default=False)
-    down1 = models.BooleanField(verbose_name=_("Down #1"), default=False)
-    plexi_touch = models.PositiveSmallIntegerField(
-        verbose_name=_("Plexi Touch Count"), default=0)
+    stair8 = models.BooleanField(verbose_name=_("Stair #8"), default=False)
+    stair9 = models.BooleanField(verbose_name=_("Stair #9"), default=False)
+    floor_landing = models.BooleanField(verbose_name=_("floor landing"), default=False )
     is_complete = models.BooleanField(
         verbose_name=_("Is finish?"), default=False)
 
@@ -158,18 +153,7 @@ class StairClimbingResult(BaseResult):
 
 @receiver(models.signals.pre_save, sender=StairClimbingResult)
 def stair_climbing_result_calculate_score(sender, instance, *args, **kwargs):
-    instance.score = sum((
-        (int(instance.stair1) + int(instance.stair2) +
-         int(instance.stair3)) * 10,
-        (int(instance.stair4)) * 40,
-        (int(instance.stair5) + int(instance.stair6) +
-         int(instance.stair7)) * 80,
-        (int(instance.down6) + int(instance.down5) + int(instance.down4)) * 30,
-        (int(instance.down3)) * 50,
-        (int(instance.down1) + int(instance.down2)) * 20,
-        (int(instance.is_complete)) * 40,
-        instance.plexi_touch * (-10)
-        ))
+    instance.score = sum((( int(instance.stair1) + int(instance.stair2) + int(instance.stair3)) * 10, int(instance.stair4) * 40, int(instance.stair5) * 80, int(instance.stair6) * 40, (int(instance.stair7) +  int(instance.stair8) + int(instance.stair9)) * 20, int(instance.floor_landing) * 10 ))
 
 
 @python_2_unicode_compatible
@@ -232,13 +216,17 @@ class TrafficResult(BaseResult):
     project = models.ForeignKey(
         Project, limit_choices_to={"category": "traffic"})
     is_stopped = models.BooleanField(
-        verbose_name=_("Is stopped?"), default=False)
+        verbose_name=_("Is fail parked?"), default=False)
     is_parked = models.BooleanField(
         verbose_name=_("Is parked?"), default=False)
     sign_succeed = models.PositiveSmallIntegerField(
         verbose_name=_("Succeed Signs"), default=0)
     sign_failed = models.PositiveSmallIntegerField(
         verbose_name=_("Failed Signs"), default=0)
+    light_succeed = models.PositiveSmallIntegerField(
+        verbose_name=("succeed light"), default=0)
+    light_fail = models.PositiveSmallIntegerField(
+        verbose_name=("fail light"), default=0)
 
     class Meta:
         verbose_name = _("Traffic Result")
@@ -254,6 +242,8 @@ class TrafficResult(BaseResult):
 def traffic_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
         int(instance.is_stopped) * (-20),
+        int(instance.light_succeed) *(20),
+        int(instance.light_fail) *(-20),
         int(instance.is_parked) * 60,
         instance.sign_succeed * 10,
         instance.sign_failed * (-10)))
@@ -268,12 +258,6 @@ class LineFootballResult(models.Model):
     seconds = models.PositiveSmallIntegerField(verbose_name=_("Seconds"))
     milliseconds = models.PositiveSmallIntegerField(
         verbose_name=_("Milliseconds"))
-    dribble_minutes = models.PositiveSmallIntegerField(
-        verbose_name=_("Dribble Minutes"))
-    dribble_seconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Dribble Seconds"))
-    dribble_milliseconds = models.PositiveSmallIntegerField(
-        verbose_name=_("Dribble Milliseconds"))
     fails = models.PositiveSmallIntegerField(verbose_name=_("Fails"),
         default = 0)
     goals = models.PositiveSmallIntegerField(verbose_name = _("Goals"),
@@ -310,8 +294,7 @@ class LineFootballResult(models.Model):
 def line_football_result_calculate_score(sender, instance, *args, **kwargs):
     instance.score = sum((
     instance.duration,
-    instance.duration * 0.5 * instance.fails,
-    instance.dribble_duration * (0.25),
+    instance.fails * 10,
     instance.goals * (-5),
     instance.successful_ball_throws * (-20)))
 
@@ -341,6 +324,9 @@ class InnovativeJuryResult(models.Model):
     design = models.FloatField(
         validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Design"), default=0)
+    digital_design = models.FloatField(
+        validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
+        verbose_name=_("Digital Design"), default=0)
     innovative = models.FloatField(
         validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],
         verbose_name=_("Innovative"), default=0)
