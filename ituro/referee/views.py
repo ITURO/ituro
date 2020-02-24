@@ -664,7 +664,7 @@ class StairClimbingResultCreateView(BaseResultCreateView):
     category = "stair_climbing"
     fields = BaseResultCreateView.fields + [
         "stair1", "stair2", "stair3", "stair4", "stair5", "stair6", "stair7",
-        "down6", "down5", "down4", "down3", "down2", "down1", "plexi_touch",
+        "stair8", "stair8", "stair9", "floor_landing",
         "is_complete"]
 
 
@@ -758,7 +758,7 @@ class InnovativeResultCreateView(CreateView):
     model = InnovativeJuryResult
     category = "innovative"
     fields = ["design", "digital_design", "innovative", "technical",
-              "presentation", "commercialization",
+              "presentation", "commercialization_potential",
               "opinion", "jury"]
     template_name = "referee/innovative_create.html"
 
@@ -798,7 +798,7 @@ class InnovativeResultUpdateView(UpdateView):
     model = InnovativeJuryResult
     category = "innovative"
     fields = ["design", "digital_design", "innovative", "technical",
-              "presentation", "commercialization",
+              "presentation", "commercialization_potential",
               "opinion", "jury"]
     template_name = "referee/innovative_update.html"
 
@@ -1050,7 +1050,7 @@ class TrafficResultCreateView(BaseResultCreateView):
     model = TrafficResult
     category = "traffic"
     fields = BaseResultCreateView.fields + [
-        "sign_succeed", "sign_failed", "is_parked", "is_stopped"]
+        "sign_succeed", "sign_failed", "light_succeed", "light_fail", "is_parked", "is_stopped"]
 
 
 class TrafficResultUpdateView(BaseResultUpdateView):
@@ -1068,7 +1068,7 @@ class LineFootballResultCreateView(BaseResultCreateView):
     model = LineFootballResult
     category = "line_football"
     fields = BaseResultCreateView.fields + [
-        "dribble_minutes", "dribble_seconds", "dribble_milliseconds", \
+
         "goals", "successful_ball_throws", "fails"]
 
 
