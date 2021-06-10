@@ -1,4 +1,4 @@
-Django==1.7.5
+Django==2.2.24
 django-bootstrap3==5.1.1
 django-simple-captcha==0.4.4
 requests==2.18.4
